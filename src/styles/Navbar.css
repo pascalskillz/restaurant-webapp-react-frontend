@@ -1,0 +1,30 @@
+nav {
+  display: grid;
+  grid-area: navbar;
+}
+
+.logo-icon {
+  display: grid;
+  grid-template-rows: 10vh;
+  grid-template-columns: 1fr .2fr;
+  align-items: center;
+}
+
+.logo-div {
+  display: flex;
+  justify-content: center;
+}
+
+.icon-div {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.5rem;
+}
+
+.dropdown-div {
+  display: flex;
+  height: 50px;
+  border: 1px dotted var(--black);
+  justify-content: space-around;
+  align-items: center;
+}
