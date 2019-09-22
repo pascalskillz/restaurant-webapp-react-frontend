@@ -1,0 +1,15 @@
+/* --- MAIN APPLICAITON LAYOUT CSS --- */
+
+.app {
+  display: grid;
+  grid-template-rows: repeat(2, min-content);
+  grid-template-areas:
+    'navbar'
+    'content';
+  padding: 0 5vw;
+}
+
+.content{
+  display: grid;
+  grid-area: 'content';
+}
