@@ -6,6 +6,7 @@ function App() {
     <div className="App">
       <h1>Welcome to Tandoor!</h1>
       <h6>Indian Cuisine</h6>
+      <p>732-455-9000</p>
     </div>
   );
 }
