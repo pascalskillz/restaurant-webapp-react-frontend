@@ -1,2 +1,82 @@
 /* --- CONTENT/CONTAINER FILES CSS --- */
 
+/* -- MAIN PAGE --  */
+/* JUMBOTRON */
+.jumbotron {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 50vh;
+  background-color: var(--grey);
+  border-radius: 25px;
+  margin-top: 10px;
+}
+
+.jumbo-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.jumbo-img {
+  width: 400px;
+  height: 400px;
+}
+
+.jumbo-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.jumbo-text-large {
+  font-family: 'Rubik', sans-serif;
+  font-size: 2rem;
+}
+
+.jumbo-button-div {
+  margin: 10px 0
+}
+
+.jumbo-button {
+  margin: 10px 5px;
+  font-size: 1.1rem;
+}
+
+.button {
+  padding: 8px 15px;
+  border-radius: 25px;
+  background-color: var(--black);
+  color: var(--white);
+  font-weight: bold;
+  border: 1px solid var(--grey);
+}
+
+.jumbo-text-small {
+  font-family: 'Satisfy', cursive;
+  font-size: 1.3rem;
+}
+
+.carousel-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+  margin: 20px 0;
+  background: var(--lightBlue);
+  border-radius: 25px;
+  padding: 35px 25px 0 25px;
+}
+
+.carousel-button {
+  color: var(--white);
+  font-size: 2rem;
+  margin: 0 20px;
+  opacity: .7;
+}
+
+.carousel-button:hover {
+  cursor: pointer;
+  opacity: 1;
+}
