@@ -13,6 +13,8 @@ nav {
 .logo-div {
   display: flex;
   justify-content: center;
+  height: 100%;
+  width: 120%;
 }
 
 .icon-div {
