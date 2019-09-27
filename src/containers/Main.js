@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MyConsumer } from '../Context'
 import Carousel from 'nuka-carousel';
 import '../styles/content.css'
-
+import img from '../img/jumbo-img.jpg'
 class Main extends Component {
   render() {
     return (
@@ -11,13 +11,19 @@ class Main extends Component {
         <div>
 
           <div className="jumbotron">
+          
             <div className="jumbo-left">
-              <img className="jumbo-img" src="https://images.unsplash.com/photo-1466637574441-749b8f19452f" alt="Food Image"/>
-            </div>
+            <img className="jumbo-img" src={img}/*"https://images.unsplash.com/photo-1466637574441-749b8f19452f"*/ alt="Food Image"/>
+                          </div>
             <div className="jumbo-right">
+              <div>
+
+              </div>
               <div className="jumbo-text-large">
+                
                 Welcome to Tandoori Restauraunt
               </div>
+              
               <div className="jumbo-button-div">
                 <button className="jumbo-button button">Menu</button>
                 <button className="jumbo-button button">Reservation</button>
