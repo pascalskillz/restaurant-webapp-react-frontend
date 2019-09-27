@@ -13,3 +13,22 @@
   display: grid;
   grid-area: 'content';
 }
+.table {
+  display: table;
+  vertical-align: middle;
+  width: 100%
+}
+
+.table.fixed {
+  table-layout: fixed;
+}
+
+.row {
+  display: table-row;
+  width: 100%;
+}
+
+.cell {
+  display: table-cell;
+  vertical-align: middle;
+}
