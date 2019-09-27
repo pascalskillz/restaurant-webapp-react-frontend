@@ -1,8 +1,13 @@
 h1{
-    font-size:1rem;
+    font-size:0.8rem;
 }
 .bg-orange{
     background:orange;
     border:solid 1px black;
     padding:0.5rem;
+}
+
+.icon{
+    width:4rem;
+    margin-right: 1rem;
 }

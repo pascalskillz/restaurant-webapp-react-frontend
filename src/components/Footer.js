@@ -18,9 +18,19 @@ const Footer = () => {
         </div>
         <div class="cell">
             <h1>WAYS YOU CAN PAY </h1>
-            <div></div>
+            <div>
+              <img class="icon" src="/discover.jpg"></img>
+              <img class="icon" src="/master.jpg"></img>
+              <img class="icon" src="/visa.jpg"></img>
+
+            </div>
             <h1>PLAN YOUR OWN ORDER FOLLOW US</h1>
-            <div></div>
+            <div>
+              <img class="icon" src="/facebook.jpg"></img>
+              <img class="icon" src="/twitter.jpg"></img>
+              <img class="icon" src="/ins.jpg"></img> 
+              <img class="icon" src="/google.jpg"></img> 
+              </div>
         </div>
         <div class="cell">
             <h1>CONTACT US</h1>
