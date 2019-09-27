@@ -12,7 +12,9 @@ import './styles/App.css';
 const App = () => (
   <MyProvider>
   <Router>
+  
     <div className="app">
+    
       <Navbar /> 
       <div className="content">
         <Switch>
@@ -22,9 +24,11 @@ const App = () => (
           <Route exact path="/reservation" component={Reservation} />
           <Route exact path="/signup" component={Signup} />
           <Route component={Main} />
+          
         </Switch>
       </div>
     </div>
+    
   </Router>
   </MyProvider>
 );

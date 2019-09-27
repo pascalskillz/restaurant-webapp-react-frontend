@@ -7,19 +7,22 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 50vh;
   background-color: var(--grey);
-  border-radius: 25px;
-  margin-top: 10px;
+  border-radius:0px;
+  margin-top: 0px; /*was 10 px*/
+  
 }
 
 .jumbo-left {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid; /*it was flex*/
+  justify-content: left;/*it was center*/
+  align-items: stretch;
+ 
 }
 
 .jumbo-img {
-  width: 400px;
-  height: 400px;
+  width: 600px; /*it was 400px*/
+  height:404px;/* it was 400px*/
+  align-self: baseline
 }
 
 .jumbo-right {
