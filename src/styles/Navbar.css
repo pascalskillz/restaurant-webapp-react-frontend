@@ -1,16 +1,18 @@
 nav {
   display: grid;
   grid-area: navbar;
-  
+  /*background-image: url('../img/bgimg.jpg') >>>> navbar bachground; need update logo later*/
+
  
 }
 
 
 .logo-icon {
   display: grid;
-  grid-template-rows: 10vh;
+  grid-template-rows: 12vh;
   grid-template-columns: 1fr .2fr;
   align-items: center;
+  color: rgb(236, 124, 31)
 }
 
 .logo-div {
@@ -19,6 +21,7 @@ nav {
   height: 100%;
   width: 120%;
 }
+
 
 .icon-div {
   display: flex;

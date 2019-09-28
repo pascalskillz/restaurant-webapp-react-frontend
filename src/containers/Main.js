@@ -13,9 +13,13 @@ class Main extends Component {
           <div className="jumbotron">
           
             <div className="jumbo-left">
-            <img className="jumbo-img" src={img}/*"https://images.unsplash.com/photo-1466637574441-749b8f19452f"*/ alt="Food Image"/>
+              
+            <img className="jumbo-img" src={img}/*"https://images.unsplash.com/photo-1466637574441-749b8f19452f"*/ alt="Static-Image"/>
+            
                           </div>
+                          
             <div className="jumbo-right">
+              
               <div>
 
               </div>
