@@ -9,9 +9,9 @@ const Navbar = () => {
     <MyConsumer>{({  }) => (
       <nav className="navbar">
         <div className="logo-icon">
-          <div className="logo-div">
-            
-              <img src={logo2} alt="LOGO!"/>
+          <div className="logo-div" >
+              
+              <img src={logo2} alt="LOGO!" width="300px" height="100px" />
           
           </div>
           <div className="icon-div">
