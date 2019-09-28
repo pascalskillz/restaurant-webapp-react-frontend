@@ -8,16 +8,18 @@ import Reservation from './containers/Reservation';
 import Signup from './containers/Signup';
 import Navbar from './components/Navbar';
 import './styles/App.css';
-
 const App = () => (
   <MyProvider>
+    
   <Router>
   
     <div className="app">
-    
       <Navbar /> 
+      
       <div className="content">
-        <Switch>
+        
+        <Switch> 
+          
           <Route exact path="/" component={Main} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/menu" component={Menu} />
@@ -26,6 +28,7 @@ const App = () => (
           <Route component={Main} />
           
         </Switch>
+        
       </div>
     </div>
     
