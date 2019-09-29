@@ -7,6 +7,8 @@ import Menu from './containers/Menu';
 import Reservation from './containers/Reservation';
 import Signup from './containers/Signup';
 import Navbar from './components/Navbar';
+// FOOTER IMPORT GOES HERE !!
+// import Footer from './components/Footer
 import './styles/App.css';
 
 const App = () => (
@@ -24,6 +26,7 @@ const App = () => (
           <Route component={Main} />
         </Switch>
       </div>
+      {/* FOOTER TAG HERE!! <Footer/> */}
     </div>
   </Router>
   </MyProvider>
