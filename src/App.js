@@ -10,24 +10,31 @@ import Navbar from './components/Navbar';
 // FOOTER IMPORT GOES HERE !!
 // import Footer from './components/Footer
 import './styles/App.css';
-
 const App = () => (
   <MyProvider>
+    
   <Router>
+  
     <div className="app">
       <Navbar /> 
+      
       <div className="content">
-        <Switch>
+        
+        <Switch> 
+          
           <Route exact path="/" component={Main} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/menu" component={Menu} />
           <Route exact path="/reservation" component={Reservation} />
           <Route exact path="/signup" component={Signup} />
           <Route component={Main} />
+          
         </Switch>
+        
       </div>
       {/* FOOTER TAG HERE!! <Footer/> */}
     </div>
+    
   </Router>
   </MyProvider>
 );

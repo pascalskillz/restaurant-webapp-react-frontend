@@ -2,14 +2,17 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { MyConsumer } from '../Context'
 import '../styles/Navbar.css'
+import logo2 from '../img/Logo2.png'
 
 const Navbar = () => {
   return (
     <MyConsumer>{({  }) => (
       <nav className="navbar">
         <div className="logo-icon">
-          <div className="logo-div">
-            --LOGO--
+          <div className="logo-div" >
+              
+              <img src={logo2} alt="LOGO!" width="300px" height="100px" />
+          
           </div>
           <div className="icon-div">
             <i className="fa fa-facebook"></i>

@@ -7,19 +7,21 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 50vh;
   background-color: var(--grey);
-  border-radius: 25px;
-  margin-top: 10px;
+  border-radius:0px;
+  margin-top: 0px ; /*was 10 px*/
+  
 }
 
 .jumbo-left {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid; /*it was flex*/
+  justify-content: left;/*it was center*/
+ 
 }
 
 .jumbo-img {
-  width: 400px;
-  height: 400px;
+  width: 600px; /*it was 400px*/
+  height: 50vh;/* it was 400px*/
+  align-self: baseline
 }
 
 .jumbo-right {
@@ -28,10 +30,12 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  /* background-image: url('../img/jumbo-Rimg.jpg')*/
+
 }
 
 .jumbo-text-large {
-  font-family: 'Rubik', sans-serif;
+  font-family: 'harr', sans-serif;
   font-size: 2rem;
 }
 
@@ -47,8 +51,8 @@
 .button {
   padding: 8px 15px;
   border-radius: 25px;
-  background-color: var(--black);
-  color: var(--white);
+  background-color: goldenrod;
+  color: var(--black);
   font-weight: bold;
   border: 1px solid var(--grey);
 }
@@ -56,6 +60,7 @@
 .jumbo-text-small {
   font-family: 'Satisfy', cursive;
   font-size: 1.3rem;
+  
 }
 
 .carousel-div {
@@ -63,10 +68,11 @@
   justify-content: center;
   align-items: center;
   height: 40vh;
-  margin: 20px 0;
-  background: var(--lightBlue);
-  border-radius: 25px;
+  margin: 1px 0;
+  background-color:var(--grey);
+  border-radius: 0px;
   padding: 35px 25px 0 25px;
+ 
 }
 
 .carousel-button {
