@@ -1,19 +1,27 @@
 nav {
   display: grid;
   grid-area: navbar;
+  /*background-image: url('../img/bgimg.jpg') >>>> navbar bachground; need update logo later*/
+
+ 
 }
+
 
 .logo-icon {
   display: grid;
-  grid-template-rows: 10vh;
+  grid-template-rows: 12vh;
   grid-template-columns: 1fr .2fr;
   align-items: center;
+  color: rgb(236, 124, 31)
 }
 
 .logo-div {
   display: flex;
   justify-content: center;
+  height: 100%;
+  width: 120%;
 }
+
 
 .icon-div {
   display: flex;
@@ -25,6 +33,19 @@ nav {
   display: flex;
   height: 50px;
   border: 1px dotted var(--black);
-  justify-content: space-around;
-  align-items: center;
+ justify-content: space-around;
+ align-items: center;
+ background-color: rgb(10, 6, 0);
+}
+
+.dropdown-div a:hover{
+  background-color: rgb(71, 68, 67) /* OnClick color*/
+}
+
+.dropdown-div a{
+  
+  font-weight: bold;
+  color: white; /* listWord color*/
+  padding: 15px 25px; /* size of onclick style    */
+  text-decoration: none; /* without linkLine*/
 }
