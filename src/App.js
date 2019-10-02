@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { MyProvider } from './Context'
+import { MyProvider } from './Context';
 import Login from './containers/Login';
 import Main from './containers/Main';
 import Menu from './containers/Menu';
@@ -8,6 +8,7 @@ import Reservation from './containers/Reservation';
 import Signup from './containers/Signup';
 import Navbar from './components/Navbar';
 import './styles/App.css';
+
 const App = () => (
   <MyProvider>
     
