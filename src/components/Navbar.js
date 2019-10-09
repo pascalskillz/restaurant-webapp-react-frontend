@@ -12,9 +12,9 @@ const Navbar = () => {
             --LOGO--
           </div>
           <div className="icon-div">
-            <i className="fa fa-facebook"></i>
-            <i className="fa fa-twitter"></i>
-            <i className="fa fa-instagram"></i>
+          <a target="_blank" href="http://www.facebook.com"><i className="fa fa-facebook"></i></a>
+          <a target="_blank" href="http://www.twitter.com"><i className="fa fa-twitter"></i></a>
+          <a target="_blank" href="http://www.instagram.com"><i className="fa fa-instagram"></i></a>
           </div>
         </div>
         <div className="dropdown-div">

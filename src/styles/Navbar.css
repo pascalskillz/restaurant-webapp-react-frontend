@@ -1,6 +1,7 @@
-nav {
+nav.navbar{
   display: grid;
   grid-area: navbar;
+  padding-top:6rem;
 }
 
 .logo-icon {
@@ -8,6 +9,13 @@ nav {
   grid-template-rows: 10vh;
   grid-template-columns: 1fr .2fr;
   align-items: center;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  background: #fff;
+  color:#e67d31;
+  padding:1rem 0;
 }
 
 .logo-div {
@@ -22,9 +30,13 @@ nav {
 }
 
 .dropdown-div {
+  background:hsl(210, 12.2%, 16.1%);
   display: flex;
   height: 50px;
   border: 1px dotted var(--black);
   justify-content: space-around;
   align-items: center;
+}
+.dropdown-div a{
+  color:#fff;
 }
