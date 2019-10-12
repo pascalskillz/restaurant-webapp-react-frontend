@@ -1,14 +1,15 @@
 nav.navbar{
   display: grid;
   grid-area: navbar;
+  /* height: 100%; */
   /*background-image: url('../img/bgimg.jpg') >>>> navbar bachground; need update logo later*/
-  padding-top:6rem;
+  /* padding-top:6rem; */
 }
 
 
 .logo-icon {
   display: grid;
-  grid-template-rows: 12vh;
+  grid-template-rows: 100px;
   grid-template-columns: 1fr .2fr;
   align-items: center;
   color: rgb(236, 124, 31);
