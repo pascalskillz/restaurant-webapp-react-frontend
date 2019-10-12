@@ -9,13 +9,10 @@ import Signup from './containers/Signup';
 import Navbar from './components/Navbar';
 import './styles/App.css';
 
-<<<<<<< Updated upstream
 // FOOTER IMPORT GOES HERE !!
 // import Footer from './components/Footer
 import Footer from './components/Footer';
 
-=======
->>>>>>> Stashed changes
 const App = () => (
   <MyProvider>
   <Router>
