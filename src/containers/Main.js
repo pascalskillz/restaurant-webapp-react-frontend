@@ -33,7 +33,7 @@ class Main extends Component {
                 <button className="jumbo-button button">Reservation</button>
               </div>
               <div className="jumbo-text-small">
-                We serve only the finest Indian cuisine
+                We serve only the finest Indian cuisine!
               </div>
             </div>
           </div>
