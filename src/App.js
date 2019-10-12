@@ -9,10 +9,13 @@ import Signup from './containers/Signup';
 import Navbar from './components/Navbar';
 import './styles/App.css';
 
+<<<<<<< Updated upstream
 // FOOTER IMPORT GOES HERE !!
 // import Footer from './components/Footer
 import Footer from './components/Footer';
 
+=======
+>>>>>>> Stashed changes
 const App = () => (
   <MyProvider>
   <Router>
@@ -25,6 +28,7 @@ const App = () => (
           <Route exact path="/menu" component={Menu} />
           <Route exact path="/reservation" component={Reservation} />
           <Route exact path="/signup" component={Signup} />
+          
           <Route component={Main} />
         </Switch>
       </div>
