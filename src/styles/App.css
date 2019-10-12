@@ -5,7 +5,8 @@
   grid-template-rows: repeat(2, min-content);
   grid-template-areas:
     'navbar'
-    'content';
+    'content'
+    'footer';
   padding: 0 5vw;
 }
 
