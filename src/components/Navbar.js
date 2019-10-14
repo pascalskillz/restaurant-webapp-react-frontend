@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { MyConsumer } from '../Context'
 import '../styles/Navbar.css'
+import logo2 from '../img/Logo2.png'
 
 const Navbar = () => {
   return (
@@ -9,7 +10,9 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="logo-icon">
           <div className="logo-div">
-            --LOGO--
+            
+              <img src={logo2} alt="LOGO!"/>
+          
           </div>
           <div className="icon-div">
           <a target="_blank" href="http://www.facebook.com"><i className="fa fa-facebook"></i></a>

@@ -7,6 +7,8 @@
     'navbar'
     'content';
   padding: 0 5vw;
+  background-image: url("/back-image")
+
 }
 
 .content{
