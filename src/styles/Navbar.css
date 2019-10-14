@@ -1,14 +1,20 @@
-nav.navbar{
-  display: grid;
+.navbar{
   grid-area: navbar;
-  
- 
+  display: grid;
+  grid-template-areas: 
+   'logo-icon'
+   'dropdown';
+  height: 100px;
+  grid-template-rows: repeat(2, min-content);
+  /*background-image: url('../img/bgimg.jpg') >>>> navbar bachground; need update logo later*/
+  /* padding-top:6rem; */
 }
 
 
 .logo-icon {
+  grid-area: logo-icon;
   display: grid;
-  grid-template-rows: 10vh;
+  grid-template-rows: 100px;
   grid-template-columns: 1fr .2fr;
   align-items: center;
   position:fixed;
@@ -34,13 +40,16 @@ nav.navbar{
 }
 
 .dropdown-div {
+  grid-area: dropdown;
+  margin-top: 130px;
+  position: fixed;
+  width: 90%;
   background:hsl(210, 12.2%, 16.1%);
   display: flex;
   height: 50px;
-  border: 1px dotted var(--black);
- justify-content: space-around;
- align-items: center;
- background-color: rgb(10, 6, 0);
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(10, 6, 0);
 }
 
 .dropdown-div a:hover{

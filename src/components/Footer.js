@@ -6,7 +6,7 @@ import '../styles/Footer.css'
 const Footer = () => {
   return (
     <MyConsumer>{({  }) => (
-      <footer className="navbar">
+      <footer className="footer">
         <div class="table">
         <div class="cell">
             <h1>Support</h1>
