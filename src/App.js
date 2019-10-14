@@ -9,6 +9,7 @@ import Signup from './containers/Signup';
 import Navbar from './components/Navbar';
 import './styles/App.css';
 
+
 const App = () => (
   <MyProvider>
     

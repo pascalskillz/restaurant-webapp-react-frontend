@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
+import { Maps, GoogleApiWrapper } from 'google-maps-react';
 
 const mapStyles = {
   width: '100%',
   height: '100%'
 };
 
-export class maps extends Component {
+class Maps  extends React.Component {
   render() {
     return (
       <Map
@@ -24,4 +24,4 @@ export class maps extends Component {
 
 export default GoogleApiWrapper({
   apiKey: ('AIzaSyA7IlTzWHoo8InZXKMsMluISUIlN2xgdxQ')
-})(maps);
+})(Maps);

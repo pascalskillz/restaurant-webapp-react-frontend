@@ -25,7 +25,7 @@ class Main extends Component {
               </div>
               <div className="jumbo-text-large">
                 
-                Welcome to Tandoori Restauraunt
+                Welcome to Tandoori Restaurant
               </div>
               
               <div className="jumbo-button-div">
