@@ -1,0 +1,31 @@
+h1{
+    font-size:0.8rem;
+}
+.bg-orange{
+    background:orange;
+    border:solid 1px black;
+    padding:0.5rem;
+    width:70%;
+}
+
+.icon{
+    width:4rem;
+    margin-right: 1rem;
+}
+
+footer.navbar{
+    background:#e5e5e5;
+    /* position: absolute; */
+    /* bottom:0; */
+    /* left:0; */
+    /* right:0; */
+    width:100%;
+    padding:1rem 0;
+}
+footer.navbar .table{
+    width:80%;
+    margin:0 auto;
+}
+footer.navbar .table .cell div{
+    font-size:1rem;
+}
