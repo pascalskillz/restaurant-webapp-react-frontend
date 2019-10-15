@@ -1,5 +1,6 @@
 .navbar{
   grid-area: navbar;
+  z-index:99;
   display: grid;
   grid-template-areas: 
    'logo-icon'
@@ -40,6 +41,7 @@
 }
 
 .dropdown-div {
+  z-index:99;
   grid-area: dropdown;
   margin-top: 130px;
   position: fixed;

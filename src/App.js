@@ -29,12 +29,18 @@ const App = () => (
           <Route component={Main} />
           
         </Switch>
+        
       </div>
-      <Footer/>
+
+     
+     
+      
     </div>
-    
+    <Footer/> 
   </Router>
   </MyProvider>
+  
+  
 );
 
 export default App;

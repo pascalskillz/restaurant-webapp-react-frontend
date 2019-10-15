@@ -25,8 +25,8 @@ class Main extends Component {
               </div>
               
               <div className="jumbo-button-div">
-                <button className="jumbo-button button">Menu</button>
-                <button className="jumbo-button button">Reservation</button>
+                <a className="jumbo-button button" href="/menu">Menu</a>
+                <a className="jumbo-button button" href="/reservation">Reservation</a>
               </div>
               <div className="jumbo-text-small">
                 We serve only the finest Indian cuisine
