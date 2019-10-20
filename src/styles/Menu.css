@@ -1,4 +1,39 @@
-.item{
-    padding:1rem;
-    text-align: center;
+.menu-div {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-areas: 'sidebar menu-tiems';
+  grid-gap: 0 25px;
+}
+
+.menu-sidebar{
+  display: grid;
+  grid-area: sidebar;
+}
+
+.sidebar-top-div {
+  display: flex;
+  border: 1px solid var(--black);
+  align-items: center;
+  margin-bottom: 20px;
+  height: 60px;
+}
+
+.sidebar-inner-item {
+  display: flex;
+  border: 1px solid var(--black);
+  margin: 10px 0;
+  align-items: center;
+  height: 60px;
+}
+
+.sb-toggle[sbactive='true'] {
+  background: var(--opaque);
+}
+
+.sb-toggle[sbactive='false'] {
+  background: initial;
+}
+
+.sb-toggle:hover {
+  cursor: pointer;
 }
