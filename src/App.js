@@ -13,34 +13,23 @@ import './styles/App.css';
 
 const App = () => (
   <MyProvider>
-  <Router>
-  
-    <div className="app">
-    
-      <Navbar /> 
-      <div className="content">
-        <Switch>
-          <Route exact path="/" component={Main} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/menu" component={Menu} />
-          <Route exact path="/reservation" component={Reservation} />
-          <Route exact path="/signup" component={Signup} />
-          
-          <Route component={Main} />
-          
-        </Switch>
-        
+    <Router>
+      <div className="app">
+        <Navbar /> 
+        <div className="content">
+          <Switch>
+            <Route exact path="/" component={Main} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/menu" component={Menu} />
+            <Route exact path="/reservation" component={Reservation} />
+            <Route exact path="/signup" component={Signup} />
+            <Route component={Main} />
+          </Switch>
+        </div>   
       </div>
-
-     
-     
-      
-    </div>
-    <Footer/> 
-  </Router>
+      <Footer/> 
+    </Router>
   </MyProvider>
-  
-  
 );
 
 export default App;
