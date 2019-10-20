@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { MyConsumer } from '../Context';
 import { default as Sb } from '../components/SidebarCard';
-import '../styles/Menu.css'
-import img from '../img/old-logo.jpg'
+import { default as Item } from '../components/MenuItem';
+import '../styles/Menu.css';
+import img from '../img/old-logo.jpg';
 
 class Menu extends Component {
   state = {
@@ -13,8 +14,8 @@ class Menu extends Component {
     ],
     items: [ 
       { 'catName': 'Apps', 'catItems': ['app1', 'app2'] }, 
-      { 'catName': 'Soups', 'catItems': ['soup1', 'soup2']},
-      { 'catName': 'Tandoor Breads', 'catItems': ['tb1', 'tb2'] }, 
+      { 'catName': 'Soups', 'catItems': ['soup1', 'soup2', 'soup3']},
+      { 'catName': 'Tandoor Breads', 'catItems': ['tb1', 'tb2', 'tb3', 'tb4', 'tb5', 'tb6', 'tb7', 'tb8', 'tb9', 'tb10'] }, 
       { 'catName': 'Tandoori Specialties', 'catItems': ['ts1', 'ts2'] }, 
       { 'catName': 'Chicken Specialties', 'catItems': ['cs1', 'cs2'] },
       { 'catName': 'Lamb Specialties', 'catItems': ['ls1', 'ls2'] }, 
@@ -29,15 +30,18 @@ class Menu extends Component {
       { 'catName': 'Beverages', 'catItems': ['bev1', 'bev2'] }, 
     ],
     favs: [],
+    allItems: [],
+    allItemsLoading: true,
     selected: 'Loading...',
   }
 
   componentDidMount() {
     this.getFavorites()
     this.setSidebar(500)
+    this.gatherAllItems()
   }
   
-  getFavorites = async () => {
+  getFavorites = async() => {
     let localFavs = [...this.state.categories]
     let temp = []
     for (var i = 0; i < 12; i++){
@@ -74,38 +78,45 @@ class Menu extends Component {
     }
   }
 
+  gatherAllItems = async() => {
+    const allItemsArr = []
+    for (var i = 0; i < this.state.items.length; i++){
+      for(var j = 0; j < this.state.items[i].catItems.length; j++){
+        allItemsArr.push(this.state.items[i].catItems[j])
+      }
+    }
+
+    await this.setState({
+      allItems: [...allItemsArr],
+      allItemsLoading: false,
+    })
+  }
+
   render() {
+
     const filteredItemList = this.state.items.filter(item => {
       return item.catName === this.state.selected
     })
     .map((item, index) => (
-        <div key={index} className="filtered">
+        <div key={index} className="filtered-grid-item">
           {item.catItems.map((item, index) => (
             <div key={index} className="filtered-inner-item">
-              {item}
+              <Item img={img} name={item} />
             </div>
           ))}
         </div>
       )
     )
 
-    const allItemsList = this.state.items.filter(item => {
-      return item.catName.length > 0
-    })
-    .map((item, index) => (
-        <div key={index} className="filtered">
-          {item.catItems.map((item, index) => (
-            <div key={index} className="filtered-inner-item">
-              {item}
-            </div>
-          ))}
-        </div>
-      )
-    )
+    const allItemsList = this.state.allItems.map((item, index) => (
+      <div key={index} className="all-grid-item">
+        <Item img={img} name={item} />
+      </div>
+    ))
 
     return (
       <MyConsumer>
-        {({ }) => (
+        {({ state }) => (
           <div className="menu-div">
             <div className="menu-sidebar">
               <div className="sidebar-top-div sb-toggle" id='sbItem-500' onClick={() => this.setSidebar(500)}>
@@ -120,7 +131,7 @@ class Menu extends Component {
               </div>
             </div>
             <div className="menu-categories">
-              <div className="title-div">
+              <div className="category-title-div">
                 <div className="title-header-text">{this.state.selected}</div>
                   {/* {
                     this.state.selected === 'Full Menu'
@@ -128,11 +139,11 @@ class Menu extends Component {
                     : <div className="subtitle-text"></div>
                   } */}
               </div>
-              <div className="category-inner-div">
+              <div className="category-item-container">
                 {
                   this.state.selected === 'Full Menu'
-                  ? <div>{ allItemsList }</div>
-                  : <div>{ filteredItemList }</div>
+                  ? !this.state.allItemsLoading ? <div className='all-item-div'>{ allItemsList }</div> : <div>Loading...</div> 
+                  : <div className='category-item-div'>{ filteredItemList }</div>
                 }
               </div>
             </div>
