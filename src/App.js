@@ -7,6 +7,7 @@ import Menu from './containers/Menu';
 import Reservation from './containers/Reservation';
 import Signup from './containers/Signup';
 import Navbar from './components/Navbar';
+
 import './styles/App.css';
 
 // FOOTER IMPORT GOES HERE !!

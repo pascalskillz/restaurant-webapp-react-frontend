@@ -8,7 +8,8 @@ class Menu extends Component {
       <MyConsumer>
       {({  }) => (
         <div>
-          Menu
+       Menu
+
         </div>
       )}
     </MyConsumer>
