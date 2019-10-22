@@ -32,4 +32,22 @@ const App = () => (
   </MyProvider>
 );
 
-export default App;
+export class MapContainer extends Component {
+  render() {
+    return (
+      <Map
+        google={this.props.google}
+        zoom={14}
+        style={mapStyles}
+        initialCenter={{
+         lat: -1.2884,
+         lng: 36.8233
+        }}
+      />
+    );
+  }
+}
+
+export default GoogleApiWrapper({
+  apiKey: 'AIzaSyA7IlTzWHoo8InZXKMsMluISUIlN2xgdxQE'
+})(MapContainer);
