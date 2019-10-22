@@ -6,7 +6,7 @@ import '../styles/content.css';
 
 const Footer = () => {
   return (
-    <MyConsumer>{({  }) => (
+    <MyConsumer>{({ }) => (
       <footer className="footer">
         <div class="table">
         <div class="cell">
@@ -40,6 +40,9 @@ const Footer = () => {
             <div>USA</div>
             <div>+(888)888-8888</div>
             <div>Tandorr.gmail.com</div>
+        </div>
+        <div class="cell">
+          <button class="btn" onClick={()=>{window.location.href='/menu';}}>order now</button>
         </div>
         </div>
 

@@ -7,15 +7,17 @@
     'navbar'
     'content'
     'footer';
-  padding: 30 5vw;
+  padding: 0 5vw;
+  background-image: url("/back-image")
+
 }
 
 .content{
   display: grid;
   grid-area: 'content';
-  background-color: white
+  padding-top:10rem;
+  padding-bottom:10rem;
 }
-
 .table {
   display: table;
   vertical-align: middle;
