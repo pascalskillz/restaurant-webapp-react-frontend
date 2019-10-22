@@ -1,0 +1,26 @@
+.sidebar-item-div{
+  display: grid;
+  grid-template-rows: 30px min-content;
+  grid-template-areas: 'img text';
+  grid-gap: 0 10px;
+}
+
+.sidebar-img {
+  grid-area: img;
+  display: flex;
+  width: 50px;
+
+  padding: 5px;
+  align-items: center;
+}
+
+.sidebar-img img {
+  object-fit: contain;
+  object-position: 50% 150%;
+}
+
+.sidebar-text {
+  grid-area: text;
+  display: flex;
+  align-items: center;
+}

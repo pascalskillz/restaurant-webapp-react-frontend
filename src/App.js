@@ -1,10 +1,36 @@
-import React, { Component } from 'react';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { MyProvider } from './Context'
+import Login from './containers/Login';
+import Main from './containers/Main';
+import Menu from './containers/Menu';
+import Reservation from './containers/Reservation';
+import Signup from './containers/Signup';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
-const mapStyles = {
-  width: '100%',
-  height: '100%'
-};
+import './styles/App.css';
+
+const App = () => (
+  <MyProvider>
+    <Router>
+      <div className="app">
+        <Navbar /> 
+        <div className="content">
+          <Switch>
+            <Route exact path="/" component={Main} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/menu" component={Menu} />
+            <Route exact path="/reservation" component={Reservation} />
+            <Route exact path="/signup" component={Signup} />
+            <Route component={Main} />
+          </Switch>
+        </div>   
+      </div>
+      <Footer/> 
+    </Router>
+  </MyProvider>
+);
 
 export class MapContainer extends Component {
   render() {
