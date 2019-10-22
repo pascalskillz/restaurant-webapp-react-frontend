@@ -1,63 +1,36 @@
-import React, { Component } from 'react';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
-import { InfoWindow, Marker } from 'google-maps-react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { MyProvider } from './Context'
+import Login from './containers/Login';
+import Main from './containers/Main';
+import Menu from './containers/Menu';
+import Reservation from './containers/Reservation';
+import Signup from './containers/Signup';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Contact from './containers/Contact';
 
-const mapStyles = {
-  width: '100%',
-  height: '100%'
-};
+import './styles/App.css';
 
-
-
-export class MapContainer extends Component {
-  state = {
-    showingInfoWindow: false,  //Hides or the shows the infoWindow
-    activeMarker: {},          //Shows the active marker upon click
-    selectedPlace: {}          //Shows the infoWindow to the selected place upon a marker
-  };
-  onMarkerClick = (props, marker, e) =>
-    this.setState({
-      selectedPlace: props,
-      activeMarker: marker,
-      showingInfoWindow: true
-    });
-
-  onClose = props => {
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
-      });
-    }
-  };
-  render() { 
-    return (
-      <Map
-        google={this.props.google}
-        zoom={14}
-        style={style}
-        initialCenter={{ lat: -1.2884, lng: 36.8233 }
-      >
-        <Marker
-          onClick={this.onMarkerClick}
-          name={'Kenyatta International Convention Centre'}
-        />
-        <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
-          onClose={this.onClose}
-        >
-          <div>
-            <h4>{this.state.selectedPlace.name}</h4>
-          </div>
-        </InfoWindow>
-      </Map>
-    );
-  }
-  }
-
-  
-
-export default GoogleApiWrapper({
-  apiKey: ("AIzaSyA7IlTzWHoo8InZXKMsMluISUIlN2xgdxQ")  
-})(MapContainer);
+const App = () => (
+  <MyProvider>
+    <Router>
+      <div className="app">
+        <Navbar /> 
+        <div className="content">
+          <Switch>
+            <Route exact path="/" component={Main} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/menu" component={Menu} />
+            <Route exact path="/reservation" component={Reservation} />
+            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/contact" component={Contact} />
+            <Route component={Main} />
+          </Switch>
+        </div>   
+      </div>
+      <Footer/> 
+    </Router>
+  </MyProvider>
+);
+export default App
