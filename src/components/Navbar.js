@@ -2,7 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { MyConsumer } from '../Context'
 import '../styles/Navbar.css'
+
 import logo2 from '../img/Logo2.png'
+
 
 const Navbar = () => {
   return (
@@ -22,11 +24,25 @@ const Navbar = () => {
         </div>
         <div className="dropdown-div">
           <NavLink className="navbar-brand" to="/">HOME</NavLink>
-          <NavLink className="navbar-brand" to="/menu">Menu</NavLink>
+
+          <NavLink className="menu" to="/menu">Menu 
+
+              <ul className="list"> 
+                   <li>item1</li>
+                   <li>item2</li>
+                   <li>item3</li>
+                   <li>item</li>
+              </ul>
+          </NavLink>
+
           <NavLink className="navbar-brand" to="/reservation">Reservation</NavLink>
           <NavLink className="navbar-brand" to="/login">Login</NavLink>
           <NavLink className="navbar-brand" to="/signup">SIGNUP</NavLink>
+         
+          <NavLink className="navbar-brand" to="/menu">test</NavLink>
+          
         </div>
+        
       </nav>
     )}</MyConsumer>
   )
