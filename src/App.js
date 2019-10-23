@@ -14,7 +14,6 @@ import './styles/App.css';
 // import Footer from './components/Footer
 import Footer from './components/Footer';
 
-import './styles/App.css';
 
 const App = () => (
   <MyProvider>
@@ -37,22 +36,24 @@ const App = () => (
   </MyProvider>
 );
 
-export class MapContainer extends Component {
-  render() {
-    return (
-      <Map
-        google={this.props.google}
-        zoom={14}
-        style={mapStyles}
-        initialCenter={{
-         lat: -1.2884,
-         lng: 36.8233
-        }}
-      />
-    );
-  }
-}
+export default App;
 
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyA7IlTzWHoo8InZXKMsMluISUIlN2xgdxQE'
-})(MapContainer);
+// export class MapContainer extends Component {
+//   render() {
+//     return (
+//       <Map
+//         google={this.props.google}
+//         zoom={14}
+//         style={mapStyles}
+//         initialCenter={{
+//          lat: -1.2884,
+//          lng: 36.8233
+//         }}
+//       />
+//     );
+//   }
+// }
+
+// export default GoogleApiWrapper({
+//   apiKey: 'AIzaSyA7IlTzWHoo8InZXKMsMluISUIlN2xgdxQE'
+// })(MapContainer);
