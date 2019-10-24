@@ -25,6 +25,8 @@ class Navbar extends Component {
     //   // menuBox.style.display = 'none'
     //   menuBox.style.background = 'black'
     // }
+
+    
   }
   
   render (){
@@ -45,24 +47,41 @@ class Navbar extends Component {
           </div>
           <div className="dropdown-div">
             <NavLink className="navbar-brand" to="/">HOME</NavLink>
+            
+            <NavLink className="menu" to="/menu"  onClick={() => this.setToggleBox()}>Menu </NavLink>
+            
+            <div id="menu-box" style={this.state.boxToggle ? {display: 'none'} : {display: 'initial'} }>
 
-            <NavLink className="menu" to="/menu">Menu 
+            <div class="subnav-content">
+                <a href="/home">Apps</a>
+                <a href="/Signup">Soups</a>
+                <a href="/Reservation">Tandoor Breads</a>
+                <a href="/home">Tandoori Specialties</a>
+                <a href="/Signup">Chicken Specialties</a></div>
+            <div class="subnav-content"> 
+                <a href="/Reservation">Lamb Specialties</a>
+                <a href="/home">Seafood Specialties</a>
+                <a href="/Signup">Vegetarian Specialties</a>
+                <a href="/Reservation">Rice Specialties</a>
+                <a href="/home">Dosai</a> </div>
+            <div class="subnav-content">
+                <a href="/home">Uthapam</a>
+                <a href="/home">North Indian Dinner/Thali</a>
+                <a href="/home">Accompaniments</a>
+                <a href="/home">Desserts</a>
+                <a href="/home">Beverages</a></div>
+            </div>
+            
+          
 
-                <ul className="list"> 
-                    <li>item1</li>
-                    <li>item2</li>
-                    <li>item3</li>
-                    <li>item</li>
-                </ul>
-            </NavLink>
+
+
             <NavLink className="navbar-brand" to="/reservation">Reservation</NavLink>
             <NavLink className="navbar-brand" to="/login">Login</NavLink>
             <NavLink className="navbar-brand" to="/signup">SIGNUP</NavLink>
-            <NavLink className="navbar-brand" to="/menu" onClick={() => this.setToggleBox()}>test</NavLink>
+            <NavLink className="navbar-brand" to="/menu">test</NavLink>
           </div>
-          <div id="menu-box" style={this.state.boxToggle ? {display: 'none'} : {display: 'initial'} }>
-            fake box
-          </div>
+          
           
         </nav>
       )}</MyConsumer>
@@ -72,3 +91,12 @@ class Navbar extends Component {
 
 export default Navbar;
 
+
+
+/*
+<ul className="list"> 
+                    <li>item1</li>
+                    <li>item2</li>
+                    <li>item3</li>
+                    <li>item</li>
+                </ul>*/

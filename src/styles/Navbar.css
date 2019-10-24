@@ -9,6 +9,7 @@
   grid-template-rows: repeat(2, min-content);
   /*background-image: url('../img/bgimg.jpg') >>>> navbar bachground; need update logo later*/
   /* padding-top:6rem; */
+ 
 }
 
 
@@ -52,6 +53,7 @@
   justify-content: space-around;
   align-items: center;
   background-color: rgb(10, 6, 0);
+  
 }
 
 .dropdown-div a:hover {
@@ -61,51 +63,25 @@
 }
 
 .dropdown-div a {
-
+  overflow: hidden;
   font-weight: bold;
   color: white;
   /* listWord color*/
-  padding: 15px 25px;
+  padding: 12px 25px;
   /* size of onclick style    */
   text-decoration: none;
   /* without linkLine*/
 
 }
 
-/* start test dropdown Abdul */
-/* final display */
-.list {
-  margin: .5em 1em;
-  padding: 1em;
-}
-
-/* hide */
-.menu:not(:hover) .list {
-  font-size: 0;
-  margin: 0;
-  opacity: 0;
-  padding: 0;
-  /* fade out, then shrink */
-  transition: opacity .25s,
-    font-size .5s .25s,
-    margin .5s .25s,
-    padding .5s .25s;
-}
-
-/* reveal */
-.menu:hover .list {
-  /* unshrink, then fade in */
-  transition: font-size .25s,
-    margin .25s,
-    padding .25s,
-    opacity .5s .25s;
-}
-
 #menu-box {
-  margin-top: 200px;
+  margin-top: 400px;/*400px*/
   background: black;
-  padding: 40px;
   color: white;
   transform: translateY(-2em);
   transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+
+  
 }
+.subnav-content {block-size: 90px;}  /*page down fixed*/
+
