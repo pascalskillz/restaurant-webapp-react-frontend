@@ -6,7 +6,7 @@ const mapStyles = {
   height: '100%'
 };
 
-class Maps  extends React.Component {
+class Maps extends Component {
   render() {
     return (
       <Map
