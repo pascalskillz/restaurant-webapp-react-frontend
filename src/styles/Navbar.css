@@ -1,10 +1,10 @@
-.navbar{
+.navbar {
   grid-area: navbar;
-  z-index:99;
+  z-index: 99;
   display: grid;
-  grid-template-areas: 
-   'logo-icon'
-   'dropdown';
+  grid-template-areas:
+    'logo-icon'
+    'dropdown';
   height: 100px;
   grid-template-rows: repeat(2, min-content);
   /*background-image: url('../img/bgimg.jpg') >>>> navbar bachground; need update logo later*/
@@ -18,13 +18,13 @@
   grid-template-rows: 100px;
   grid-template-columns: 1fr .2fr;
   align-items: center;
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   background: #fff;
-  color:#e67d31;
-  padding:1rem 0;
+  color: #e67d31;
+  padding: 1rem 0;
 }
 
 .logo-div {
@@ -41,12 +41,12 @@
 }
 
 .dropdown-div {
-  z-index:99;
+  z-index: 99;
   grid-area: dropdown;
   margin-top: 120px;
   position: fixed;
   width: 90%;
-  background:hsl(210, 12.2%, 16.1%);
+  background: hsl(210, 12.2%, 16.1%);
   display: flex;
   height: 50px;
   justify-content: space-around;
@@ -54,14 +54,58 @@
   background-color: rgb(10, 6, 0);
 }
 
-.dropdown-div a:hover{
-  background-color: rgb(71, 68, 67) /* OnClick color*/
+.dropdown-div a:hover {
+  background-color: rgb(71, 68, 67)
+    /* OnClick color*/
+
 }
 
-.dropdown-div a{
-  
+.dropdown-div a {
+
   font-weight: bold;
-  color: white; /* listWord color*/
-  padding: 15px 25px; /* size of onclick style    */
-  text-decoration: none; /* without linkLine*/
+  color: white;
+  /* listWord color*/
+  padding: 15px 25px;
+  /* size of onclick style    */
+  text-decoration: none;
+  /* without linkLine*/
+
+}
+
+/* start test dropdown Abdul */
+/* final display */
+.list {
+  margin: .5em 1em;
+  padding: 1em;
+}
+
+/* hide */
+.menu:not(:hover) .list {
+  font-size: 0;
+  margin: 0;
+  opacity: 0;
+  padding: 0;
+  /* fade out, then shrink */
+  transition: opacity .25s,
+    font-size .5s .25s,
+    margin .5s .25s,
+    padding .5s .25s;
+}
+
+/* reveal */
+.menu:hover .list {
+  /* unshrink, then fade in */
+  transition: font-size .25s,
+    margin .25s,
+    padding .25s,
+    opacity .5s .25s;
+}
+
+#menu-box {
+  margin-top: 200px;
+  background: black;
+  padding: 40px;
+  color: white;
+  transform: translateY(-2em);
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
 }

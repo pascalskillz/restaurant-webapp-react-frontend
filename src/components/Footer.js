@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { MyConsumer } from '../Context'
 import '../styles/Footer.css'
+import '../styles/content.css';
 
 const Footer = () => {
   return (

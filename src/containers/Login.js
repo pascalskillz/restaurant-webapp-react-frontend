@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { MyConsumer } from '../Context';
-import '../styles/content.css';
+import '../styles/content.css'
 
 class Login extends Component {
   render() {
