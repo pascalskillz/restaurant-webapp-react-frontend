@@ -7,29 +7,6 @@ import img from '../img/old-logo.jpg';
 
 class Menu extends Component {
   state = {
-    // categories: [ 
-    //   'Apps', 'Soups', 'Tandoor Breads', 'Tandoori Specialties', 'Chicken Specialties',
-    //   'Lamb Specialties', 'Seafood Specialties', 'Vegetarian Specialties', 'Rice Specialties', 'Dosai',
-    //   'Uthapam', 'North Indian Dinner/Thali', 'Accompaniments', 'Desserts', 'Beverages' 
-    // ],
-    // items: [ 
-    //   { 'catName': 'Apps', 'catItems': ['app1', 'app2'] }, 
-    //   { 'catName': 'Soups', 'catItems': ['soup1', 'soup2', 'soup3']},
-    //   { 'catName': 'Tandoor Breads', 'catItems': ['tb1', 'tb2', 'tb3', 'tb4', 'tb5', 'tb6', 'tb7', 'tb8', 'tb9', 'tb10'] }, 
-    //   { 'catName': 'Tandoori Specialties', 'catItems': ['ts1', 'ts2'] }, 
-    //   { 'catName': 'Chicken Specialties', 'catItems': ['cs1', 'cs2'] },
-    //   { 'catName': 'Lamb Specialties', 'catItems': ['ls1', 'ls2'] }, 
-    //   { 'catName': 'Seafood Specialties', 'catItems': ['ss1', 'ss2'] }, 
-    //   { 'catName': 'Vegetarian Specialties', 'catItems': ['vs1', 'vs2']}, 
-    //   { 'catName': 'Rice Specialties', 'catItems': ['rs1', 'rs2'] }, 
-    //   { 'catName': 'Dosai', 'catItems': ['d1', 'd2'] },
-    //   { 'catName': 'Uthapam', 'catItems': ['u1', 'u2'] }, 
-    //   { 'catName': 'North Indian Dinner/Thali', 'catItems': ['noin1', 'noin2'] },
-    //   { 'catName': 'Accompaniments', 'catItems': ['acc1', 'acc2'] }, 
-    //   { 'catName': 'Desserts', 'catItems': ['des1', 'des2'] },
-    //   { 'catName': 'Beverages', 'catItems': ['bev1', 'bev2'] }, 
-    // ],
-
     menuItems: [
       { id: 0, category: 'Apps', name: 'app1', cookTime: 5, isVegan: false },
       { id: 1, category: 'Apps', name: 'app2', cookTime: 5, isVegan: false },
@@ -128,23 +105,7 @@ class Menu extends Component {
   }
 
   render() {
-
-    // // FIX THIS
-    // const filteredItemList = this.state.menuItems.filter(item => {
-    //   return item['category'] === this.state.selected
-    // })
-    // .map((item, index) => (
-    //     <div key={index} className="filtered-grid-item">
-    //       {item.catItems.map((item, index) => (
-    //         <div key={index} className="filtered-inner-item">
-    //           <Item img={img} name={item} />
-    //         </div>
-    //       ))}
-    //     </div>
-    //   )
-    // )
-
-    // FIX THIS
+    
     const filteredItemList = this.state.menuItems.filter(item => {
       return item.category === this.state.selected
     })
