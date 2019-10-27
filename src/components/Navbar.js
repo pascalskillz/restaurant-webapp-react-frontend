@@ -60,7 +60,7 @@ class Navbar extends Component {
             <NavLink className="navbar-brand" to="/signup">SIGNUP</NavLink>
             <NavLink className="navbar-brand" to="/menu" onClick={() => this.setToggleBox()}>test</NavLink>
           </div>
-          <div id="menu-box" style={this.state.boxToggle ? {display: 'none'} : {display: 'initial'} }>
+          <div id="menu-box" style={this.state.boxToggle ? {display: 'initial'} : {display: 'none'} }>
             fake box
           </div>
           
