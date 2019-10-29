@@ -15,8 +15,13 @@
 .content{
   display: grid;
   grid-area: 'content';
+<<<<<<< HEAD
   padding-top:8rem;
   padding-bottom:5rem;
+=======
+  padding-top:3.2rem;
+  padding-bottom:10rem;
+>>>>>>> b832642e54924c77098e9f2984689b09b17356c3
 }
 .table {
   display: table;
