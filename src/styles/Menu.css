@@ -66,13 +66,28 @@
   justify-content: center;
 }
 
-.filtered-grid-item {
+/* .filtered-grid-item {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   justify-content: center;
 }
 
 .filtered-inner-item {
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+  align-items: center;
+  justify-content: center;
+  justify-self: center
+} */
+
+.category-item-div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  justify-content: center;
+}
+
+.filtered-grid-item {
   display: flex;
   flex-direction: row;
   width: 200px;

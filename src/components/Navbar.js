@@ -61,6 +61,7 @@ class Navbar extends Component {
             <NavLink className="navbar-brand" to="/menu" onClick={() => this.setToggleBox()}>test</NavLink>
           </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
         </div>
         <div className="dropdown-div">
           <NavLink className="navbar-brand" to="/">HOME</NavLink>
@@ -75,6 +76,9 @@ class Navbar extends Component {
   )
 =======
           <div id="menu-box" style={this.state.boxToggle ? {display: 'none'} : {display: 'initial'} }>
+=======
+          <div id="menu-box" style={this.state.boxToggle ? {display: 'initial'} : {display: 'none'} }>
+>>>>>>> e48398b79ab3bede8231a2ff24d2c46facc28755
             fake box
           </div>
           

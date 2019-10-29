@@ -7,29 +7,6 @@ import img from '../img/old-logo.jpg';
 
 class Menu extends Component {
   state = {
-    categories: [ 
-      'Apps', 'Soups', 'Tandoor Breads', 'Tandoori Specialties', 'Chicken Specialties',
-      'Lamb Specialties', 'Seafood Specialties', 'Vegetarian Specialties', 'Rice Specialties', 'Dosai',
-      'Uthapam', 'North Indian Dinner/Thali', 'Accompaniments', 'Desserts', 'Beverages' 
-    ],
-    items: [ 
-      { 'catName': 'Apps', 'catItems': ['app1', 'app2'] }, 
-      { 'catName': 'Soups', 'catItems': ['soup1', 'soup2', 'soup3']},
-      { 'catName': 'Tandoor Breads', 'catItems': ['tb1', 'tb2', 'tb3', 'tb4', 'tb5', 'tb6', 'tb7', 'tb8', 'tb9', 'tb10'] }, 
-      { 'catName': 'Tandoori Specialties', 'catItems': ['ts1', 'ts2'] }, 
-      { 'catName': 'Chicken Specialties', 'catItems': ['cs1', 'cs2'] },
-      { 'catName': 'Lamb Specialties', 'catItems': ['ls1', 'ls2'] }, 
-      { 'catName': 'Seafood Specialties', 'catItems': ['ss1', 'ss2'] }, 
-      { 'catName': 'Vegetarian Specialties', 'catItems': ['vs1', 'vs2']}, 
-      { 'catName': 'Rice Specialties', 'catItems': ['rs1', 'rs2'] }, 
-      { 'catName': 'Dosai', 'catItems': ['d1', 'd2'] },
-      { 'catName': 'Uthapam', 'catItems': ['u1', 'u2'] }, 
-      { 'catName': 'North Indian Dinner/Thali', 'catItems': ['noin1', 'noin2'] },
-      { 'catName': 'Accompaniments', 'catItems': ['acc1', 'acc2'] }, 
-      { 'catName': 'Desserts', 'catItems': ['des1', 'des2'] },
-      { 'catName': 'Beverages', 'catItems': ['bev1', 'bev2'] }, 
-    ],
-
     menuItems: [
       { id: 0, category: 'Apps', name: 'app1', cookTime: 5, isVegan: false },
       { id: 1, category: 'Apps', name: 'app2', cookTime: 5, isVegan: false },
@@ -50,31 +27,48 @@ class Menu extends Component {
     ],
     favs: [],
     allItems: [],
+    categories: [],
+    // items: [],
     allItemsLoading: true,
     selected: 'Loading...',
   }
 
   componentDidMount() {
-    this.getFavorites()
-    this.setSidebar(500)
+    // this.getFavorites()
     this.gatherAllItems()
+    this.getCategories()
   }
   
-  getFavorites = async() => {
-    let localFavs = [...this.state.categories]
-    let temp = []
-    for (var i = 0; i < 12; i++){
-      let rand = Math.floor(Math.random() * localFavs.length)
-      temp[i] = localFavs[rand]
-      localFavs.splice(rand, 1)
+  // NOT CURRENTLY BEING USED
+  // getFavorites = async() => {
+  //   let localFavs = [...this.state.categories]
+  //   let temp = []
+  //   for (var i = 0; i < 12; i++){
+  //     let rand = Math.floor(Math.random() * localFavs.length)
+  //     temp[i] = localFavs[rand]
+  //     localFavs.splice(rand, 1)
+  //   }
+  //   await this.setState({
+  //     favs: [...temp],
+  //     selected: 'Full Menu'
+  //   })
+  // }
+
+  getCategories = async() => {
+    let sidebar = []
+    let menuItems = this.state.menuItems;
+    for(var i = 0; i < menuItems.length; i++){
+      if (!sidebar.includes(menuItems[i]['category'])){
+        sidebar.push(menuItems[i]['category'])
+      }
     }
     await this.setState({
-      favs: [...temp],
-      selected: 'Full Menu'
+      categories: [...sidebar]
     })
+    await this.setSidebar(500)
   }
 
-  setSidebar(x) {
+  setSidebar = async(x) => {
     let length = this.state.categories.length;
     for(var i = 0; i < length; i++){
       if(x === i){
@@ -96,13 +90,12 @@ class Menu extends Component {
       }
     }
   }
-
+  
   gatherAllItems = async() => {
     const allItemsArr = []
-    for (var i = 0; i < this.state.items.length; i++){
-      for(var j = 0; j < this.state.items[i].catItems.length; j++){
-        allItemsArr.push(this.state.items[i].catItems[j])
-      }
+    const items = this.state.menuItems;
+    for (var i = 0; i < items.length; i++){
+      allItemsArr.push(items[i]['name'])
     }
 
     await this.setState({
@@ -112,18 +105,14 @@ class Menu extends Component {
   }
 
   render() {
-
-    const filteredItemList = this.state.items.filter(item => {
-      return item.catName === this.state.selected
+    
+    const filteredItemList = this.state.menuItems.filter(item => {
+      return item.category === this.state.selected
     })
     .map((item, index) => (
-        <div key={index} className="filtered-grid-item">
-          {item.catItems.map((item, index) => (
-            <div key={index} className="filtered-inner-item">
-              <Item img={img} name={item} />
-            </div>
-          ))}
-        </div>
+      <div key={index} className="filtered-grid-item">
+        <Item img={img} name={item.name} />
+      </div>
       )
     )
 

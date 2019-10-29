@@ -6,6 +6,7 @@ import Main from './containers/Main';
 import Menu from './containers/Menu';
 import Reservation from './containers/Reservation';
 import Signup from './containers/Signup';
+import Admin from './containers/Admin';
 import Navbar from './components/Navbar';
 <<<<<<< HEAD
 import Footer from './components/Footer';
@@ -32,7 +33,11 @@ const App = () => (
             <Route exact path="/menu" component={Menu} />
             <Route exact path="/reservation" component={Reservation} />
             <Route exact path="/signup" component={Signup} />
+<<<<<<< HEAD
             <Route exact path="/contact" component={Contact} />
+=======
+            <Route exact path="/admin" component={Admin} />
+>>>>>>> e48398b79ab3bede8231a2ff24d2c46facc28755
             <Route component={Main} />
           </Switch>
         </div>   
