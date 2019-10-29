@@ -60,7 +60,25 @@ class Navbar extends Component {
             <NavLink className="navbar-brand" to="/signup">SIGNUP</NavLink>
             <NavLink className="navbar-brand" to="/menu" onClick={() => this.setToggleBox()}>test</NavLink>
           </div>
+<<<<<<< HEAD
+<<<<<<< HEAD
+        </div>
+        <div className="dropdown-div">
+          <NavLink className="navbar-brand" to="/">HOME</NavLink>
+          <NavLink className="navbar-brand" to="/menu">Menu</NavLink>
+          <NavLink className="navbar-brand" to="/reservation">Reservation</NavLink>
+          <NavLink className="navbar-brand" to="/login">Login</NavLink>
+          <NavLink className="navbar-brand" to="/signup">SIGNUP</NavLink>
+          <NavLink className="navbar-brand" to="/contact">CONTACT</NavLink>
+        </div>
+      </nav>
+    )}</MyConsumer>
+  )
+=======
+          <div id="menu-box" style={this.state.boxToggle ? {display: 'none'} : {display: 'initial'} }>
+=======
           <div id="menu-box" style={this.state.boxToggle ? {display: 'initial'} : {display: 'none'} }>
+>>>>>>> e48398b79ab3bede8231a2ff24d2c46facc28755
             fake box
           </div>
           
@@ -68,6 +86,7 @@ class Navbar extends Component {
       )}</MyConsumer>
     )
   }
+>>>>>>> 164d12511ccd8c49dd2434266705b4e18b3326d3
 }
 
 export default Navbar;
