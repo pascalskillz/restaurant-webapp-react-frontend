@@ -65,6 +65,9 @@ class Navbar extends Component {
                 test
               </NavLink>
             </div>
+            <div id="menu-box" style={this.state.boxToggle ? {display: 'initial'} : {display: 'none'} }>
+              fake box
+            </div>
           </nav>
         )}
       </MyConsumer>
