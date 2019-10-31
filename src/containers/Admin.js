@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { MyConsumer } from '../Context'
+import { MyConsumer } from '../Context';
 import { Redirect } from 'react-router-dom';
 import '../styles/Admin.css'
+
 
 class Admin extends Component {
   state = {
@@ -21,26 +22,33 @@ class Admin extends Component {
     })
   }
 
-  renderRedirectHome = () => {
+  setRedirectcPanel = () => {
+    this.setState({
+      redirect_cPanel: true
+    })
+  }
+
+  renderRedirect = () => {
     if (this.state.redirectHome) {
       return <Redirect to='/' />
+    }
+    if (this.state.redirect_cPanel) {
+      return <Redirect to='/cPanel' />
     }
   }
 
   render() {
+    
     return (
       <MyConsumer>
       {({ isAdminLoggedIn, invalidLogin, login }) => (
         <div className='admin-container'>
-          {this.renderRedirectHome()}
+          {this.renderRedirect()}
           <div className="admin-inner">
             {
               isAdminLoggedIn ?
 
-              <div className="admin-console">
-                <button className='button home-button' onClick={this.setRedirectHome}><i className='fas fa-home'></i> Home</button>
-                Logged In
-              </div>
+              this.setRedirectcPanel()
 
               : 
 
@@ -55,7 +63,7 @@ class Admin extends Component {
                     // value={this.state.username}
                     onChange={this.handleInputChange}
                   />
-                  <button type='submit' className='button login-button' onClick={(e) => login(e, this.state.username)}><i className='fas fa-check-circle'></i></button>
+                  <button type='submit' className='button login-button' onClick={(e) => login(e, this.state.username, this.state.username)}><i className='fas fa-check-circle'></i></button>
                 </form>
                 <small id='login-error'>
                   { invalidLogin ? 'Incorrect Username' : <br/> }
