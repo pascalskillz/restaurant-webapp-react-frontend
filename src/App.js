@@ -10,9 +10,10 @@ import Admin from './containers/Admin';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Contact from './containers/Contact';
+import ControlPanel from './containers/ControlPanel';
+import AuthRoute from './components/AuthRoute';
 
 import './styles/App.css';
-
 
 const App = () => (
   <MyProvider>
@@ -28,6 +29,7 @@ const App = () => (
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/admin" component={Admin} />
+            <AuthRoute exact path="/cPanel" component={ControlPanel} />
             <Route component={Main} />
           </Switch>
         </div>   
