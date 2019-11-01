@@ -6,14 +6,14 @@ import Main from './containers/Main';
 import Menu from './containers/Menu';
 import Reservation from './containers/Reservation';
 import Signup from './containers/Signup';
+import Admin from './containers/Admin';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Contact from './containers/Contact';
+import ControlPanel from './containers/ControlPanel';
+import AuthRoute from './components/AuthRoute';
 
 import './styles/App.css';
-
-// FOOTER IMPORT GOES HERE !!
-// import Footer from './components/Footer
-import Footer from './components/Footer';
-
 
 const App = () => (
   <MyProvider>
@@ -27,6 +27,9 @@ const App = () => (
             <Route exact path="/menu" component={Menu} />
             <Route exact path="/reservation" component={Reservation} />
             <Route exact path="/signup" component={Signup} />
+            <Route exact path="/contact" component={Contact} />
+            <Route exact path="/admin" component={Admin} />
+            <AuthRoute exact path="/cPanel" component={ControlPanel} />
             <Route component={Main} />
           </Switch>
         </div>   
@@ -35,25 +38,4 @@ const App = () => (
     </Router>
   </MyProvider>
 );
-
-export default App;
-
-// export class MapContainer extends Component {
-//   render() {
-//     return (
-//       <Map
-//         google={this.props.google}
-//         zoom={14}
-//         style={mapStyles}
-//         initialCenter={{
-//          lat: -1.2884,
-//          lng: 36.8233
-//         }}
-//       />
-//     );
-//   }
-// }
-
-// export default GoogleApiWrapper({
-//   apiKey: 'AIzaSyA7IlTzWHoo8InZXKMsMluISUIlN2xgdxQE'
-// })(MapContainer);
+export default App

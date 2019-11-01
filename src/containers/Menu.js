@@ -5,31 +5,88 @@ import { default as Item } from '../components/MenuItem';
 import '../styles/Menu.css';
 import img from '../img/old-logo.jpg';
 
+/*
+
+[
+{
+"id": 1,
+"itemName": "indian Burger regular",
+"itemPrice": 8,
+"cookTime": 10,
+"category": "appetizer",
+"description": "best of indian cuisine",
+"imageUrl": "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg",
+"similarItems": [
+{
+"similarMenuItemId": 9,
+"parentMenuItemId": 1
+}
+],
+"special": true,
+"vagen": false
+},
+{
+"id": 2,
+"itemName": "Chaput Cuisize",
+"itemPrice": 5,
+"cookTime": 8,
+"category": "soup",
+"description": "hell of an indian cuisine",
+"imageUrl": "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg",
+"similarItems": [
+{
+"similarMenuItemId": 1,
+"parentMenuItemId": 2
+},
+{
+"similarMenuItemId": 9,
+"parentMenuItemId": 2
+}
+],
+"special": true,
+"vagen": false
+},
+{
+"id": 9,
+"itemName": "Shradia Chicken",
+"itemPrice": 12,
+"cookTime": 19,
+"category": "appetizer",
+"description": "end of the road cuisine",
+"imageUrl": "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg",
+"similarItems": [
+{
+"similarMenuItemId": 1,
+"parentMenuItemId": 9
+},
+{
+"similarMenuItemId": 2,
+"parentMenuItemId": 9
+}
+],
+"special": false,
+"vagen": true
+},
+{
+"id": 10,
+"itemName": "Shrda beef Cuisize",
+"itemPrice": 12,
+"cookTime": 15,
+"category": null,
+"description": null,
+"imageUrl": "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg",
+"similarItems": [],
+"special": false,
+"vagen": false
+}
+]
+
+*/
+
+
+
 class Menu extends Component {
   state = {
-    categories: [ 
-      'Apps', 'Soups', 'Tandoor Breads', 'Tandoori Specialties', 'Chicken Specialties',
-      'Lamb Specialties', 'Seafood Specialties', 'Vegetarian Specialties', 'Rice Specialties', 'Dosai',
-      'Uthapam', 'North Indian Dinner/Thali', 'Accompaniments', 'Desserts', 'Beverages' 
-    ],
-    items: [ 
-      { 'catName': 'Apps', 'catItems': ['app1', 'app2'] }, 
-      { 'catName': 'Soups', 'catItems': ['soup1', 'soup2', 'soup3']},
-      { 'catName': 'Tandoor Breads', 'catItems': ['tb1', 'tb2', 'tb3', 'tb4', 'tb5', 'tb6', 'tb7', 'tb8', 'tb9', 'tb10'] }, 
-      { 'catName': 'Tandoori Specialties', 'catItems': ['ts1', 'ts2'] }, 
-      { 'catName': 'Chicken Specialties', 'catItems': ['cs1', 'cs2'] },
-      { 'catName': 'Lamb Specialties', 'catItems': ['ls1', 'ls2'] }, 
-      { 'catName': 'Seafood Specialties', 'catItems': ['ss1', 'ss2'] }, 
-      { 'catName': 'Vegetarian Specialties', 'catItems': ['vs1', 'vs2']}, 
-      { 'catName': 'Rice Specialties', 'catItems': ['rs1', 'rs2'] }, 
-      { 'catName': 'Dosai', 'catItems': ['d1', 'd2'] },
-      { 'catName': 'Uthapam', 'catItems': ['u1', 'u2'] }, 
-      { 'catName': 'North Indian Dinner/Thali', 'catItems': ['noin1', 'noin2'] },
-      { 'catName': 'Accompaniments', 'catItems': ['acc1', 'acc2'] }, 
-      { 'catName': 'Desserts', 'catItems': ['des1', 'des2'] },
-      { 'catName': 'Beverages', 'catItems': ['bev1', 'bev2'] }, 
-    ],
-
     menuItems: [
       { id: 0, category: 'Apps', name: 'app1', cookTime: 5, isVegan: false },
       { id: 1, category: 'Apps', name: 'app2', cookTime: 5, isVegan: false },
@@ -50,31 +107,48 @@ class Menu extends Component {
     ],
     favs: [],
     allItems: [],
+    categories: [],
+    // items: [],
     allItemsLoading: true,
     selected: 'Loading...',
   }
 
   componentDidMount() {
-    this.getFavorites()
-    this.setSidebar(500)
+    // this.getFavorites()
     this.gatherAllItems()
+    this.getCategories()
   }
   
-  getFavorites = async() => {
-    let localFavs = [...this.state.categories]
-    let temp = []
-    for (var i = 0; i < 12; i++){
-      let rand = Math.floor(Math.random() * localFavs.length)
-      temp[i] = localFavs[rand]
-      localFavs.splice(rand, 1)
+  // NOT CURRENTLY BEING USED
+  // getFavorites = async() => {
+  //   let localFavs = [...this.state.categories]
+  //   let temp = []
+  //   for (var i = 0; i < 12; i++){
+  //     let rand = Math.floor(Math.random() * localFavs.length)
+  //     temp[i] = localFavs[rand]
+  //     localFavs.splice(rand, 1)
+  //   }
+  //   await this.setState({
+  //     favs: [...temp],
+  //     selected: 'Full Menu'
+  //   })
+  // }
+
+  getCategories = async() => {
+    let sidebar = []
+    let menuItems = this.state.menuItems;
+    for(var i = 0; i < menuItems.length; i++){
+      if (!sidebar.includes(menuItems[i]['category'])){
+        sidebar.push(menuItems[i]['category'])
+      }
     }
     await this.setState({
-      favs: [...temp],
-      selected: 'Full Menu'
+      categories: [...sidebar]
     })
+    await this.setSidebar(500)
   }
 
-  setSidebar(x) {
+  setSidebar = async(x) => {
     let length = this.state.categories.length;
     for(var i = 0; i < length; i++){
       if(x === i){
@@ -96,13 +170,12 @@ class Menu extends Component {
       }
     }
   }
-
+  
   gatherAllItems = async() => {
     const allItemsArr = []
-    for (var i = 0; i < this.state.items.length; i++){
-      for(var j = 0; j < this.state.items[i].catItems.length; j++){
-        allItemsArr.push(this.state.items[i].catItems[j])
-      }
+    const items = this.state.menuItems;
+    for (var i = 0; i < items.length; i++){
+      allItemsArr.push(items[i]['name'])
     }
 
     await this.setState({
@@ -112,18 +185,14 @@ class Menu extends Component {
   }
 
   render() {
-
-    const filteredItemList = this.state.items.filter(item => {
-      return item.catName === this.state.selected
+    
+    const filteredItemList = this.state.menuItems.filter(item => {
+      return item.category === this.state.selected
     })
     .map((item, index) => (
-        <div key={index} className="filtered-grid-item">
-          {item.catItems.map((item, index) => (
-            <div key={index} className="filtered-inner-item">
-              <Item img={img} name={item} />
-            </div>
-          ))}
-        </div>
+      <div key={index} className="filtered-grid-item">
+        <Item img={img} name={item.name} />
+      </div>
       )
     )
 

@@ -9,6 +9,10 @@ class Main extends Component {
       <MyConsumer>
         {({ }) => (
           <div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 06573b9d0c3e820e20985eae75037a681be2b16e
             <div className="jumbotron">
               <div className="carousel-div">
                 <Carousel
