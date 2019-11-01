@@ -3,20 +3,19 @@
 /* -- MAIN PAGE --  */
 /* JUMBOTRON */
 .jumbotron {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 50vh;
-  background-color: var(--grey);
-  border-radius:0px;
-  margin-top: 0px; /*was 10 px*/
-  
+  background:#e5e5e5;
+  width:100%;
+}
+.jumbo-grid{
+  margin-top:5rem;
+  display: table;
+  width:100%;
 }
 
 .jumbo-left {
-  display: grid; /*it was flex*/
-  justify-content: left;/*it was center*/
-  align-items: stretch;
- 
+  display: table-cell; /*it was flex*/
+  text-align: center;
+  width:50%;
 }
 
 .jumbo-img {
@@ -26,11 +25,9 @@
 }
 
 .jumbo-right {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: table-cell;
   text-align: center;
+  width:50%;
 }
 
 .jumbo-text-large {
@@ -65,10 +62,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40vh;
-  margin: 20px 0;
-  background: var(--lightBlue);
-  border-radius: 25px;
+  background: #e5e5e5;
   padding: 35px 25px 0 25px;
 }
 
