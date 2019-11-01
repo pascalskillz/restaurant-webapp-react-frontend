@@ -9,14 +9,11 @@ class Main extends Component {
       <MyConsumer>
         {({ }) => (
           <div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 06573b9d0c3e820e20985eae75037a681be2b16e
             <div className="jumbotron">
               <div className="carousel-div">
                 <Carousel
-                  width="500px"
+                  width="1150px"
+                  height="350px"
                   autoplay="true"
                   autoplayInterval='2000'
                   wrapAround="true"
