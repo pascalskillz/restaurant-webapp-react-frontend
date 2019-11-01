@@ -44,7 +44,7 @@ class Main extends Component {
                     <a className="jumbo-button button" href="/reservation">Reservation</a>
                   </div>
                   <div className="jumbo-text-small">We serve only the finest Indian cuisine</div>
-                  <div>
+                  <div className="bottom">
                     {new Date().toString()}
                   </div>
                 </div>
