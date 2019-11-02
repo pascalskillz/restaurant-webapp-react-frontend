@@ -49,8 +49,8 @@ class Navbar extends Component {
               <NavLink className='navbar-brand' to='/reservation'>Reservation</NavLink>
               <NavLink className='navbar-brand' to='/login'>Login</NavLink>
               <NavLink className='navbar-brand' to='/signup'>SIGNUP</NavLink>
-             
             </div>
+
             <div id="menu-box" style={this.state.boxToggle ? {display: 'initial'} : {display: 'none'} }>
             <div className="column" >
              
@@ -81,9 +81,7 @@ class Navbar extends Component {
               
              <div><img className='img11' src={logo2} alt='LOGO!'/> <a href="/menu">Desserts </a></div>
              <div><img className='img11' src={logo2} alt='LOGO!'/> <a href="/menu">Beverages</a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a href="/menu">Soups/</a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a href="/menu">Soups/</a></div>
-
+             
              </div>
              <div className="fu-me"><button className="full-menu"><a href="/menu"> View Full Menu </a> </button></div>
             </div>
