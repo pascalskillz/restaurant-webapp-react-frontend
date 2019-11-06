@@ -3,87 +3,8 @@ import { MyConsumer } from '../Context';
 import { default as Sb } from '../components/SidebarCard';
 import { default as Item } from '../components/MenuItem';
 import '../styles/Menu.css';
+import API from "../utils/API";
 import img from '../img/old-logo.jpg';
-
-/*
-
-[
-{
-"id": 1,
-"itemName": "indian Burger regular",
-"itemPrice": 8,
-"cookTime": 10,
-"category": "appetizer",
-"description": "best of indian cuisine",
-"imageUrl": "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg",
-"similarItems": [
-{
-"similarMenuItemId": 9,
-"parentMenuItemId": 1
-}
-],
-"special": true,
-"vagen": false
-},
-{
-"id": 2,
-"itemName": "Chaput Cuisize",
-"itemPrice": 5,
-"cookTime": 8,
-"category": "soup",
-"description": "hell of an indian cuisine",
-"imageUrl": "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg",
-"similarItems": [
-{
-"similarMenuItemId": 1,
-"parentMenuItemId": 2
-},
-{
-"similarMenuItemId": 9,
-"parentMenuItemId": 2
-}
-],
-"special": true,
-"vagen": false
-},
-{
-"id": 9,
-"itemName": "Shradia Chicken",
-"itemPrice": 12,
-"cookTime": 19,
-"category": "appetizer",
-"description": "end of the road cuisine",
-"imageUrl": "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg",
-"similarItems": [
-{
-"similarMenuItemId": 1,
-"parentMenuItemId": 9
-},
-{
-"similarMenuItemId": 2,
-"parentMenuItemId": 9
-}
-],
-"special": false,
-"vagen": true
-},
-{
-"id": 10,
-"itemName": "Shrda beef Cuisize",
-"itemPrice": 12,
-"cookTime": 15,
-"category": null,
-"description": null,
-"imageUrl": "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4.jpg",
-"similarItems": [],
-"special": false,
-"vagen": false
-}
-]
-
-*/
-
-
 
 class Menu extends Component {
   state = {
@@ -117,8 +38,27 @@ class Menu extends Component {
     // this.getFavorites()
     this.gatherAllItems()
     this.getCategories()
+    this.getAllMenuItems()
   }
   
+  getAllMenuItems = async() => {
+    API
+      .getAllMenuItems()
+      .then( res => {
+        let data = res.data
+        console.log(data)
+      })
+  }
+  
+  getOneMenuItem = async(itemId) => {
+    API
+      .getOneMenuItem(itemId)
+      .then( res => {
+        let data = res.data
+        console.log(data)
+      })
+  }
+
   // NOT CURRENTLY BEING USED
   // getFavorites = async() => {
   //   let localFavs = [...this.state.categories]
