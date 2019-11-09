@@ -30,6 +30,7 @@ const App = () => (
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/admin" component={Admin} />
             <AuthRoute exact path="/cPanel" component={ControlPanel} />
+            {/* <Route exact path="/cPanel" component={ControlPanel} /> */}
             <Route component={Main} />
           </Switch>
         </div>   
