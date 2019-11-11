@@ -80,9 +80,18 @@
 /*here Login.css style*/
 
 .signin-text-primary{
+  font-size:20px;
   color: black
 }
 
 .bottom{
   margin-top:50px;
+}
+.btn-Primary{
+  margin-top:10px;
+}
+.Container{
+  padding:40px 0;
+  text-align: center;
+  background: linear-gradient(#e66465, #9198e5);
 }
