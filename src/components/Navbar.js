@@ -39,7 +39,12 @@ class Navbar extends Component {
             </div>
             <div className='dropdown-div'>
               <NavLink className='navbar-brand' to='/'>HOME</NavLink>
-              <NavLink className='drop-menu' to='/menu'>Menu</NavLink> 
+              <NavLink
+                className='drop-menu'
+                to='/menu'
+                onClick={() => this.setToggleBox()}>
+                Menu
+              </NavLink> 
     
               <NavLink className='navbar-brand' to='/reservation'>Reservation</NavLink>
               <NavLink className='navbar-brand' to='/login'>Login</NavLink>
