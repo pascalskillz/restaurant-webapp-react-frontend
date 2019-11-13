@@ -29,8 +29,8 @@ class Menu extends Component {
     favs: [],
     allItems: [],
     categories: [],
-    // items: [],
     allItemsLoading: true,
+    categoryLoading: true,
     selected: 'Loading...',
   }
 
@@ -38,17 +38,17 @@ class Menu extends Component {
     // this.getFavorites()
     this.gatherAllItems()
     this.getCategories()
-    this.getAllMenuItems()
+    // this.getAllMenuItems()
   }
   
-  getAllMenuItems = async() => {
-    API
-      .getAllMenuItems()
-      .then( res => {
-        let data = res.data
-        console.log(data)
-      })
-  }
+  // getAllMenuItems = async() => {
+  //   API
+  //     .getAllMenuItems()
+  //     .then( res => {
+  //       let data = res.data
+  //       console.log(data)
+  //     })
+  // }
   
   getOneMenuItem = async(itemId) => {
     API
@@ -59,33 +59,39 @@ class Menu extends Component {
       })
   }
 
-  // NOT CURRENTLY BEING USED
-  // getFavorites = async() => {
-  //   let localFavs = [...this.state.categories]
-  //   let temp = []
-  //   for (var i = 0; i < 12; i++){
-  //     let rand = Math.floor(Math.random() * localFavs.length)
-  //     temp[i] = localFavs[rand]
-  //     localFavs.splice(rand, 1)
-  //   }
-  //   await this.setState({
-  //     favs: [...temp],
-  //     selected: 'Full Menu'
-  //   })
-  // }
-
   getCategories = async() => {
     let sidebar = []
-    let menuItems = this.state.menuItems;
-    for(var i = 0; i < menuItems.length; i++){
-      if (!sidebar.includes(menuItems[i]['category'])){
-        sidebar.push(menuItems[i]['category'])
-      }
-    }
+    await API
+      .getCategories()
+      .then( res => {
+        let categories = res.data
+        console.log(categories)
+        sidebar = [...categories]
+      })
+    
     await this.setState({
-      categories: [...sidebar]
+      categories: [...sidebar],
+      categoryLoading: false,
     })
     await this.setSidebar(500)
+    await console.log(`categories: ${this.state.categories}`)
+  }
+
+  gatherAllItems = async() => {
+    let allItemsArr = []
+    await API
+      .getAllMenuItems()
+      .then( res => {
+        let items = res.data
+        // console.log(items)
+        allItemsArr = [...items]
+      })
+    
+    await this.setState({
+      allItems: [...allItemsArr],
+      allItemsLoading: false,
+    })
+    await console.log(this.state.allItems)
   }
 
   setSidebar = async(x) => {
@@ -94,7 +100,8 @@ class Menu extends Component {
       if(x === i){
         document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'true');
         this.setState({
-          selected: this.state.categories[i]
+          selected: this.state.categories[i],
+          // categorySelected: this.state.allItems['categoryId']
         })
       }
       else if(x === 500){
@@ -111,23 +118,27 @@ class Menu extends Component {
     }
   }
   
-  gatherAllItems = async() => {
-    const allItemsArr = []
-    const items = this.state.menuItems;
-    for (var i = 0; i < items.length; i++){
-      allItemsArr.push(items[i]['name'])
-    }
 
-    await this.setState({
-      allItems: [...allItemsArr],
-      allItemsLoading: false,
-    })
-  }
+  // NOT CURRENTLY BEING USED
+  // getFavorites = async() => {
+  //   let localFavs = [...this.state.categories]
+  //   let temp = []
+  //   for (var i = 0; i < 12; i++){
+  //     let rand = Math.floor(Math.random() * localFavs.length)
+  //     temp[i] = localFavs[rand]
+  //     localFavs.splice(rand, 1)
+  //   }
+  //   await this.setState({
+  //     favs: [...temp],
+  //     selected: 'Full Menu'
+  //   })
+  // }
 
   render() {
     
-    const filteredItemList = this.state.menuItems.filter(item => {
-      return item.category === this.state.selected
+    const filteredItemList = this.state.allItems.filter(item => {
+      // console.log(item)
+      return item.categoriyId === this.state.categorySelected
     })
     .map((item, index) => (
       <div key={index} className="filtered-grid-item">
@@ -138,7 +149,7 @@ class Menu extends Component {
 
     const allItemsList = this.state.allItems.map((item, index) => (
       <div key={index} className="all-grid-item">
-        <Item img={img} name={item} />
+        <Item img={item.imageUrl} name={item.itemName} price={item.itemPrice} />
       </div>
     ))
 
@@ -151,11 +162,18 @@ class Menu extends Component {
                 <Sb name='Full Menu' img={img} />
               </div>
               <div className="sidebar-inner-div">
-                { this.state.categories.map((item, index) => (
-                  <div key={index} id={`sbItem-${index}`} className="sidebar-inner-item sb-toggle" sbactive='false' onClick={() => this.setSidebar(index)}>
-                    <Sb name={item} img={img} />
-                  </div>
-                )) }
+                { 
+                  this.state.categoryLoading
+                  ?
+                  <div>Loading...</div>
+                  :
+                  this.state.categories.map((item, index) => (
+                    <div key={index} id={`sbItem-${index}`} className="sidebar-inner-item sb-toggle" sbactive='false' onClick={() => this.setSidebar(index)}>
+                      <Sb name={item.categoryName} img={img} />
+                    </div>
+                  ))
+                }
+
               </div>
             </div>
             <div className="menu-categories">
