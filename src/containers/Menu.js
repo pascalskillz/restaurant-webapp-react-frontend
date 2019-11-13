@@ -135,7 +135,6 @@ class Menu extends Component {
   // }
 
   render() {
-    
     const filteredItemList = this.state.allItems.filter(item => {
       // console.log(item)
       return item.categoriyId === this.state.categorySelected
