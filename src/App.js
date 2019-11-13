@@ -13,6 +13,7 @@ import Contact from './containers/Contact';
 import ControlPanel from './containers/ControlPanel';
 import AuthRoute from './components/AuthRoute';
 import Test from './containers/Test';
+import Item from './containers/Item';
 
 import './styles/App.css';
 
@@ -31,6 +32,7 @@ const App = () => (
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/admin" component={Admin} />
             <Route exact path="/test" component={Test} />
+            <Route path="/item/:id" component={Item} />
             <AuthRoute exact path="/cPanel" component={ControlPanel} />
             {/* <Route exact path="/cPanel" component={ControlPanel} /> */}
             <Route component={Main} />
