@@ -41,7 +41,7 @@ class Admin extends Component {
     
     return (
       <MyConsumer>
-      {({ isAdminLoggedIn, invalidLogin, login }) => (
+      {({ isAdminLoggedIn, invalidLogin, adminLogin }) => (
         <div className='admin-container'>
           {this.renderRedirect()}
           <div className="admin-inner">
@@ -63,7 +63,7 @@ class Admin extends Component {
                     // value={this.state.username}
                     onChange={this.handleInputChange}
                   />
-                  <button type='submit' className='button login-button' onClick={(e) => login(e, this.state.username, this.state.username)}><i className='fas fa-check-circle'></i></button>
+                  <button type='submit' className='button login-button' onClick={(e) => adminLogin(e, this.state.username, this.state.username)}><i className='fas fa-check-circle'></i></button>
                 </form>
                 <small id='login-error'>
                   { invalidLogin ? 'Incorrect Username' : <br/> }

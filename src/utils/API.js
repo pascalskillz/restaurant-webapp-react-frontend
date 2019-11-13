@@ -24,6 +24,9 @@ export default {
     return axios.post(`${url}/api/menuitems/${itemId}/similaritem`, itemData)
   },
 
+  getCategories() {
+    return axios.get(`${url}/api/categories`)
+  }
 
 }
 

@@ -7,7 +7,8 @@ const MenuItem = props => (
       <img src={props.img} alt={props.name}/>
     </div>
     <div className="menu-item-text">
-      {props.name}
+      <span>{props.name}</span>
+      <span>$ {props.price}</span>
     </div>
   </div>
 );
