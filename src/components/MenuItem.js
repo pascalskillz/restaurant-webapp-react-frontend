@@ -9,7 +9,7 @@ const MenuItem = props => (
     </div>
     <div className="menu-item-text">
       <span>{props.name}</span>
-      <span>$ {props.price}</span>
+      <span>${props.price}</span>
       <span>{props.id}</span>
     </div>
   </div>

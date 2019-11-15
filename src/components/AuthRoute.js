@@ -23,7 +23,7 @@ const getCookie = (cname) => {
 const checkCookie = () => {
   var username = getCookie("username");
   if (username !== "") {
-   alert("Welcome again " + username);
+  //  alert("Welcome again " + username);
    return true;
   } else {
     console.log('Cookie Error');
