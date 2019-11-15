@@ -65,7 +65,12 @@
   
   #contact .map{
     width:8rem;
-    height:60rem;
+    height:30rem;
+    padding:0 5rem;
+  }
+  .map .map-title{
+    height:auto;
+    width:100%;
   }
   #contact .map, #contact .contact-form {
     flex: 1;
@@ -87,14 +92,17 @@
 
   #contact .address {
     border-bottom: 1px solid;
-    padding: 10px;
+    padding: 5rem;
   }
 
-  #contact .map div:first-child{
+  #contact .map .map-canvas{
     position: relative !important;
     height: 100%;
    }
 
+   #message{
+     height:20rem;
+   }
    .leaflet-container {
     margin: 0 auto;
     height: 100%;

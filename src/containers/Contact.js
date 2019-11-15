@@ -16,13 +16,6 @@ class Contact extends Component {
             </div>
             <div id="contact">
               <div className="contact-form bg-primary p-2">
-                <div className="address">
-                  Tandoor India Cuisuine <br />
-                  1610 NJ-35, <br />Ocean Township, <br />NJ 07712,
-            <br />Located in: Orchard Plaza<br />United States<br />
-                  +1 732-531-1944 <br />
-                  Tandorr@gmail.com
-          </div>
                 <p>Please use the form below to contact us</p>
                 <form>
                   <div className="form-group">
@@ -45,7 +38,16 @@ class Contact extends Component {
                 </form>
               </div>
               <div className="map">
-                <LMap />
+                <div class="map-title">
+                  Tandoor Location
+                </div>
+                <LMap class="map-canvas"/>
+
+                <div className="address">
+                  <p> Tandoor India Cuisuine 1610 NJ-35, Ocean Township, NJ 07712, </p>
+                  <p> +1 732-531-1944 </p>
+                  <p> Tandorr@gmail.com </p>
+                </div>
               </div>
             </div>
           </div>
