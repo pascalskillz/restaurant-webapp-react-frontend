@@ -14,7 +14,7 @@
   }
   
   .bg-primary {
-    background: #da9768;
+    background: #da9768!important;
     color: #000;
   }
   
@@ -58,6 +58,10 @@
     display: flex;
   }
   
+  #contact .map{
+    width:8rem;
+    height:60rem;
+  }
   #contact .map, #contact .contact-form {
     flex: 1;
   }
