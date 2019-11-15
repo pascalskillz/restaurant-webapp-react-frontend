@@ -1,6 +1,11 @@
   p {
     margin: 0.75rem 0;
   }
+  .head{
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
   
   
   .bg-light {
