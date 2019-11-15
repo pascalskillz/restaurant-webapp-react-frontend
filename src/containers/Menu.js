@@ -29,8 +29,8 @@ class Menu extends Component {
     favs: [],
     allItems: [],
     categories: [],
-    // items: [],
     allItemsLoading: true,
+    categoryLoading: true,
     selected: 'Loading...',
   }
 
@@ -38,17 +38,17 @@ class Menu extends Component {
     // this.getFavorites()
     this.gatherAllItems()
     this.getCategories()
-    this.getAllMenuItems()
+    // this.getAllMenuItems()
   }
   
-  getAllMenuItems = async() => {
-    API
-      .getAllMenuItems()
-      .then( res => {
-        let data = res.data
-        console.log(data)
-      })
-  }
+  // getAllMenuItems = async() => {
+  //   API
+  //     .getAllMenuItems()
+  //     .then( res => {
+  //       let data = res.data
+  //       console.log(data)
+  //     })
+  // }
   
   getOneMenuItem = async(itemId) => {
     API
@@ -58,6 +58,69 @@ class Menu extends Component {
         console.log(data)
       })
   }
+
+  getCategories = async() => {
+    let sidebar = []
+    await API
+      .getCategories()
+      .then( res => {
+        let categories = res.data
+        // console.log(categories)
+        sidebar = [...categories]
+      })
+    
+    await this.setState({
+      categories: [...sidebar],
+      categoryLoading: false,
+    })
+    await this.setSidebar(500)
+    await console.log('Categories')
+    await console.log(this.state.categories)
+  }
+
+  gatherAllItems = async() => {
+    let allItemsArr = []
+    await API
+      .getAllMenuItems()
+      .then( res => {
+        let items = res.data
+        // console.log(items)
+        allItemsArr = [...items]
+      })
+    
+    await this.setState({
+      allItems: [...allItemsArr],
+      allItemsLoading: false,
+    })
+    await console.log('All Items')
+    await console.log(this.state.allItems)
+  }
+
+  setSidebar = async(x) => {
+    let length = this.state.categories.length;
+    for(var i = 0; i < length; i++){
+      if(x === i){
+        document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'true');
+        this.setState({
+          selected: this.state.categories[i].categoryName,
+          // categorySelected: this.state.allItems['categoryId']
+        })
+        console.log(this.state.categories[i].categoryName)
+      }
+      else if(x === 500){
+        document.getElementById(`sbItem-500`).setAttribute('sbactive', 'true');
+        document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'false');
+        this.setState({
+          selected: 'Full Menu'
+        })
+      }
+      else {
+        document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'false');
+        document.getElementById(`sbItem-500`).setAttribute('sbactive', 'false');
+      }
+    }
+  }
+  
 
   // NOT CURRENTLY BEING USED
   // getFavorites = async() => {
@@ -74,71 +137,21 @@ class Menu extends Component {
   //   })
   // }
 
-  getCategories = async() => {
-    let sidebar = []
-    let menuItems = this.state.menuItems;
-    for(var i = 0; i < menuItems.length; i++){
-      if (!sidebar.includes(menuItems[i]['category'])){
-        sidebar.push(menuItems[i]['category'])
-      }
-    }
-    await this.setState({
-      categories: [...sidebar]
-    })
-    await this.setSidebar(500)
-  }
-
-  setSidebar = async(x) => {
-    let length = this.state.categories.length;
-    for(var i = 0; i < length; i++){
-      if(x === i){
-        document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'true');
-        this.setState({
-          selected: this.state.categories[i]
-        })
-      }
-      else if(x === 500){
-        document.getElementById(`sbItem-500`).setAttribute('sbactive', 'true');
-        document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'false');
-        this.setState({
-          selected: 'Full Menu'
-        })
-      }
-      else {
-        document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'false');
-        document.getElementById(`sbItem-500`).setAttribute('sbactive', 'false');
-      }
-    }
-  }
-  
-  gatherAllItems = async() => {
-    const allItemsArr = []
-    const items = this.state.menuItems;
-    for (var i = 0; i < items.length; i++){
-      allItemsArr.push(items[i]['name'])
-    }
-
-    await this.setState({
-      allItems: [...allItemsArr],
-      allItemsLoading: false,
-    })
-  }
-
   render() {
-    
-    const filteredItemList = this.state.menuItems.filter(item => {
-      return item.category === this.state.selected
+    const filteredItemList = this.state.categories.filter(item => {
+      // console.log(item)
+      return item.categoryName === this.state.selected
     })
     .map((item, index) => (
       <div key={index} className="filtered-grid-item">
-        <Item img={img} name={item.name} />
+        <Item img={img} name={item.name} id={item.id} />
       </div>
       )
     )
 
     const allItemsList = this.state.allItems.map((item, index) => (
       <div key={index} className="all-grid-item">
-        <Item img={img} name={item} />
+        <Item img={item.imageUrl} name={item.itemName} price={item.itemPrice} id={item.id}/>
       </div>
     ))
 
@@ -151,11 +164,18 @@ class Menu extends Component {
                 <Sb name='Full Menu' img={img} />
               </div>
               <div className="sidebar-inner-div">
-                { this.state.categories.map((item, index) => (
-                  <div key={index} id={`sbItem-${index}`} className="sidebar-inner-item sb-toggle" sbactive='false' onClick={() => this.setSidebar(index)}>
-                    <Sb name={item} img={img} />
-                  </div>
-                )) }
+                { 
+                  this.state.categoryLoading
+                  ?
+                  <div>Loading...</div>
+                  :
+                  this.state.categories.map((item, index) => (
+                    <div key={index} id={`sbItem-${index}`} className="sidebar-inner-item sb-toggle" sbactive='false' onClick={() => this.setSidebar(index)}>
+                      <Sb name={item.categoryName} img={img} />
+                    </div>
+                  ))
+                }
+
               </div>
             </div>
             <div className="menu-categories">
