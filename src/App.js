@@ -1,27 +1,27 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { MyProvider } from './Context'
-import Login from './containers/Login';
-import Main from './containers/Main';
-import Menu from './containers/Menu';
-import Reservation from './containers/Reservation';
-import Signup from './containers/Signup';
-import Admin from './containers/Admin';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Contact from './containers/Contact';
-import ControlPanel from './containers/ControlPanel';
-import AuthRoute from './components/AuthRoute';
-import Test from './containers/Test';
-import Item from './containers/Item';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { MyProvider } from "./Context";
+import Login from "./containers/Login";
+import Main from "./containers/Main";
+import Menu from "./containers/Menu";
+import Reservation from "./containers/Reservation";
+import Signup from "./containers/Signup";
+import Admin from "./containers/Admin";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Contact from "./containers/Contact";
+import ControlPanel from "./containers/ControlPanel";
+import AuthRoute from "./components/AuthRoute";
+import Test from "./containers/Test";
+import Item from "./containers/Item";
 
-import './styles/App.css';
+import "./styles/App.css";
 
 const App = () => (
   <MyProvider>
     <Router>
       <div className="app">
-        <Navbar /> 
+        <Navbar />
         <div className="content">
           <Switch>
             <Route exact path="/" component={Main} />
@@ -37,10 +37,10 @@ const App = () => (
             {/* <Route exact path="/cPanel" component={ControlPanel} /> */}
             <Route component={Main} />
           </Switch>
-        </div>   
+        </div>
       </div>
-      <Footer/> 
+      <Footer />
     </Router>
   </MyProvider>
 );
-export default App
+export default App;

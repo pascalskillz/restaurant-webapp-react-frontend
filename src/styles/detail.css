@@ -1,0 +1,13 @@
+.menu-item-row.row {
+  display: grid;
+  grid-template-columns: auto 30%;
+}
+
+.item-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+h2 {
+  font-size: 3.25em;
+}

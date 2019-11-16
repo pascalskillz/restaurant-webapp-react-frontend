@@ -89,7 +89,7 @@
 
 
 /* Create three equal columns that floats next to each other */
-.column{
+.box-item{
   float: left;
   width: 25%;
   padding: 10px;
@@ -103,7 +103,7 @@
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
-  .column {
+  .box-item {
     width: 100%;
   }
 }
@@ -127,3 +127,6 @@ background: white;
 }
 .fu-me{text-align:center;}
 /* test hover*/
+.menu-list{
+  color: black;
+}
