@@ -49,11 +49,12 @@ main {
   border-radius: 15px;
   display: grid;
   grid:
-    'title' auto
+    'title' auto 
     'content' 1fr / 1fr;
   width: 100%;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  justify-items: center;
+  /* align-items: center; */
   text-align: center;
 }
 
@@ -84,9 +85,20 @@ footer {
   grid-area: title;
   padding: 1em;
   font-size: 1.5em;
+  border-bottom: 2px solid var(--opaque);
+  width: 50vw;
 }
 
 .edit-div {
   display: grid;
 
 }
+
+.cpanel-action-div {
+  margin-top: 20px;
+  max-width: 500px;
+}
+
+/* input {
+  height: 2em !important;
+} */

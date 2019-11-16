@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { MyConsumer } from '../Context';
-import API from '../utils/API'
+import Create from '../components/Widgets/CreateWidget'
+import Edit from '../components/Widgets/EditWidget'
+import Delete from '../components/Widgets/DeleteWidget'
 import '../styles/cPanel.css'
 
 class ControlPanel extends Component {
@@ -12,6 +14,19 @@ class ControlPanel extends Component {
     this.setState({
       title: title
     })
+  }
+
+  setAction = action => {
+    switch(action) {
+      case 'Create':
+        return <Create/>
+      case 'Edit/Update':
+        return <Edit/>
+      case 'Delete':
+        return <Delete/>
+      default:
+        return <div></div>
+    }
   }
 
   render() {
@@ -47,8 +62,8 @@ class ControlPanel extends Component {
               <div className="title">
                 {this.state.title}
               </div>
-              <div className="edit-div">
-                CONTENT
+              <div className="cpanel-action-div">
+                {this.setAction(this.state.title)}
               </div>
             </main>
           </div>
