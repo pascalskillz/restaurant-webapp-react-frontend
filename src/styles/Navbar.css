@@ -78,12 +78,13 @@
 
 #menu-box {
   margin-top: 200px;/*400px*/
-  background: white;
+  background: gray;
   color: rgb(15, 13, 13);
   transform: translateY(-2em);
   transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
   /*height: 80%;*/
-  
+
+   
 }
 /* new test*/ 
 
@@ -95,7 +96,6 @@
   padding: 10px;
   height: 400px; /* Should be removed. Only for demonstration */
   margin-top: 15px;
-
   text-decoration: none;
 }
 
@@ -125,7 +125,10 @@ background: white;
     border: .0625rem solid #adadad;
     border-radius: .25rem;
 }
-.fu-me{text-align:center;}
+.fu-me{
+  text-align:center;
+ padding: 5%;
+}
 /* test hover*/
 .menu-list{
   color: black;
