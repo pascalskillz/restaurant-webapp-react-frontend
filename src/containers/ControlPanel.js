@@ -62,7 +62,7 @@ class ControlPanel extends Component {
               <div className="title">
                 {this.state.title}
               </div>
-              <div className="cpanel-action-div">
+              <div className="cpanel-action-container">
                 {this.setAction(this.state.title)}
               </div>
             </main>

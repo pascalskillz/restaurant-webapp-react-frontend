@@ -2,6 +2,8 @@
   position: absolute;
   top: 0;
   left: 0;
+  bottom: 0;
+  right: 0;
   height: 100vh;
   width: 100vw;
   z-index: 1000;
@@ -56,6 +58,7 @@ main {
   justify-items: center;
   /* align-items: center; */
   text-align: center;
+  overflow: scroll;
 }
 
 header,
@@ -89,16 +92,4 @@ footer {
   width: 50vw;
 }
 
-.edit-div {
-  display: grid;
 
-}
-
-.cpanel-action-div {
-  margin-top: 20px;
-  max-width: 500px;
-}
-
-/* input {
-  height: 2em !important;
-} */
