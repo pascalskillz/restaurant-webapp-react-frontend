@@ -34,7 +34,6 @@ const App = () => (
             <Route exact path="/test" component={Test} />
             <Route path="/item/:id" component={Item} />
             <AuthRoute exact path="/cPanel" component={ControlPanel} />
-            {/* <Route exact path="/cPanel" component={ControlPanel} /> */}
             <Route component={Main} />
           </Switch>
         </div>

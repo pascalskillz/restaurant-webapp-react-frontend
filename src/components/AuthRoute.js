@@ -36,7 +36,7 @@ const AuthRoute = ({ component: Component, ...rest }) => (
     checkCookie() ? (
       <Component {...props} />
     ) : (
-      <Redirect to={{ pathname: '/', }} />
+      <Redirect to={{ pathname: '/admin', }} />
     )
   )} />
 )

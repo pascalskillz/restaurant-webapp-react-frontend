@@ -21,7 +21,7 @@
     'main' 1fr / 1fr;
 }
 
-@media (min-width: 40em) {
+@media (min-width: 60em) {
   .cpanel-wrapper {
     grid: 
       'header header' auto
@@ -57,7 +57,7 @@ main {
   /* justify-content: center; */
   justify-items: center;
   /* align-items: center; */
-  text-align: center;
+  /* text-align: center; */
   overflow: scroll;
 }
 
@@ -90,6 +90,9 @@ footer {
   font-size: 1.5em;
   border-bottom: 2px solid var(--opaque);
   width: 50vw;
+  text-align: center;
 }
 
-
+.cpanel-action-container {
+  margin-top: 20px;
+}
