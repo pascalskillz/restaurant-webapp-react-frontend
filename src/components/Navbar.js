@@ -49,6 +49,7 @@ class Navbar extends Component {
               <NavLink className='navbar-brand' to='/reservation'>Reservation</NavLink>
               <NavLink className='navbar-brand' to='/login'>Login</NavLink>
               <NavLink className='navbar-brand' to='/signup'>SIGNUP</NavLink>
+              <NavLink className='navbar-brand' to='/contact'>Contact</NavLink>
             </div>
 
             <div id="menu-box" style={this.state.boxToggle ? {display: 'initial'} : {display: 'none'} }>

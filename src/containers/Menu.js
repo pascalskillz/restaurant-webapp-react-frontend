@@ -65,7 +65,7 @@ class Menu extends Component {
       .getCategories()
       .then( res => {
         let categories = res.data
-        console.log(categories)
+        // console.log(categories)
         sidebar = [...categories]
       })
     
@@ -74,7 +74,8 @@ class Menu extends Component {
       categoryLoading: false,
     })
     await this.setSidebar(500)
-    await console.log(`categories: ${this.state.categories}`)
+    await console.log('Categories')
+    await console.log(this.state.categories)
   }
 
   gatherAllItems = async() => {
@@ -91,6 +92,7 @@ class Menu extends Component {
       allItems: [...allItemsArr],
       allItemsLoading: false,
     })
+    await console.log('All Items')
     await console.log(this.state.allItems)
   }
 
@@ -100,9 +102,10 @@ class Menu extends Component {
       if(x === i){
         document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'true');
         this.setState({
-          selected: this.state.categories[i],
+          selected: this.state.categories[i].categoryName,
           // categorySelected: this.state.allItems['categoryId']
         })
+        console.log(this.state.categories[i].categoryName)
       }
       else if(x === 500){
         document.getElementById(`sbItem-500`).setAttribute('sbactive', 'true');
@@ -135,21 +138,20 @@ class Menu extends Component {
   // }
 
   render() {
-    
-    const filteredItemList = this.state.allItems.filter(item => {
+    const filteredItemList = this.state.categories.filter(item => {
       // console.log(item)
-      return item.categoriyId === this.state.categorySelected
+      return item.categoryName === this.state.selected
     })
     .map((item, index) => (
       <div key={index} className="filtered-grid-item">
-        <Item img={img} name={item.name} />
+        <Item img={img} name={item.name} id={item.id} />
       </div>
       )
     )
 
     const allItemsList = this.state.allItems.map((item, index) => (
       <div key={index} className="all-grid-item">
-        <Item img={item.imageUrl} name={item.itemName} price={item.itemPrice} />
+        <Item img={item.imageUrl} name={item.itemName} price={item.itemPrice} id={item.id}/>
       </div>
     ))
 
