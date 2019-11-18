@@ -6,13 +6,6 @@ import API from '../../utils/API';
 class CreateWidget extends Component {
 
   state = {
-    menuItems: [
-      { id: 1, itemName: 'bread' },
-      { id: 2, itemName: 'chicken' },
-      { id: 3, itemName: 'rice' },
-      { id: 4, itemName: 'fish' },
-      { id: 5, itemName: 'peas' },
-    ],
     matchArray: [],
     filterSimilar: '',
     
@@ -37,6 +30,7 @@ class CreateWidget extends Component {
       .then( res => {
         let items = res.data
         this.setState({
+          menuItems: [...items],
           matchArray: [...items]
         })
       })
@@ -44,7 +38,6 @@ class CreateWidget extends Component {
 
   uploadImage = (resultEvent, widget) => {
     if(resultEvent.event === 'success'){
-      // console.log(resultEvent.info.secure_url)
       let url = resultEvent.info.secure_url
       widget.close()
       this.setState({
@@ -105,7 +98,6 @@ class CreateWidget extends Component {
                 <small id="createPriceDesc" className="form-text text-muted">Enter the price for the menu item</small>
               </div>
             </div>
-
 
             <div className="create-group2 flex-group">
               <div className="form-group create-group2a padding-group">
