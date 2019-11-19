@@ -116,19 +116,20 @@
 
 .create-group5 {
   display: grid;
-  grid-template-columns: 1fr .5fr;
+  grid-template-columns: 1fr .6fr;
   grid-template-areas:
     'similarL similarR';
-  width: 50vw;
 }
 
 .similar-items-div{
   grid-area: similarL;
+  max-width: 450px;
 }
 
 .similar-list-div {
   grid-area: similarR;
-  padding: 0 30px;
+  /* padding-left: 30px; */
+  width: max-content;
 }
 
 .create-item-similar:hover {
