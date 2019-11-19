@@ -16,6 +16,13 @@ class Navbar extends Component {
     });
   };
 
+  closeBox = () => {  // close the menu when click outside
+    this.setState({
+      boxToggle: false
+    });
+  };
+  
+
   render() {
     return (
       <MyConsumer>
@@ -38,24 +45,33 @@ class Navbar extends Component {
               </div>
             </div>
             <div className='dropdown-div'>
-              <NavLink className='navbar-brand' to='/'>HOME</NavLink>
+              <NavLink className='navbar-brand' to='/' 
+              onClick={() => this.closeBox()}>HOME</NavLink>
               <NavLink
                 className='drop-menu'
                 to='/menu'
                 onClick={() => this.setToggleBox()}>
                 Menu
               </NavLink> 
-    
-              <NavLink className='navbar-brand' to='/reservation'>Reservation</NavLink>
-              <NavLink className='navbar-brand' to='/login'>Login</NavLink>
-              <NavLink className='navbar-brand' to='/signup'>SIGNUP</NavLink>
-              <NavLink className='navbar-brand' to='/contact'>Contact</NavLink>
+              <NavLink
+                className='navbar-brand'
+                to='/reservation'
+                onClick={() => this.closeBox()}>
+                Reservation
+              </NavLink> 
+
+              <NavLink className='navbar-brand' to='/login' 
+              onClick={() => this.closeBox()}>Login</NavLink>
+              <NavLink className='navbar-brand' to='/signup'
+              onClick={() => this.closeBox()}>SIGNUP</NavLink>
+              <NavLink className='navbar-brand' to='/contact'onClick={() => this.closeBox()}
+              >Contact</NavLink>
             </div>
 
             <div id="menu-box" style={this.state.boxToggle ? {display: 'initial'} : {display: 'none'} }>
             <div className="box-item" >
              
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/login">Soups</a></div>
+             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu">Soups</a></div>
              <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu">Tandoor Breads </a></div>
              <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu">Tandoori Specialties</a></div>
              <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu">Chicken Specialties</a></div>
