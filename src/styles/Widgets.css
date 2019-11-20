@@ -46,12 +46,8 @@
 
 #create-form-submit-btn:hover {
   background: var(--grey);
-  color: var(--white);
+  border: none;
 }
-
-/* .flex-group {
-
-} */
 
 .padding-group {
   padding-right: 1.5rem;
@@ -132,7 +128,21 @@
   width: max-content;
 }
 
-.create-item-similar:hover {
+.similar-confirm {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  max-width: 200px;
+  padding: 5px 0;
+}
+
+.similar-delete-button {
+  margin-left: 10px;
+  background: var(--red);
+}
+
+.create-item-similar:hover,
+.similar-delete-button:hover {
   border: none;
 }
 

@@ -5,12 +5,38 @@ import API from '../../utils/API';
 
 class CreateWidget extends Component {
 
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     menuItems: [],
+  //     filterSimilar: '',
+  //     menuItemsLoading: true,
+      
+  //     itemname: '',
+  //     itemprice: '',
+  //     cooktime: '',
+  //     itemdescription: '',
+  //     isvegan: '',
+  //     itemimage: '',
+  //     similarList: [],
+  //     imageUrl: '',
+  //   };
+  // }
+
   state = {
-    // matchArray: [],
     menuItems: [],
     filterSimilar: '',
     menuItemsLoading: true,
+    
+    itemname: '',
+    itemprice: '',
+    cooktime: '',
+    itemdescription: '',
+    isvegan: false,
+    itemimage: '',
     similarList: [],
+    imageUrl: '',
+
   }
 
   componentDidMount() {
@@ -20,11 +46,27 @@ class CreateWidget extends Component {
     this.gatherAllItems()
   }
 
-  handleInputChange = e => {
-    const { name, value } = e.target;
+  widget = window.cloudinary.createUploadWidget({
+    cloudName: 'yowats0n',
+    uploadPreset: 'twibcpgv'
+  },
+  (error, result) => {
+    if(error){
+      console.log(error)
+    }
+    this.uploadImage(result, this.widget)
+  })
+
+
+  handleInputChange = event => {
+    // event.preventDefault()
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
     this.setState({
       [name]: value
-    })
+    });
   }
 
   gatherAllItems = async() => {
@@ -81,29 +123,56 @@ class CreateWidget extends Component {
   addToSimilar = (e) => {
     e.preventDefault()
     // console.log(e.target)
-    this.setState({
-      similarList: [...this.state.similarList, e.target.id]
-    })
+    if (!this.state.similarList.includes(e.target.id)){
+      this.setState({
+        similarList: [...this.state.similarList, e.target.id]
+      })
+    }
+    else {
+      console.log('ALREADY EXISTS')
+    }
     // console.log(e.target.id)
     // console.log(this.state.similarList)
   }
 
-  deleteFromSimilar = (e) => {
+  deleteFromSimilar = async(e) => {
     e.preventDefault()
-    console.log(e.target)
+    console.log(e.target.id)
+    const deleteFilter = await this.state.similarList.filter(item  => {
+      return item.split('=')[1] !== e.target.id.split('=')[1]
+    })
+    await this.setState({
+      similarList: [...deleteFilter]
+    })
+    await console.log(this.state.similarList)
+  }
+
+  submitForm = async(e) => {
+    e.preventDefault()
+    const submitData = {
+      itemName: this.state.itemname,
+      itemPrice: this.state.itemprice,
+      cookTime: this.state.cooktime,
+      description: this.state.itemdescription,
+      vegan: this.state.isvegan,
+      imageUrl: this.state.imageUrl,
+      // similarItems: [...this.state.similarList],
+    }
+
+    // await console.log(submitData)
+    await API
+      .createMenuItem(3, submitData)
+      .then(res => {
+        if(res.status === 200){
+          alert("Success!")
+        }
+      })
+      .catch(err => {
+        alert("Data not saved, please try again")
+      })
   }
 
   render() {
-    let widget = window.cloudinary.createUploadWidget({
-      cloudName: 'yowats0n',
-      uploadPreset: 'twibcpgv'
-    },
-    (error, result) => {
-      if(error){
-        console.log(error)
-      }
-      this.uploadImage(result, widget)
-    })
 
     const filterList = this.state.menuItems.filter(item => {
       return item.itemName.toLowerCase().indexOf(this.state.filterSimilar.toLowerCase()) >= 0
@@ -128,7 +197,7 @@ class CreateWidget extends Component {
     const similarList = this.state.similarList.map((item, index) => (
       <div key={index} className="similar-confirm">
         {item}
-        <button className="btn similar-delete-button" onClick={(e) => this.deleteFromSimilar(e)}>X</button>
+        <button id={`deleteId=${item.split('=')[1]}`} className="btn similar-delete-button" onClick={(e) => this.deleteFromSimilar(e)}>X</button>
       </div>
     ))
 
@@ -141,13 +210,17 @@ class CreateWidget extends Component {
               <div className="create-group1 flex-group">
                 <div className="form-group create-group1a padding-group">
                   <label htmlFor="itemName">Item Name</label>
-                  <input name="itemname" type="text" className="form-control" id="createItemName" aria-describedby="createItem" placeholder="Enter Item Name"/>
+                  <input name="itemname" type="text" className="form-control" id="createItemName" aria-describedby="createItem" placeholder="Enter Item Name"
+                  value={this.state.itemname} onChange={this.handleInputChange}
+                  />
                   <small id="createNameDesc" className="form-text text-muted">Enter the name for the menu item</small>
                 </div>
 
                 <div className="form-group create-group1b padding-group">
                   <label htmlFor="itemPrice">Item Price</label>
-                  <input name="itemprice" type="number" className="form-control" id="createItemPrice" aria-describedby="createItem" placeholder="$"/>
+                  <input name="itemprice" type="number" className="form-control" id="createItemPrice" aria-describedby="createItem" placeholder="$"
+                  value={this.state.itemprice} onChange={this.handleInputChange}
+                  />
                   <small id="createPriceDesc" className="form-text text-muted">Enter the price for the menu item</small>
                 </div>
               {/* </div> */}
@@ -155,13 +228,17 @@ class CreateWidget extends Component {
               {/* <div className="create-group2 flex-group"> */}
                 <div className="form-group create-group2a padding-group">
                   <label htmlFor="cookTime">Cook Time</label>
-                  <input name="cooktime" type="number" className="form-control" id="createCookTime" aria-describedby="cookTime" placeholder="Minutes"/>
+                  <input name="cooktime" type="number" className="form-control" id="createCookTime" aria-describedby="cookTime" placeholder="Minutes"
+                  value={this.state.cooktime} onChange={this.handleInputChange}
+                  />
                   <small id="createCooktimeDesc" className="form-text text-muted">Enter the cooking time for the menu item</small>
                 </div>
 
                 <div className="form-group create-group2b padding-group">
                   <label htmlFor="itemPrice">Vegan?</label>
-                  <input name="isvegan" type="checkbox" className="form-control" id="createItemVegan" aria-describedby="createVegan"/>
+                  <input name="isvegan" type="checkbox" className="form-control" id="createItemVegan" aria-describedby="createVegan" 
+                  checked={this.state.isvegan} onChange={this.handleInputChange}
+                  />
                   <small id="createVeganDesc" className="form-text text-muted">Is this menu item vegan?</small>
                 </div>
               </div>
@@ -169,7 +246,9 @@ class CreateWidget extends Component {
               <div className="create-group3 flex-group">
                 <div className="form-group create-group3a padding-group">
                   <label htmlFor="itemDescription">Item Description</label>
-                  <textarea name="itemdescription" type="textarea" className="form-control" id="createItemDescription" aria-describedby="itemDesc" placeholder="Enter Description"/>
+                  <textarea name="itemdescription" type="textarea" className="form-control" id="createItemDescription" aria-describedby="itemDesc" placeholder="Enter Description"
+                  value={this.state.itemdescription} onChange={this.handleInputChange}
+                  />
                   <small id="createDescriptionDesc" className="form-text text-muted">Enter a description for the menu item</small>
                 </div>
               </div>
@@ -178,7 +257,7 @@ class CreateWidget extends Component {
 
             <div className="create-group4 flex-group">
               <label htmlFor="itemImage">Upload an Image</label>
-              <button className='button upload-button' onClick={(e) => this.showWidget(e, widget)}><i className='fas fa-cloud-upload-alt'></i> Upload Image(s)</button>
+              <button className='button upload-button' onClick={(e) => this.showWidget(e, this.widget)}><i className='fas fa-cloud-upload-alt'></i> Upload Image(s)</button>
               <small id="createImageDesc" className="form-text text-muted">Upload an image for the menu item</small>
             </div>
 
@@ -187,8 +266,7 @@ class CreateWidget extends Component {
               <div className="similar-items-div">
                 <label htmlFor="itemSimilar">Similar Items</label>
                 <small id="createSimilarDesc" className="form-text text-muted">Select all similar items, search for items below</small>
-                <input name="filterSimilar" type="text" className="form-control" id="createFilterSimilar" aria-describedby="filterSimilar" placeholder="Search Item Name" 
-                  value={this.state.filterSimilar} onChange={this.handleInputChange}/>
+                <input name="filterSimilar" type="text" className="form-control" id="createFilterSimilar" aria-describedby="filterSimilar" placeholder="Search Item Name" value={this.state.filterSimilar} onChange={this.handleInputChange}/>
                 <div className="table-scroll">
                   <table className="table table-striped">
                     <thead className="thead-dark">
@@ -239,7 +317,13 @@ class CreateWidget extends Component {
               <div className="similar-list-div">                
                 <label htmlFor="itemSimilar">Confirm Similar Items</label>
                 <small id="createSimilarListDesc" className="form-text text-muted">See list to confirm or delete similar items</small>
-                { similarList }
+                {
+                  this.state.similarList.length > 0
+                  ?
+                    similarList 
+                  :
+                    <div style={{'fontStyle': 'italic'}}>No Similar Items</div>
+                }
               </div>
             </div>
 
@@ -248,7 +332,7 @@ class CreateWidget extends Component {
         </div>
 
         <div className="create-form-submit">
-          <button type="submit" value="Send" className="btn btn-green" id="create-form-submit-btn">
+          <button type="submit" value="Send" className="btn btn-primary" id="create-form-submit-btn" onClick={(e) => this.submitForm(e)}>
             Save
           </button>
         </div>
