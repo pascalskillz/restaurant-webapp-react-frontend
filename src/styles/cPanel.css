@@ -2,8 +2,97 @@
   position: absolute;
   top: 0;
   left: 0;
+  bottom: 0;
+  right: 0;
   height: 100vh;
   width: 100vw;
   z-index: 1000;
   background: var(--grey);
+  padding: 10px;
+}
+
+.cpanel-wrapper {
+  display: grid;
+  height: 100%;
+  grid-gap: 1em;
+  grid: 
+    'header' auto
+    'nav' auto
+    'main' 1fr / 1fr;
+}
+
+@media (min-width: 60em) {
+  .cpanel-wrapper {
+    grid: 
+      'header header' auto
+      'nav main' 1fr / 12em 1fr;
+  }
+}
+
+header { 
+  grid-area: header;
+  border-radius: 15px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  font-size: 2em;
+}
+
+nav { 
+  grid-area: nav;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main { 
+  grid-area: main;
+  border-radius: 15px;
+  display: grid;
+  grid:
+    'title' auto 
+    'content' 1fr / 1fr;
+  width: 100%;
+  /* justify-content: center; */
+  justify-items: center;
+  /* align-items: center; */
+  /* text-align: center; */
+  overflow: scroll;
+}
+
+header,
+nav,
+main,
+footer {
+  background: var(--white);
+  padding: 1em;
+}
+
+.cpanel-button{
+  padding: 5px 10px;
+  border-radius: 15px;
+  margin: 10px 0;
+  background: var(--green);
+  border: 2px solid var(--black);
+  font-size: 1em;
+}
+
+.cpanel-button:hover {
+  background: var(--grey);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.title {
+  grid-area: title;
+  padding: 1em;
+  font-size: 1.5em;
+  border-bottom: 2px solid var(--opaque);
+  width: 50vw;
+  text-align: center;
+}
+
+.cpanel-action-container {
+  margin-top: 20px;
 }

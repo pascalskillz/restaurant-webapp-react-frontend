@@ -73,9 +73,19 @@ class Menu extends Component {
       categories: [...sidebar],
       categoryLoading: false,
     })
-    await this.setSidebar(500)
+
+
+    /** Update started to filter cate. items abdul  */
+    let paramsString = this.props.location.search;
+    const params = new URLSearchParams(paramsString); 
+    const categoryIndexParam = parseInt(params.get('category')); 
+
+    let categoryIndex = categoryIndexParam || 500; //[if categoryindesxparam is exist, then categoryindex will cateindexpram if not exist , gonna use 500 "Full menu"] 
+    await this.setSidebar(categoryIndex) // await this.setSidebar(categoryIndex)    
+    console.log(paramsString, params, categoryIndexParam); 
     await console.log('Categories')
-    await console.log(this.state.categories)
+    await console.log(this.state.categories) 
+  
   }
 
   gatherAllItems = async() => {
@@ -92,12 +102,14 @@ class Menu extends Component {
       allItems: [...allItemsArr],
       allItemsLoading: false,
     })
-    await console.log('All Items')
+    //await console.log('All Items')
     await console.log(this.state.allItems)
   }
 
   setSidebar = async(x) => {
+    
     let length = this.state.categories.length;
+    console.log(x);
     for(var i = 0; i < length; i++){
       if(x === i){
         document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'true');
@@ -139,7 +151,7 @@ class Menu extends Component {
 
   render() {
     const filteredItemList = this.state.categories.filter(item => {
-      // console.log(item)
+      //console.log(item)
       return item.categoryName === this.state.selected
     })
     .map((item, index) => (
@@ -185,11 +197,7 @@ class Menu extends Component {
             <div className="menu-categories">
               <div className="category-title-div">
                 <div className="title-header-text">{this.state.selected}</div>
-                  {/* {
-                    this.state.selected === 'Full Menu'
-                    ? <div className="subtitle-text">Favorite Items</div>
-                    : <div className="subtitle-text"></div>
-                  } */}
+
               </div>
               <div className="category-item-container">
                 {
