@@ -5,7 +5,7 @@ import { default as Item } from '../components/MenuItem';
 import '../styles/Menu.css';
 import API from "../utils/API";
 import img from '../img/old-logo.jpg';
-
+import {Link} from 'react-router-dom';
 class Menu extends Component {
   state = {
     menuItems: [
@@ -162,9 +162,13 @@ class Menu extends Component {
     )
 
     const allItemsList = this.state.allItems.map((item, index) => (
+      
       <div key={index} className="all-grid-item">
+        <Link to={'/item/'+item.id}>
         <Item img={item.imageUrl} name={item.itemName} price={item.itemPrice} id={item.id}/>
+        </Link>
       </div>
+     
     ))
 
     return (
@@ -209,5 +213,6 @@ class Menu extends Component {
     );
   }
 }
+
 
 export default Menu;

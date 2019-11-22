@@ -19,3 +19,11 @@
   align-items: center;
   justify-content: center;
 }
+.menu-item-image{
+  height:auto;
+}
+.menu-item-image img{
+  height:20rem;
+  width:20rem;
+  object-fit: cover;
+}

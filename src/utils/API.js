@@ -12,8 +12,9 @@ export default {
     return axios.get(`${url}/menuitems/${itemId}`)
   },
 
-  createMenuItem(itemData) {
-    return axios.post(`${url}/menuitems`, itemData)
+  createMenuItem(categoryId, itemData) {
+    // console.log(`${url}/menuitems?categoryId=${categoryId}`, itemData)
+    return axios.post(`${url}/menuitems?categoryId=${categoryId}`, itemData)
   },
 
   deleteMenuItems(itemId) {
