@@ -7,7 +7,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
 }
 
 code {
@@ -17,8 +16,10 @@ code {
 
 :root {
   --black: #252525;
-  --red: #FF0028;
+  --opaque: #25252533;
+  --red: #FA2535;
   --white: #F7F7F7;
   --grey: #9A9A9A;
   --lightBlue: #2BB2F6;
+  --green: #23610Caa;
   }

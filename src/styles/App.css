@@ -5,16 +5,19 @@
   grid-template-rows: repeat(2, min-content);
   grid-template-areas:
     'navbar'
-    'content';
+    'content'
+    'footer';
   padding: 0 5vw;
+  background-image: url("/back-image")
+
 }
 
 .content{
   display: grid;
   grid-area: 'content';
-  background-color: white
+  padding-top:8rem;
+  padding-bottom:5rem;
 }
-
 .table {
   display: table;
   vertical-align: middle;

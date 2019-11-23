@@ -1,0 +1,22 @@
+.menu-item-row.row {
+  display: grid;
+  grid-template-columns: auto 30%;
+}
+
+.item-image {
+  text-align:right;
+  width: 60rem;
+}
+
+.item-image img {
+  width: 45rem;
+  height: 45rem;
+  object-fit:cover;
+}
+
+.item-detail {
+  width: auto;
+}
+h2 {
+  font-size: 3.25em;
+}

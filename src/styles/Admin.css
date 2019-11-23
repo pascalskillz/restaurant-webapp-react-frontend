@@ -1,0 +1,43 @@
+.admin-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1000;
+  background: var(--grey);
+}
+
+.admin-inner {
+  display: grid;
+}
+
+.admin-login-form {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.login-form {
+  margin: 15px;
+}
+
+.username-label {
+  font-size: 2rem;
+  text-decoration: underline;
+}
+
+.username-input {
+  border-radius: 25px;
+  border: 2px solid var(--black);
+  margin: 0 1rem;
+  padding: 1rem;
+}
+
+#login-error {
+  color: var(--red);
+  font-size: 2rem;
+  font-weight: 900;
+}

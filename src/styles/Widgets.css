@@ -1,0 +1,193 @@
+/* ---------- CREATE WIDGET */
+.cpanel-create-div {
+  grid-area: form;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    'form'
+    'submit';
+}
+
+.create-form {
+  grid-area: form;
+  padding: 0 2rem;
+}
+
+.create-inner-form {
+  display: grid;
+  /* grid-template-rows: 2fr 1fr auto; */
+  grid-template-rows: min-content min-content 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas: 
+    'forms'
+    'upload'
+    'similar';
+}
+
+.form-grid-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'formL formR';
+}
+
+.create-form-submit {
+  margin: 50px 0;
+  grid-area: submit;
+  text-align: center;
+}
+
+#create-form-submit-btn {
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  background: var(--green);
+}
+
+#create-form-submit-btn:hover {
+  background: var(--grey);
+  border: none;
+}
+
+.padding-group {
+  padding-right: 1.5rem;
+}
+
+#createItemName{
+  width: 250px;
+  height: 30px;
+}
+
+#createItemPrice {
+  width: 100px;
+  height: 30px;
+}
+
+
+#createCookTime {
+  width: 100px;
+  height: 30px;
+}
+
+#createItemVegan {
+  width: 50px;
+}
+
+#createItemDescription {
+  width: 400px;
+  height: 200px;
+  resize: none;
+}
+
+#createSimilarListDesc {
+  margin-bottom: 10px;
+}
+
+.create-group1 {
+  grid-area: formL;
+  /* flex-direction: column; */
+}
+
+/* .create-group2 {
+  grid-area: form1;
+} */
+
+.create-group3 {
+  /* flex-direction: column; */
+  grid-area: formR;
+}
+
+.create-group4 {
+  grid-area: upload;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.upload-button {
+  max-width: 200px;
+}
+
+.create-group5 {
+  display: grid;
+  grid-template-columns: 1fr .6fr;
+  grid-template-areas:
+    'similarL similarR';
+}
+
+.similar-items-div{
+  grid-area: similarL;
+  max-width: 450px;
+}
+
+.similar-list-div {
+  grid-area: similarR;
+  /* padding-left: 30px; */
+  width: max-content;
+}
+
+.similar-confirm {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  max-width: 200px;
+  padding: 5px 0;
+}
+
+.similar-delete-button {
+  margin-left: 10px;
+  background: var(--red);
+}
+
+.create-item-similar:hover,
+.similar-delete-button:hover {
+  border: none;
+}
+
+.table-scroll {
+  max-height: 500px;
+  overflow: scroll;
+}
+
+/* ---------- EDIT WIDGET */
+.cpanel-edit-div {
+  margin-top: 20px;
+  display: grid;
+  grid:
+    'image form' auto / 1.25fr 2fr
+}
+
+.edit-image {
+  grid-area: image;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-form {
+  grid-area: form;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    'left right'
+    'submit submit';
+}
+
+.edit-form-left {
+  grid-area: left;
+  padding: 0 2rem;
+}
+
+.edit-form-right {
+  grid-area: right;
+  padding: 0 2rem;
+}
+
+.edit-form-submit {
+  margin-top: 50px;
+  grid-area: submit;
+}
+

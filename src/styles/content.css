@@ -3,39 +3,35 @@
 /* -- MAIN PAGE --  */
 /* JUMBOTRON */
 .jumbotron {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 50vh;
-  background-color: var(--grey);
-  border-radius:0px;
-  margin-top: 0px ; /*was 10 px*/
-  
+  background:#e5e5e5;
+  width:100%;
+}
+.jumbo-grid{
+  margin-top:5rem;
+  display: table;
+  width:100%;
 }
 
 .jumbo-left {
-  display: grid; /*it was flex*/
-  justify-content: left;/*it was center*/
- 
+  display: table-cell; /*it was flex*/
+  text-align: center;
+  width:50%;
 }
 
 .jumbo-img {
   width: 600px; /*it was 400px*/
-  height: 50vh;/* it was 400px*/
+  height:404px;/* it was 400px*/
   align-self: baseline
 }
 
 .jumbo-right {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: table-cell;
   text-align: center;
-  /* background-image: url('../img/jumbo-Rimg.jpg')*/
-
+  width:50%;
 }
 
 .jumbo-text-large {
-  font-family: 'harr', sans-serif;
+  font-family: 'Rubik', sans-serif;
   font-size: 2rem;
 }
 
@@ -51,8 +47,8 @@
 .button {
   padding: 8px 15px;
   border-radius: 25px;
-  background-color: goldenrod;
-  color: var(--black);
+  background-color: var(--black);
+  color: var(--white);
   font-weight: bold;
   border: 1px solid var(--grey);
 }
@@ -60,19 +56,14 @@
 .jumbo-text-small {
   font-family: 'Satisfy', cursive;
   font-size: 1.3rem;
-  
 }
 
 .carousel-div {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40vh;
-  margin: 1px 0;
-  background-color:var(--grey);
-  border-radius: 0px;
-  padding: 35px 25px 0 25px;
- 
+  background: #e5e5e5;
+  margin-top: -1rem;
 }
 
 .carousel-button {
@@ -85,4 +76,22 @@
 .carousel-button:hover {
   cursor: pointer;
   opacity: 1;
+}
+/*here Login.css style*/
+
+.signin-text-primary{
+  font-size:20px;
+  color: black
+}
+
+.bottom{
+  margin-top:50px;
+}
+.btn-Primary{
+  margin-top:10px;
+}
+.Container{
+  padding:40px 0;
+  text-align: center;
+  background: linear-gradient(#e66465, #9198e5);
 }
