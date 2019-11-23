@@ -115,19 +115,19 @@ class Menu extends Component {
         document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'true');
         this.setState({
           selected: this.state.categories[i].categoryName,
-          // categorySelected: this.state.allItems['categoryId']
+          //categorySelected: this.state.allItems['categoryId']
         })
         console.log(this.state.categories[i].categoryName)
       }
       else if(x === 500){
-        document.getElementById(`sbItem-500`).setAttribute('sbactive', 'true');
+         // document.getElementById(`sbItem-500`).setAttribute('sbactive', 'true');
         document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'false');
         this.setState({
           selected: 'Full Menu'
         })
       }
       else {
-        document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'false');
+        document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'true');
         document.getElementById(`sbItem-500`).setAttribute('sbactive', 'false');
       }
     }
