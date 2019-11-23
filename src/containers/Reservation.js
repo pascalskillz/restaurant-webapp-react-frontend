@@ -6,7 +6,7 @@ class Reservation extends Component {
   render() {
     return (
       <MyConsumer>
-      {({  }) => (
+      {({ state }) => (
         <div>
           Reservation
         </div>
