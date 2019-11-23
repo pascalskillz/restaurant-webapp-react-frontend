@@ -8,7 +8,7 @@ class Contact extends Component {
   render() {
     return (
       <MyConsumer>
-        {({ }) => (
+        {({ state }) => (
           <div id="">
             <div class="head">
               <h2 className="m-heading">Contact Us</h2>

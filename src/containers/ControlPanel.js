@@ -33,7 +33,7 @@ class ControlPanel extends Component {
   render() {
     return (
       <MyConsumer>
-      {({ }) => (
+      {({ state }) => (
         <div className='cpanel-container'>
           <div className="cpanel-wrapper">
             <header className="cpanel-header">Tandoor Control Panel</header>

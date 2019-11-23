@@ -6,7 +6,7 @@ class Login extends Component {
   render() {
     return (
       <MyConsumer>
-      {({  }) => (
+      {({ state }) => (
         <div className="Container">
           
         <h1 className="signin-text-primary">Sign In</h1>
