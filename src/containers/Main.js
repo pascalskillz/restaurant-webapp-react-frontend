@@ -7,7 +7,7 @@ class Main extends Component {
   render() {
     return (
       <MyConsumer>
-        {({ }) => (
+        {({ state }) => (
           <div>
             <div className="jumbotron">
               <div className="carousel-div">
@@ -33,7 +33,7 @@ class Main extends Component {
 
               <div className="jumbo-grid">
                 <div className="jumbo-left">
-                  <img className="jumbo-img" src={img}/*"https://images.unsplash.com/photo-1466637574441-749b8f19452f"*/ alt="Food Image" />
+                  <img className="jumbo-img" src={img} alt="Food" />
                 </div>
 
                 <div className="jumbo-right">

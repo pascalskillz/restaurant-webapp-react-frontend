@@ -26,20 +26,20 @@ class Navbar extends Component {
   render() {
     return (
       <MyConsumer>
-        {({}) => (
+        {({ state }) => (
           <nav className='navbar'>
             <div className='logo-icon'>
               <div className='logo-div'>
                 <img src={logo2} alt='LOGO!' />
               </div>
               <div className='icon-div'>
-                <a target='_blank' href='http://www.facebook.com'>
+                <a target='_blank' rel="noopener noreferrer" href='http://www.facebook.com'>
                   <i className='fa fa-facebook'></i>
                 </a>
-                <a target='_blank' href='http://www.twitter.com'>
+                <a target='_blank' rel="noopener noreferrer" href='http://www.twitter.com'>
                   <i className='fa fa-twitter'></i>
                 </a>
-                <a target='_blank' href='http://www.instagram.com'>
+                <a target='_blank' rel="noopener noreferrer" href='http://www.instagram.com'>
                   <i className='fa fa-instagram'></i>
                 </a>
               </div>
