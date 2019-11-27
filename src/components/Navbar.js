@@ -71,24 +71,24 @@ class Navbar extends Component {
             <div id="menu-box" style={this.state.boxToggle ? {display: 'initial'} : {display: 'none'} }>
             <div className="box-item" >
              
-            <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=0">Appetizer</a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=1">Chicken Specialty </a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=2">Dosai</a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=3">Lamb Speciality</a></div>
+            <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=1">Appetizer</a></div>
+             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=5">Chicken Specialty </a></div>
+             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=10">Dosai</a></div>
+             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=6">Lamb Speciality</a></div>
            </div>
 
             <div className="box-item" >
             
-            <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=4">Rice Speciality </a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=5">Seafood Specialties </a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=6">Soup</a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=7">Tandoor Bread</a></div>
+            <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=9">Rice Speciality </a></div>
+             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=7">Seafood Specialties </a></div>
+             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=2">Soup</a></div>
+             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=3">Tandoor Bread</a></div>
 
             </div>
             <div className="box-item" >
              
-            <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=8">Tandoor Speciality</a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=9">Vegetarian Speciality</a></div>
+            <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=4">Tandoor Speciality</a></div>
+             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=8">Vegetarian Speciality</a></div>
              <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu">North Indian Dinner/Thali</a></div> 
              <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu">Accompaniments </a></div> 
 

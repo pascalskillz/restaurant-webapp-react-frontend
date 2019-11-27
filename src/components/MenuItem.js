@@ -12,7 +12,7 @@ const MenuItem = props => (
       <span>${props.price}</span>
       <span>{props.id}</span>
     </div>
-    <div className="menu-item-text">{props.name}</div>
+    {/* <div className="menu-item-text">{props.name}</div> */}
   </div>
 );
 
