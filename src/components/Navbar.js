@@ -66,7 +66,7 @@ class Navbar extends Component {
               onClick={() => this.closeBox()}>SIGNUP</NavLink>
               <NavLink className='navbar-brand' to='/contact'onClick={() => this.closeBox()}
               >Contact</NavLink>
-              <NavLink className='navbar-brand' to='/contact'onClick={() => this.closeBox()} >Cart</NavLink>
+              <NavLink className='navbar-brand' to='/cart'onClick={() => this.closeBox()} >Cart</NavLink>
             </div>
 
             <div id="menu-box" style={this.state.boxToggle ? {display: 'initial'} : {display: 'none'} }>
