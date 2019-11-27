@@ -49,7 +49,7 @@ class Navbar extends Component {
               onClick={() => this.closeBox()}>HOME</NavLink>
               <NavLink
                 className='drop-menu'
-               // to='/menu'
+               to='#'
                 onClick={() => this.setToggleBox()}>
                 Menu
               </NavLink> 
