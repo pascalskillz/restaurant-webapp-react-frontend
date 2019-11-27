@@ -30,8 +30,7 @@
 }
 
 .sb-toggle[sbactive='true'] {
-  /* background: var(--opaque); */
-  background: red;
+  background: var(--opaque);
 }
 
 .sb-toggle[sbactive='false'] {
