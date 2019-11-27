@@ -2,45 +2,28 @@ import React, { Component } from 'react';
 import { MyConsumer } from '../Context';
 import { default as Sb } from '../components/SidebarCard';
 import { default as Item } from '../components/MenuItem';
-import '../styles/Menu.css';
-import API from "../utils/API";
+import { Link } from 'react-router-dom';
+import API from '../utils/API';
 import img from '../img/old-logo.jpg';
-import {Link} from 'react-router-dom';
+import '../styles/Menu.css';
+
 class Menu extends Component {
   state = {
-    menuItems: [
-      { id: 0, category: 'Apps', name: 'app1', cookTime: 5, isVegan: false },
-      { id: 1, category: 'Apps', name: 'app2', cookTime: 5, isVegan: false },
-      { id: 2, category: 'Soups', name: 'soup1', cookTime: 5, isVegan: false },
-      { id: 3, category: 'Soups', name: 'soup2', cookTime: 5, isVegan: false },
-      { id: 4, category: 'Soups', name: 'soup3', cookTime: 5, isVegan: false },
-      { id: 5, category: 'Tandoor Breads', name: 'tb1', cookTime: 5, isVegan: false },
-      { id: 6, category: 'Tandoor Breads', name: 'tb2', cookTime: 5, isVegan: false },
-      { id: 7, category: 'Tandoor Breads', name: 'tb3', cookTime: 5, isVegan: false },
-      { id: 8, category: 'Tandoor Breads', name: 'tb4', cookTime: 5, isVegan: false },
-      { id: 9, category: 'Tandoor Breads', name: 'tb5', cookTime: 5, isVegan: false },
-      { id: 10, category: 'Tandoor Breads', name: 'tb6', cookTime: 5, isVegan: false },
-      { id: 11, category: 'Tandoor Breads', name: 'tb7', cookTime: 5, isVegan: false },
-      { id: 12, category: 'Tandoor Breads', name: 'tb8', cookTime: 5, isVegan: false },
-      { id: 13, category: 'Tandoor Breads', name: 'tb9', cookTime: 5, isVegan: false },
-      { id: 14, category: 'Tandoor Specials', name: 'ts2', cookTime: 5, isVegan: false },
-      { id: 15, category: 'Tandoor Specials', name: 'ts1', cookTime: 5, isVegan: false },
-    ],
     favs: [],
     allItems: [],
     categories: [],
     allItemsLoading: true,
     categoryLoading: true,
-    selected: 'Loading...',
-  }
+    selected: 'Loading...'
+  };
 
   componentDidMount() {
     // this.getFavorites()
-    this.gatherAllItems()
-    this.getCategories()
     // this.getAllMenuItems()
+    this.gatherAllItems();
+    this.getCategories();
   }
-  
+
   // getAllMenuItems = async() => {
   //   API
   //     .getAllMenuItems()
@@ -49,90 +32,101 @@ class Menu extends Component {
   //       console.log(data)
   //     })
   // }
-  
-  getOneMenuItem = async(itemId) => {
-    API
-      .getOneMenuItem(itemId)
-      .then( res => {
-        let data = res.data
-        console.log(data)
-      })
-  }
 
-  getCategories = async() => {
-    let sidebar = []
-    await API
-      .getCategories()
-      .then( res => {
-        let categories = res.data
-        // console.log(categories)
-        sidebar = [...categories]
-      })
-    
+  getOneMenuItem = async itemId => {
+    API.getOneMenuItem(itemId).then(res => {
+      let data = res.data;
+      console.log(data);
+    });
+  };
+
+  getCategories = async () => {
+    let sidebar = [];
+    await API.getCategories().then(res => {
+      sidebar[0] = {id: 0};
+      let categories = res.data;
+      // console.log(categories)
+      for (var i of categories){
+        // console.log(i)
+        sidebar[i.id] = i;
+      }
+      console.log(sidebar)
+    });
+
     await this.setState({
       categories: [...sidebar],
-      categoryLoading: false,
-    })
+      categoryLoading: false
+    });
 
+    await this.setFromDropdown();
 
     /** Update started to filter cate. items abdul  */
+    //[if categoryindesxparam is exist, then categoryindex will cateindexpram if not exist , gonna use 500 "Full menu"]
+    // await this.setSidebar(categoryIndex) // await this.setSidebar(categoryIndex)
+    // console.log(paramsString, params, categoryIndexParam);
+    // await console.log('Categories')
+    // await console.log(this.state.categories)
+  };
+
+  setFromDropdown = async () => {
     let paramsString = this.props.location.search;
-    const params = new URLSearchParams(paramsString); 
-    const categoryIndexParam = parseInt(params.get('category')); 
+    const params = new URLSearchParams(paramsString);
+    const categoryIndexParam = parseInt(params.get('category'));
+    // console.log(`categoryIndexParam: ${categoryIndexParam}`)
+    let categoryIndex = categoryIndexParam > 0 ? categoryIndexParam : 0;
+    // console.log(`categoryIndex: ${categoryIndex}`)
+    this.setSidebar(categoryIndex);
+  };
 
-    let categoryIndex = categoryIndexParam || 500; //[if categoryindesxparam is exist, then categoryindex will cateindexpram if not exist , gonna use 500 "Full menu"] 
-    await this.setSidebar(categoryIndex) // await this.setSidebar(categoryIndex)    
-    console.log(paramsString, params, categoryIndexParam); 
-    await console.log('Categories')
-    await console.log(this.state.categories) 
-  
-  }
+  gatherAllItems = async () => {
+    let allItemsArr = [];
+    await API.getAllMenuItems().then(res => {
+      let items = res.data;
+      // console.log(items)
+      allItemsArr = [...items];
+    });
 
-  gatherAllItems = async() => {
-    let allItemsArr = []
-    await API
-      .getAllMenuItems()
-      .then( res => {
-        let items = res.data
-        // console.log(items)
-        allItemsArr = [...items]
-      })
-    
     await this.setState({
       allItems: [...allItemsArr],
-      allItemsLoading: false,
-    })
+      allItemsLoading: false
+    });
     //await console.log('All Items')
-    await console.log(this.state.allItems)
-  }
+    // await console.log(this.state.allItems)
+  };
 
-  setSidebar = async(x) => {
-    
+  setSidebar = async x => {
     let length = this.state.categories.length;
-    console.log(x);
-    for(var i = 0; i < length; i++){
-      if(x === i){
-        document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'true');
-        this.setState({
-          selected: this.state.categories[i].categoryName,
-          //categorySelected: this.state.allItems['categoryId']
-        })
-        console.log(this.state.categories[i].categoryName)
-      }
-      else if(x === 500){
-         // document.getElementById(`sbItem-500`).setAttribute('sbactive', 'true');
-        document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'false');
-        this.setState({
-          selected: 'Full Menu'
-        })
-      }
-      else {
-        document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'true');
-        document.getElementById(`sbItem-500`).setAttribute('sbactive', 'false');
+    // console.log(`setSidebar: ${x}`);
+    if (x === 0) {
+      document.getElementById(`sbItem-0`).setAttribute('sbactive', 'true');
+      this.setState({
+        selected: 'Full Menu',
+        selectedId: 0
+      });
+      for (var j = 1; j < length; j++) {
+          document.getElementById(`sbItem-${j}`).setAttribute('sbactive', 'false');
+        } 
+    }
+    if (x !== 0) {
+      document.getElementById(`sbItem-0`).setAttribute('sbactive', 'false');
+      for (var i = 1; i < length; i++) {
+        if (x === i) {
+          document.getElementById(`sbItem-${i}`).setAttribute('sbactive', 'true');
+          this.setState({
+            selected: this.state.categories[i].categoryName,
+            selectedId: i
+            //categorySelected: this.state.allItems['categoryId']
+          });
+          // console.log(this.state.categories[i].categoryName)
+        } 
+        else {
+          document
+            .getElementById(`sbItem-${i}`)
+            .setAttribute('sbactive', 'false');
+        }
       }
     }
-  }
-  
+  };
 
   // NOT CURRENTLY BEING USED
   // getFavorites = async() => {
@@ -150,61 +144,84 @@ class Menu extends Component {
   // }
 
   render() {
-    const filteredItemList = this.state.categories.filter(item => {
-      //console.log(item)
-      return item.categoryName === this.state.selected
-    })
-    .map((item, index) => (
-      <div key={index} className="filtered-grid-item">
-        <Item img={img} name={item.name} id={item.id} />
-      </div>
-      )
-    )
+    const filteredItemList = this.state.allItems
+      .filter(item => {
+        //console.log(item)
+        return item.categoryId === this.state.selectedId;
+      })
+      .map((item, index) => (
+        <div key={index} className='filtered-grid-item'>
+          <Link to={'/item/' + item.id}>
+            <Item
+              img={item.imageUrl}
+              name={item.itemName}
+              price={item.itemPrice}
+              id={item.id}
+            />
+          </Link>
+        </div>
+      ));
 
     const allItemsList = this.state.allItems.map((item, index) => (
-      
-      <div key={index} className="all-grid-item">
-        <Link to={'/item/'+item.id}>
-        <Item img={item.imageUrl} name={item.itemName} price={item.itemPrice} id={item.id}/>
+      <div key={index} className='all-grid-item'>
+        <Link to={'/item/' + item.id}>
+          <Item
+            img={item.imageUrl}
+            name={item.itemName}
+            price={item.itemPrice}
+            id={item.id}
+          />
         </Link>
       </div>
-     
-    ))
+    ));
 
     return (
       <MyConsumer>
         {({ state }) => (
-          <div className="menu-div">
-            <div className="menu-sidebar">
-              <div className="sidebar-top-div sb-toggle" id='sbItem-500' onClick={() => this.setSidebar(500)}>
+          <div className='menu-div'>
+            <div className='menu-sidebar'>
+              <div
+                className='sidebar-top-div sb-toggle'
+                id='sbItem-0'
+                onClick={() => this.setSidebar(0)}>
                 <Sb name='Full Menu' img={img} />
               </div>
-              <div className="sidebar-inner-div">
-                { 
-                  this.state.categoryLoading
-                  ?
+              <div className='sidebar-inner-div'>
+                {this.state.categoryLoading ? (
                   <div>Loading...</div>
-                  :
-                  this.state.categories.map((item, index) => (
-                    <div key={index} id={`sbItem-${index}`} className="sidebar-inner-item sb-toggle" sbactive='false' onClick={() => this.setSidebar(index)}>
+                ) : (
+                  this.state.categories
+                  .filter(filterItem => {
+                    console.log(filterItem.id)
+                    return filterItem.id > 0
+                  })
+                  .map((item, index) => (
+                    <div
+                      key={index}
+                      id={`sbItem-${item.id}`}
+                      className='sidebar-inner-item sb-toggle'
+                      sbactive='false'
+                      onClick={() => this.setSidebar(item.id)}>
                       <Sb name={item.categoryName} img={img} />
                     </div>
                   ))
-                }
-
+                )}
               </div>
             </div>
-            <div className="menu-categories">
-              <div className="category-title-div">
-                <div className="title-header-text">{this.state.selected}</div>
-
+            <div className='menu-categories'>
+              <div className='category-title-div'>
+                <div className='title-header-text'>{this.state.selected}</div>
               </div>
-              <div className="category-item-container">
-                {
-                  this.state.selected === 'Full Menu'
-                  ? !this.state.allItemsLoading ? <div className='all-item-div'>{ allItemsList }</div> : <div>Loading...</div> 
-                  : <div className='category-item-div'>{ filteredItemList }</div>
-                }
+              <div className='category-item-container'>
+                {this.state.selected === 'Full Menu' ? (
+                  !this.state.allItemsLoading ? (
+                    <div className='all-item-div'>{allItemsList}</div>
+                  ) : (
+                    <div>Loading...</div>
+                  )
+                ) : (
+                  <div className='category-item-div'>{filteredItemList}</div>
+                )}
               </div>
             </div>
           </div>
@@ -213,6 +230,5 @@ class Menu extends Component {
     );
   }
 }
-
 
 export default Menu;
