@@ -14,9 +14,9 @@ const Detail = props => {
           <div>
             <p>{props.desc}</p>
           </div>
-        </div>
         <div className="item-button">
           <button>Add To Cart</button>
+        </div>
         </div>
       </div>
       <div className="row"></div>
