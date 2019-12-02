@@ -9,7 +9,8 @@
   grid-template-rows: repeat(2, min-content);
   /*background-image: url('../img/bgimg.jpg') >>>> navbar bachground; need update logo later*/
   /* padding-top:6rem; */
- 
+ position:sticky;       /*sticky menu-box*/
+ top: 0;
 }
 
 
@@ -97,6 +98,7 @@
   height: 400px; /* Should be removed. Only for demonstration */
   margin-top: 15px;
   text-decoration: none;
+  /* position: -webkit-sticky; */
 }
 
 /* Clear floats after the columns -- not impo.*/
@@ -128,6 +130,7 @@ background: white;
 .fu-me{
   text-align:center;
  padding: 5%;
+
 }
 /* test hover*/
 .menu-list{
