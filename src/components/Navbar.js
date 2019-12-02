@@ -48,7 +48,7 @@ class Navbar extends Component {
               <NavLink className='navbar-brand' to='/' 
               onClick={() => this.closeBox()}>HOME</NavLink>
               <NavLink
-                className='drop-menu'
+                className='navbar-brand'
                to='#'
                 onClick={() => this.setToggleBox()}>
                 Menu
