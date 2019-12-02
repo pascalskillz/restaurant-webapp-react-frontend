@@ -14,6 +14,7 @@ import ControlPanel from "./containers/ControlPanel";
 import AuthRoute from "./components/AuthRoute";
 import Test from "./containers/Test";
 import Item from "./containers/Item";
+import Cart from "./containers/Cart";
 
 import "./styles/App.css";
 
@@ -32,6 +33,7 @@ const App = () => (
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/admin" component={Admin} />
             <Route exact path="/test" component={Test} />
+            <Route exact path="/cart" component={Cart} />
             <Route path="/item/:id" component={Item} />
             <AuthRoute exact path="/cPanel" component={ControlPanel} />
             <Route component={Main} />
