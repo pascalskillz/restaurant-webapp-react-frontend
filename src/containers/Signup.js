@@ -6,7 +6,7 @@ class Signup extends Component {
   render() {
     return (
       <MyConsumer>
-      {({  }) => (
+      {({ state }) => (
         <div className="Container">
           <h1 className="Signup-text-primary"><i></i>Sgin Up</h1>
           <p className="lead2">Create Your account</p>

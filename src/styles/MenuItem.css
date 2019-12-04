@@ -7,6 +7,23 @@
   width: 200px;
 }
 
-.menu-item-image {
-  max-width: 150px;
+.menu-item-image img {
+  max-width: 200px;
+  max-height: 300px;
+}
+
+.menu-item-text {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.menu-item-image{
+  height:auto;
+}
+.menu-item-image img{
+  height:20rem;
+  width:20rem;
+  object-fit: cover;
 }

@@ -129,6 +129,7 @@ class Reservation extends Component {
 
     return (
       <MyConsumer>
+<<<<<<< HEAD
       {({  }) => (
       <>
         <div id="imgGallery">
@@ -175,6 +176,11 @@ class Reservation extends Component {
           <div>No Of People : {`${this.state.noOfPeople}`}</div>
           <div>Date : {`${this.state.bookingDate.getDate()}/${this.state.bookingDate.getMonth()}/${this.state.bookingDate.getFullYear()}`}</div>
           <div>Time : {`${this.state.tableSelected}`}</div>
+=======
+      {({ state }) => (
+        <div>
+          Reservation
+>>>>>>> 1ab692ae77ad682ca83c0ab2ea73c2dc5d3d7a3d
         </div>
       </>
       )}

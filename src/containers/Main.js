@@ -7,22 +7,22 @@ class Main extends Component {
   render() {
     return (
       <MyConsumer>
-        {({ }) => (
+        {({ state }) => (
           <div>
-
             <div className="jumbotron">
               <div className="carousel-div">
                 <Carousel
-                  width="500px"
-                  autoplay='true'
+                  width="1150px"
+                  height="350px"
+                  autoplay="true"
                   autoplayInterval='2000'
-                  wrapAround='true'
-                  pauseOnHover='true'
+                  wrapAround="true"
+                  pauseOnHover="true"
                   renderCenterLeftControls={({ previousSlide }) => (
-                    <div onClick={previousSlide}><i class="carousel-button fas fa-chevron-circle-left"></i></div>
+                    <div onClick={previousSlide}><i className="carousel-button fas fa-chevron-circle-left"></i></div>
                   )}
                   renderCenterRightControls={({ nextSlide }) => (
-                    <div onClick={nextSlide}><i class="carousel-button fas fa-chevron-circle-right"></i></div>
+                    <div onClick={nextSlide}><i className="carousel-button fas fa-chevron-circle-right"></i></div>
                   )}
                 >
                   <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb" alt='Slideshow Image1' />
@@ -31,9 +31,9 @@ class Main extends Component {
                 </Carousel>
               </div>
 
-              <div class="jumbo-grid">
+              <div className="jumbo-grid">
                 <div className="jumbo-left">
-                  <img className="jumbo-img" src={img}/*"https://images.unsplash.com/photo-1466637574441-749b8f19452f"*/ alt="Food Image" />
+                  <img className="jumbo-img" src={img} alt="Food" />
                 </div>
 
                 <div className="jumbo-right">
@@ -44,6 +44,9 @@ class Main extends Component {
                     <a className="jumbo-button button" href="/reservation">Reservation</a>
                   </div>
                   <div className="jumbo-text-small">We serve only the finest Indian cuisine</div>
+                  <div className="bottom">
+                    {new Date().toString()}
+                  </div>
                 </div>
               </div>
             </div>

@@ -11,10 +11,15 @@ export class MyProvider extends Component {
 
   }
 
-  login = (e, username) => {
+  adminLogin = (e, username, cookieData) => {
     e.preventDefault();
     if (username === 'admin'){
       this.setState({ isAdminLoggedIn: true })
+      let d = new Date();
+      d.setTime(d.getTime() + (5*60*60*1000));
+      let expires = d.toUTCString();
+      document.cookie = `username=${cookieData}; expires=${expires}`
+      console.log(document.cookie)
     }
     else {
       this.setState({ invalidLogin: true })
@@ -22,7 +27,7 @@ export class MyProvider extends Component {
     }
     
   }
-
+  
   render () {
     return (
       <MyContext.Provider value={{
@@ -32,7 +37,9 @@ export class MyProvider extends Component {
         invalidLogin: this.state.invalidLogin,
 
         //functions
-        login: this.login,
+        adminLogin: this.adminLogin,
+        addCookie: this.addCookie,
+        checkCookie: this.checkCookie,
 
       }}>
         {this.props.children}
