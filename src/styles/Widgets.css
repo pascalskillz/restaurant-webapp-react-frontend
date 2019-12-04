@@ -1,4 +1,4 @@
-/* ---------- CREATE WIDGET */
+/* -------------------- CREATE WIDGET */
 .cpanel-create-div {
   grid-area: form;
   display: grid;
@@ -151,43 +151,55 @@
   overflow: scroll;
 }
 
-/* ---------- EDIT WIDGET */
+/* -------------------- EDIT WIDGET */
 .cpanel-edit-div {
-  margin-top: 20px;
   display: grid;
-  grid:
-    'image form' auto / 1.25fr 2fr
+  grid-template-areas:
+    'select' 
+    'image-form' 
+    'button';
+  grid-template-rows: 25em 25em 1fr;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  text-align: center;
 }
 
-.edit-image {
-  grid-area: image;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.edit-dropdown {
+  grid-area: select;
+}
+
+.edit-image-form-div {
+  display: grid;
+  grid-template-columns: minmax(200px, 20vw) minmax(200px, 40vw);
+  height: 25em;
+}
+
+.edit-photo {
+
+}
+
+.edit-photo > img {
+  /* max-width: 50px; */
+  /* max-height: 100px; */
+  width: 200px;
+  height: 300px;
 }
 
 .edit-form {
-  grid-area: form;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto;
-  grid-template-areas: 
-    'left right'
-    'submit submit';
+
+  display: flex;
+  flex-direction: column;
 }
 
-.edit-form-left {
-  grid-area: left;
-  padding: 0 2rem;
+.edit-save-button {
+  grid-area: button;
 }
 
-.edit-form-right {
-  grid-area: right;
-  padding: 0 2rem;
+.edit-table {
+  height: 20em;
 }
 
-.edit-form-submit {
-  margin-top: 50px;
-  grid-area: submit;
+.edit-item-select:hover {
+  color: green;
+  cursor: pointer;
 }
-
