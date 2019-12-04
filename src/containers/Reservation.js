@@ -128,18 +128,13 @@ class Reservation extends Component {
 ]
 
     return (
-      <MyConsumer>
-<<<<<<< HEAD
-      {({  }) => (
-      <>
-        <div id="imgGallery">
-        
-        
-        </div>
-        <div id="divReservation" style={{display: this.state.bookingConfirmed ? 'none' : ''}}>
-        <div id="divReservationOptions">
-          <div id="divDatePicker">
-          <DatePicker selected={this.state.bookingDate}
+      // <MyConsumer>
+        {/* {({  }) => ( */}
+          <div>
+         <div id="divReservation" style={{display: this.state.bookingConfirmed ? 'none' : ''}}>
+         <div id="divReservationOptions">
+           <div id="divDatePicker">
+           <DatePicker selected={this.state.bookingDate}
                       onChange={this.handleChange}>
                       </DatePicker>
           <FontAwesomeIcon icon={faCalendar}>
@@ -176,17 +171,9 @@ class Reservation extends Component {
           <div>No Of People : {`${this.state.noOfPeople}`}</div>
           <div>Date : {`${this.state.bookingDate.getDate()}/${this.state.bookingDate.getMonth()}/${this.state.bookingDate.getFullYear()}`}</div>
           <div>Time : {`${this.state.tableSelected}`}</div>
-=======
-      {({ state }) => (
-        <div>
-          Reservation
->>>>>>> 1ab692ae77ad682ca83c0ab2ea73c2dc5d3d7a3d
-        </div>
-      </>
-      )}
-    </MyConsumer>
-    );
-  }
-}
+  </div>
+        )// return
+        } // render
+        } // component
 
 export default Reservation;
