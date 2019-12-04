@@ -96,3 +96,15 @@ footer {
 .cpanel-action-container {
   margin-top: 20px;
 }
+
+.radio-div {
+  display: flex;
+}
+
+.radio-group {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  margin-right: auto;
+}

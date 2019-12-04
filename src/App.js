@@ -14,7 +14,6 @@ import ControlPanel from "./containers/ControlPanel";
 import AuthRoute from "./components/AuthRoute";
 import Test from "./containers/Test";
 import Item from "./containers/Item";
-
 import "./styles/App.css";
 
 const App = () => (
