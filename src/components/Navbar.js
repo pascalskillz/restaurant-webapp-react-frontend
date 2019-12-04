@@ -48,8 +48,8 @@ class Navbar extends Component {
               <NavLink className='navbar-brand' to='/' 
               onClick={() => this.closeBox()}>HOME</NavLink>
               <NavLink
-                className='drop-menu'
-               // to='/menu'
+                className='navbar-brand'
+               to='#'
                 onClick={() => this.setToggleBox()}>
                 Menu
               </NavLink> 
@@ -66,6 +66,7 @@ class Navbar extends Component {
               onClick={() => this.closeBox()}>SIGNUP</NavLink>
               <NavLink className='navbar-brand' to='/contact'onClick={() => this.closeBox()}
               >Contact</NavLink>
+              <NavLink className='navbar-brand' to='/cart'onClick={() => this.closeBox()} >Cart</NavLink>
             </div>
 
             <div id="menu-box" style={this.state.boxToggle ? {display: 'initial'} : {display: 'none'} }>
