@@ -18,6 +18,8 @@ class Login extends Component {
                 placeholder="Email-Address"
                 name="email"
                 required/>
+                <br/>
+                <br/>
                 <input
                 type="password"
                 placeholder="Password"
