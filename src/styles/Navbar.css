@@ -45,7 +45,7 @@
 .dropdown-div {
   z-index: 99;
   grid-area: dropdown;
-  margin-top: 120px;
+  margin-top: 170px;
   position: fixed;
   width: 90%;
   background: hsl(210, 12.2%, 16.1%);
