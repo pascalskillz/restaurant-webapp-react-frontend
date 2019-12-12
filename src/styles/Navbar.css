@@ -45,7 +45,7 @@
 .dropdown-div {
   z-index: 99;
   grid-area: dropdown;
-  margin-top: 170px;
+  margin-top: 123px;
   position: fixed;
   width: 90%;
   background: hsl(210, 12.2%, 16.1%);
@@ -53,7 +53,9 @@
   height: 50px;
   justify-content: space-around;
   align-items: center;
-  background-color: rgb(255, 255, 255); /* 2- navbar background*/
+  background:  black /* rgb(255, 255, 255); /* 2- navbar background*/
+
+  /*url("../img/background-image.jpg");*/
   
 }
 
@@ -61,14 +63,14 @@
   /* background-color: rgb(71, 68, 67) */
   background-color:rgb(122, 117, 117);opacity:0.9;
     /* OnClick color*/
-
+height: 50px;
 }
 
 
 .dropdown-div a {
   overflow: hidden;
   font-weight: bold;
-  color: black;    /* 1- nav component color */
+  color: #fff;    /* 1- nav component color */
   /* listWord color*/
   padding: 12px 25px;
   /* size of onclick style    */
@@ -87,7 +89,7 @@
   transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
   /*height: 80%;*/
   /* text-decoration: none; */
-
+width: 102%;
    
 }
 /* new test*/ 
@@ -100,6 +102,7 @@
   padding: 10px;
   height: 400px; /* Should be removed. Only for demonstration */
   margin-top: 15px;
+  
   /* text-decoration: none;
   text-decoration-style: none; */
   
