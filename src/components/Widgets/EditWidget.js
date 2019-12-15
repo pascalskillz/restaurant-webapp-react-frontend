@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../../styles/Widgets.css';
 import API from '../../utils/API';
 
 class EditWidget extends Component {
@@ -6,12 +7,22 @@ class EditWidget extends Component {
     menuItems: [],
     filterSimilar: '',
     menuItemsLoading: true,
-    selectedItem: {}
+    selectedItem: {
+      itemName: '',
+      itemPrice: '',
+      cookTime: '',
+      description: '',
+      vegan: false,
+      special: false,
+      itemImage: '',
+      similarList: [],
+      imageUrl: ''
+    }
 
     // itemname: '',
     // itemprice: '',
     // cooktime: '',
-    // itemdescription: '',
+    // description: '',
     // isvegan: false,
     // isspecial: false,
     // itemimage: '',
@@ -23,8 +34,35 @@ class EditWidget extends Component {
     this.gatherAllItems();
   }
 
+  widget = window.cloudinary.createUploadWidget(
+    {
+      cloudName: 'yowats0n',
+      uploadPreset: 'twibcpgv'
+    },
+    (error, result) => {
+      if (error) {
+        console.log(error);
+      }
+      this.uploadImage(result, this.widget);
+    }
+  );
+
+  uploadImage = (resultEvent, widget) => {
+    if (resultEvent.event === 'success') {
+      let url = resultEvent.info.secure_url;
+      widget.close();
+      this.setState({
+        newImageUrl: url
+      });
+    }
+  };
+
+  showWidget = (e, widget) => {
+    e.preventDefault();
+    widget.open();
+  };
+
   handleInputChange = event => {
-    // event.preventDefault()
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -53,6 +91,7 @@ class EditWidget extends Component {
     await API.getOneMenuItem(id).then(res => {
       console.log(res.data);
       item = {
+        itemId: res.data.id,
         categoryId: res.data.categoryId,
         cookTime: res.data.cookTime,
         description: res.data.description,
@@ -155,20 +194,98 @@ class EditWidget extends Component {
             </div>
           </div>
         </div>
-        <div className='edit-image-form-div'>
+        <div className='edit-item-form-div'>
           <div className='edit-photo'>
             <img
               src={this.state.selectedItem.imageUrl}
               alt={this.state.selectedItem.itemName}
             />
+            <div className='edit-image-button-div'>
+              <button
+                className='button upload-button'
+                onClick={e => this.showWidget(e, this.widget)}>
+                <i className='fas fa-cloud-upload-alt'></i> Edit Image
+              </button>
+            </div>
           </div>
-          <div className='edit-form'>
-            <span>{this.state.selectedItem.itemName}</span>
-            <span>{this.state.selectedItem.itemPrice}</span>
-            <span>{this.state.selectedItem.description}</span>
+          <div className='edit-item-form-container'>
+            {!this.state.selectedItem ? (
+              <span>Select an item</span>
+            ) : (
+              <div className='edit-form-inner-div'>
+                <div className='edit-item-heading'>
+                  {this.state.selectedItem.itemName
+                    ? `${this.state.selectedItem.itemName} - ${this.state.selectedItem.itemId}`
+                    : 'Select an item from above'}
+                </div>
+                <div className='edit-item-form-all-items'>
+                  <div className='edit-form-item'>
+                    <label htmlFor='itemName'>Item Name</label>
+                    <input
+                      name='itemName'
+                      type='text'
+                      id='editItemName'
+                      value={this.state.selectedItem.itemName || ''}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='itemPrice'>Item Price</label>
+                    <input
+                      name='itemPrice'
+                      type='number'
+                      id='editItemPrice'
+                      value={this.state.selectedItem.itemPrice || ''}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='cookTime'>Cook Time</label>
+                    <input
+                      name='cookTime'
+                      type='number'
+                      id='editCookTime'
+                      value={this.state.selectedItem.cookTime || ''}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='vegan'>Vegan?</label>
+                    <input
+                      name='vegan'
+                      type='checkbox'
+                      id='editVegan'
+                      value={this.state.selectedItem.vegan || false}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='special'>Special?</label>
+                    <input
+                      name='special'
+                      type='checkbox'
+                      id='editSpecial'
+                      value={this.state.selectedItem.special || false}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='description'>Item Description</label>
+                    <textarea
+                      name='description'
+                      type='textarea'
+                      className='form-control'
+                      id='editItemDescription'
+                      value={this.state.selectedItem.description || ''}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
-        <div className='edit-save-button'>
+        <div className='edit-save-button-div'>
           <button className='btn btn-danger'>CANCEL</button>
           <button className='btn'>SAVE</button>
         </div>
