@@ -13,18 +13,19 @@ class Signup extends Component {
         <form className="-signup-form" action="Create-profile.html">
           <div className="signup-form-group">
             <input type="text" placeholder="Name" name="name" required/>
-          </div>
+          </div><br/>
           <div>
             <input type="email" placeholder="Email Address" name="email" required/>
         
-          </div>
+          </div><br/>
           <div>
           <input type="password" placeholder="Password" name="password1" required/>
-          </div>
+          </div><br/>
           <div>
             <input type="password" placeholder="Confirm Password" name="password2" minlength="7"/>
 
           </div>
+          <br/>
           <input type="submit" className="bttn btn-primary" value="Register"/>
         
         </form>

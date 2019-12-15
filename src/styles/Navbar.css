@@ -45,7 +45,7 @@
 .dropdown-div {
   z-index: 99;
   grid-area: dropdown;
-  margin-top: 120px;
+  margin-top: 123px;
   position: fixed;
   width: 90%;
   background: hsl(210, 12.2%, 16.1%);
@@ -53,21 +53,24 @@
   height: 50px;
   justify-content: space-around;
   align-items: center;
-  background-color: rgb(10, 6, 0);
+  background:  black /* rgb(255, 255, 255); /* 2- navbar background*/
+
+  /*url("../img/background-image.jpg");*/
   
 }
 
 .dropdown-div a:hover {
-  background-color: rgb(71, 68, 67)
+  /* background-color: rgb(71, 68, 67) */
+  background-color:rgb(122, 117, 117);opacity:0.9;
     /* OnClick color*/
-
+height: 50px;
 }
 
 
 .dropdown-div a {
   overflow: hidden;
   font-weight: bold;
-  color: white;
+  color: #fff;    /* 1- nav component color */
   /* listWord color*/
   padding: 12px 25px;
   /* size of onclick style    */
@@ -79,12 +82,14 @@
 
 #menu-box {
   margin-top: 200px;/*400px*/
-  background: gray;
+  /* background: rgb(168, 160, 160); */
+  background-color:rgb(122, 117, 117);opacity:0.9;
   color: rgb(15, 13, 13);
   transform: translateY(-2em);
   transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
   /*height: 80%;*/
-
+  /* text-decoration: none; */
+width: 102%;
    
 }
 /* new test*/ 
@@ -97,8 +102,10 @@
   padding: 10px;
   height: 400px; /* Should be removed. Only for demonstration */
   margin-top: 15px;
-  text-decoration: none;
-  /* position: -webkit-sticky; */
+
+  
+
+ 
 }
 
 /* Clear floats after the columns -- not impo.*/
@@ -119,20 +126,37 @@ background: white;
 .full-menu {
   color: white;
   text-decoration: black;
-  padding: 15px 32px;
+  /* padding: 15px 15px; */
   text-align: center;
-  text-decoration: none;
   display: inline-block;
   background: #fff;
-    border: .0625rem solid #adadad;
-    border-radius: .25rem;
+  border: .0625rem solid #adadad;
+  border-radius: .25rem;
+  font-weight: bold;
+  box-shadow: 0 0.09375rem 0.09375rem 0 rgba(0,0,0,.08);
+  padding: .8125rem 1.5625rem;
+  cursor: pointer;
+  font-size: .875rem;
+  line-height: 1.25rem;
 }
+.full-menu a{text-decoration: none;}
 .fu-me{
-  text-align:center;
- padding: 5%;
+text-align:center;
+padding: 5%;
+/* height: 15px; */
 
 }
 /* test hover*/
-.menu-list{
+.menu-list {
   color: black;
+  line-height: 5rem;
+  font-size: 18px;
 }
+
+.box-item a{
+text-decoration: none;
+font-weight: 500;
+}
+a:hover { color: WindowText; }
+
+

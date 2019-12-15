@@ -67,6 +67,7 @@
     width:8rem;
     height:30rem;
     padding:0 5rem;
+    position: sticky; /*Paste the zoom + - onto the map*/
   }
   .map .map-title{
     height:auto;
@@ -101,7 +102,7 @@
    }
 
    #message{
-     height:20rem;
+     height:16rem;
    }
    .leaflet-container {
     margin: 0 auto;

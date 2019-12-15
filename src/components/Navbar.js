@@ -51,28 +51,28 @@ class Navbar extends Component {
                 className='navbar-brand'
                to='#'
                 onClick={() => this.setToggleBox()}>
-                Menu
+                MENU
               </NavLink> 
               <NavLink
                 className='navbar-brand'
                 to='/reservation'
                 onClick={() => this.closeBox()}>
-                Reservation
+                RESERVATION
               </NavLink> 
 
               <NavLink className='navbar-brand' to='/login' 
-              onClick={() => this.closeBox()}>Login</NavLink>
+              onClick={() => this.closeBox()}>LOGIN</NavLink>
               <NavLink className='navbar-brand' to='/signup'
               onClick={() => this.closeBox()}>SIGNUP</NavLink>
               <NavLink className='navbar-brand' to='/contact'onClick={() => this.closeBox()}
-              >Contact</NavLink>
-              <NavLink className='navbar-brand' to='/cart'onClick={() => this.closeBox()} >Cart</NavLink>
+              >CONTACT</NavLink>
+              <NavLink className='navbar-brand' to='/cart'onClick={() => this.closeBox()} >CART</NavLink>
             </div>
 
             <div id="menu-box" style={this.state.boxToggle ? {display: 'initial'} : {display: 'none'} }>
             <div className="box-item" >
              
-            <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=1">Appetizer</a></div>
+            <div><img className='img11' src={logo2} alt='LOGO!'/>  <a  className="menu-list"href="/menu?category=1">Appetizer</a></div>
              <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=5">Chicken Specialty </a></div>
              <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=10">Dosai</a></div>
              <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=6">Lamb Speciality</a></div>
@@ -80,7 +80,7 @@ class Navbar extends Component {
 
             <div className="box-item" >
             
-            <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=9">Rice Speciality </a></div>
+            <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=9" >Rice Speciality </a></div>
              <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=7">Seafood Specialties </a></div>
              <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=2">Soup</a></div>
              <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=3">Tandoor Bread</a></div>
