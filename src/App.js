@@ -15,6 +15,7 @@ import AuthRoute from "./components/AuthRoute";
 import Test from "./containers/Test";
 import Item from "./containers/Item";
 import Cart from "./containers/Cart";
+import ReservationDetails from "./containers/ReservationDetails";
 
 import "./styles/App.css";
 
@@ -29,6 +30,7 @@ const App = () => (
             <Route exact path="/login" component={Login} />
             <Route exact path="/menu" component={Menu} />
             <Route exact path="/reservation" component={Reservation} />
+            <Route exact path="/reservation/details" component={ReservationDetails} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/admin" component={Admin} />
