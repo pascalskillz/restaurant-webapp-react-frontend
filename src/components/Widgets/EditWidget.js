@@ -1,87 +1,294 @@
 import React, { Component } from 'react';
+import '../../styles/Widgets.css';
+import API from '../../utils/API';
 
 class EditWidget extends Component {
+  state = {
+    menuItems: [],
+    filterSimilar: '',
+    menuItemsLoading: true,
+    selectedItem: {
+      itemName: '',
+      itemPrice: '',
+      cookTime: '',
+      description: '',
+      vegan: false,
+      special: false,
+      itemImage: '',
+      similarList: [],
+      imageUrl: ''
+    }
+
+    // itemname: '',
+    // itemprice: '',
+    // cooktime: '',
+    // description: '',
+    // isvegan: false,
+    // isspecial: false,
+    // itemimage: '',
+    // similarList: [],
+    // imageUrl: ''
+  };
+
+  componentDidMount() {
+    this.gatherAllItems();
+  }
+
+  widget = window.cloudinary.createUploadWidget(
+    {
+      cloudName: 'yowats0n',
+      uploadPreset: 'twibcpgv'
+    },
+    (error, result) => {
+      if (error) {
+        console.log(error);
+      }
+      this.uploadImage(result, this.widget);
+    }
+  );
+
+  uploadImage = (resultEvent, widget) => {
+    if (resultEvent.event === 'success') {
+      let url = resultEvent.info.secure_url;
+      widget.close();
+      this.setState({
+        newImageUrl: url
+      });
+    }
+  };
+
+  showWidget = (e, widget) => {
+    e.preventDefault();
+    widget.open();
+  };
+
+  handleInputChange = event => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  };
+
+  gatherAllItems = async () => {
+    let allItemsArr = [];
+    await API.getAllMenuItems().then(res => {
+      let items = res.data;
+      // console.log(items)
+      allItemsArr = [...items];
+    });
+
+    await this.setState({
+      menuItems: [...allItemsArr],
+      menuItemsLoading: false
+    });
+  };
+
+  selectItemForEdit = async id => {
+    let item = {};
+    await API.getOneMenuItem(id).then(res => {
+      console.log(res.data);
+      item = {
+        itemId: res.data.id,
+        categoryId: res.data.categoryId,
+        cookTime: res.data.cookTime,
+        description: res.data.description,
+        imageUrl: res.data.imageUrl,
+        itemName: res.data.itemName,
+        itemPrice: res.data.itemPrice,
+        // similarItems: Array [],
+        special: res.data.special,
+        vegan: res.data.vegan
+      };
+    });
+
+    await this.setState({
+      selectedItem: item
+    });
+  };
+
+  saveMenuItem = async e => {
+    e.preventDefault();
+
+    // await console.log(submitData)
+    await API;
+  };
+
   render() {
+    const filterList = this.state.menuItems
+      .filter(item => {
+        return (
+          item.itemName
+            .toLowerCase()
+            .indexOf(this.state.filterSimilar.toLowerCase()) >= 0
+        );
+      })
+      .map((item, index) => (
+        <tr key={index}>
+          <th scope='row'>{item.id}</th>
+          <td
+            onClick={() => this.selectItemForEdit(item.id)}
+            className='edit-item-select'>
+            {item.itemName}
+          </td>
+        </tr>
+      ));
+
+    const allItemsList = this.state.menuItems.map((item, index) => (
+      <tr key={index}>
+        <th scope='row'>{item.id}</th>
+        <td
+          onClick={() => this.selectItemForEdit(item.id)}
+          className='edit-item-select'>
+          {item.itemName}
+        </td>
+      </tr>
+    ));
+
     return (
-      <div className="cpanel-edit-div">
-
-      <div className="edit-image">
-        IMAGE
-      </div>
-
-      <div className="edit-form">
-        <div className="edit-form-left">
-          <form>
-
-            <div className="form-group">
-              <label htmlFor="itemName">Item Name</label>
-              <input type="text" className="form-control" id="createItemName" aria-describedby="createItem" placeholder="Enter Item Name"/>
-              <small id="createNameDesc" className="form-text text-muted">Enter the name for the menu item</small>
+      <div className='cpanel-edit-div'>
+        <div className='edit-dropdown'>
+          <div className='select-edit-item-div'>
+            <small id='createSimilarDesc' className='form-text text-muted'>
+              Select a menu item to edit/update
+            </small>
+            <input
+              name='filterSimilar'
+              type='text'
+              className='form-control'
+              id='editFilterSimilar'
+              aria-describedby='filterSimilar'
+              placeholder='Search Item Name'
+              value={this.state.filterSimilar}
+              onChange={this.handleInputChange}
+            />
+            <div className='table-scroll edit-table'>
+              <table className='table table-striped'>
+                <thead className='thead-dark'>
+                  <tr>
+                    <th scope='col'>#</th>
+                    <th scope='col'>Item Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {// if the filter bar is empty
+                  this.state.filterSimilar.length < 1 ? (
+                    // display the all items once loaded
+                    !this.state.menuItemsLoading ? (
+                      allItemsList
+                    ) : (
+                      <tr>
+                        <th scope='row'>-</th>
+                        <td>Loading...</td>
+                        <td> </td>
+                      </tr>
+                    )
+                  ) : (
+                    // else display filtered items
+                    filterList
+                  )}
+                </tbody>
+              </table>
             </div>
-
-            <br/>
-
-            <div className="form-group">
-              <label htmlFor="itemPrice">Item Price</label>
-              <input type="number" className="form-control" id="createItemPrice" aria-describedby="createItem" placeholder="Enter Item Price"/>
-              <small id="createPriceDesc" className="form-text text-muted">Enter the price for the menu item</small>
-            </div>
-
-            <br/>
-
-            <div className="form-group">
-              <label htmlFor="itemPrice">Cook Time</label>
-              <input type="number" className="form-control" id="createItemPrice" aria-describedby="createItem" placeholder="Enter Item Price"/>
-              <small id="createPriceDesc" className="form-text text-muted">Enter the price for the menu item</small>
-            </div>
-
-          </form>
+          </div>
         </div>
-        <div className="edit-form-right">
-          <form>
-
-            <div className="form-group">
-              <label htmlFor="itemPrice">Item Description</label>
-              <input type="number" className="form-control" id="createItemPrice" aria-describedby="createItem" placeholder="Enter Item Price"/>
-              <small id="createPriceDesc" className="form-text text-muted">Enter the price for the menu item</small>
+        <div className='edit-item-form-div'>
+          <div className='edit-photo'>
+            <img
+              src={this.state.selectedItem.imageUrl}
+              alt={this.state.selectedItem.itemName}
+            />
+            <div className='edit-image-button-div'>
+              <button
+                className='button upload-button'
+                onClick={e => this.showWidget(e, this.widget)}>
+                <i className='fas fa-cloud-upload-alt'></i> Edit Image
+              </button>
             </div>
-
-            <br/>
-
-            <div className="form-group">
-              <label htmlFor="itemPrice">Select an Image</label>
-              <input type="number" className="form-control" id="createItemPrice" aria-describedby="createItem" placeholder="Enter Item Price"/>
-              <small id="createPriceDesc" className="form-text text-muted">Enter the price for the menu item</small>
-            </div>
-
-            <br/>
-
-            <div className="form-group">
-              <label htmlFor="itemPrice">Similar Items</label>
-              <input type="number" className="form-control" id="createItemPrice" aria-describedby="createItem" placeholder="Enter Item Price"/>
-              <small id="createPriceDesc" className="form-text text-muted">Enter the price for the menu item</small>
-            </div>
-
-            <br/>
-
-            <div className="form-group">
-              <label htmlFor="itemPrice">Vegan?</label>
-              <input type="number" className="form-control" id="createItemPrice" aria-describedby="createItem" placeholder="Enter Item Price"/>
-              <small id="createPriceDesc" className="form-text text-muted">Enter the price for the menu item</small>
-            </div>
-
-          </form>
-
+          </div>
+          <div className='edit-item-form-container'>
+            {!this.state.selectedItem ? (
+              <span>Select an item</span>
+            ) : (
+              <div className='edit-form-inner-div'>
+                <div className='edit-item-heading'>
+                  {this.state.selectedItem.itemName
+                    ? `${this.state.selectedItem.itemName} - ${this.state.selectedItem.itemId}`
+                    : 'Select an item from above'}
+                </div>
+                <div className='edit-item-form-all-items'>
+                  <div className='edit-form-item'>
+                    <label htmlFor='itemName'>Item Name</label>
+                    <input
+                      name='itemName'
+                      type='text'
+                      id='editItemName'
+                      value={this.state.selectedItem.itemName || ''}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='itemPrice'>Item Price</label>
+                    <input
+                      name='itemPrice'
+                      type='number'
+                      id='editItemPrice'
+                      value={this.state.selectedItem.itemPrice || ''}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='cookTime'>Cook Time</label>
+                    <input
+                      name='cookTime'
+                      type='number'
+                      id='editCookTime'
+                      value={this.state.selectedItem.cookTime || ''}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='vegan'>Vegan?</label>
+                    <input
+                      name='vegan'
+                      type='checkbox'
+                      id='editVegan'
+                      value={this.state.selectedItem.vegan || false}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='special'>Special?</label>
+                    <input
+                      name='special'
+                      type='checkbox'
+                      id='editSpecial'
+                      value={this.state.selectedItem.special || false}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='description'>Item Description</label>
+                    <textarea
+                      name='description'
+                      type='textarea'
+                      className='form-control'
+                      id='editItemDescription'
+                      value={this.state.selectedItem.description || ''}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-
-        <div className="edit-form-submit">
-          <button type="submit" value="Send" className="btn btn-dark">
-            Save
-          </button>
+        <div className='edit-save-button-div'>
+          <button className='btn btn-danger'>CANCEL</button>
+          <button className='btn'>SAVE</button>
         </div>
-
-      </div>
-
       </div>
     );
   }
