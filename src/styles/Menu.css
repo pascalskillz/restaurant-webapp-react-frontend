@@ -1,13 +1,13 @@
 .menu-div {
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-areas: 'sidebar menu-tiems';
+  grid-template-areas: "sidebar menu-tiems";
   grid-gap: 0 25px;
 }
 
 /* SIDEBAR */
 
-.menu-sidebar{
+.menu-sidebar {
   display: grid;
   grid-area: sidebar;
   grid-auto-rows: min-content;
@@ -29,11 +29,11 @@
   height: 60px;
 }
 
-.sb-toggle[sbactive='true'] {
+.sb-toggle[sbactive="true"] {
   background: var(--opaque);
 }
 
-.sb-toggle[sbactive='false'] {
+.sb-toggle[sbactive="false"] {
   background: initial;
 }
 
@@ -95,5 +95,10 @@
   width: 200px;
   align-items: center;
   justify-content: center;
-  justify-self: center
+  justify-self: center;
 }
+
+/* .jumbo-details {
+  position: relative;
+  bottom: 17%;
+} */
