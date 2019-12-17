@@ -33,6 +33,7 @@ class CreateWidget extends Component {
     cooktime: '',
     itemdescription: '',
     isvegan: false,
+    isspecial: false,
     itemimage: '',
     similarList: [],
     imageUrl: '',
@@ -155,6 +156,7 @@ class CreateWidget extends Component {
       cookTime: this.state.cooktime,
       description: this.state.itemdescription,
       vegan: this.state.isvegan,
+      special: this.state.isspecial,
       imageUrl: this.state.imageUrl,
       // similarItems: [...this.state.similarList],
     }
@@ -234,13 +236,24 @@ class CreateWidget extends Component {
                   <small id="createCooktimeDesc" className="form-text text-muted">Enter the cooking time for the menu item</small>
                 </div>
 
-                <div className="form-group create-group2b padding-group">
-                  <label htmlFor="itemPrice">Vegan?</label>
-                  <input name="isvegan" type="checkbox" className="form-control" id="createItemVegan" aria-describedby="createVegan" 
-                  checked={this.state.isvegan} onChange={this.handleInputChange}
-                  />
-                  <small id="createVeganDesc" className="form-text text-muted">Is this menu item vegan?</small>
+                <div className="radio-div">
+                  <div className="form-group create-group2b radio-group">
+                    <label htmlFor="itemPrice">Vegan?</label>
+                    <input name="isvegan" type="checkbox" className="form-control" id="createItemVegan" aria-describedby="createVegan" 
+                    checked={this.state.isvegan} onChange={this.handleInputChange}
+                    />
+                    <small id="createVeganDesc" className="form-text text-muted">Is this menu item vegan?</small>
+                  </div>
+
+                  <div className="form-group create-group2b radio-group">
+                    <label htmlFor="itemPrice">Special?</label>
+                    <input name="isspecial" type="checkbox" className="form-control" id="createItemSpecial" aria-describedby="createSpecial" 
+                    checked={this.state.isspecial} onChange={this.handleInputChange}
+                    />
+                    <small id="createVeganDesc" className="form-text text-muted">Is this a special menu item?</small>
+                  </div>
                 </div>
+
               </div>
 
               <div className="create-group3 flex-group">
