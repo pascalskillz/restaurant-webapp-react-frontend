@@ -4,24 +4,23 @@
   display: grid;
   grid-template-rows: repeat(2, min-content);
   grid-template-areas:
-    'navbar'
-    'content'
-    'footer';
+    "navbar"
+    "content"
+    "footer";
   padding: 0 5vw;
-  background-image: url("../img/background-image.jpg") /* back image */
-  
+  /* background-image: url("../img/background-image.jpg") back image */
 }
 
-.content{
+.content {
   display: grid;
-  grid-area: 'content';
-  padding-top:8rem;
-  padding-bottom:5rem;
+  grid-area: "content";
+  padding-top: 8rem;
+  padding-bottom: 5rem;
 }
 .table {
   display: table;
   vertical-align: middle;
-  width: 100%
+  width: 100%;
 }
 
 .table.fixed {
