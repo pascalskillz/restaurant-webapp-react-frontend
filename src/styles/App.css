@@ -8,7 +8,7 @@
     'content'
     'footer';
   padding: 0 5vw;
-  background-image: url("../img/background-image.jpg") /* back image */
+  background-image: /* back image */ /*url("../img/background-image.jpg")*/ 
   
 }
 
