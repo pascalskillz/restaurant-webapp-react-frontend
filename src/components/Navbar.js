@@ -69,38 +69,39 @@ class Navbar extends Component {
               <NavLink className='navbar-brand' to='/cart'onClick={() => this.closeBox()} >CART</NavLink>
             </div>
 
-            <div id="menu-box" style={this.state.boxToggle ? {display: 'initial'} : {display: 'none'} }>
-            <div className="box-item" >
+            <div className="menu-box" style={this.state.boxToggle ? {display: 'grid'} : {display: 'none'} }>
+            {/* <div className="menu-box" style={this.state.boxToggle ? {height: 0} : {height: '100%'} }> */}
+            <div className="box-items" >
              
-            <div><img className='img11' src={logo2} alt='LOGO!'/>  <a  className="menu-list"href="/menu?category=1">Appetizer</a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=5">Chicken Specialty </a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=10">Dosai</a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=6">Lamb Speciality</a></div>
-           </div>
+              <div className="box-inner-item"><img className='img11' src={logo2} alt='LOGO!'/>  <a  className="menu-list"href="/menu?category=1">Appetizer</a></div>
+             <div className="box-inner-item"><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=5">Chicken Specialty </a></div>
+             <div className="box-inner-item"><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=10">Dosai</a></div>
+             <div className="box-inner-item"><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=6">Lamb Speciality</a></div>
+           {/* </div> */}
 
-            <div className="box-item" >
+            {/* <div className="box-item" > */}
             
-            <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=9" >Rice Speciality </a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=7">Seafood Specialties </a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=2">Soup</a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=3">Tandoor Bread</a></div>
+            <div className="box-inner-item"><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=9" >Rice Speciality </a></div>
+             <div className="box-inner-item"><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=7">Seafood Specialties </a></div>
+             <div className="box-inner-item"><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=2">Soup</a></div>
+             <div className="box-inner-item"><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=3">Tandoor Bread</a></div>
 
-            </div>
-            <div className="box-item" >
+            {/* </div> */}
+            {/* <div className="box-item" > */}
              
-            <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=4">Tandoor Speciality</a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=8">Vegetarian Speciality</a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu">North Indian Dinner/Thali</a></div> 
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu">Accompaniments </a></div> 
+            <div className="box-inner-item"><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=4">Tandoor Speciality</a></div>
+             <div className="box-inner-item"><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu?category=8">Vegetarian Speciality</a></div>
+             <div className="box-inner-item"><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu">North Indian Dinner/Thali</a></div> 
+             <div className="box-inner-item"><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu">Accompaniments </a></div> 
 
-            </div>
-             <div className="box-item" >
+            {/* </div> */}
+             {/* <div className="box-item" > */}
               
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu">Desserts </a></div>
-             <div><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu">Beverages</a></div>
+             <div className="box-inner-item"><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu">Desserts </a></div>
+             <div className="box-inner-item"><img className='img11' src={logo2} alt='LOGO!'/> <a className="menu-list" href="/menu">Beverages</a></div>
              
              </div>
-             <div className="fu-me"><button className="full-menu"><a className="menu-list" href="/menu"> View Full Menu </a> </button></div>
+             <div className="fu-me"><button id="full-menu-button" className="full-menu"><a className="menu-list" href="/menu"> View Full Menu </a> </button></div>
             </div>
           
           </nav>
