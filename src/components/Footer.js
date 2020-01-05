@@ -2,7 +2,7 @@ import React from "react";
 // import { NavLink } from "react-router-dom";
 import { MyConsumer } from "../Context";
 import "../styles/Footer.css";
-import "../styles/content.css";
+// import "../styles/Main.css";
 
 // image imports
 import discover from "../img/discover.jpg";

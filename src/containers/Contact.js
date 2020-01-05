@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { MyConsumer } from '../Context'
 import LMap from './LMap'
-import '../styles/content.css'
+// import '../styles/Main.css'
 import '../styles/Contact.css'
 
 class Contact extends Component {

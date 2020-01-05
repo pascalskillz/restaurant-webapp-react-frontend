@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { MyConsumer } from '../Context';
-import '../styles/content.css';
+// import '../styles/Main.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

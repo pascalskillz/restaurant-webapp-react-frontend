@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { MyConsumer } from '../Context'
-import '../styles/content.css'
+// import '../styles/Main.css'
 import '../styles/cart.css'
 
 class Cart extends Component {
