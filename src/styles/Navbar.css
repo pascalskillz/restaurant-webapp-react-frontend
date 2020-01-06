@@ -32,8 +32,8 @@
   width: 200px;
 }
 
-/* MAIN NAVBAR AND DROPDOWN ------------------- */
-.dropdown-div {
+/* MAIN NAVBAR  ------------------- */
+.center-nav-div {
   /* margin-top: 123px; */
   /* position: fixed; */
   /* width: 90%; */
@@ -46,7 +46,7 @@
   align-items: center;
 }
 
-.dropdown-div a {
+.center-nav-div a {
   /* overflow: hidden; */
   /* 1- nav component color */
   /* listWord color*/
@@ -59,7 +59,7 @@
   text-decoration: none;
 }
 
-.dropdown-div a:hover {
+.center-nav-div a:hover {
   /* background-color: rgb(71, 68, 67) */
   /* background-color:rgb(122, 117, 117);opacity:0.9; */
   /* OnClick color*/
@@ -71,120 +71,158 @@
   color: var(--black) !important;
 }
 
-.menu-box {
+/* NAV MENU DROPDOWN --------------------------- */
+.menu-link-div {
+  position: relative;
+}
+
+.menu-link-div:hover .menu-dropdown {
   display: grid;
+}
+
+.menu-dropdown {
   /* grid-template-columns: ; */
   /* grid-auto-flow: column; */
-  grid-template-rows: 1fr min-content;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    'box-items'
-    'full-menu-button';
-  width: 100%;
   /* margin-top: 200px; */
   /*400px*/
-  /* background: rgb(168, 160, 160); */
-  background-color: rgba(122, 117, 117, .9);
-  color: rgb(15, 13, 13);
-  transform: translateY(-2em);
-  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
   /*height: 80%;*/
   /* text-decoration: none; */
   /* padding: 10px; */
-  justify-content: center;
-  align-items: center;
+  /* transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s; */
+  /* background: rgb(168, 160, 160); */
+
+
+  /* grid-template-rows: 1fr min-content; */
+  /* grid-template-columns: 1fr; */
+  /* grid-template-areas: */
+  /* 'box-items' */
+  /* 'full-menu-button'; */
+  /* width: 100%; */
+  /* color: rgb(15, 13, 13); */
+  /* transform: translateY(-2em); */
+  /* transition: all 0.3s ease-in-out; */
+  /* justify-content: center; */
+  /* align-items: center; */
+
+  position: absolute;
+  display: none;
+  font-size: .8rem;
+  z-index: 99;
+  background-color: rgba(122, 117, 117, .9);
+  padding: 0 10px 10px 10px;
 
 }
 
-/* new test*/
+.menu-list {
+  /* line-height: 5rem; */
+  /* width: 200px; */
+  /* font-size: 18px; */
 
+  color: var(--white) !important;
+}
 
-/* Create three equal columns that floats next to each other */
+.menu-list:hover {
+  text-shadow: none !important;
+  text-decoration: underline;
+}
+
 .box-items {
   /* float: left; */
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 340px);
-  /* width: 25%; */
-  padding: 10px;
   /* height: 400px; Should be removed. Only for demonstration */
-  margin-top: 20px;
-  color: var(--black);
-  justify-content: center;
-}
+  /* width: 25%; */
 
-/* Clear floats after the columns -- not impo.*/
+  /* display: grid; */
+  /* grid-template-columns: repeat(auto-fill, 340px); */
+  /* margin-top: 20px; */
+  /* color: var(--black); */
+  /* justify-content: center; */
 
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-  .box-item {
-    width: 100%;
-  }
-}
-
-.img11 {
-  /* height: 20%; */
-  /* width: 20%; */
-  /* margin-top: 15px; */
-  background: white;
-  max-height: 50px;
-  margin-right: 20px;
+  padding: 10px 0;
 }
 
 .full-menu {
-  display: flex;
-  width: 100%;
-  color: var(--white);
-  text-decoration: var(--black);
   /* padding: 15px 15px; */
-  text-align: center;
-  display: inline-block;
+  /* cursor: pointer; */
+  /* display: flex; */
+  /* width: 100%; */
+  /* color: var(--white); */
+  /* text-decoration: var(--black); */
+  /* text-align: center; */
+  /* display: inline-block; */
+  /* line-height: 1.25rem; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* padding: .8125rem 1.5625rem; */
+
   background: var(--white);
   border: .0625rem solid #adadad;
   border-radius: .25rem;
   font-weight: bold;
   box-shadow: 0 0.09375rem 0.09375rem 0 rgba(0, 0, 0, .08);
-  padding: .8125rem 1.5625rem;
-  /* cursor: pointer; */
   font-size: .875rem;
-  line-height: 1.25rem;
-  justify-content: center;
-  align-items: center;
 }
+
+#full-menu-button {
+  width: 200px;
+}
+
+#full-menu-button a {
+  color: var(--black) !important;
+}
+
+#full-menu-button>a:hover {
+  text-shadow: none !important;
+  text-decoration: underline !important;
+}
+
+/* Create three equal columns that floats next to each other */
+
+
+/* Clear floats after the columns -- not impo.*/
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+/* @media screen and (max-width: 600px) {
+  .box-item {
+    width: 100%;
+  }
+} */
+
+.img11 {
+  /* height: 20%; */
+  /* width: 20%; */
+  /* margin-top: 15px; */
+  /* background: white; */
+  /* max-height: 50px; */
+  /* margin-right: 20px; */
+}
+
+
 
 .full-menu a {
-  text-decoration: none;
+  /* text-decoration: none; */
 }
 
-.fu-me {
-  text-align: center;
-  padding: 5%;
+.full-menu-button-div {
   /* height: 15px; */
 
+  /* text-align: center; */
+  /* padding: 5%; */
 }
 
-/* test hover*/
-.menu-list {
-  color: var(--black);
-  /* line-height: 5rem; */
-  font-size: 18px;
-  /* width: 200px; */
-}
 
 .box-item a {
-  text-decoration: none;
-  font-weight: 500;
+  /* text-decoration: none; */
+  /* font-weight: 500; */
 }
 
 /* a:hover {
   color: WindowText;
 } */
 
-#full-menu-button {
-  width: 200px;
-}
+
 
 .box-inner-item {
-  margin: 20px 0;
+  /* margin: 20px 0; */
 }
 
 

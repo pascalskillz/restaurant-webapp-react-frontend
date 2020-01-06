@@ -67,11 +67,11 @@
 .carousel-text {
   position: absolute;
   font-size: 100px;
-  z-index: 100;
+  z-index: 1;
 }
 
 .jumbo-text-large {
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Courgette', sans-serif;
   font-size: 3rem;
   font-weight: bold;
   color: var(--white);
@@ -79,9 +79,8 @@
 }
 
 .jumbo-text-small {
-  font-family: 'Satisfy', cursive;
-  font-size: 2rem;
-  font-weight: bold;
+  font-family: 'Palanquin', sans-serif;
+  font-size: 1.5rem;
   color: var(--white);
   text-shadow: 2px 2px 2px var(--red);
 }

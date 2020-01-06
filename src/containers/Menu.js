@@ -185,7 +185,7 @@ class Menu extends Component {
       <MyConsumer>
         {({ state }) => (
           <div className='menu-js'>
-            <Navbar page='MENU'/>
+            <Navbar page='MENU' breakpoint='400'/>
             <div className='menu-div'>
               <div className='menu-sidebar'>
                 <div

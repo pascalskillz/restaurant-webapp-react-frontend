@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { MyConsumer } from '../Context';
+import DropDown from '../components/DropDown';
 import '../styles/Navbar.css';
 import logo2 from '../img/Logo2.png';
 
@@ -11,35 +12,44 @@ class Navbar extends Component {
   };
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleWindowScroll);
+    window.addEventListener('scroll', () =>
+      this.handleNavShowHide(this.props.breakpoint)
+    );
   }
 
-  handleWindowScroll = () => {
-    // console.log(window.scrollY)
-    if (window.scrollY < 800) {
+  handleNavShowHide = el => {
+    // grab element passed as argument
+    let element = document.getElementById(el);
+    // create an observable rectangle
+    var rect = element.getBoundingClientRect();
+    // if top of rectangle is 0 
+    // meaning if the distance from the
+    // top of the viewport is 0
+    // then set nag bg to true
+    // else false
+    if (rect.top <= 0) {
+      this.setState({
+        navBg: true
+      });
+    } else {
       this.setState({
         navBg: false
       });
     }
-    if (window.scrollY > 800) {
-      this.setState({
-        navBg: true
-      });
-    }
   };
 
-  setToggleBox = () => {
-    this.setState({
-      boxToggle: !this.state.boxToggle
-    });
-  };
+  // setToggleBox = () => {
+  //   this.setState({
+  //     boxToggle: !this.state.boxToggle
+  //   });
+  // };
 
-  closeBox = () => {
-    // TODO: close the menu when click outside
-    this.setState({
-      boxToggle: false
-    });
-  };
+  // closeBox = () => {
+  //   // TODO: close the menu when click outside
+  //   this.setState({
+  //     boxToggle: false
+  //   });
+  // };
 
   render() {
     return (
@@ -51,7 +61,7 @@ class Navbar extends Component {
             <div className='logo-div'>
               <img src={logo2} alt='LOGO!' />
             </div>
-            <div className='dropdown-div'>
+            <div className='center-nav-div'>
               <NavLink
                 style={Object.assign(
                   this.props.page === 'HOME'
@@ -61,21 +71,26 @@ class Navbar extends Component {
                 )}
                 // className='text-black'
                 to='/'
-                onClick={() => this.closeBox()}>
+                // onClick={() => this.closeBox()}
+              >
                 HOME
               </NavLink>
-              <NavLink
-                style={Object.assign(
-                  this.props.page === 'MENU'
-                    ? { textDecoration: 'underline' }
-                    : {},
-                  this.state.navBg ? { color: 'var(--black)' } : {}
-                )}
-                // className='text-black'
-                to='#'
-                onClick={() => this.setToggleBox()}>
-                MENU
-              </NavLink>
+              <div className='menu-link-div'>
+                <NavLink
+                  style={Object.assign(
+                    this.props.page === 'MENU'
+                      ? { textDecoration: 'underline' }
+                      : {},
+                    this.state.navBg ? { color: 'var(--black)' } : {}
+                  )}
+                  className='menu-hover'
+                  to='/menu'
+                  // onClick={() => this.setToggleBox()}
+                >
+                  MENU
+                </NavLink>
+                <DropDown />
+              </div>
               <NavLink
                 style={Object.assign(
                   this.props.page === 'RESERVATION'
@@ -85,7 +100,8 @@ class Navbar extends Component {
                 )}
                 // className='text-black'
                 to='/reservation'
-                onClick={() => this.closeBox()}>
+                // onClick={() => this.closeBox()}
+              >
                 RESERVATION
               </NavLink>
               <NavLink
@@ -97,7 +113,8 @@ class Navbar extends Component {
                 )}
                 // className='text-black'
                 to='/login'
-                onClick={() => this.closeBox()}>
+                // onClick={() => this.closeBox()}
+              >
                 LOGIN
               </NavLink>
               <NavLink
@@ -109,7 +126,8 @@ class Navbar extends Component {
                 )}
                 // className='text-black'
                 to='/signup'
-                onClick={() => this.closeBox()}>
+                // onClick={() => this.closeBox()}
+              >
                 SIGNUP
               </NavLink>
               <NavLink
@@ -121,7 +139,8 @@ class Navbar extends Component {
                 )}
                 // className='text-black'
                 to='/contact'
-                onClick={() => this.closeBox()}>
+                // onClick={() => this.closeBox()}
+              >
                 CONTACT
               </NavLink>
               <NavLink
@@ -133,96 +152,90 @@ class Navbar extends Component {
                 )}
                 // className='text-black'
                 to='/cart'
-                onClick={() => this.closeBox()}>
+                // onClick={() => this.closeBox()}
+              >
                 CART
               </NavLink>
             </div>
 
             <div
-              className='menu-box'
+              className='menu-dropdown'
               style={
                 this.state.boxToggle ? { display: 'grid' } : { display: 'none' }
               }>
-              {/* <div className="menu-box" style={this.state.boxToggle ? {height: 0} : {height: '100%'} }> */}
               <div className='box-items'>
                 <div className='box-inner-item'>
-                  <img className='img11' src={logo2} alt='LOGO!' />{' '}
+                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=1'>
                     Appetizer
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  <img className='img11' src={logo2} alt='LOGO!' />{' '}
+                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=5'>
                     Chicken Specialty{' '}
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  <img className='img11' src={logo2} alt='LOGO!' />{' '}
+                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=10'>
                     Dosai
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  <img className='img11' src={logo2} alt='LOGO!' />{' '}
+                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=6'>
                     Lamb Speciality
                   </a>
                 </div>
-                {/* </div> */}
-
-                {/* <div className="box-item" > */}
 
                 <div className='box-inner-item'>
-                  <img className='img11' src={logo2} alt='LOGO!' />{' '}
+                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=9'>
-                    Rice Speciality{' '}
+                    Rice Speciality
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  <img className='img11' src={logo2} alt='LOGO!' />{' '}
+                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=7'>
-                    Seafood Specialties{' '}
+                    Seafood Specialties
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  <img className='img11' src={logo2} alt='LOGO!' />{' '}
+                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=2'>
                     Soup
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  <img className='img11' src={logo2} alt='LOGO!' />{' '}
+                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=3'>
                     Tandoor Bread
                   </a>
                 </div>
 
-                {/* </div> */}
-                {/* <div className="box-item" > */}
-
                 <div className='box-inner-item'>
-                  <img className='img11' src={logo2} alt='LOGO!' />{' '}
+                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=4'>
                     Tandoor Speciality
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  <img className='img11' src={logo2} alt='LOGO!' />{' '}
+                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=8'>
                     Vegetarian Speciality
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  <img className='img11' src={logo2} alt='LOGO!' />{' '}
+                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu'>
                     North Indian Dinner/Thali
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  <img className='img11' src={logo2} alt='LOGO!' />{' '}
+                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu'>
-                    Accompaniments{' '}
+                    Accompaniments
                   </a>
                 </div>
 
@@ -230,13 +243,13 @@ class Navbar extends Component {
                 {/* <div className="box-item" > */}
 
                 <div className='box-inner-item'>
-                  <img className='img11' src={logo2} alt='LOGO!' />{' '}
+                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu'>
-                    Desserts{' '}
+                    Desserts
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  <img className='img11' src={logo2} alt='LOGO!' />{' '}
+                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu'>
                     Beverages
                   </a>
@@ -245,9 +258,8 @@ class Navbar extends Component {
               <div className='fu-me'>
                 <button id='full-menu-button' className='full-menu'>
                   <a className='menu-list' href='/menu'>
-                    {' '}
-                    View Full Menu{' '}
-                  </a>{' '}
+                    View Full Menu
+                  </a>
                 </button>
               </div>
             </div>
