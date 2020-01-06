@@ -6,7 +6,26 @@ import logo2 from '../img/Logo2.png';
 
 class Navbar extends Component {
   state = {
-    boxToggle: false
+    boxToggle: false,
+    navBg: false
+  };
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleWindowScroll);
+  }
+
+  handleWindowScroll = () => {
+    // console.log(window.scrollY)
+    if (window.scrollY < 800) {
+      this.setState({
+        navBg: false
+      });
+    }
+    if (window.scrollY > 800) {
+      this.setState({
+        navBg: true
+      });
+    }
   };
 
   setToggleBox = () => {
@@ -26,85 +45,93 @@ class Navbar extends Component {
     return (
       <MyConsumer>
         {({ state }) => (
-          <nav className='nav'>
+          <nav
+            className='nav'
+            style={this.state.navBg ? { background: 'var(--white)' } : {}}>
             <div className='logo-div'>
               <img src={logo2} alt='LOGO!' />
             </div>
             <div className='dropdown-div'>
               <NavLink
-                style={
+                style={Object.assign(
                   this.props.page === 'HOME'
                     ? { textDecoration: 'underline' }
-                    : {}
-                }
-                // className='navbar-brand'
+                    : {},
+                  this.state.navBg ? { color: 'var(--black)' } : {}
+                )}
+                // className='text-black'
                 to='/'
                 onClick={() => this.closeBox()}>
                 HOME
               </NavLink>
               <NavLink
-                style={
+                style={Object.assign(
                   this.props.page === 'MENU'
                     ? { textDecoration: 'underline' }
-                    : {}
-                }
-                // className='navbar-brand'
+                    : {},
+                  this.state.navBg ? { color: 'var(--black)' } : {}
+                )}
+                // className='text-black'
                 to='#'
                 onClick={() => this.setToggleBox()}>
                 MENU
               </NavLink>
               <NavLink
-                style={
+                style={Object.assign(
                   this.props.page === 'RESERVATION'
                     ? { textDecoration: 'underline' }
-                    : {}
-                }
-                // className='navbar-brand'
+                    : {},
+                  this.state.navBg ? { color: 'var(--black)' } : {}
+                )}
+                // className='text-black'
                 to='/reservation'
                 onClick={() => this.closeBox()}>
                 RESERVATION
               </NavLink>
-
               <NavLink
-                style={
+                style={Object.assign(
                   this.props.page === 'LOGIN'
                     ? { textDecoration: 'underline' }
-                    : {}
-                }
-                // className='navbar-brand'
+                    : {},
+                  this.state.navBg ? { color: 'var(--black)' } : {}
+                )}
+                // className='text-black'
                 to='/login'
                 onClick={() => this.closeBox()}>
                 LOGIN
               </NavLink>
               <NavLink
-                style={
+                style={Object.assign(
                   this.props.page === 'SIGNUP'
                     ? { textDecoration: 'underline' }
-                    : {}
-                }
-                // className='navbar-brand'
+                    : {},
+                  this.state.navBg ? { color: 'var(--black)' } : {}
+                )}
+                // className='text-black'
                 to='/signup'
                 onClick={() => this.closeBox()}>
                 SIGNUP
               </NavLink>
               <NavLink
-                style={
+                style={Object.assign(
                   this.props.page === 'CONTACT'
                     ? { textDecoration: 'underline' }
-                    : {}
-                }
-                // className='navbar-brand'
+                    : {},
+                  this.state.navBg ? { color: 'var(--black)' } : {}
+                )}
+                // className='text-black'
                 to='/contact'
                 onClick={() => this.closeBox()}>
                 CONTACT
               </NavLink>
               <NavLink
-                style={
+                style={Object.assign(
                   this.props.page === 'CART'
                     ? { textDecoration: 'underline' }
-                    : {}
-                }
-                // className='navbar-brand'
+                    : {},
+                  this.state.navBg ? { color: 'var(--black)' } : {}
+                )}
+                // className='text-black'
                 to='/cart'
                 onClick={() => this.closeBox()}>
                 CART
@@ -228,19 +255,22 @@ class Navbar extends Component {
               <a
                 target='_blank'
                 rel='noopener noreferrer'
-                href='http://www.facebook.com'>
+                href='http://www.facebook.com'
+                style={this.state.navBg ? { color: 'var(--black)' } : {}}>
                 <i className='fa fa-facebook'></i>
               </a>
               <a
                 target='_blank'
                 rel='noopener noreferrer'
-                href='http://www.twitter.com'>
+                href='http://www.twitter.com'
+                style={this.state.navBg ? { color: 'var(--black)' } : {}}>
                 <i className='fa fa-twitter'></i>
               </a>
               <a
                 target='_blank'
                 rel='noopener noreferrer'
-                href='http://www.instagram.com'>
+                href='http://www.instagram.com'
+                style={this.state.navBg ? { color: 'var(--black)' } : {}}>
                 <i className='fa fa-instagram'></i>
               </a>
             </div>

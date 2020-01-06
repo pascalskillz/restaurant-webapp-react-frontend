@@ -16,7 +16,7 @@ class Main extends Component {
               <div className='carousel-div'>
                 <div className='carousel-text'>
                   <div className='jumbo-text-large'>
-                    Welcome to Tandoori Restauraunt
+                    Welcome to Tandoor Restauraunt
                   </div>
                   <div className='jumbo-text-small'>
                     We serve only the finest Indian cuisine
@@ -26,7 +26,7 @@ class Main extends Component {
                   // width='200px'
                   // height='200px'
                   autoplay={true}
-                  autoplayInterval={5000}
+                  autoplayInterval={500000}
                   wrapAround={true}
                   pauseOnHover={true}
                   renderCenterLeftControls={({ previousSlide }) => (
@@ -53,7 +53,11 @@ class Main extends Component {
                   />
                 </Carousel>
               </div>
-
+              <div className='utensils' id='section-divider'>
+                <div className='utensil-container'>
+                  <i class='fas fa-utensils'></i>
+                </div>
+              </div>
               <div className='jumbo-div'>
                 <div className='jumbo-button-div'>
                   <a className='jumbo-button button' href='/menu'>

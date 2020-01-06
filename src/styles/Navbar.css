@@ -19,6 +19,7 @@
   border-radius: 0;
   position: fixed;
   width: calc(100vw - 10px);
+  transition: background 1s ease;
 }
 
 /* LOGO ----------------------- */
@@ -54,6 +55,7 @@
   /* without linkLine*/
   font-weight: bold;
   color: var(--white);
+  transition: color 1.5s ease;
   text-decoration: none;
 }
 
@@ -65,6 +67,9 @@
   text-shadow: 2px 2px 2px var(--red);
 }
 
+.text-black a {
+  color: var(--black) !important;
+}
 
 .menu-box {
   display: grid;
@@ -193,10 +198,11 @@
   padding-right: 20px;
 }
 
-.social-icon-div a{
+.social-icon-div a {
   color: var(--white);
+  transition: color 1.5s ease;
 }
 
-.social-icon-div a:hover{
+.social-icon-div a:hover {
   text-shadow: 2px 2px 2px var(--red);
 }
