@@ -20,21 +20,24 @@ class Navbar extends Component {
   handleNavShowHide = el => {
     // grab element passed as argument
     let element = document.getElementById(el);
-    // create an observable rectangle
-    var rect = element.getBoundingClientRect();
-    // if top of rectangle is 0 
-    // meaning if the distance from the
-    // top of the viewport is 0
-    // then set nag bg to true
-    // else false
-    if (rect.top <= 0) {
-      this.setState({
-        navBg: true
-      });
-    } else {
-      this.setState({
-        navBg: false
-      });
+    // if the element is not null ..
+    if (element !== null) {
+      // create an observable rectangle
+      var rect = element.getBoundingClientRect();
+      // if top of rectangle is 0
+      // meaning if the distance from the
+      // top of the viewport is 0
+      // then set nag bg to true
+      // else false
+      if (rect.top <= 0) {
+        this.setState({
+          navBg: true
+        });
+      } else {
+        this.setState({
+          navBg: false
+        });
+      }
     }
   };
 
@@ -57,7 +60,10 @@ class Navbar extends Component {
         {({ state }) => (
           <nav
             className='nav'
-            style={this.state.navBg ? { background: 'var(--white)' } : {}}>
+            style={Object.assign(
+              this.state.navBg ? { background: 'var(--white)' } : {},
+              this.props.default === 'dark' ? { background: 'var(--grey)' } : {}
+            )}>
             <div className='logo-div'>
               <img src={logo2} alt='LOGO!' />
             </div>
@@ -165,95 +171,74 @@ class Navbar extends Component {
               }>
               <div className='box-items'>
                 <div className='box-inner-item'>
-                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=1'>
                     Appetizer
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=5'>
                     Chicken Specialty{' '}
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=10'>
                     Dosai
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=6'>
                     Lamb Speciality
                   </a>
                 </div>
 
                 <div className='box-inner-item'>
-                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=9'>
                     Rice Speciality
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=7'>
                     Seafood Specialties
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=2'>
                     Soup
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=3'>
                     Tandoor Bread
                   </a>
                 </div>
 
                 <div className='box-inner-item'>
-                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=4'>
                     Tandoor Speciality
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu?category=8'>
                     Vegetarian Speciality
                   </a>
                 </div>
-                <div className='box-inner-item'>
-                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
+
+                {/* <div className='box-inner-item'>
                   <a className='menu-list' href='/menu'>
                     North Indian Dinner/Thali
                   </a>
                 </div>
                 <div className='box-inner-item'>
-                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu'>
                     Accompaniments
                   </a>
                 </div>
 
-                {/* </div> */}
-                {/* <div className="box-item" > */}
-
                 <div className='box-inner-item'>
-                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
                   <a className='menu-list' href='/menu'>
                     Desserts
                   </a>
-                </div>
-                <div className='box-inner-item'>
-                  {/* <img className='img11' src={logo2} alt='LOGO!' />{' '} */}
-                  <a className='menu-list' href='/menu'>
-                    Beverages
-                  </a>
-                </div>
+                </div> */}
               </div>
               <div className='fu-me'>
                 <button id='full-menu-button' className='full-menu'>
