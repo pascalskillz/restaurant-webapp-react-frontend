@@ -11,7 +11,7 @@ class Main extends Component {
       <MyConsumer>
         {({ state }) => (
           <div className='main-js'>
-            <Navbar page='HOME' breakpoint='utensils'/>
+            <Navbar page='HOME' />
             <div className='main-div'>
               <div className='carousel-div'>
                 <div className='carousel-text'>
@@ -54,7 +54,7 @@ class Main extends Component {
                 </Carousel>
               </div>
               <div className='utensils' id='section-divider'>
-                <div className='utensil-container' id='utensils'>
+                <div className='utensil-container' id='breakpoint'>
                   <i className='fas fa-utensils'></i>
                 </div>
               </div>

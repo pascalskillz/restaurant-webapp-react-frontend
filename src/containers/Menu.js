@@ -3,6 +3,7 @@ import { MyConsumer } from '../Context';
 import { default as Sb } from '../components/SidebarCard';
 import { default as Item } from '../components/MenuItem';
 import { Link } from 'react-router-dom';
+import Jumbo from '../components/Jumbo';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import API from '../utils/API';
@@ -185,7 +186,12 @@ class Menu extends Component {
       <MyConsumer>
         {({ state }) => (
           <div className='menu-js'>
-            <Navbar page='MENU' default='dark'/>
+            <Navbar page='MENU' />
+            <Jumbo
+              src='https://images.unsplash.com/photo-1534422298391-e4f8c172dddb'
+              alt='Menu Picture'
+              text='Browse the Menu'
+            />
             <div className='menu-div'>
               <div className='menu-sidebar'>
                 <div
@@ -233,7 +239,7 @@ class Menu extends Component {
                 </div>
               </div>
             </div>
-            <Footer/>
+            <Footer />
           </div>
         )}
       </MyConsumer>

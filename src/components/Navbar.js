@@ -13,13 +13,13 @@ class Navbar extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', () =>
-      this.handleNavShowHide(this.props.breakpoint)
+      this.handleNavShowHide()
     );
   }
 
-  handleNavShowHide = el => {
+  handleNavShowHide = () => {
     // grab element passed as argument
-    let element = document.getElementById(el);
+    let element = document.getElementById('breakpoint');
     // if the element is not null ..
     if (element !== null) {
       // create an observable rectangle
@@ -62,7 +62,7 @@ class Navbar extends Component {
             className='nav'
             style={Object.assign(
               this.state.navBg ? { background: 'var(--white)' } : {},
-              this.props.default === 'dark' ? { background: 'var(--grey)' } : {}
+              // this.props.default === 'dark' ? { background: 'var(--dark)' } : {}
             )}>
             <div className='logo-div'>
               <img src={logo2} alt='LOGO!' />
