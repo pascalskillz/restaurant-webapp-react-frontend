@@ -87,7 +87,7 @@
 
 /* MAIN INFO AREA ------------- */
 
-.jumbo-div {
+.main-content-div {
   /* margin-top: 6.1rem;
   display: table;
   width: 100%; */
@@ -99,11 +99,11 @@
   text-align: center;
 }
 
-.jumbo-button-div {
+.main-content-button-div {
   margin: 10px 0
 }
 
-.jumbo-button {
+.main-content-button {
   margin: 10px 5px;
   font-size: 1.1rem;
 }

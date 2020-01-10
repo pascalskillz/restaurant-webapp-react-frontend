@@ -3,9 +3,9 @@ import { MyConsumer } from '../Context';
 import { default as Sb } from '../components/SidebarCard';
 import { default as Item } from '../components/MenuItem';
 import { Link } from 'react-router-dom';
-import Jumbo from '../components/Jumbo';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Jumbo from '../components/Jumbo';
 import API from '../utils/API';
 import img from '../img/old-logo.jpg';
 import '../styles/Menu.css';
@@ -25,22 +25,13 @@ class Menu extends Component {
     // this.getAllMenuItems()
     this.gatherAllItems();
     this.getCategories();
+    // this.scrollToTop();
   }
 
-  // getAllMenuItems = async() => {
-  //   API
-  //     .getAllMenuItems()
-  //     .then( res => {
-  //       let data = res.data
-  //       console.log(data)
-  //     })
-  // }
-
-  getOneMenuItem = async itemId => {
-    API.getOneMenuItem(itemId).then(res => {
-      let data = res.data;
-      console.log(data);
-    });
+  scrollToTop = () => {
+    window.onbeforeunload = function() {
+      window.scrollTo(0, 0);
+    };
   };
 
   getCategories = async () => {
@@ -53,7 +44,7 @@ class Menu extends Component {
         // console.log(i)
         sidebar[i.id] = i;
       }
-      console.log(sidebar);
+      // console.log(sidebar);
     });
 
     await this.setState({
@@ -184,8 +175,8 @@ class Menu extends Component {
     return (
       // <Navbar />
       <MyConsumer>
-        {({ state }) => (
-          <div className='menu-js'>
+        {({ loaded }) => (
+          <div className='menu-js top'>
             <Navbar page='MENU' />
             <Jumbo
               src='https://images.unsplash.com/photo-1534422298391-e4f8c172dddb'
@@ -206,7 +197,7 @@ class Menu extends Component {
                   ) : (
                     this.state.categories
                       .filter(filterItem => {
-                        console.log(filterItem.id);
+                        // console.log(filterItem.id);
                         return filterItem.id > 0;
                       })
                       .map((item, index) => (

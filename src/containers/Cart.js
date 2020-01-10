@@ -11,7 +11,7 @@ class Cart extends Component {
     return (
       <MyConsumer>
         {({ state }) => (
-          <div className='cart-js'>
+          <div className='cart-js top'>
             <Navbar page='CART' />
             <Jumbo
               src='https://images.unsplash.com/photo-1534422298391-e4f8c172dddb'

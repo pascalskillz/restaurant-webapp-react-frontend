@@ -32,6 +32,10 @@
   width: 200px;
 }
 
+.logo-div:hover {
+  cursor: pointer;
+}
+
 /* MAIN NAVBAR  ------------------- */
 .center-nav-div {
   /* margin-top: 123px; */

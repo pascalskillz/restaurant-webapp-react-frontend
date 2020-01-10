@@ -149,7 +149,7 @@ class Reservation extends Component {
     // ];
 
     return (
-      <div className='reservation-js'>
+      <div className='reservation-js top'>
         <Navbar page='RESERVATION' />
         <Jumbo
           src='https://images.unsplash.com/photo-1534422298391-e4f8c172dddb'
@@ -180,7 +180,7 @@ class Reservation extends Component {
               <input
                 type='text'
                 pattern='[1-9]'
-                onInput={this.handlePeopleChange}
+                onChange={this.handlePeopleChange}
                 value={this.state.noOfPeople}
                 style={{ width: '90px', marginRight: '5px' }}
               />

@@ -8,14 +8,21 @@ import logo2 from '../img/Logo2.png';
 class Navbar extends Component {
   state = {
     boxToggle: false,
-    navBg: false
+    navBg: false,
+    page: ''
   };
 
   componentDidMount() {
-    window.addEventListener('scroll', () =>
-      this.handleNavShowHide()
-    );
+    window.addEventListener('scroll', () => this.handleNavShowHide());
+    this.setPageName();
   }
+
+  setPageName = () => {
+    let page = this.props.page;
+    this.setState({
+      page: page
+    });
+  };
 
   handleNavShowHide = () => {
     // grab element passed as argument
@@ -57,20 +64,20 @@ class Navbar extends Component {
   render() {
     return (
       <MyConsumer>
-        {({ state }) => (
+        {({ scrollIntoView }) => (
           <nav
             className='nav'
             style={Object.assign(
-              this.state.navBg ? { background: 'var(--white)' } : {},
+              this.state.navBg ? { background: 'var(--white)' } : {}
               // this.props.default === 'dark' ? { background: 'var(--dark)' } : {}
             )}>
-            <div className='logo-div'>
+            <div className='logo-div' onClick={() => scrollIntoView('.top')}>
               <img src={logo2} alt='LOGO!' />
             </div>
             <div className='center-nav-div'>
               <NavLink
                 style={Object.assign(
-                  this.props.page === 'HOME'
+                  this.state.page === 'HOME'
                     ? { textDecoration: 'underline' }
                     : {},
                   this.state.navBg ? { color: 'var(--black)' } : {}
@@ -84,7 +91,7 @@ class Navbar extends Component {
               <div className='menu-link-div'>
                 <NavLink
                   style={Object.assign(
-                    this.props.page === 'MENU'
+                    this.state.page === 'MENU'
                       ? { textDecoration: 'underline' }
                       : {},
                     this.state.navBg ? { color: 'var(--black)' } : {}
@@ -99,7 +106,7 @@ class Navbar extends Component {
               </div>
               <NavLink
                 style={Object.assign(
-                  this.props.page === 'RESERVATION'
+                  this.state.page === 'RESERVATION'
                     ? { textDecoration: 'underline' }
                     : {},
                   this.state.navBg ? { color: 'var(--black)' } : {}
@@ -112,7 +119,7 @@ class Navbar extends Component {
               </NavLink>
               <NavLink
                 style={Object.assign(
-                  this.props.page === 'LOGIN'
+                  this.state.page === 'LOGIN'
                     ? { textDecoration: 'underline' }
                     : {},
                   this.state.navBg ? { color: 'var(--black)' } : {}
@@ -125,7 +132,7 @@ class Navbar extends Component {
               </NavLink>
               <NavLink
                 style={Object.assign(
-                  this.props.page === 'SIGNUP'
+                  this.state.page === 'SIGNUP'
                     ? { textDecoration: 'underline' }
                     : {},
                   this.state.navBg ? { color: 'var(--black)' } : {}
@@ -138,7 +145,7 @@ class Navbar extends Component {
               </NavLink>
               <NavLink
                 style={Object.assign(
-                  this.props.page === 'CONTACT'
+                  this.state.page === 'CONTACT'
                     ? { textDecoration: 'underline' }
                     : {},
                   this.state.navBg ? { color: 'var(--black)' } : {}
@@ -151,7 +158,7 @@ class Navbar extends Component {
               </NavLink>
               <NavLink
                 style={Object.assign(
-                  this.props.page === 'CART'
+                  this.state.page === 'CART'
                     ? { textDecoration: 'underline' }
                     : {},
                   this.state.navBg ? { color: 'var(--black)' } : {}

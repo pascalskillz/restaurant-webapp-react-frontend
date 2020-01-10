@@ -10,7 +10,7 @@ class Signup extends Component {
     return (
       <MyConsumer>
         {({ state }) => (
-          <div className='signup-js'>
+          <div className='signup-js top'>
             <Navbar page='SIGNUP' />
             <Jumbo
               src='https://images.unsplash.com/photo-1534422298391-e4f8c172dddb'
@@ -50,7 +50,7 @@ class Signup extends Component {
                     type='password'
                     placeholder='Confirm Password'
                     name='password2'
-                    minlength='7'
+                    minLength='7'
                   />
                 </div>
                 <br />

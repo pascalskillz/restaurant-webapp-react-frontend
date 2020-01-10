@@ -9,8 +9,8 @@ class Main extends Component {
   render() {
     return (
       <MyConsumer>
-        {({ state }) => (
-          <div className='main-js'>
+        {({ scrollIntoView }) => (
+          <div className='main-js top'>
             <Navbar page='HOME' />
             <div className='main-div'>
               <div className='carousel-div'>
@@ -26,7 +26,7 @@ class Main extends Component {
                   // width='200px'
                   // height='200px'
                   autoplay={true}
-                  autoplayInterval={500000}
+                  autoplayInterval={7000}
                   wrapAround={true}
                   pauseOnHover={true}
                   renderCenterLeftControls={({ previousSlide }) => (
@@ -54,16 +54,19 @@ class Main extends Component {
                 </Carousel>
               </div>
               <div className='utensils' id='section-divider'>
-                <div className='utensil-container' id='breakpoint'>
+                <div
+                  className='utensil-container'
+                  id='breakpoint'
+                  onClick={() => scrollIntoView('.main-content-div')}>
                   <i className='fas fa-utensils'></i>
                 </div>
               </div>
-              <div className='jumbo-div'>
-                <div className='jumbo-button-div'>
-                  <a className='jumbo-button button' href='/menu'>
+              <div className='main-content-div'>
+                <div className='main-content-button-div'>
+                  <a className='main-content-button button' href='/menu'>
                     Check out the Menu
                   </a>
-                  <a className='jumbo-button button' href='/reservation'>
+                  <a className='main-content-button button' href='/reservation'>
                     Make a Reservation
                   </a>
                 </div>

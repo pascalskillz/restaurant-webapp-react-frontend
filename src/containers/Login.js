@@ -10,7 +10,7 @@ class Login extends Component {
     return (
       <MyConsumer>
         {({ state }) => (
-          <div className='login-js'>
+          <div className='login-js top'>
             <Navbar page='LOGIN' />
             <Jumbo
               src='https://images.unsplash.com/photo-1534422298391-e4f8c172dddb'

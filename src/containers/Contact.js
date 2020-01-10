@@ -12,7 +12,7 @@ class Contact extends Component {
     return (
       <MyConsumer>
         {({ state }) => (
-          <div className='contact-js'>
+          <div className='contact-js top'>
             <Navbar page='CONTACT' />
             <Jumbo
               src='https://images.unsplash.com/photo-1534422298391-e4f8c172dddb'

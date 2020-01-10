@@ -37,13 +37,14 @@
 
 .menu-div {
   display: grid;
-  /* margin-top: 200px; */
   grid-auto-rows: auto;
   grid-template-columns: 1fr 3fr;
   grid-template-areas: 'sidebar menu-tiems';
   grid-gap: 0 25px;
   background-color: var(--texture1);
   background-image: var(--texture2);
+  padding: 0 20px 30px 20px;
+
 }
 
 /* SIDEBAR */
@@ -52,6 +53,8 @@
   display: grid;
   grid-area: sidebar;
   grid-auto-rows: min-content;
+  padding: 20px;
+  justify-content: center;
 }
 
 .sidebar-top-div {
@@ -60,6 +63,9 @@
   align-items: center;
   margin-bottom: 20px;
   height: 60px;
+  max-width: 300px;
+  background: var(--white);
+  border-radius: 10px;
 }
 
 .sidebar-inner-item {
@@ -68,18 +74,28 @@
   margin: 10px 0;
   align-items: center;
   height: 60px;
+  width: 300px;
+  /* max-width: 300px; */
+  border-radius: 10px;
+  background: var(--white);
+  transition: all .1s ease-in-out;
+  padding: 0 10px;
 }
 
 .sb-toggle[sbactive='true'] {
-  background: var(--opaque);
+  /* background: var(--grey); */
+  text-decoration: underline;
+  border: 3px solid var(--black);
 }
 
 .sb-toggle[sbactive='false'] {
-  background: initial;
+  background: var(--white);
 }
 
 .sb-toggle:hover {
   cursor: pointer;
+  text-decoration: underline;
+  border: 3px solid var(--black);
 }
 
 /* CATEGORIES */
@@ -95,6 +111,9 @@
   align-items: center;
   justify-content: center;
   font-size: 3rem;
+  font-family: 'Londrina Solid', cursive;
+  letter-spacing: .2rem;
+  text-transform: capitalize;
 }
 
 .category-item-container {
@@ -105,8 +124,23 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, 200px);
   justify-content: center;
-  column-gap: 5px;
-  row-gap: 20px;
+  grid-gap: 20px;
+}
+
+.category-item-div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  justify-content: center;
+  grid-gap: 20px;
+}
+
+.filtered-grid-item {
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+  align-items: center;
+  justify-content: center;
+  justify-self: center
 }
 
 /* .filtered-grid-item {
@@ -124,17 +158,3 @@
   justify-self: center
 } */
 
-.category-item-div {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  justify-content: center;
-}
-
-.filtered-grid-item {
-  display: flex;
-  flex-direction: row;
-  width: 200px;
-  align-items: center;
-  justify-content: center;
-  justify-self: center
-}
