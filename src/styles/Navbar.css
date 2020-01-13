@@ -14,18 +14,20 @@
   grid-template-columns: min-content 1fr min-content;
   grid-column-gap: 20px;
   padding: 0 20px;
-  /* background: green; */
   background: none;
   border-radius: 0;
   position: fixed;
   width: calc(100vw - 10px);
-  transition: background 1s ease;
+  /* transition: background 1s ease; */
+  transition: height 1s ease;
 }
 
 /* LOGO ----------------------- */
 .logo-div {
   grid-area: logo;
   padding-left: 10px;
+  opacity: 1;
+  transition: opacity 2s ease;
 }
 
 .logo-div img {
@@ -48,6 +50,8 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  opacity: 1;
+  transition: opacity 2s ease;
 }
 
 .center-nav-div a {
@@ -245,6 +249,8 @@ a:hover {
   justify-content: space-around;
   font-size: 1.2rem;
   padding-right: 20px;
+  opacity: 1;
+  transition: opacity 2s ease;
 }
 
 .social-icon-div a {
@@ -254,4 +260,170 @@ a:hover {
 
 .social-icon-div a:hover {
   text-shadow: 2px 2px 2px var(--lightred);
+}
+
+
+
+/* MEDIA QUERY ------------------------ */
+@media only screen and (max-width:1100px) {
+
+  .hamburger {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    z-index: 100;
+    border-top: 20px solid var(--white);
+  }
+
+  .lines {
+    /* position: relative; */
+    position: fixed;
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    padding: 0 2.2rem;
+    width: 6.5rem;
+    height: 6.5rem;
+    border-radius: 100%;
+    justify-content: center;
+    margin-top: -50px;
+    padding-top: 35px;
+  }
+
+  .line {
+    width: 30px;
+    height: 3px;
+    background: var(--red);
+    margin: 5px;
+  }
+
+  .hide-nav {
+    height: 0 !important;
+    transition: all 1s ease;
+    border-top: 0 !important;
+    overflow: hidden;
+  }
+
+  .hide-nav>.logo-div {
+    opacity: 0;
+    transition: all .3s ease;
+  }
+
+  .hide-nav>.center-nav-div {
+    opacity: 0;
+    transition: all .3s ease;
+  }
+
+  .hide-nav>.social-icon-div {
+    opacity: 0;
+    transition: all .3s ease;
+  }
+
+  .nav {
+    /* display: none; */
+    /* z-index: 99; */
+    display: grid;
+    grid-template-areas:
+      '.'
+      'logo'
+      'dropdown'
+      'social';
+    height: 100vh;
+    grid-template-columns: min-content;
+    grid-template-rows: 100px min-content 1fr min-content;
+    /* grid-column-gap: 20px; */
+    padding: 0;
+    background: var(--grey);
+    /* border-radius: 0; */
+    /* position: fixed; */
+    width: calc(100vw - 10px);
+    width: 100%;
+    /* transition: all 1s ease; */
+    transition: height 1s ease;
+    justify-content: center;
+    border: 20px solid var(--white);
+  }
+
+  .logo-div {
+    /* grid-area: logo; */
+    padding-left: 0;
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .logo-div img {
+    width: 150px;
+  }
+
+  .social-icon-div {
+    /* grid-area: social; */
+    /* display: flex; */
+    width: 100%;
+    justify-content: space-evenly;
+    /* font-size: 1.2rem; */
+    padding-right: 0;
+    padding-bottom: 50px;
+  }
+
+  .center-nav-div {
+    /* grid-area: dropdown; */
+    /* display: flex; */
+    /* justify-content: space-around; */
+    /* align-items: center; */
+    flex-direction: column;
+  }
+
+  .menu-link-div:hover .menu-dropdown {
+    display: none;
+  }
+
+  /* BURGER ------------------------ */
+  #burger-toggle span,
+  #burger-toggle span:before,
+  #burger-toggle span:after {
+    cursor: none;
+    border-radius: 1px;
+    height: 5px;
+    width: 35px;
+    background: var(--red);
+    position: absolute;
+    display: block;
+    content: '';
+  }
+
+  #burger-toggle span:before {
+    top: -10px;
+  }
+
+  #burger-toggle span:after {
+    bottom: -10px;
+  }
+
+  #burger-toggle span,
+  #burger-toggle span:before,
+  #burger-toggle span:after {
+    transition: all 500ms ease-in-out;
+  }
+
+  #burger-toggle.active span {
+    background-color: transparent;
+  }
+
+  #burger-toggle.active span:before,
+  #burger-toggle.active span:after {
+    top: 0;
+  }
+
+  #burger-toggle.active span:before {
+    transform: rotate(45deg);
+  }
+
+  #burger-toggle.active span:after {
+    transform: rotate(-45deg);
+  }
+
 }

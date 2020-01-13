@@ -81,26 +81,26 @@ const DropDown = () => {
             Vegetarian Speciality
           </a>
         </div>
-        <div className='box-inner-item'>
+        {/* <div className='box-inner-item'>
           <a className='menu-list' href='/menu'>
             North Indian Dinner/Thali
           </a>
-        </div>
-        <div className='box-inner-item'>
+        </div> */}
+        {/* <div className='box-inner-item'>
           <a className='menu-list' href='/menu'>
             Accompaniments
           </a>
-        </div>
-        <div className='box-inner-item'>
+        </div> */}
+        {/* <div className='box-inner-item'>
           <a className='menu-list' href='/menu'>
             Desserts
           </a>
-        </div>
-        <div className='box-inner-item'>
+        </div> */}
+        {/* <div className='box-inner-item'>
           <a className='menu-list' href='/menu'>
             Beverages
           </a>
-        </div>
+        </div> */}
       </div>
       <div className='full-menu-button-div'>
         <button id='full-menu-button' className='full-menu'>

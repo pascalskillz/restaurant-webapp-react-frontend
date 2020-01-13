@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/Jumbo.css'
 
 const Jumbo = props => {
   return (

@@ -7,14 +7,16 @@ import logo2 from '../img/Logo2.png';
 
 class Navbar extends Component {
   state = {
-    boxToggle: false,
+    // boxToggle: false,
     navBg: false,
+    navOpen: true,
     page: ''
   };
 
   componentDidMount() {
     window.addEventListener('scroll', () => this.handleNavShowHide());
     this.setPageName();
+    this.toggleNavbar();
   }
 
   setPageName = () => {
@@ -48,6 +50,22 @@ class Navbar extends Component {
     }
   };
 
+  toggleNavbar = () => {
+    // console.log('toggle nav');
+    let nav = document.querySelector('.nav');
+    let burger = document.querySelector('#burger-toggle');
+    this.setState({
+      navOpen: !this.state.navOpen
+    });
+    // console.log(this.state.navOpen);
+    this.state.navOpen
+      ? (nav.className += ' hide-nav')
+      : (nav.className = 'nav');
+    this.state.navOpen
+      ? (burger.className = '')
+      : (burger.className += 'active');
+  };
+
   // setToggleBox = () => {
   //   this.setState({
   //     boxToggle: !this.state.boxToggle
@@ -65,220 +83,149 @@ class Navbar extends Component {
     return (
       <MyConsumer>
         {({ scrollIntoView }) => (
-          <nav
-            className='nav'
-            style={Object.assign(
-              this.state.navBg ? { background: 'var(--white)' } : {}
-              // this.props.default === 'dark' ? { background: 'var(--dark)' } : {}
-            )}>
-            <div className='logo-div' onClick={() => scrollIntoView('.top')}>
-              <img src={logo2} alt='LOGO!' />
+          <div className='navbar-js'>
+            <div className='hamburger' onClick={() => this.toggleNavbar()}>
+              <div className='lines'>
+                <div id='burger-toggle'>
+                  <span></span>
+                </div>
+                {/* <div className='line'></div>
+                <div className='line'></div>
+                <div className='line'></div> */}
+              </div>
             </div>
-            <div className='center-nav-div'>
-              <NavLink
-                style={Object.assign(
-                  this.state.page === 'HOME'
-                    ? { textDecoration: 'underline' }
-                    : {},
-                  this.state.navBg ? { color: 'var(--black)' } : {}
-                )}
-                // className='text-black'
-                to='/'
-                // onClick={() => this.closeBox()}
-              >
-                HOME
-              </NavLink>
-              <div className='menu-link-div'>
+            <nav
+              className='nav'
+              style={Object.assign(
+                this.state.navBg ? { background: 'var(--white)' } : {}
+                // this.props.default === 'dark' ? { background: 'var(--dark)' } : {}
+              )}>
+              <div className='logo-div' onClick={() => scrollIntoView('.top')}>
+                <img src={logo2} alt='LOGO!' />
+              </div>
+              <div className='center-nav-div'>
                 <NavLink
                   style={Object.assign(
-                    this.state.page === 'MENU'
+                    this.state.page === 'HOME'
                       ? { textDecoration: 'underline' }
                       : {},
                     this.state.navBg ? { color: 'var(--black)' } : {}
                   )}
-                  className='menu-hover'
-                  to='/menu'
-                  // onClick={() => this.setToggleBox()}
+                  // className='text-black'
+                  to='/'
+                  // onClick={() => this.closeBox()}
                 >
-                  MENU
+                  HOME
                 </NavLink>
-                <DropDown />
+                <div className='menu-link-div'>
+                  <NavLink
+                    style={Object.assign(
+                      this.state.page === 'MENU'
+                        ? { textDecoration: 'underline' }
+                        : {},
+                      this.state.navBg ? { color: 'var(--black)' } : {}
+                    )}
+                    className='menu-hover'
+                    to='/menu'
+                    // onClick={() => this.setToggleBox()}
+                  >
+                    MENU
+                  </NavLink>
+                  <DropDown />
+                </div>
+                <NavLink
+                  style={Object.assign(
+                    this.state.page === 'RESERVATION'
+                      ? { textDecoration: 'underline' }
+                      : {},
+                    this.state.navBg ? { color: 'var(--black)' } : {}
+                  )}
+                  // className='text-black'
+                  to='/reservation'
+                  // onClick={() => this.closeBox()}
+                >
+                  RESERVATION
+                </NavLink>
+                <NavLink
+                  style={Object.assign(
+                    this.state.page === 'LOGIN'
+                      ? { textDecoration: 'underline' }
+                      : {},
+                    this.state.navBg ? { color: 'var(--black)' } : {}
+                  )}
+                  // className='text-black'
+                  to='/login'
+                  // onClick={() => this.closeBox()}
+                >
+                  LOGIN
+                </NavLink>
+                <NavLink
+                  style={Object.assign(
+                    this.state.page === 'SIGNUP'
+                      ? { textDecoration: 'underline' }
+                      : {},
+                    this.state.navBg ? { color: 'var(--black)' } : {}
+                  )}
+                  // className='text-black'
+                  to='/signup'
+                  // onClick={() => this.closeBox()}
+                >
+                  SIGNUP
+                </NavLink>
+                <NavLink
+                  style={Object.assign(
+                    this.state.page === 'CONTACT'
+                      ? { textDecoration: 'underline' }
+                      : {},
+                    this.state.navBg ? { color: 'var(--black)' } : {}
+                  )}
+                  // className='text-black'
+                  to='/contact'
+                  // onClick={() => this.closeBox()}
+                >
+                  CONTACT
+                </NavLink>
+                <NavLink
+                  style={Object.assign(
+                    this.state.page === 'CART'
+                      ? { textDecoration: 'underline' }
+                      : {},
+                    this.state.navBg ? { color: 'var(--black)' } : {}
+                  )}
+                  // className='text-black'
+                  to='/cart'
+                  // onClick={() => this.closeBox()}
+                >
+                  CART
+                </NavLink>
               </div>
-              <NavLink
-                style={Object.assign(
-                  this.state.page === 'RESERVATION'
-                    ? { textDecoration: 'underline' }
-                    : {},
-                  this.state.navBg ? { color: 'var(--black)' } : {}
-                )}
-                // className='text-black'
-                to='/reservation'
-                // onClick={() => this.closeBox()}
-              >
-                RESERVATION
-              </NavLink>
-              <NavLink
-                style={Object.assign(
-                  this.state.page === 'LOGIN'
-                    ? { textDecoration: 'underline' }
-                    : {},
-                  this.state.navBg ? { color: 'var(--black)' } : {}
-                )}
-                // className='text-black'
-                to='/login'
-                // onClick={() => this.closeBox()}
-              >
-                LOGIN
-              </NavLink>
-              <NavLink
-                style={Object.assign(
-                  this.state.page === 'SIGNUP'
-                    ? { textDecoration: 'underline' }
-                    : {},
-                  this.state.navBg ? { color: 'var(--black)' } : {}
-                )}
-                // className='text-black'
-                to='/signup'
-                // onClick={() => this.closeBox()}
-              >
-                SIGNUP
-              </NavLink>
-              <NavLink
-                style={Object.assign(
-                  this.state.page === 'CONTACT'
-                    ? { textDecoration: 'underline' }
-                    : {},
-                  this.state.navBg ? { color: 'var(--black)' } : {}
-                )}
-                // className='text-black'
-                to='/contact'
-                // onClick={() => this.closeBox()}
-              >
-                CONTACT
-              </NavLink>
-              <NavLink
-                style={Object.assign(
-                  this.state.page === 'CART'
-                    ? { textDecoration: 'underline' }
-                    : {},
-                  this.state.navBg ? { color: 'var(--black)' } : {}
-                )}
-                // className='text-black'
-                to='/cart'
-                // onClick={() => this.closeBox()}
-              >
-                CART
-              </NavLink>
-            </div>
 
-            <div
-              className='menu-dropdown'
-              style={
-                this.state.boxToggle ? { display: 'grid' } : { display: 'none' }
-              }>
-              <div className='box-items'>
-                <div className='box-inner-item'>
-                  <a className='menu-list' href='/menu?category=1'>
-                    Appetizer
-                  </a>
-                </div>
-                <div className='box-inner-item'>
-                  <a className='menu-list' href='/menu?category=5'>
-                    Chicken Specialty{' '}
-                  </a>
-                </div>
-                <div className='box-inner-item'>
-                  <a className='menu-list' href='/menu?category=10'>
-                    Dosai
-                  </a>
-                </div>
-                <div className='box-inner-item'>
-                  <a className='menu-list' href='/menu?category=6'>
-                    Lamb Speciality
-                  </a>
-                </div>
-
-                <div className='box-inner-item'>
-                  <a className='menu-list' href='/menu?category=9'>
-                    Rice Speciality
-                  </a>
-                </div>
-                <div className='box-inner-item'>
-                  <a className='menu-list' href='/menu?category=7'>
-                    Seafood Specialties
-                  </a>
-                </div>
-                <div className='box-inner-item'>
-                  <a className='menu-list' href='/menu?category=2'>
-                    Soup
-                  </a>
-                </div>
-                <div className='box-inner-item'>
-                  <a className='menu-list' href='/menu?category=3'>
-                    Tandoor Bread
-                  </a>
-                </div>
-
-                <div className='box-inner-item'>
-                  <a className='menu-list' href='/menu?category=4'>
-                    Tandoor Speciality
-                  </a>
-                </div>
-                <div className='box-inner-item'>
-                  <a className='menu-list' href='/menu?category=8'>
-                    Vegetarian Speciality
-                  </a>
-                </div>
-
-                {/* <div className='box-inner-item'>
-                  <a className='menu-list' href='/menu'>
-                    North Indian Dinner/Thali
-                  </a>
-                </div>
-                <div className='box-inner-item'>
-                  <a className='menu-list' href='/menu'>
-                    Accompaniments
-                  </a>
-                </div>
-
-                <div className='box-inner-item'>
-                  <a className='menu-list' href='/menu'>
-                    Desserts
-                  </a>
-                </div> */}
+              <div className='social-icon-div'>
+                <a
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  href='http://www.facebook.com'
+                  style={this.state.navBg ? { color: 'var(--black)' } : {}}>
+                  <i className='fa fa-facebook'></i>
+                </a>
+                <a
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  href='http://www.twitter.com'
+                  style={this.state.navBg ? { color: 'var(--black)' } : {}}>
+                  <i className='fa fa-twitter'></i>
+                </a>
+                <a
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  href='http://www.instagram.com'
+                  style={this.state.navBg ? { color: 'var(--black)' } : {}}>
+                  <i className='fa fa-instagram'></i>
+                </a>
               </div>
-              <div className='fu-me'>
-                <button id='full-menu-button' className='full-menu'>
-                  <a className='menu-list' href='/menu'>
-                    View Full Menu
-                  </a>
-                </button>
-              </div>
-            </div>
-            <div className='social-icon-div'>
-              <a
-                target='_blank'
-                rel='noopener noreferrer'
-                href='http://www.facebook.com'
-                style={this.state.navBg ? { color: 'var(--black)' } : {}}>
-                <i className='fa fa-facebook'></i>
-              </a>
-              <a
-                target='_blank'
-                rel='noopener noreferrer'
-                href='http://www.twitter.com'
-                style={this.state.navBg ? { color: 'var(--black)' } : {}}>
-                <i className='fa fa-twitter'></i>
-              </a>
-              <a
-                target='_blank'
-                rel='noopener noreferrer'
-                href='http://www.instagram.com'
-                style={this.state.navBg ? { color: 'var(--black)' } : {}}>
-                <i className='fa fa-instagram'></i>
-              </a>
-            </div>
-          </nav>
+            </nav>
+            {/* </div> */}
+          </div>
         )}
       </MyConsumer>
     );

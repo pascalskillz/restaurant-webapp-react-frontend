@@ -68,6 +68,10 @@
   position: absolute;
   font-size: 100px;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .jumbo-text-large {
@@ -97,6 +101,10 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  background-color: var(--texture1);
+  background-image: var(--texture2);
+  border-top: 20px solid var(--white);
+  z-index: 1;
 }
 
 .main-content-button-div {
@@ -116,7 +124,6 @@
   font-weight: bold;
   border: 1px solid var(--grey);
 }
-
 
 .utensils {
   display: flex;
@@ -144,7 +151,32 @@
 }
 
 
-/* I HAVE NO IDEA WHAT THIS IS ---------------------- */
+
+/* MEDIA QUERY ---------------------- */
+@media only screen and (max-width:1100px) {
+
+  .jumbo-text-large {
+    font-size: 1.8rem;
+    padding-bottom: 10px;
+    width: 50%;
+  }
+
+  .jumbo-text-small {
+    font-size: 1rem;
+    width: 60%;
+  }
+
+  .main-content-button-div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+}
+
+
+
+/* I HAVE NO IDEA WHAT THIS IS ----
+  BUT IM AFRAID TO DELETE IT ---- */
 .signin-text-primary {
   font-size: 20px;
   color: black
@@ -163,3 +195,4 @@
   text-align: center;
   background: linear-gradient(#e66465, #9198e5);
 }
+

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import { MyConsumer } from '../Context';
 import { default as Sb } from '../components/SidebarCard';
 import { default as Item } from '../components/MenuItem';
@@ -17,21 +17,34 @@ class Menu extends Component {
     categories: [],
     allItemsLoading: true,
     categoryLoading: true,
-    selected: 'Loading...'
+    selected: 'Loading...',
+    mobile: false
   };
 
   componentDidMount() {
     // this.getFavorites()
     // this.getAllMenuItems()
+    // this.scrollToTop();
     this.gatherAllItems();
     this.getCategories();
-    // this.scrollToTop();
+    this.isMobile();
+    window.addEventListener('resize', this.isMobile);
   }
 
   scrollToTop = () => {
     window.onbeforeunload = function() {
       window.scrollTo(0, 0);
     };
+  };
+
+  isMobile = () => {
+    if (window.innerWidth < 1100) {
+      this.setState({ mobile: true, selected: 'Full Menu', selectedId: 0 });
+    } else {
+      this.setState({ mobile: false });
+      this.getCategories();
+      this.gatherAllItems();
+    }
   };
 
   getCategories = async () => {
@@ -89,41 +102,58 @@ class Menu extends Component {
   };
 
   setSidebar = async x => {
-    let length = this.state.categories.length;
-    // console.log(`setSidebar: ${x}`);
-    if (x === 0) {
-      document.getElementById(`sbItem-0`).setAttribute('sbactive', 'true');
-      this.setState({
-        selected: 'Full Menu',
-        selectedId: 0
-      });
-      for (var j = 1; j < length; j++) {
-        document
-          .getElementById(`sbItem-${j}`)
-          .setAttribute('sbactive', 'false');
-      }
-    }
-    if (x !== 0) {
-      document.getElementById(`sbItem-0`).setAttribute('sbactive', 'false');
-      for (var i = 1; i < length; i++) {
-        if (x === i) {
+    if (!this.state.mobile) {
+      let length = this.state.categories.length;
+      // console.log(`setSidebar: ${x}`);
+      if (x === 0) {
+        document.getElementById(`sbItem-0`).setAttribute('sbactive', 'true');
+        this.setState({
+          selected: 'Full Menu',
+          selectedId: 0
+        });
+        for (var j = 1; j < length; j++) {
           document
-            .getElementById(`sbItem-${i}`)
-            .setAttribute('sbactive', 'true');
-          this.setState({
-            selected: this.state.categories[i].categoryName,
-            selectedId: i
-            //categorySelected: this.state.allItems['categoryId']
-          });
-          // console.log(this.state.categories[i].categoryName)
-        } else {
-          document
-            .getElementById(`sbItem-${i}`)
+            .getElementById(`sbItem-${j}`)
             .setAttribute('sbactive', 'false');
+        }
+      }
+      if (x !== 0) {
+        document.getElementById(`sbItem-0`).setAttribute('sbactive', 'false');
+        for (var i = 1; i < length; i++) {
+          if (x === i) {
+            document
+              .getElementById(`sbItem-${i}`)
+              .setAttribute('sbactive', 'true');
+            this.setState({
+              selected: this.state.categories[i].categoryName,
+              selectedId: i
+              //categorySelected: this.state.allItems['categoryId']
+            });
+            // console.log(this.state.categories[i].categoryName)
+          } else {
+            document
+              .getElementById(`sbItem-${i}`)
+              .setAttribute('sbactive', 'false');
+          }
         }
       }
     }
   };
+
+  handleMobileSelect = event => {
+    console.log(event.target.value);
+    console.log(event.target.selectedIndex);
+    this.setState({
+      selected: event.target.value,
+      selectedId: event.target.selectedIndex
+    });
+    // this.setState({ value: event.target.value });
+  };
+
+  // handleSubmit(event) {
+  //   alert('Your favorite flavor is: ' + this.state.value);
+  //   event.preventDefault();
+  // }
 
   // NOT CURRENTLY BEING USED
   // getFavorites = async() => {
@@ -172,8 +202,21 @@ class Menu extends Component {
       </div>
     ));
 
+    const mobileCategories = this.state.categoryLoading ? (
+      <option value='--'>--</option>
+    ) : (
+      this.state.categories
+        .filter(item => {
+          return item.id > 0;
+        })
+        .map((item, index) => (
+          <option key={index} value={item.categoryName} id={item.id}>
+            {item.categoryName.split(" ")[0]}
+          </option>
+        ))
+    );
+
     return (
-      // <Navbar />
       <MyConsumer>
         {({ loaded }) => (
           <div className='menu-js top'>
@@ -185,33 +228,56 @@ class Menu extends Component {
             />
             <div className='menu-div'>
               <div className='menu-sidebar'>
-                <div
-                  className='sidebar-top-div sb-toggle'
-                  id='sbItem-0'
-                  onClick={() => this.setSidebar(0)}>
-                  <Sb name='Full Menu' img={img} />
-                </div>
-                <div className='sidebar-inner-div'>
-                  {this.state.categoryLoading ? (
-                    <div>Loading...</div>
-                  ) : (
-                    this.state.categories
-                      .filter(filterItem => {
-                        // console.log(filterItem.id);
-                        return filterItem.id > 0;
-                      })
-                      .map((item, index) => (
-                        <div
-                          key={index}
-                          id={`sbItem-${item.id}`}
-                          className='sidebar-inner-item sb-toggle'
-                          sbactive='false'
-                          onClick={() => this.setSidebar(item.id)}>
-                          <Sb name={item.categoryName} img={img} />
-                        </div>
-                      ))
-                  )}
-                </div>
+                {this.state.mobile ? (
+                  <div className='menu-select-mobile'>
+                    {this.state.categoryLoading ? (
+                      <select>
+                        <option value='--'>--</option>
+                      </select>
+                    ) : (
+                      <form>
+                        <select
+                          // value={this.state.mobileCategoryValue}
+                          onChange={this.handleMobileSelect}>
+                          <option id='0' value='Full Menu'>
+                            Full Menu
+                          </option>
+                          {mobileCategories}
+                        </select>
+                      </form>
+                    )}
+                  </div>
+                ) : (
+                  <Fragment>
+                    <div
+                      className='sidebar-top-div sb-toggle'
+                      id='sbItem-0'
+                      onClick={() => this.setSidebar(0)}>
+                      <Sb name='Full Menu' img={img} />
+                    </div>
+                    <div className='sidebar-inner-div'>
+                      {this.state.categoryLoading ? (
+                        <div>Loading...</div>
+                      ) : (
+                        this.state.categories
+                          .filter(filterItem => {
+                            // console.log(filterItem.id);
+                            return filterItem.id > 0;
+                          })
+                          .map((item, index) => (
+                            <div
+                              key={index}
+                              id={`sbItem-${item.id}`}
+                              className='sidebar-inner-item sb-toggle'
+                              sbactive='false'
+                              onClick={() => this.setSidebar(item.id)}>
+                              <Sb name={item.categoryName} img={img} />
+                            </div>
+                          ))
+                      )}
+                    </div>
+                  </Fragment>
+                )}
               </div>
               <div className='menu-categories'>
                 <div className='category-title-div'>
