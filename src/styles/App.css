@@ -38,3 +38,10 @@
   display: table-cell;
   vertical-align: middle;
 }
+
+.jumbo-grid {
+  margin-top: 10% !important;
+}
+.jumbo-left {
+  width: 100% !important;
+}
