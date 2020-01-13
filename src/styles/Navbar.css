@@ -1,188 +1,429 @@
-.navbar {
-  grid-area: navbar;
+/* NAVBAR --- */
+.nav {
+  /* grid-area: navbar; */
+  /* grid-template-rows: repeat(2, min-content); */
+  /*background-image: url('../img/bgimg.jpg') >>>> navbar bachground; need update logo later*/
+  /* padding-top:6rem; */
+  /* position:sticky;       sticky menu-box */
+  /* top: 0; */
   z-index: 99;
   display: grid;
   grid-template-areas:
-    'logo-icon'
-    'dropdown';
-  height: 200px;
-  grid-template-rows: repeat(2, min-content);
-  grid-template-columns: 1fr;
-  /*background-image: url('../img/bgimg.jpg') >>>> navbar bachground; need update logo later*/
-  /* padding-top:6rem; */
- /* position:sticky;       sticky menu-box */
- /* top: 0; */
+    'logo dropdown social';
+  height: 150px;
+  grid-template-columns: min-content 1fr min-content;
+  grid-column-gap: 20px;
+  padding: 0 20px;
+  background: none;
+  border-radius: 0;
+  position: fixed;
+  width: calc(100vw - 10px);
+  /* transition: background 1s ease; */
+  transition: height 1s ease;
 }
 
-
-.logo-icon {
-  grid-area: logo-icon;
-  display: grid;
-  grid-template-rows: 100px;
-  grid-template-columns: 1fr .2fr;
-  align-items: center;
-  /* position: fixed; */
-  /* top: 0; */
-  /* left: 0; */
-  /* right: 0; */
-  /* background: #fff; */
-  color: #e67d31;
-  padding: 1rem 0;
-}
-
+/* LOGO ----------------------- */
 .logo-div {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  width: 120%;
+  grid-area: logo;
+  padding-left: 10px;
+  opacity: 1;
+  transition: opacity 2s ease;
 }
 
-.icon-div {
-  display: flex;
-  justify-content: space-around;
-  font-size: 1.5rem;
+.logo-div img {
+  width: 200px;
 }
 
-.dropdown-div {
-  z-index: 99;
-  grid-area: dropdown;
+.logo-div:hover {
+  cursor: pointer;
+}
+
+/* MAIN NAVBAR  ------------------- */
+.center-nav-div {
   /* margin-top: 123px; */
   /* position: fixed; */
   /* width: 90%; */
   /* background: hsl(210, 12.2%, 16.1%); */
+  /* background:  black rgb(255, 255, 255); /* 2- navbar background */
+  /*url("../img/background-image.jpg");*/
+  grid-area: dropdown;
   display: flex;
-  height: 50px;
   justify-content: space-around;
   align-items: center;
-  /* background:  black rgb(255, 255, 255); /* 2- navbar background */
-  background: var(--black);
-
-  /*url("../img/background-image.jpg");*/
-  
+  opacity: 1;
+  transition: opacity 2s ease;
 }
 
-.dropdown-div a:hover {
-  /* background-color: rgb(71, 68, 67) */
-  background-color:rgb(122, 117, 117);opacity:0.9;
-    /* OnClick color*/
-height: 50px;
-}
-
-
-.dropdown-div a {
-  overflow: hidden;
-  font-weight: bold;
-  color: #fff;    /* 1- nav component color */
+.center-nav-div a {
+  /* overflow: hidden; */
+  /* 1- nav component color */
   /* listWord color*/
-  padding: 12px 25px;
+  /* padding: 12px 25px; */
   /* size of onclick style    */
-  text-decoration: none;
   /* without linkLine*/
-
+  font-weight: bold;
+  color: var(--white);
+  transition: color 1.5s ease;
+  text-decoration: none;
 }
 
+.center-nav-div a:hover {
+  /* background-color: rgb(71, 68, 67) */
+  /* background-color:rgb(122, 117, 117);opacity:0.9; */
+  /* OnClick color*/
+  /* height: 50px; */
+  text-shadow: 2px 2px 2px var(--lightred);
+}
 
-.menu-box {
+.text-black a {
+  color: var(--black) !important;
+}
+
+/* NAV MENU DROPDOWN --------------------------- */
+.menu-link-div {
+  position: relative;
+}
+
+.menu-link-div:hover .menu-dropdown {
   display: grid;
+}
+
+.menu-dropdown {
   /* grid-template-columns: ; */
   /* grid-auto-flow: column; */
-  grid-template-rows: 1fr min-content;
-  grid-template-columns: 1fr;
-  grid-template-areas: 
-   'box-items'
-   'full-menu-button';
-  width: 100%;
-  /* margin-top: 200px; */ /*400px*/
-  /* background: rgb(168, 160, 160); */
-  background-color:rgba(122, 117, 117, .9);
-  color: rgb(15, 13, 13);
-  transform: translateY(-2em);
-  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+  /* margin-top: 200px; */
+  /*400px*/
   /*height: 80%;*/
   /* text-decoration: none; */
   /* padding: 10px; */
-  justify-content: center;
-  align-items: center;
+  /* transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s; */
+  /* background: rgb(168, 160, 160); */
 
+
+  /* grid-template-rows: 1fr min-content; */
+  /* grid-template-columns: 1fr; */
+  /* grid-template-areas: */
+  /* 'box-items' */
+  /* 'full-menu-button'; */
+  /* width: 100%; */
+  /* color: rgb(15, 13, 13); */
+  /* transform: translateY(-2em); */
+  /* transition: all 0.3s ease-in-out; */
+  /* justify-content: center; */
+  /* align-items: center; */
+
+  position: absolute;
+  display: none;
+  font-size: .8rem;
+  z-index: 99;
+  background-color: rgba(122, 117, 117, .9);
+  padding: 0 10px 10px 10px;
+  border-radius: 10px;
 }
-/* new test*/ 
 
+.menu-list {
+  /* line-height: 5rem; */
+  /* width: 200px; */
+  /* font-size: 18px; */
 
-/* Create three equal columns that floats next to each other */
-.box-items{
+  color: var(--white) !important;
+}
+
+.menu-list:hover {
+  text-shadow: none !important;
+  text-decoration: underline;
+}
+
+.box-items {
   /* float: left; */
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 340px);
-  /* width: 25%; */
-  padding: 10px;
   /* height: 400px; Should be removed. Only for demonstration */
-  margin-top: 20px;
-  color: var(--black);
-  justify-content: center;
-}
+  /* width: 25%; */
 
-/* Clear floats after the columns -- not impo.*/
+  /* display: grid; */
+  /* grid-template-columns: repeat(auto-fill, 340px); */
+  /* margin-top: 20px; */
+  /* color: var(--black); */
+  /* justify-content: center; */
 
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-  .box-item {
-    width: 100%;
-  }
-}
-.img11{
-/* height: 20%; */
-/* width: 20%; */
-/* margin-top: 15px; */
-background: white;
-max-height: 50px;
-margin-right: 20px;
+  padding: 10px 0;
 }
 
 .full-menu {
-  display: flex;
-  width: 100%;
-  color: var(--white);
-  text-decoration: var(--black);
   /* padding: 15px 15px; */
-  text-align: center;
-  display: inline-block;
+  /* cursor: pointer; */
+  /* display: flex; */
+  /* width: 100%; */
+  /* color: var(--white); */
+  /* text-decoration: var(--black); */
+  /* text-align: center; */
+  /* display: inline-block; */
+  /* line-height: 1.25rem; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* padding: .8125rem 1.5625rem; */
+
   background: var(--white);
   border: .0625rem solid #adadad;
   border-radius: .25rem;
   font-weight: bold;
-  box-shadow: 0 0.09375rem 0.09375rem 0 rgba(0,0,0,.08);
-  padding: .8125rem 1.5625rem;
-  /* cursor: pointer; */
+  box-shadow: 0 0.09375rem 0.09375rem 0 rgba(0, 0, 0, .08);
   font-size: .875rem;
-  line-height: 1.25rem;
-  justify-content: center;
-  align-items: center;
 }
-.full-menu a{text-decoration: none;}
-.fu-me{
-text-align:center;
-padding: 5%;
-/* height: 15px; */
-
-}
-/* test hover*/
-.menu-list {
-  color: var(--black);
-  /* line-height: 5rem; */
-  font-size: 18px;
-  /* width: 200px; */
-}
-
-.box-item a{
-text-decoration: none;
-font-weight: 500;
-}
-a:hover { color: WindowText; }
 
 #full-menu-button {
   width: 200px;
 }
 
+#full-menu-button a {
+  color: var(--black) !important;
+}
+
+#full-menu-button>a:hover {
+  text-shadow: none !important;
+  text-decoration: underline !important;
+}
+
+/* Create three equal columns that floats next to each other */
+
+
+/* Clear floats after the columns -- not impo.*/
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+/* @media screen and (max-width: 600px) {
+  .box-item {
+    width: 100%;
+  }
+} */
+
+
+
+/* 
+
+.img11 {
+  height: 20%;
+  width: 20%;
+  margin-top: 15px;
+  background: white;
+  max-height: 50px;
+  margin-right: 20px;
+}
+
+
+
+.full-menu a {
+  text-decoration: none;
+}
+
+.full-menu-button-div {
+  height: 15px;
+
+  text-align: center;
+  padding: 5%;
+}
+
+
+.box-item a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  color: WindowText;
+}
+
+
+
 .box-inner-item {
   margin: 20px 0;
+} 
+
+*/
+
+
+
+/* SOCIAL MEDIA ICONS ------------------------ */
+.social-icon-div {
+  grid-area: social;
+  display: flex;
+  width: 200px;
+  justify-content: space-around;
+  font-size: 1.2rem;
+  padding-right: 20px;
+  opacity: 1;
+  transition: opacity 2s ease;
+}
+
+.social-icon-div a {
+  color: var(--white);
+  transition: color 1.5s ease;
+}
+
+.social-icon-div a:hover {
+  text-shadow: 2px 2px 2px var(--lightred);
+}
+
+
+
+/* MEDIA QUERY ------------------------ */
+@media only screen and (max-width:1100px) {
+
+  .hamburger {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    z-index: 100;
+    border-top: 20px solid var(--white);
+  }
+
+  .lines {
+    /* position: relative; */
+    position: fixed;
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    padding: 0 2.2rem;
+    width: 6.5rem;
+    height: 6.5rem;
+    border-radius: 100%;
+    justify-content: center;
+    margin-top: -50px;
+    padding-top: 35px;
+  }
+
+  .line {
+    width: 30px;
+    height: 3px;
+    background: var(--red);
+    margin: 5px;
+  }
+
+  .hide-nav {
+    height: 0 !important;
+    transition: all 1s ease;
+    border-top: 0 !important;
+    overflow: hidden;
+  }
+
+  .hide-nav>.logo-div {
+    opacity: 0;
+    transition: all .3s ease;
+  }
+
+  .hide-nav>.center-nav-div {
+    opacity: 0;
+    transition: all .3s ease;
+  }
+
+  .hide-nav>.social-icon-div {
+    opacity: 0;
+    transition: all .3s ease;
+  }
+
+  .nav {
+    /* display: none; */
+    /* z-index: 99; */
+    display: grid;
+    grid-template-areas:
+      '.'
+      'logo'
+      'dropdown'
+      'social';
+    height: 100vh;
+    grid-template-columns: min-content;
+    grid-template-rows: 100px min-content 1fr min-content;
+    /* grid-column-gap: 20px; */
+    padding: 0;
+    background: var(--grey);
+    /* border-radius: 0; */
+    /* position: fixed; */
+    width: calc(100vw - 10px);
+    width: 100%;
+    /* transition: all 1s ease; */
+    transition: height 1s ease;
+    justify-content: center;
+    border: 20px solid var(--white);
+  }
+
+  .logo-div {
+    /* grid-area: logo; */
+    padding-left: 0;
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .logo-div img {
+    width: 150px;
+  }
+
+  .social-icon-div {
+    /* grid-area: social; */
+    /* display: flex; */
+    width: 100%;
+    justify-content: space-evenly;
+    /* font-size: 1.2rem; */
+    padding-right: 0;
+    padding-bottom: 50px;
+  }
+
+  .center-nav-div {
+    /* grid-area: dropdown; */
+    /* display: flex; */
+    /* justify-content: space-around; */
+    /* align-items: center; */
+    flex-direction: column;
+  }
+
+  .menu-link-div:hover .menu-dropdown {
+    display: none;
+  }
+
+  /* BURGER ------------------------ */
+  #burger-toggle span,
+  #burger-toggle span:before,
+  #burger-toggle span:after {
+    cursor: none;
+    border-radius: 1px;
+    height: 5px;
+    width: 35px;
+    background: var(--red);
+    position: absolute;
+    display: block;
+    content: '';
+  }
+
+  #burger-toggle span:before {
+    top: -10px;
+  }
+
+  #burger-toggle span:after {
+    bottom: -10px;
+  }
+
+  #burger-toggle span,
+  #burger-toggle span:before,
+  #burger-toggle span:after {
+    transition: all 500ms ease-in-out;
+  }
+
+  #burger-toggle.active span {
+    background-color: transparent;
+  }
+
+  #burger-toggle.active span:before,
+  #burger-toggle.active span:after {
+    top: 0;
+  }
+
+  #burger-toggle.active span:before {
+    transform: rotate(45deg);
+  }
+
+  #burger-toggle.active span:after {
+    transform: rotate(-45deg);
+  }
+
 }

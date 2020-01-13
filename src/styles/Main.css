@@ -1,0 +1,198 @@
+/* --- CONTENT/CONTAINER FILES CSS --- */
+
+/* -- MAIN PAGE --  */
+/* .main-js {
+  display: grid;
+  grid-template-rows: 150px 1fr 150px;
+  grid-template-areas:
+    'nav'
+    'main'
+    'footer';
+} */
+
+/* MAIN DIV STYLE -------------*/
+.main-div {
+  /* 4-it was #e5e5e5 */
+  /* grid-area: main; */
+  display: grid;
+  grid-template-areas:
+    'carousel'
+    'utensils'
+    'info';
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* FULL SCREN CAROUSEL ------------- */
+.carousel-div {
+  /*5- it was #e5e5e5*/
+  /* stick carousel in nav border */
+  /* background: none; */
+  /* height: 100vh; */
+  /* height: 100vh; */
+  /* width: 100vw; */
+  grid-area: carousel;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: calc(100vh - 40px);
+  width: calc(100vw - 55px);
+  background: var(--grey);
+}
+
+.carousel-button {
+  color: var(--white);
+  font-size: 3rem;
+  margin: 0 20px;
+  opacity: .7;
+}
+
+.carousel-button:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.slider-slide>img {
+  width: calc(100vw - 55px) !important;
+  height: calc(100vh - 40px);
+  object-fit: cover;
+}
+
+.slider-slide:hover {
+  cursor: initial;
+}
+
+.carousel-text {
+  position: absolute;
+  font-size: 100px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.jumbo-text-large {
+  font-family: 'Courgette', sans-serif;
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--white);
+  text-shadow: 2px 2px 2px var(--red);
+}
+
+.jumbo-text-small {
+  font-family: 'Palanquin', sans-serif;
+  font-size: 1.5rem;
+  color: var(--white);
+  text-shadow: 2px 2px 2px var(--red);
+}
+
+/* MAIN INFO AREA ------------- */
+
+.main-content-div {
+  /* margin-top: 6.1rem;
+  display: table;
+  width: 100%; */
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--texture1);
+  background-image: var(--texture2);
+  border-top: 20px solid var(--white);
+  z-index: 1;
+}
+
+.main-content-button-div {
+  margin: 10px 0
+}
+
+.main-content-button {
+  margin: 10px 5px;
+  font-size: 1.1rem;
+}
+
+.button {
+  padding: 8px 15px;
+  border-radius: 25px;
+  background-color: var(--black);
+  color: var(--white);
+  font-weight: bold;
+  border: 1px solid var(--grey);
+}
+
+.utensils {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.utensil-container {
+  position: absolute;
+  display: flex;
+  font-size: 2.5rem;
+  width: 6.5rem;
+  height: 6.5rem;
+  background: var(--white);
+  border-radius: 100%;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.utensil-container:hover i {
+  text-shadow: 2px 2px 2px var(--lightred);
+}
+
+
+
+/* MEDIA QUERY ---------------------- */
+@media only screen and (max-width:1100px) {
+
+  .jumbo-text-large {
+    font-size: 1.8rem;
+    padding-bottom: 10px;
+    width: 50%;
+  }
+
+  .jumbo-text-small {
+    font-size: 1rem;
+    width: 60%;
+  }
+
+  .main-content-button-div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+}
+
+
+
+/* I HAVE NO IDEA WHAT THIS IS ----
+  BUT IM AFRAID TO DELETE IT ---- */
+.signin-text-primary {
+  font-size: 20px;
+  color: black
+}
+
+.bottom {
+  margin-top: 50px;
+}
+
+.btn-Primary {
+  margin-top: 10px;
+}
+
+.Container {
+  padding: 40px 0;
+  text-align: center;
+  background: linear-gradient(#e66465, #9198e5);
+}
+

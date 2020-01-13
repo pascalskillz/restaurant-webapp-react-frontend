@@ -8,7 +8,7 @@ const SidebarCard = props => {
         <img src={props.img} alt={props.name}/>
       </div>
       <div className="sidebar-text">
-        {props.name}
+        {props.name.toUpperCase()}
       </div>
     </div>
   );
