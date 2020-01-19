@@ -14,20 +14,19 @@ class EditWidget extends Component {
       description: '',
       vegan: false,
       special: false,
-      itemImage: '',
+      // itemImage: '',
       similarList: [],
       imageUrl: ''
-    }
-
-    // itemname: '',
-    // itemprice: '',
-    // cooktime: '',
-    // description: '',
-    // isvegan: false,
-    // isspecial: false,
-    // itemimage: '',
-    // similarList: [],
-    // imageUrl: ''
+    },
+    itemName: '',
+    itemPrice: '',
+    cookTime: '',
+    description: '',
+    vegan: false,
+    special: false,
+    // itemImage: '',
+    similarList: [],
+    imageUrl: ''
   };
 
   componentDidMount() {
@@ -105,15 +104,34 @@ class EditWidget extends Component {
     });
 
     await this.setState({
-      selectedItem: item
+      selectedItem: item,
+      itemName: item.itemName,
+      itemPrice: item.itemPrice,
+      cookTime: item.cookTime,
+      description: item.description,
+      vegan: item.vegan,
+      special: item.special,
+      // itemImage: item.,
+      // similarList: item.similarList,
+      imageUrl: item.imageUrl
     });
   };
 
   saveMenuItem = async e => {
     e.preventDefault();
-
-    // await console.log(submitData)
-    await API;
+    let submitData = {
+      itemName: this.state.itemName,
+      itemPrice: this.state.itemPrice,
+      cookTime: this.state.cookTime,
+      description: this.state.description,
+      vegan: this.state.vegan,
+      special: this.state.special,
+      // itemImage: this.state.,
+      // similarList: this.state.similarList,
+      imageUrl: this.state.imageUrl
+    };
+    await console.log(submitData);
+    await API.updateMenuItem(this.state.itemId, submitData);
   };
 
   render() {
@@ -225,7 +243,7 @@ class EditWidget extends Component {
                       name='itemName'
                       type='text'
                       id='editItemName'
-                      value={this.state.selectedItem.itemName || ''}
+                      value={this.state.itemName || ''}
                       onChange={this.handleInputChange}
                     />
                   </div>
@@ -235,7 +253,7 @@ class EditWidget extends Component {
                       name='itemPrice'
                       type='number'
                       id='editItemPrice'
-                      value={this.state.selectedItem.itemPrice || ''}
+                      value={this.state.itemPrice || ''}
                       onChange={this.handleInputChange}
                     />
                   </div>
@@ -245,7 +263,7 @@ class EditWidget extends Component {
                       name='cookTime'
                       type='number'
                       id='editCookTime'
-                      value={this.state.selectedItem.cookTime || ''}
+                      value={this.state.cookTime || ''}
                       onChange={this.handleInputChange}
                     />
                   </div>
@@ -255,7 +273,7 @@ class EditWidget extends Component {
                       name='vegan'
                       type='checkbox'
                       id='editVegan'
-                      value={this.state.selectedItem.vegan || false}
+                      value={this.state.vegan || false}
                       onChange={this.handleInputChange}
                     />
                   </div>
@@ -265,7 +283,7 @@ class EditWidget extends Component {
                       name='special'
                       type='checkbox'
                       id='editSpecial'
-                      value={this.state.selectedItem.special || false}
+                      value={this.state.special || false}
                       onChange={this.handleInputChange}
                     />
                   </div>
@@ -276,7 +294,7 @@ class EditWidget extends Component {
                       type='textarea'
                       className='form-control'
                       id='editItemDescription'
-                      value={this.state.selectedItem.description || ''}
+                      value={this.state.description || ''}
                       onChange={this.handleInputChange}
                     />
                   </div>
@@ -287,7 +305,9 @@ class EditWidget extends Component {
         </div>
         <div className='edit-save-button-div'>
           <button className='btn btn-danger'>CANCEL</button>
-          <button className='btn'>SAVE</button>
+          <button className='btn' onClick={e => this.saveMenuItem(e)}>
+            SAVE
+          </button>
         </div>
       </div>
     );

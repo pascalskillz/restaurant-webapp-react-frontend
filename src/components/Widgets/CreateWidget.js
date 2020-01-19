@@ -5,24 +5,6 @@ import API from '../../utils/API';
 
 class CreateWidget extends Component {
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     menuItems: [],
-  //     filterSimilar: '',
-  //     menuItemsLoading: true,
-      
-  //     itemname: '',
-  //     itemprice: '',
-  //     cooktime: '',
-  //     itemdescription: '',
-  //     isvegan: '',
-  //     itemimage: '',
-  //     similarList: [],
-  //     imageUrl: '',
-  //   };
-  // }
-
   state = {
     menuItems: [],
     filterSimilar: '',
@@ -123,7 +105,6 @@ class CreateWidget extends Component {
 
   addToSimilar = (e) => {
     e.preventDefault()
-    // console.log(e.target)
     if (!this.state.similarList.includes(e.target.id)){
       this.setState({
         similarList: [...this.state.similarList, e.target.id]
@@ -132,8 +113,6 @@ class CreateWidget extends Component {
     else {
       console.log('ALREADY EXISTS')
     }
-    // console.log(e.target.id)
-    // console.log(this.state.similarList)
   }
 
   deleteFromSimilar = async(e) => {
@@ -158,10 +137,8 @@ class CreateWidget extends Component {
       vegan: this.state.isvegan,
       special: this.state.isspecial,
       imageUrl: this.state.imageUrl,
-      // similarItems: [...this.state.similarList],
     }
 
-    // await console.log(submitData)
     await API
       .createMenuItem(3, submitData)
       .then(res => {

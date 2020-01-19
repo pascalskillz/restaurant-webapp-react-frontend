@@ -1,6 +1,13 @@
 /* --- MAIN APPLICAITON LAYOUT CSS --- */
 
 .app {
+  /* grid-template-rows: repeat(2, min-content); */
+  /* grid-template-areas:
+  "navbar"
+  "content"
+  "footer"; */
+  /* padding: 0 5vw; */
+  /* background-image: url("../img/background-image.jpg") back image */
   display: grid;
   grid-template-rows: repeat(2, min-content);
   grid-template-areas:
@@ -12,16 +19,17 @@
   
 }
 
-.content{
+.content {
+  /* padding-top: 8rem; */
+  /* padding-bottom: 5rem; */
   display: grid;
-  grid-area: 'content';
-  padding-top:8rem;
-  padding-bottom:5rem;
+  grid-area: "content";
 }
+
 .table {
   display: table;
   vertical-align: middle;
-  width: 100%
+  width: 100%;
 }
 
 .table.fixed {
@@ -36,4 +44,11 @@
 .cell {
   display: table-cell;
   vertical-align: middle;
+}
+
+.jumbo-grid {
+  margin-top: 10% !important;
+}
+.jumbo-left {
+  width: 100% !important;
 }

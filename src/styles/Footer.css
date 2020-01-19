@@ -1,36 +1,36 @@
-h1{
-    font-size:0.8rem;
+h1 {
+  font-size: 0.8rem;
 }
-.bg-orange{
-    background:orange;
-    border:solid 1px black;
-    padding:0.5rem;
-    width:70%;
-}
-
-.icon{
-    width:4rem;
-    margin-right: 1rem;
+.bg-orange {
+  background: orange;
+  border: solid 1px black;
+  padding: 0.5rem;
+  width: 70%;
 }
 
-footer{
-    grid-area: footer;
-    background:#e5e5e5;
-    padding:1rem 0;
-    margin-bottom: 0px;
-    display: grid;
+.icon {
+  width: 3rem;
+  margin-right: 1rem;
 }
-footer .table{
-    width:80%;
-    margin:0 auto;
+
+footer {
+  grid-area: footer;
+  background: #e5e5e5;
+  padding: 1rem 0;
+  margin-bottom: 0px;
+  display: grid;
 }
-footer .table .cell div{
-    font-size:1rem;
+footer .table {
+  width: 80%;
+  margin: 0 auto;
 }
-footer .btn{
-    background:#000;
-    border-radius:0.5rem;
-    border:none;
-    padding:3% 8%;
-    color:#fff;
+footer .table .cell div {
+  font-size: 14px;
+}
+footer .btn {
+  background: #000;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 3% 8%;
+  color: #fff;
 }
