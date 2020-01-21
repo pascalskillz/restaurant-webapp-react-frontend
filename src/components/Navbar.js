@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { MyConsumer } from '../Context';
 import DropDown from '../components/DropDown';
 import '../styles/Navbar.css';
-import logo2 from '../img/Logo2.png';
+import newlogo from '../img/newlogo.png';
 
 class Navbar extends Component {
   state = {
@@ -101,7 +101,7 @@ class Navbar extends Component {
                 // this.props.default === 'dark' ? { background: 'var(--dark)' } : {}
               )}>
               <div className='logo-div' onClick={() => scrollIntoView('.top')}>
-                <img src={logo2} alt='LOGO!' />
+                <img src={newlogo} alt='LOGO!' />
               </div>
               <div className='center-nav-div'>
                 <NavLink
