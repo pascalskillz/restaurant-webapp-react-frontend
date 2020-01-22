@@ -6,10 +6,18 @@
   "navbar"
   "content"
   "footer"; */
-  /* padding: 0 5vw; */
   /* background-image: url("../img/background-image.jpg") back image */
   display: grid;
-  background: var(--white);
+  grid-template-rows: repeat(2, min-content);
+  grid-template-areas:
+    'navbar'
+    'content'
+    'footer';
+  /* padding: 0 5vw; */
+  /* background-image: */
+    /* back image */
+    /*url("../img/background-image.jpg")*/
+
 }
 
 .content {
@@ -42,6 +50,7 @@
 .jumbo-grid {
   margin-top: 10% !important;
 }
+
 .jumbo-left {
   width: 100% !important;
 }
