@@ -25,13 +25,13 @@
 /* LOGO ----------------------- */
 .logo-div {
   grid-area: logo;
-  padding-left: 10px;
+  padding-left: 20px;
   opacity: 1;
   transition: opacity 2s ease;
 }
 
 .logo-div img {
-  width: 400px;
+  width: 200px;
 }
 
 .logo-div:hover {
