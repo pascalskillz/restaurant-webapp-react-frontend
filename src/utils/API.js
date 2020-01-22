@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://dev-tandoor.us-east-1.elasticbeanstalk.com/api';
+const url = 'http://tandoor-env.mdtaz78ptd.us-east-1.elasticbeanstalk.com/api';
 
 export default {
 
@@ -17,11 +17,15 @@ export default {
     return axios.post(`${url}/menuitems?categoryId=${categoryId}`, itemData)
   },
 
+  updateMenuItem(itemId, itemData) {
+    return axios.post(`${url}/menuitems/${itemId}`, itemData)
+  },
+
   deleteMenuItems(itemId) {
     return axios.delete(`${url}/menuitems/${itemId}`)
   },
 
-  addSimilarItem( itemId, itemData ) {
+  addSimilarItem(itemId, itemData) {
     return axios.post(`${url}/menuitems/${itemId}/similaritem`, itemData)
   },
 

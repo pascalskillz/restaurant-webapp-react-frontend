@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../../styles/Widgets.css';
 import API from '../../utils/API';
 
 class EditWidget extends Component {
@@ -6,25 +7,61 @@ class EditWidget extends Component {
     menuItems: [],
     filterSimilar: '',
     menuItemsLoading: true,
-    selectedItem: {}
-
-    // itemname: '',
-    // itemprice: '',
-    // cooktime: '',
-    // itemdescription: '',
-    // isvegan: false,
-    // isspecial: false,
-    // itemimage: '',
-    // similarList: [],
-    // imageUrl: ''
+    selectedItem: {
+      itemName: '',
+      itemPrice: '',
+      cookTime: '',
+      description: '',
+      vegan: false,
+      special: false,
+      // itemImage: '',
+      similarList: [],
+      imageUrl: ''
+    },
+    itemName: '',
+    itemPrice: '',
+    cookTime: '',
+    description: '',
+    vegan: false,
+    special: false,
+    // itemImage: '',
+    similarList: [],
+    imageUrl: ''
   };
 
   componentDidMount() {
     this.gatherAllItems();
   }
 
+  widget = window.cloudinary.createUploadWidget(
+    {
+      cloudName: 'yowats0n',
+      uploadPreset: 'twibcpgv'
+    },
+    (error, result) => {
+      if (error) {
+        console.log(error);
+      }
+      this.uploadImage(result, this.widget);
+    }
+  );
+
+  uploadImage = (resultEvent, widget) => {
+    if (resultEvent.event === 'success') {
+      let url = resultEvent.info.secure_url;
+      widget.close();
+      this.setState({
+        newImageUrl: url
+      });
+    }
+  };
+
+  showWidget = (e, widget) => {
+    e.preventDefault();
+    widget.open();
+  };
+
   handleInputChange = event => {
-    // event.preventDefault()
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -53,6 +90,7 @@ class EditWidget extends Component {
     await API.getOneMenuItem(id).then(res => {
       console.log(res.data);
       item = {
+        itemId: res.data.id,
         categoryId: res.data.categoryId,
         cookTime: res.data.cookTime,
         description: res.data.description,
@@ -66,15 +104,34 @@ class EditWidget extends Component {
     });
 
     await this.setState({
-      selectedItem: item
+      selectedItem: item,
+      itemName: item.itemName,
+      itemPrice: item.itemPrice,
+      cookTime: item.cookTime,
+      description: item.description,
+      vegan: item.vegan,
+      special: item.special,
+      // itemImage: item.,
+      // similarList: item.similarList,
+      imageUrl: item.imageUrl
     });
   };
 
   saveMenuItem = async e => {
     e.preventDefault();
-
-    // await console.log(submitData)
-    await API;
+    let submitData = {
+      itemName: this.state.itemName,
+      itemPrice: this.state.itemPrice,
+      cookTime: this.state.cookTime,
+      description: this.state.description,
+      vegan: this.state.vegan,
+      special: this.state.special,
+      // itemImage: this.state.,
+      // similarList: this.state.similarList,
+      imageUrl: this.state.imageUrl
+    };
+    await console.log(submitData);
+    await API.updateMenuItem(this.state.itemId, submitData);
   };
 
   render() {
@@ -155,22 +212,102 @@ class EditWidget extends Component {
             </div>
           </div>
         </div>
-        <div className='edit-image-form-div'>
+        <div className='edit-item-form-div'>
           <div className='edit-photo'>
             <img
               src={this.state.selectedItem.imageUrl}
               alt={this.state.selectedItem.itemName}
             />
+            <div className='edit-image-button-div'>
+              <button
+                className='button upload-button'
+                onClick={e => this.showWidget(e, this.widget)}>
+                <i className='fas fa-cloud-upload-alt'></i> Edit Image
+              </button>
+            </div>
           </div>
-          <div className='edit-form'>
-            <span>{this.state.selectedItem.itemName}</span>
-            <span>{this.state.selectedItem.itemPrice}</span>
-            <span>{this.state.selectedItem.description}</span>
+          <div className='edit-item-form-container'>
+            {!this.state.selectedItem ? (
+              <span>Select an item</span>
+            ) : (
+              <div className='edit-form-inner-div'>
+                <div className='edit-item-heading'>
+                  {this.state.selectedItem.itemName
+                    ? `${this.state.selectedItem.itemName} - ${this.state.selectedItem.itemId}`
+                    : 'Select an item from above'}
+                </div>
+                <div className='edit-item-form-all-items'>
+                  <div className='edit-form-item'>
+                    <label htmlFor='itemName'>Item Name</label>
+                    <input
+                      name='itemName'
+                      type='text'
+                      id='editItemName'
+                      value={this.state.itemName || ''}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='itemPrice'>Item Price</label>
+                    <input
+                      name='itemPrice'
+                      type='number'
+                      id='editItemPrice'
+                      value={this.state.itemPrice || ''}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='cookTime'>Cook Time</label>
+                    <input
+                      name='cookTime'
+                      type='number'
+                      id='editCookTime'
+                      value={this.state.cookTime || ''}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='vegan'>Vegan?</label>
+                    <input
+                      name='vegan'
+                      type='checkbox'
+                      id='editVegan'
+                      value={this.state.vegan || false}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='special'>Special?</label>
+                    <input
+                      name='special'
+                      type='checkbox'
+                      id='editSpecial'
+                      value={this.state.special || false}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='description'>Item Description</label>
+                    <textarea
+                      name='description'
+                      type='textarea'
+                      className='form-control'
+                      id='editItemDescription'
+                      value={this.state.description || ''}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
-        <div className='edit-save-button'>
+        <div className='edit-save-button-div'>
           <button className='btn btn-danger'>CANCEL</button>
-          <button className='btn'>SAVE</button>
+          <button className='btn' onClick={e => this.saveMenuItem(e)}>
+            SAVE
+          </button>
         </div>
       </div>
     );
