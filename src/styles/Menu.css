@@ -81,13 +81,13 @@
   text-transform: capitalize;
 }
 
-.category-item-container {
+/* .category-item-container {
   padding: 0 50px;
-}
+} */
 
 .all-item-div {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 200px);
+  grid-template-columns: repeat(auto-fill, 300px);
   justify-content: center;
   grid-gap: 20px;
   padding-bottom: 20px;
@@ -154,9 +154,9 @@
     padding: 0;
   }
   
-  .all-item-div {
+  /* .all-item-div {
     grid-template-columns: repeat(auto-fill, 300px);
-    /* grid-gap: 20px; */
-  }
+     //grid-gap: 20px;
+  } */
 
 }

@@ -21,9 +21,10 @@ code {
   --lightred: #FA253566;
   --white: #F7F7F7;
   --grey: #9A9A9A;
+  --lightgrey: #cecece;
   --lightBlue: #2BB2F6;
   --green: #23610Caa;
-  --menuGradient: linear-gradient(#00000000, #00000000, #00000000, #00000055, #000000ff);
+  --menuGradient: linear-gradient(#00000000, #00000000, #00000000, #00000005, #0000006f);
   --jtg: linear-gradient(to right, #f7f7f701, #25252511, #252525aa, #f53e3e11, #f7f7f701);
   /* BG COLOR */
   --texture1: #f7f7f7;
