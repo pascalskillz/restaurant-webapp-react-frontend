@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import '../../styles/Widgets.css'
+import '../../styles/Widgets.css';
 import API from '../../utils/API';
 
-
 class CreateWidget extends Component {
-
   state = {
     menuItems: [],
+    categories: [],
     filterSimilar: '',
     menuItemsLoading: true,
-    
+    categoryLoading: true,
+
     itemname: '',
     itemprice: '',
     cooktime: '',
@@ -19,27 +19,30 @@ class CreateWidget extends Component {
     itemimage: '',
     similarList: [],
     imageUrl: '',
-
-  }
+    selected: '',
+    selectedId: ''
+  };
 
   componentDidMount() {
     // const similarSearch = document.getElementById('createFilterSimilar')
     // similarSearch.addEventListener('keyup', this.displayMatches)
     // this.fillMatchArray()
-    this.gatherAllItems()
+    this.gatherAllItems();
+    this.getCategories();
   }
 
-  widget = window.cloudinary.createUploadWidget({
-    cloudName: 'yowats0n',
-    uploadPreset: 'twibcpgv'
-  },
-  (error, result) => {
-    if(error){
-      console.log(error)
+  widget = window.cloudinary.createUploadWidget(
+    {
+      cloudName: 'yowats0n',
+      uploadPreset: 'twibcpgv'
+    },
+    (error, result) => {
+      if (error) {
+        console.log(error);
+      }
+      this.uploadImage(result, this.widget);
     }
-    this.uploadImage(result, this.widget)
-  })
-
+  );
 
   handleInputChange = event => {
     // event.preventDefault()
@@ -50,40 +53,54 @@ class CreateWidget extends Component {
     this.setState({
       [name]: value
     });
-  }
+  };
 
-  gatherAllItems = async() => {
-    let allItemsArr = []
-    await API
-      .getAllMenuItems()
-      .then( res => {
-        let items = res.data
-        // console.log(items)
-        allItemsArr = [...items]
-      })
-    
+  gatherAllItems = async () => {
+    let allItemsArr = [];
+    await API.getAllMenuItems().then(res => {
+      let items = res.data;
+      // console.log(items)
+      allItemsArr = [...items];
+    });
+
     await this.setState({
       menuItems: [...allItemsArr],
-      menuItemsLoading: false,
-    })
+      menuItemsLoading: false
+    });
     // await console.log('Menu Items')
     // await console.log(this.state.menuItems)
-  }
+  };
+
+  getCategories = async () => {
+    let sidebar = [];
+    await API.getCategories().then(res => {
+      sidebar[0] = { id: 0 };
+      let categories = res.data;
+      for (var i of categories) {
+        sidebar[i.id] = i;
+      }
+    });
+
+    await this.setState({
+      categories: [...sidebar],
+      categoryLoading: false
+    });
+  };
 
   uploadImage = (resultEvent, widget) => {
-    if(resultEvent.event === 'success'){
-      let url = resultEvent.info.secure_url
-      widget.close()
+    if (resultEvent.event === 'success') {
+      let url = resultEvent.info.secure_url;
+      widget.close();
       this.setState({
         imageUrl: url
-      })
+      });
     }
-  }
+  };
 
   showWidget = (e, widget) => {
-    e.preventDefault()
-    widget.open()
-  }
+    e.preventDefault();
+    widget.open();
+  };
 
   // THESE WORK BUT ARE SLOW
 
@@ -103,32 +120,31 @@ class CreateWidget extends Component {
   //   })
   // }
 
-  addToSimilar = (e) => {
-    e.preventDefault()
-    if (!this.state.similarList.includes(e.target.id)){
+  addToSimilar = e => {
+    e.preventDefault();
+    if (!this.state.similarList.includes(e.target.id)) {
       this.setState({
         similarList: [...this.state.similarList, e.target.id]
-      })
+      });
+    } else {
+      console.log('ALREADY EXISTS');
     }
-    else {
-      console.log('ALREADY EXISTS')
-    }
-  }
+  };
 
-  deleteFromSimilar = async(e) => {
-    e.preventDefault()
-    console.log(e.target.id)
-    const deleteFilter = await this.state.similarList.filter(item  => {
-      return item.split('=')[1] !== e.target.id.split('=')[1]
-    })
+  deleteFromSimilar = async e => {
+    e.preventDefault();
+    console.log(e.target.id);
+    const deleteFilter = await this.state.similarList.filter(item => {
+      return item.split('=')[1] !== e.target.id.split('=')[1];
+    });
     await this.setState({
       similarList: [...deleteFilter]
-    })
-    await console.log(this.state.similarList)
-  }
+    });
+    await console.log(this.state.similarList);
+  };
 
-  submitForm = async(e) => {
-    e.preventDefault()
+  submitForm = async e => {
+    e.preventDefault();
     const submitData = {
       itemName: this.state.itemname,
       itemPrice: this.state.itemprice,
@@ -136,134 +152,272 @@ class CreateWidget extends Component {
       description: this.state.itemdescription,
       vegan: this.state.isvegan,
       special: this.state.isspecial,
-      imageUrl: this.state.imageUrl,
-    }
+      imageUrl: this.state.imageUrl
+    };
 
-    await API
-      .createMenuItem(3, submitData)
+    await API.createMenuItem(3, submitData)
       .then(res => {
-        if(res.status === 200){
-          alert("Success!")
+        if (res.status === 200) {
+          alert('Success!');
         }
       })
       .catch(err => {
-        alert("Data not saved, please try again")
-      })
-  }
+        alert('Data not saved, please try again');
+      });
+  };
+
+  handleCategorySelect = event => {
+    console.log(event.target.value);
+    console.log(event.target.selectedIndex);
+    this.setState({
+      selected: event.target.value,
+      selectedId: event.target.selectedIndex
+    });
+  };
 
   render() {
-
-    const filterList = this.state.menuItems.filter(item => {
-      return item.itemName.toLowerCase().indexOf(this.state.filterSimilar.toLowerCase()) >= 0
-    })
-    .map((item, index) => (
-      <tr key={index}>
-        <th scope="row">{item.id}</th>
-        <td>{item.itemName}</td>
-        <td><button id={`similarId=${item.id}`} name="issimilar" className="btn create-item-similar" onClick={(e) => this.addToSimilar(e)}>ADD</button></td>
-      </tr>
-      )
-    )
+    const filterList = this.state.menuItems
+      .filter(item => {
+        return (
+          item.itemName
+            .toLowerCase()
+            .indexOf(this.state.filterSimilar.toLowerCase()) >= 0
+        );
+      })
+      .map((item, index) => (
+        <tr key={index}>
+          <th scope='row'>{item.id}</th>
+          <td>{item.itemName}</td>
+          <td>
+            <button
+              id={`similarId=${item.id}`}
+              name='issimilar'
+              className='btn create-item-similar'
+              onClick={e => this.addToSimilar(e)}>
+              ADD
+            </button>
+          </td>
+        </tr>
+      ));
 
     const allItemsList = this.state.menuItems.map((item, index) => (
       <tr key={index}>
-        <th scope="row">{item.id}</th>
+        <th scope='row'>{item.id}</th>
         <td>{item.itemName}</td>
-        <td><button id={`similarId=${item.id}`} name="issimilar" className="btn create-item-similar" onClick={(e) => this.addToSimilar(e)}>ADD</button></td>
+        <td>
+          <button
+            id={`similarId=${item.id}`}
+            name='issimilar'
+            className='btn create-item-similar'
+            onClick={e => this.addToSimilar(e)}>
+            ADD
+          </button>
+        </td>
       </tr>
-    ))
+    ));
 
     const similarList = this.state.similarList.map((item, index) => (
-      <div key={index} className="similar-confirm">
+      <div key={index} className='similar-confirm'>
         {item}
-        <button id={`deleteId=${item.split('=')[1]}`} className="btn similar-delete-button" onClick={(e) => this.deleteFromSimilar(e)}>X</button>
+        <button
+          id={`deleteId=${item.split('=')[1]}`}
+          className='btn similar-delete-button'
+          onClick={e => this.deleteFromSimilar(e)}>
+          X
+        </button>
       </div>
-    ))
+    ));
+
+    const categoryDropdown = this.state.categoryLoading ? (
+      <option value='--'>--</option>
+    ) : (
+      this.state.categories
+        .filter(item => {
+          return item.id > 0;
+        })
+        .map((item, index) => (
+          <option key={index} value={item.categoryName} id={item.id}>
+            {item.categoryName.split(' ')[0]}
+          </option>
+        ))
+    );
 
     return (
-      <div className="cpanel-create-div">
-        <div className="create-form">
-
-          <form className="create-inner-form">
-            <div className="form-grid-group">
-              <div className="create-group1 flex-group">
-                <div className="form-group create-group1a padding-group">
-                  <label htmlFor="itemName">Item Name</label>
-                  <input name="itemname" type="text" className="form-control" id="createItemName" aria-describedby="createItem" placeholder="Enter Item Name"
-                  value={this.state.itemname} onChange={this.handleInputChange}
+      <div className='cpanel-create-div'>
+        <div className='create-form'>
+          <form className='create-inner-form'>
+            <div className='form-grid-group'>
+              <div className='create-group1 flex-group'>
+                <div className='form-group create-group1a padding-group'>
+                  <label htmlFor='itemName'>Item Name</label>
+                  <input
+                    name='itemname'
+                    type='text'
+                    className='form-control'
+                    id='createItemName'
+                    aria-describedby='createItem'
+                    placeholder='Enter Item Name'
+                    value={this.state.itemname}
+                    onChange={this.handleInputChange}
                   />
-                  <small id="createNameDesc" className="form-text text-muted">Enter the name for the menu item</small>
+                  <small id='createNameDesc' className='form-text text-muted'>
+                    Enter the name for the menu item
+                  </small>
                 </div>
 
-                <div className="form-group create-group1b padding-group">
-                  <label htmlFor="itemPrice">Item Price</label>
-                  <input name="itemprice" type="number" className="form-control" id="createItemPrice" aria-describedby="createItem" placeholder="$"
-                  value={this.state.itemprice} onChange={this.handleInputChange}
+                <div className='form-group create-group1b padding-group'>
+                  <label htmlFor='itemPrice'>Item Price</label>
+                  <input
+                    name='itemprice'
+                    type='number'
+                    className='form-control'
+                    id='createItemPrice'
+                    aria-describedby='createItem'
+                    placeholder='$'
+                    value={this.state.itemprice}
+                    onChange={this.handleInputChange}
                   />
-                  <small id="createPriceDesc" className="form-text text-muted">Enter the price for the menu item</small>
+                  <small id='createPriceDesc' className='form-text text-muted'>
+                    Enter the price for the menu item
+                  </small>
                 </div>
-              {/* </div> */}
+                {/* </div> */}
 
-              {/* <div className="create-group2 flex-group"> */}
-                <div className="form-group create-group2a padding-group">
-                  <label htmlFor="cookTime">Cook Time</label>
-                  <input name="cooktime" type="number" className="form-control" id="createCookTime" aria-describedby="cookTime" placeholder="Minutes"
-                  value={this.state.cooktime} onChange={this.handleInputChange}
+                {/* <div className="create-group2 flex-group"> */}
+                <div className='form-group create-group2a padding-group'>
+                  <label htmlFor='cookTime'>Cook Time</label>
+                  <input
+                    name='cooktime'
+                    type='number'
+                    className='form-control'
+                    id='createCookTime'
+                    aria-describedby='cookTime'
+                    placeholder='Minutes'
+                    value={this.state.cooktime}
+                    onChange={this.handleInputChange}
                   />
-                  <small id="createCooktimeDesc" className="form-text text-muted">Enter the cooking time for the menu item</small>
+                  <small
+                    id='createCooktimeDesc'
+                    className='form-text text-muted'>
+                    Enter the cooking time for the menu item
+                  </small>
                 </div>
 
-                <div className="radio-div">
-                  <div className="form-group create-group2b radio-group">
-                    <label htmlFor="itemPrice">Vegan?</label>
-                    <input name="isvegan" type="checkbox" className="form-control" id="createItemVegan" aria-describedby="createVegan" 
-                    checked={this.state.isvegan} onChange={this.handleInputChange}
+                <div className='radio-div'>
+                  <div className='form-group create-group2b radio-group'>
+                    <label htmlFor='itemPrice'>Vegan?</label>
+                    <input
+                      name='isvegan'
+                      type='checkbox'
+                      className='form-control'
+                      id='createItemVegan'
+                      aria-describedby='createVegan'
+                      checked={this.state.isvegan}
+                      onChange={this.handleInputChange}
                     />
-                    <small id="createVeganDesc" className="form-text text-muted">Is this menu item vegan?</small>
+                    <small
+                      id='createVeganDesc'
+                      className='form-text text-muted'>
+                      Is this menu item vegan?
+                    </small>
                   </div>
 
-                  <div className="form-group create-group2b radio-group">
-                    <label htmlFor="itemPrice">Special?</label>
-                    <input name="isspecial" type="checkbox" className="form-control" id="createItemSpecial" aria-describedby="createSpecial" 
-                    checked={this.state.isspecial} onChange={this.handleInputChange}
+                  <div className='form-group create-group2b radio-group'>
+                    <label htmlFor='itemPrice'>Special?</label>
+                    <input
+                      name='isspecial'
+                      type='checkbox'
+                      className='form-control'
+                      id='createItemSpecial'
+                      aria-describedby='createSpecial'
+                      checked={this.state.isspecial}
+                      onChange={this.handleInputChange}
                     />
-                    <small id="createVeganDesc" className="form-text text-muted">Is this a special menu item?</small>
+                    <small
+                      id='createVeganDesc'
+                      className='form-text text-muted'>
+                      Is this a special menu item?
+                    </small>
                   </div>
                 </div>
-
               </div>
 
-              <div className="create-group3 flex-group">
-                <div className="form-group create-group3a padding-group">
-                  <label htmlFor="itemDescription">Item Description</label>
-                  <textarea name="itemdescription" type="textarea" className="form-control" id="createItemDescription" aria-describedby="itemDesc" placeholder="Enter Description"
-                  value={this.state.itemdescription} onChange={this.handleInputChange}
+              <div className='create-group3 flex-group'>
+                <div className='form-group create-group3a padding-group'>
+                  <label htmlFor='itemDescription'>Item Description</label>
+                  <textarea
+                    name='itemdescription'
+                    type='textarea'
+                    className='form-control'
+                    id='createItemDescription'
+                    aria-describedby='itemDesc'
+                    placeholder='Enter Description'
+                    value={this.state.itemdescription}
+                    onChange={this.handleInputChange}
                   />
-                  <small id="createDescriptionDesc" className="form-text text-muted">Enter a description for the menu item</small>
+                  <small
+                    id='createDescriptionDesc'
+                    className='form-text text-muted'>
+                    Enter a description for the menu item
+                  </small>
+                </div>
+                <div className='form-group create-group3a padding-group'>
+                  <label htmlFor='itemDescription'>Item Description</label>
+                  <div className='menu-select'>
+                    {this.state.categoryLoading ? (
+                      <select>
+                        <option value='--'>--</option>
+                      </select>
+                    ) : (
+                      <select onChange={this.handleCategorySelect}>
+                        {categoryDropdown}
+                      </select>
+                    )}
+                  </div>
+                  <small
+                    id='createDescriptionDesc'
+                    className='form-text text-muted'>
+                    Enter a description for the menu item
+                  </small>
                 </div>
               </div>
             </div>
 
-
-            <div className="create-group4 flex-group">
-              <label htmlFor="itemImage">Upload an Image</label>
-              <button className='button upload-button' onClick={(e) => this.showWidget(e, this.widget)}><i className='fas fa-cloud-upload-alt'></i> Upload Image(s)</button>
-              <small id="createImageDesc" className="form-text text-muted">Upload an image for the menu item</small>
+            <div className='create-group4 flex-group'>
+              <label htmlFor='itemImage'>Upload an Image</label>
+              <button
+                className='button upload-button'
+                onClick={e => this.showWidget(e, this.widget)}>
+                <i className='fas fa-cloud-upload-alt'></i> Upload Image(s)
+              </button>
+              <small id='createImageDesc' className='form-text text-muted'>
+                Upload an image for the menu item
+              </small>
             </div>
 
-            <div className="create-group5">
-
-              <div className="similar-items-div">
-                <label htmlFor="itemSimilar">Similar Items</label>
-                <small id="createSimilarDesc" className="form-text text-muted">Select all similar items, search for items below</small>
-                <input name="filterSimilar" type="text" className="form-control" id="createFilterSimilar" aria-describedby="filterSimilar" placeholder="Search Item Name" value={this.state.filterSimilar} onChange={this.handleInputChange}/>
-                <div className="table-scroll">
-                  <table className="table table-striped">
-                    <thead className="thead-dark">
+            <div className='create-group5'>
+              <div className='similar-items-div'>
+                <label htmlFor='itemSimilar'>Similar Items</label>
+                <small id='createSimilarDesc' className='form-text text-muted'>
+                  Select all similar items, search for items below
+                </small>
+                <input
+                  name='filterSimilar'
+                  type='text'
+                  className='form-control'
+                  id='createFilterSimilar'
+                  aria-describedby='filterSimilar'
+                  placeholder='Search Item Name'
+                  value={this.state.filterSimilar}
+                  onChange={this.handleInputChange}
+                />
+                <div className='table-scroll'>
+                  <table className='table table-striped'>
+                    <thead className='thead-dark'>
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Item Name</th>
-                        <th scope="col">Similar?</th>
+                        <th scope='col'>#</th>
+                        <th scope='col'>Item Name</th>
+                        <th scope='col'>Similar?</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -281,52 +435,54 @@ class CreateWidget extends Component {
 
                       {/* USE THIS INSTEAD */}
 
-                      {
-                        // if the filter bar is empty
-                        this.state.filterSimilar.length < 1
-                        ?
-                          // display the all items once loaded
-                          !this.state.menuItemsLoading
-                          ?
-                            allItemsList 
-                          :
-                            <tr>
-                              <th scope="row">0</th>
-                              <td>Loading...</td>
-                              <td> </td>
-                            </tr>
+                      {// if the filter bar is empty
+                      this.state.filterSimilar.length < 1 ? (
+                        // display the all items once loaded
+                        !this.state.menuItemsLoading ? (
+                          allItemsList
+                        ) : (
+                          <tr>
+                            <th scope='row'>0</th>
+                            <td>Loading...</td>
+                            <td> </td>
+                          </tr>
+                        )
+                      ) : (
                         // else
-                        : 
-                          // display filtered items
-                          filterList 
-                      }
+                        // display filtered items
+                        filterList
+                      )}
                     </tbody>
                   </table>
                 </div>
               </div>
-              <div className="similar-list-div">                
-                <label htmlFor="itemSimilar">Confirm Similar Items</label>
-                <small id="createSimilarListDesc" className="form-text text-muted">See list to confirm or delete similar items</small>
-                {
-                  this.state.similarList.length > 0
-                  ?
-                    similarList 
-                  :
-                    <div style={{'fontStyle': 'italic'}}>No Similar Items</div>
-                }
+              <div className='similar-list-div'>
+                <label htmlFor='itemSimilar'>Confirm Similar Items</label>
+                <small
+                  id='createSimilarListDesc'
+                  className='form-text text-muted'>
+                  See list to confirm or delete similar items
+                </small>
+                {this.state.similarList.length > 0 ? (
+                  similarList
+                ) : (
+                  <div style={{ fontStyle: 'italic' }}>No Similar Items</div>
+                )}
               </div>
             </div>
-
           </form>
-
         </div>
 
-        <div className="create-form-submit">
-          <button type="submit" value="Send" className="btn btn-primary" id="create-form-submit-btn" onClick={(e) => this.submitForm(e)}>
+        <div className='create-form-submit'>
+          <button
+            type='submit'
+            value='Send'
+            className='btn btn-primary'
+            id='create-form-submit-btn'
+            onClick={e => this.submitForm(e)}>
             Save
           </button>
         </div>
-
       </div>
     );
   }
