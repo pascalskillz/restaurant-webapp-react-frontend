@@ -7,8 +7,8 @@ import '../styles/cPanel.css'
 
 class ControlPanel extends Component {
   state = {
-    // title: 'Welcome! Select a task to Begin',
-    title: 'Create',
+    title: 'Welcome! Select a task to Begin',
+    // title: 'Create',
   }
 
   setTitle = title => {

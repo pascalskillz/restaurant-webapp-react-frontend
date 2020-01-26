@@ -120,27 +120,42 @@ class CreateWidget extends Component {
   //   })
   // }
 
-  addToSimilar = e => {
+  addToSimilar = async e => {
     e.preventDefault();
-    if (!this.state.similarList.includes(e.target.id)) {
-      this.setState({
-        similarList: [...this.state.similarList, e.target.id]
-      });
+    if (this.state.similarList.length < 3) {
+      if (
+        !this.state.similarList.includes(
+          `${e.target.name} - #${e.target.id.split('=')[1]}`
+        )
+      ) {
+        // console.log(e.target.id);
+        await this.setState({
+          similarList: [
+            ...this.state.similarList,
+            `${e.target.name} - #${e.target.id.split('=')[1]}`
+          ]
+        });
+      } else {
+        // await console.log('ALREADY EXISTS');
+        alert("You've added this item already");
+      }
+      await console.log(this.state.similarList);
     } else {
-      console.log('ALREADY EXISTS');
+      alert('You can only add 3 Similar Items');
     }
   };
 
   deleteFromSimilar = async e => {
     e.preventDefault();
-    console.log(e.target.id);
+    // console.log(e.target.id);
     const deleteFilter = await this.state.similarList.filter(item => {
-      return item.split('=')[1] !== e.target.id.split('=')[1];
+      // console.log(item);
+      return item.split('#')[1] !== e.target.id.split('=')[1];
     });
     await this.setState({
       similarList: [...deleteFilter]
     });
-    await console.log(this.state.similarList);
+    // await console.log(this.state.similarList);
   };
 
   submitForm = async e => {
@@ -152,17 +167,21 @@ class CreateWidget extends Component {
       description: this.state.itemdescription,
       vegan: this.state.isvegan,
       special: this.state.isspecial,
-      imageUrl: this.state.imageUrl
+      imageUrl: this.state.imageUrl,
+      similarItems: this.state.similarList
     };
 
-    await API.createMenuItem(3, submitData)
+    await console.log(submitData);
+    await API.createMenuItem(this.state.selectedId, submitData)
       .then(res => {
         if (res.status === 200) {
           alert('Success!');
+          // TODO: RESET EVERYTHING
         }
       })
       .catch(err => {
         alert('Data not saved, please try again');
+        // TODO: RESET EVERYTHING
       });
   };
 
@@ -191,7 +210,7 @@ class CreateWidget extends Component {
           <td>
             <button
               id={`similarId=${item.id}`}
-              name='issimilar'
+              name={item.itemName}
               className='btn create-item-similar'
               onClick={e => this.addToSimilar(e)}>
               ADD
@@ -207,7 +226,7 @@ class CreateWidget extends Component {
         <td>
           <button
             id={`similarId=${item.id}`}
-            name='issimilar'
+            name={item.itemName}
             className='btn create-item-similar'
             onClick={e => this.addToSimilar(e)}>
             ADD
@@ -220,7 +239,7 @@ class CreateWidget extends Component {
       <div key={index} className='similar-confirm'>
         {item}
         <button
-          id={`deleteId=${item.split('=')[1]}`}
+          id={`deleteId=${item.split('#')[1]}`}
           className='btn similar-delete-button'
           onClick={e => this.deleteFromSimilar(e)}>
           X

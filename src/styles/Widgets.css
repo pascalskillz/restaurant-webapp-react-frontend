@@ -179,10 +179,9 @@
 }
 
 .edit-photo > img {
-  /* max-width: 50px; */
-  /* max-height: 100px; */
-  width: 200px;
+  width: 350px;
   height: 300px;
+  object-fit: cover;
 }
 
 .edit-form-inner-div {
