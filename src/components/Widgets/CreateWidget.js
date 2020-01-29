@@ -20,7 +20,8 @@ class CreateWidget extends Component {
     similarList: [],
     imageUrl: '',
     selected: '',
-    selectedId: ''
+    selectedId: '',
+    test: []
   };
 
   componentDidMount() {
@@ -120,42 +121,77 @@ class CreateWidget extends Component {
   //   })
   // }
 
+  // THIS WORKS
+
+  // addToSimilar = async e => {
+  //   e.preventDefault();
+  //   if (this.state.similarList.length < 3) {
+  //     if (
+  //       !this.state.similarList.includes(
+  //         `${e.target.name} - #${e.target.id.split('=')[1]}`
+  //       )
+  //     ) {
+  //       // console.log(e.target.id);
+  //       await this.setState({
+  //         similarList: [
+  //           ...this.state.similarList,
+  //           `${e.target.name} - #${e.target.id.split('=')[1]}`
+  //         ]
+  //       });
+  //     } else {
+  //       // await console.log('ALREADY EXISTS');
+  //       alert("You've added this item already");
+  //     }
+  //     await console.log(this.state.similarList);
+  //   } else {
+  //     alert('You can only add 3 Similar Items');
+  //   }
+  // };
+
   addToSimilar = async e => {
     e.preventDefault();
-    if (this.state.similarList.length < 3) {
-      if (
-        !this.state.similarList.includes(
-          `${e.target.name} - #${e.target.id.split('=')[1]}`
-        )
-      ) {
-        // console.log(e.target.id);
-        await this.setState({
-          similarList: [
-            ...this.state.similarList,
-            `${e.target.name} - #${e.target.id.split('=')[1]}`
-          ]
-        });
-      } else {
-        // await console.log('ALREADY EXISTS');
-        alert("You've added this item already");
+    // console.log(e.target.id)
+    // console.log(e.target.id.split('=')[1]);
+    let itemId = parseInt(e.target.id.split('=')[1]);
+    let itemToAdd = { similarMenuItemId: itemId };
+    // console.log(itemToAdd);
+
+    // const test = this.state.test;
+    let doesExist = false;
+    for (var i in this.state.similarList) {
+      if (this.state.similarList[i].similarMenuItemId === itemId) {
+        doesExist = true;
       }
-      await console.log(this.state.similarList);
-    } else {
-      alert('You can only add 3 Similar Items');
     }
+    if (!doesExist) {
+      await this.setState({
+        similarList: [...this.state.similarList, itemToAdd]
+      });
+    } else {
+      console.log('EXISTS');
+    }
+    console.log(this.state.similarList);
+    // if (!doesExist) {
+    //   await this.setState({
+    //     test: [...this.state.test, itemToAdd]
+    //   });
+    // } else {
+    //   console.log('ALREADY ADDED');
+    // }
   };
 
   deleteFromSimilar = async e => {
     e.preventDefault();
-    // console.log(e.target.id);
+    let targetId = parseInt(e.target.id.split('=')[1]);
     const deleteFilter = await this.state.similarList.filter(item => {
-      // console.log(item);
-      return item.split('#')[1] !== e.target.id.split('=')[1];
+      console.log(item.similarMenuItemId);
+      // return item.split('#')[1] !== e.target.id.split('=')[1];
+      return item.similarMenuItemId !== targetId;
     });
     await this.setState({
       similarList: [...deleteFilter]
     });
-    // await console.log(this.state.similarList);
+    await console.log(this.state.similarList);
   };
 
   submitForm = async e => {
@@ -237,9 +273,9 @@ class CreateWidget extends Component {
 
     const similarList = this.state.similarList.map((item, index) => (
       <div key={index} className='similar-confirm'>
-        {item}
+        {item.similarMenuItemId}
         <button
-          id={`deleteId=${item.split('#')[1]}`}
+          id={`deleteId=${item.similarMenuItemId}`}
           className='btn similar-delete-button'
           onClick={e => this.deleteFromSimilar(e)}>
           X
