@@ -1,0 +1,17 @@
+.similar-items-container {
+  display: grid;
+  grid-template-rows: 50px 300px;
+  margin: 50px 0;
+  text-align: center;
+}
+
+.sim-title {
+  font-size: 2rem;
+}
+
+.sim-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 310px);
+  justify-content: space-evenly;
+}
+
