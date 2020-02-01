@@ -5,9 +5,13 @@ import API from '../../utils/API';
 class EditWidget extends Component {
   state = {
     menuItems: [],
+    categories: [],
+    categoryArray: [0],
     filterSimilar: '',
     menuItemsLoading: true,
+    categoryLoading: true,
     selectedItem: {
+      itemId: '',
       itemName: '',
       itemPrice: '',
       cookTime: '',
@@ -26,11 +30,13 @@ class EditWidget extends Component {
     special: false,
     // itemImage: '',
     similarList: [],
-    imageUrl: ''
+    imageUrl: '',
+    selected: ''
   };
 
   componentDidMount() {
     this.gatherAllItems();
+    this.getCategories();
   }
 
   widget = window.cloudinary.createUploadWidget(
@@ -71,6 +77,61 @@ class EditWidget extends Component {
     });
   };
 
+  handleCategorySelect = event => {
+    console.log('------------ handleCategorySelect');
+    console.log(event.target.value);
+    console.log(event.target.selectedIndex);
+    this.setState({
+      selected: event.target.value,
+      selectedId: event.target.selectedIndex + 1
+    });
+  };
+
+  setCategoryValue = (text) => {
+    console.log('------------ setCategoryValue');
+    // console.log(this.state.categoryArray);
+    let e = document.getElementById('select-id');
+
+    // e.options[e.selectedIndex] = 9
+    // e.value = 'test';
+    // e.text = 'test';
+
+    // this.setState({
+    //   selected: 'testText',
+    //   selectedId: 'testIndex'
+    // });
+
+    for (var i = 0; i < e.options.length; i++) {
+      // console.log(e.options[i]);
+      // console.log(e.options[i].id);
+      // console.log(e.options[i].value);
+      // console.log(e.options[i].selected);
+      // console.log('-----------');
+      // if (e.options[i].value.split(' ')[0].toLowerCase() === text) {
+      if (e.options[i].value.toLowerCase() === text) {
+        console.log('FOUND');
+        e.options[i].selected = true;
+        this.setState({
+          selected: text,
+          selectedId: i
+        });
+        console.log(this.state.selected);
+        // console.log(this.state.selectedId);
+        break;
+      }
+
+    }
+
+    // console.log(e.selectedIndex);
+    // console.log(e.selected);
+    // console.log(e.text);
+    // console.log(e.value);
+    // this.setState({
+    //   selected: text,
+    //   selectedId: index
+    // });
+  };
+
   gatherAllItems = async () => {
     let allItemsArr = [];
     await API.getAllMenuItems().then(res => {
@@ -82,6 +143,26 @@ class EditWidget extends Component {
     await this.setState({
       menuItems: [...allItemsArr],
       menuItemsLoading: false
+    });
+  };
+
+  getCategories = async () => {
+    let sidebar = [];
+    let catItems = []
+    await API.getCategories().then(res => {
+      sidebar[0] = { id: 0 };
+      catItems[0] = 0 ;
+      let categories = res.data;
+      for (var i of categories) {
+        sidebar[i.id] = i;
+        catItems[i.id] = i.categoryName
+      }
+    });
+
+    await this.setState({
+      categories: [...sidebar],
+      categoryLoading: false,
+      categoryArray: [...catItems]
     });
   };
 
@@ -103,6 +184,8 @@ class EditWidget extends Component {
       };
     });
 
+    await this.setCategoryValue(this.state.categoryArray[item.categoryId]);
+
     await this.setState({
       selectedItem: item,
       itemName: item.itemName,
@@ -113,13 +196,16 @@ class EditWidget extends Component {
       special: item.special,
       // itemImage: item.,
       // similarList: item.similarList,
-      imageUrl: item.imageUrl
+      imageUrl: item.imageUrl,
+      selected: '',
+      selectedId: ''
     });
   };
 
   saveMenuItem = async e => {
     e.preventDefault();
     let submitData = {
+      itemId: this.state.selectedItem.itemId,
       itemName: this.state.itemName,
       itemPrice: this.state.itemPrice,
       cookTime: this.state.cookTime,
@@ -131,7 +217,7 @@ class EditWidget extends Component {
       imageUrl: this.state.imageUrl
     };
     await console.log(submitData);
-    await API.updateMenuItem(this.state.itemId, submitData);
+    await API.updateMenuItem(submitData);
   };
 
   render() {
@@ -164,6 +250,20 @@ class EditWidget extends Component {
         </td>
       </tr>
     ));
+
+    const categoryDropdown = this.state.categoryLoading ? (
+      <option value='--'>--</option>
+    ) : (
+      this.state.categories
+        .filter(item => {
+          return item.id > 0;
+        })
+        .map((item, index) => (
+          <option key={index} value={item.categoryName} id={item.id} >
+            {item.categoryName.split(' ')[0]}
+          </option>
+        ))
+    );
 
     return (
       <div className='cpanel-edit-div'>
@@ -297,6 +397,27 @@ class EditWidget extends Component {
                       value={this.state.description || ''}
                       onChange={this.handleInputChange}
                     />
+                  </div>
+                  <div className='edit-form-select-div'>
+                    <label htmlFor='itemCategory'>Item Category</label>
+                    <div className='menu-select'>
+                      {this.state.categoryLoading ? (
+                        <select>
+                          <option value='--'>--</option>
+                        </select>
+                      ) : (
+                        <select
+                          id='select-id'
+                          onChange={this.handleCategorySelect}>
+                          {categoryDropdown}
+                        </select>
+                      )}
+                    </div>
+                    <small
+                      id='createDescriptionDesc'
+                      className='form-text text-muted'>
+                      Select a menu category
+                    </small>
                   </div>
                 </div>
               </div>
