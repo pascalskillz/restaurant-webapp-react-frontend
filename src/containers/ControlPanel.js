@@ -8,7 +8,7 @@ import '../styles/cPanel.css'
 class ControlPanel extends Component {
   state = {
     // title: 'Welcome! Select a task to Begin',
-    title: 'Edit/Update',
+    title: 'Create',
   }
 
   setTitle = title => {
