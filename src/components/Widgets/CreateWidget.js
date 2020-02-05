@@ -20,8 +20,8 @@ class CreateWidget extends Component {
     similarList: [],
     imageUrl: '',
     selected: '',
-    selectedId: '',
-    test: []
+    selectedId: ''
+    // test: []
   };
 
   componentDidMount() {
@@ -226,8 +226,12 @@ class CreateWidget extends Component {
     console.log(event.target.selectedIndex);
     this.setState({
       selected: event.target.value,
-      selectedId: event.target.selectedIndex
+      selectedId: event.target.selectedIndex+1
     });
+  };
+
+  getMenuItemName = index => {
+    return this.state.menuItems[index].itemName;
   };
 
   render() {
@@ -273,7 +277,7 @@ class CreateWidget extends Component {
 
     const similarList = this.state.similarList.map((item, index) => (
       <div key={index} className='similar-confirm'>
-        {item.similarMenuItemId}
+        {this.getMenuItemName(item.similarMenuItemId)}
         <button
           id={`deleteId=${item.similarMenuItemId}`}
           className='btn similar-delete-button'
@@ -417,7 +421,7 @@ class CreateWidget extends Component {
                   </small>
                 </div>
                 <div className='form-group create-group3a padding-group'>
-                  <label htmlFor='itemDescription'>Item Description</label>
+                  <label htmlFor='itemCategory'>Item Category</label>
                   <div className='menu-select'>
                     {this.state.categoryLoading ? (
                       <select>
@@ -432,7 +436,7 @@ class CreateWidget extends Component {
                   <small
                     id='createDescriptionDesc'
                     className='form-text text-muted'>
-                    Enter a description for the menu item
+                    Select a menu category
                   </small>
                 </div>
               </div>

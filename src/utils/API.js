@@ -16,9 +16,9 @@ export default {
     // console.log(`${url}/menuitems?categoryId=${categoryId}`, itemData)
     return axios.post(`${url}/menuitems?categoryId=${categoryId}`, itemData)
   },
-
-  updateMenuItem(itemId, itemData) {
-    return axios.post(`${url}/menuitems/${itemId}`, itemData)
+  
+  updateMenuItem(categoryId, itemData) {
+      return axios.put(`${url}/menuitems?categoryId=${categoryId}`, itemData)
   },
 
   deleteMenuItems(itemId) {
