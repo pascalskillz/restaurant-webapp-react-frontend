@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/detail.css";
+// import "../../styles/Detail.css";
 
 const Detail = props => {
   return (
