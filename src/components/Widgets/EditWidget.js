@@ -31,7 +31,8 @@ class EditWidget extends Component {
     // itemImage: '',
     similarList: [],
     imageUrl: '',
-    selected: ''
+    selected: '',
+    selectedId: ''
   };
 
   componentDidMount() {
@@ -87,40 +88,42 @@ class EditWidget extends Component {
     });
   };
 
-  setCategoryValue = (text) => {
+  setCategoryValue = (text, id) => {
     console.log('------------ setCategoryValue');
     // console.log(this.state.categoryArray);
     let e = document.getElementById('select-id');
-
+    
     // e.options[e.selectedIndex] = 9
     // e.value = 'test';
     // e.text = 'test';
-
+    
     // this.setState({
-    //   selected: 'testText',
-    //   selectedId: 'testIndex'
-    // });
-
-    for (var i = 0; i < e.options.length; i++) {
-      // console.log(e.options[i]);
-      // console.log(e.options[i].id);
-      // console.log(e.options[i].value);
-      // console.log(e.options[i].selected);
-      // console.log('-----------');
-      // if (e.options[i].value.split(' ')[0].toLowerCase() === text) {
-      if (e.options[i].value.toLowerCase() === text) {
-        console.log('FOUND');
-        e.options[i].selected = true;
-        this.setState({
-          selected: text,
-          selectedId: i
-        });
-        console.log(this.state.selected);
-        // console.log(this.state.selectedId);
-        break;
-      }
-
-    }
+      //   selected: 'testText',
+      //   selectedId: 'testIndex'
+      // });
+      
+      for (var i = 0; i < e.options.length; i++) {
+        // console.log(e.options[i]);
+        // console.log(e.options[i].id);
+        // console.log(e.options[i].value);
+        // console.log(e.options[i].selected);
+        // console.log('-----------');
+        // if (e.options[i].value.split(' ')[0].toLowerCase() === text) {
+          if (e.options[i].value.toLowerCase() === text) {
+            console.log('FOUND');
+            e.options[i].selected = true;
+            this.setState({
+              selected: text,
+              selectedId: id
+            });
+            console.log(this.state.selected);
+            console.log(this.state.selectedId);
+            break;
+          }
+        }
+    console.log('------------ setCategoryValue bottom');
+    console.log(this.state.selected);
+    console.log(this.state.selectedId);
 
     // console.log(e.selectedIndex);
     // console.log(e.selected);
@@ -148,14 +151,14 @@ class EditWidget extends Component {
 
   getCategories = async () => {
     let sidebar = [];
-    let catItems = []
+    let catItems = [];
     await API.getCategories().then(res => {
       sidebar[0] = { id: 0 };
-      catItems[0] = 0 ;
+      catItems[0] = 0;
       let categories = res.data;
       for (var i of categories) {
         sidebar[i.id] = i;
-        catItems[i.id] = i.categoryName
+        catItems[i.id] = i.categoryName;
       }
     });
 
@@ -167,6 +170,7 @@ class EditWidget extends Component {
   };
 
   selectItemForEdit = async id => {
+    await console.log('------------ selectItemForEdit');
     let item = {};
     await API.getOneMenuItem(id).then(res => {
       console.log(res.data);
@@ -184,7 +188,7 @@ class EditWidget extends Component {
       };
     });
 
-    await this.setCategoryValue(this.state.categoryArray[item.categoryId]);
+    await this.setCategoryValue(this.state.categoryArray[item.categoryId], item.categoryId);
 
     await this.setState({
       selectedItem: item,
@@ -197,27 +201,31 @@ class EditWidget extends Component {
       // itemImage: item.,
       // similarList: item.similarList,
       imageUrl: item.imageUrl,
-      selected: '',
-      selectedId: ''
     });
+    
+    await console.log('------------ selectItemForEdit bottom');
+    await console.log(this.state.selected);
+    await console.log(this.state.selectedId);
   };
 
   saveMenuItem = async e => {
     e.preventDefault();
+    console.log('------------ saveMenuItem');
+    console.log('------------ saveMenuItem');
     let submitData = {
-      itemId: this.state.selectedItem.itemId,
+      id: this.state.selectedItem.itemId,
       itemName: this.state.itemName,
       itemPrice: this.state.itemPrice,
       cookTime: this.state.cookTime,
       description: this.state.description,
       vegan: this.state.vegan,
       special: this.state.special,
-      // itemImage: this.state.,
-      // similarList: this.state.similarList,
-      imageUrl: this.state.imageUrl
+      imageUrl: this.state.imageUrl,
+      similarList: this.state.similarList
     };
     await console.log(submitData);
-    await API.updateMenuItem(submitData);
+    await console.log(this.state.selectedId);
+    await API.updateMenuItem(this.state.selectedId, submitData);
   };
 
   render() {
@@ -259,7 +267,7 @@ class EditWidget extends Component {
           return item.id > 0;
         })
         .map((item, index) => (
-          <option key={index} value={item.categoryName} id={item.id} >
+          <option key={index} value={item.categoryName} id={item.id}>
             {item.categoryName.split(' ')[0]}
           </option>
         ))
