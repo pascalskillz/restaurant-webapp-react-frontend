@@ -11,7 +11,7 @@ import img from "../img/old-logo.jpg";
 import "../styles/Menu.css";
 // import '../styles/Main.css'
 import '../styles/cart.css';
-import { Image, Button } from "react-bootstrap";
+import { Image, Button, Container } from "react-bootstrap";
 
 import store from '../store'
 import chartStorage from "../store/chartStorage";
@@ -34,9 +34,6 @@ class Cart extends Component {
     // this.getAllMenuItems()
     // this.scrollToTop();
     this.gatherAllItems();
-    this.getCategories();
-    this.isMobile();
-    window.addEventListener('resize', this.isMobile);
   }
 
   scrollToTop = () => {
@@ -45,47 +42,8 @@ class Cart extends Component {
     };
   };
 
-  isMobile = () => {
-    if (window.innerWidth < 1100) {
-      this.setState({ mobile: true, selected: 'Cart List', selectedId: 0 });
-    } else {
-      this.setState({ mobile: false });
-      this.getCategories();
-      this.gatherAllItems();
-    }
-  };
 
-  getCategories = async () => {
-    let sidebar = [];
-    await API.getCategories().then(res => {
-      sidebar[0] = { id: 0 };
-      let categories = res.data;
-      // console.log(categories)
-      for (var i of categories) {
-        // console.log(i)
-        sidebar[i.id] = i;
-      }
-      // console.log(sidebar);
-    });
 
-    await this.setState({
-      categories: [...sidebar],
-      categoryLoading: false
-    });
-
-    await this.setFromDropdown();
-
-  };
-
-  setFromDropdown = async () => {
-    let paramsString = this.props.location.search;
-    const params = new URLSearchParams(paramsString);
-    const categoryIndexParam = parseInt(params.get('category'));
-    // console.log(`categoryIndexParam: ${categoryIndexParam}`)
-    let categoryIndex = categoryIndexParam > 0 ? categoryIndexParam : 0;
-    // console.log(`categoryIndex: ${categoryIndex}`)
-    this.setSidebar(categoryIndex);
-  };
 
   gatherAllItems = async () => {
     let allItemsArr = [];
@@ -98,59 +56,6 @@ class Cart extends Component {
     // await console.log(this.state.allItems)
   };
 
-  setSidebar = async x => {
-    if (!this.state.mobile) {
-      let length = this.state.categories.length;
-      if (x === 0) {
-        document.getElementById(`sbItem-0`).setAttribute('sbactive', 'true');
-        this.setState({
-          selected: 'Cart List',
-          selectedId: 0
-        });
-        for (var j = 1; j < length; j++) {
-          document
-            .getElementById(`sbItem-${j}`)
-            .setAttribute('sbactive', 'false');
-        }
-      }
-      if (x !== 0) {
-        document.getElementById(`sbItem-0`).setAttribute('sbactive', 'false');
-        for (var i = 1; i < length; i++) {
-          if (x === i) {
-            document
-              .getElementById(`sbItem-${i}`)
-              .setAttribute('sbactive', 'true');
-            this.setState({
-              selected: this.state.categories[i].categoryName,
-              selectedId: i
-              //categorySelected: this.state.allItems['categoryId']
-            });
-            // console.log(this.state.categories[i].categoryName)
-          } else {
-            // document
-              // .getElementById(`sbItem-${i}`)
-              // .setAttribute('sbactive', 'false');
-          }
-        }
-      }
-    }
-  };
-
-  handleMobileSelect = event => {
-    console.log(event.target.value);
-    console.log(event.target.selectedIndex);
-    this.setState({
-      selected: event.target.value,
-      selectedId: event.target.selectedIndex
-    });
-    // this.setState({ value: event.target.value });
-  };
-
-
-  constructor(props){
-     super(props);
-     console.log(store.getState());
-  }
 
   render() {
 
@@ -162,15 +67,15 @@ class Cart extends Component {
        //   <ListGroup.Item>horizontally!</ListGroup.Item>
        // </ListGroup>
 
-       <Row >
-         <Col xs={12} md={8}>
+       <Row style={{display:'flex'}}>
+         <Col>
            <Image
              style={{ height: "200px" }}
              src={item.imageUrl}
              rounded
            />
          </Col>
-         <Col xs={6} md={4}>
+         <Col style={{display:'float-right'}}>
            <Button>添加</Button>
          </Col>
        </Row>
@@ -199,43 +104,19 @@ class Cart extends Component {
             <div className="cart-div">
               <div className="menu-categories">
                 <div className="category-title-div">
-                  <div className="title-header-text">{this.state.selected}</div>
+                  <div className="title-header-text">Cart List</div>
                 </div>
                 <div className="category-item-container">
-                  {this.state.selected === "Cart List" ? (
-                      <div >{allItemsList}</div>
-                    ) : (
-                      <div>Loading...</div>
-                    )
-                  }
+                  <Container> {allItemsList}</Container>
                 </div>
               </div>
               <div className="checkout-sidebar">
-                {this.state.mobile ? (
-                  <div className="menu-select-mobile"></div>
-                ) : (
-                  <Fragment>
-                    <div
-                      className="sidebar-top-div sb-toggle"
-                      id="sbItem-0"
-                      onClick={() => this.setSidebar(0)}
-                    >
-                      <Sb name="Total Amount" img={img} />
-                    </div>
-                    <div className="sidebar-inner-div">
-                      {this.state.categoryLoading ? (
-                        <div>Loading...</div>
-                      ) : (
-                        <div
-                          className="sidebar-inner-item sb-toggle"
-                          sbactive="false"
-                        >
-                          <Sb name={"Placeholder"} img={img} />
-                        </div>
-                      )}
-                    </div>
+                <Fragment>
+                  <Sb name="Total Amount" img={img} />
+                  <div className="sidebar-inner-div">
+                    <Sb name={"Placeholder"} img={img} />
+                  </div>
                   </Fragment>
-                )}
               </div>
             </div>
             <Footer />
