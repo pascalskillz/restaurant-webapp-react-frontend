@@ -101,7 +101,6 @@ class Cart extends Component {
   setSidebar = async x => {
     if (!this.state.mobile) {
       let length = this.state.categories.length;
-      // console.log(`setSidebar: ${x}`);
       if (x === 0) {
         document.getElementById(`sbItem-0`).setAttribute('sbactive', 'true');
         this.setState({
