@@ -52,8 +52,7 @@ class Cart extends Component {
       allItems: [...allItemsArr],
       allItemsLoading: false
     });
-    //await console.log('All Items')
-    // await console.log(this.state.allItems)
+
   };
 
 
