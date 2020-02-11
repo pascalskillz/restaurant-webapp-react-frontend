@@ -30,9 +30,6 @@ class Cart extends Component {
   };
 
   componentDidMount() {
-    // this.getFavorites()
-    // this.getAllMenuItems()
-    // this.scrollToTop();
     this.gatherAllItems();
   }
 
