@@ -4,8 +4,14 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Jumbo from '../components/Jumbo';
 import API from '../utils/API';
+import store from '../store'
+import chartStore from '../store/chartStorage';
 
 class Item extends Component {
+  constructor(props){
+     super(props);
+     this.addtoChart = this.addtoChart.bind(this);
+  };
   state = {
     renderItem: [],
     categoryName: ''
@@ -41,31 +47,53 @@ class Item extends Component {
 
   getOneMenuItem = async id => {
     API.getOneMenuItem(id).then(res => {
-      // console.log(res.data);
+      console.log(res.data);
       this.setState({
         renderItem: res.data
       });
     });
   };
 
+  addtoChart = (Item,e) => {
+      e.preventDefault();
+      if(Item.id!==undefined){
+        chartStore.addItem(Item.id, Item);
+      }
+  }
+
   render() {
+    const Item = this.state.renderItem;
     return (
       <div className='item-js top'>
         <Navbar />
         <Jumbo
           src={
-            this.state.renderItem.imageUrl ||
+            Item.imageUrl ||
             'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb'
           }
           alt='Menu Item Detail'
           text={this.state.categoryName || 'Tandoor Restauraunt'}
         />
-        <Detail
-          name={this.state.renderItem.itemName}
-          price={this.state.renderItem.itemPrice}
-          img={this.state.renderItem.imageUrl}
-          desc={this.state.renderItem.description}
-        />
+
+        <div className="container">
+          <div className="menu-item-row row">
+            <div className="item-image">
+              <img src={Item.imageUrl} alt={Item.itemName} />
+            </div>
+            <div className="item-detail">
+              <h2>{Item.itemName}</h2>
+              <h4>$ {Item.itemPrice}</h4>
+              <div>
+                <p>{Item.description}</p>
+              </div>
+              <div className="item-button">
+                <button onClick={(e) => this.addtoChart(Item,e)}>Add To Cart</button>
+              </div>
+            </div>
+          </div>
+          <div className="row"></div>
+        </div>
+
         <Footer />
       </div>
     );

@@ -11,8 +11,11 @@ import img from "../img/old-logo.jpg";
 import "../styles/Menu.css";
 // import '../styles/Main.css'
 import '../styles/cart.css';
+import { Image, Button } from "react-bootstrap";
 
 import store from '../store'
+import chartStorage from "../store/chartStorage";
+import { Row, Col } from "react-bootstrap";
 
 
 
@@ -86,12 +89,7 @@ class Cart extends Component {
 
   gatherAllItems = async () => {
     let allItemsArr = [];
-    await API.getAllMenuItems().then(res => {
-      let items = res.data;
-      // console.log(items)
-      allItemsArr = [...items];
-    });
-
+    allItemsArr = chartStorage.getList();
     await this.setState({
       allItems: [...allItemsArr],
       allItemsLoading: false
@@ -111,9 +109,9 @@ class Cart extends Component {
           selectedId: 0
         });
         for (var j = 1; j < length; j++) {
-          // document
-            // .getElementById(`sbItem-${j}`)
-            // .setAttribute('sbactive', 'false');
+          document
+            .getElementById(`sbItem-${j}`)
+            .setAttribute('sbactive', 'false');
         }
       }
       if (x !== 0) {
@@ -149,36 +147,44 @@ class Cart extends Component {
     // this.setState({ value: event.target.value });
   };
 
+
+  constructor(props){
+     super(props);
+     console.log(store.getState());
+  }
+
   render() {
-     const filteredItemList = this.state.allItems
-       .filter(item => {
-         //console.log(item)
-         return item.categoryId === this.state.selectedId;
-       })
-       .map((item, index) => (
-         <div key={index} className="filtered-grid-item">
-           <Link to={"/item/" + item.id}>
-             <Item
-               img={item.imageUrl}
-               name={item.itemName}
-               price={item.itemPrice}
-               id={item.id}
-             />
-           </Link>
-         </div>
-       ));
 
      const allItemsList = this.state.allItems.map((item, index) => (
-       <div key={index} className="all-grid-item">
-         <Link to={"/item/" + item.id}>
-           <Item
-             img={item.imageUrl}
-             name={item.itemName}
-             price={item.itemPrice}
-             id={item.id}
+       // <ListGroup horizontal key={index}>
+       //   <ListGroup.Item>This</ListGroup.Item>
+       //   <ListGroup.Item>ListGroup</ListGroup.Item>
+       //   <ListGroup.Item>renders</ListGroup.Item>
+       //   <ListGroup.Item>horizontally!</ListGroup.Item>
+       // </ListGroup>
+
+       <Row >
+         <Col xs={12} md={8}>
+           <Image
+             style={{ height: "200px" }}
+             src={item.imageUrl}
+             rounded
            />
-         </Link>
-       </div>
+         </Col>
+         <Col xs={6} md={4}>
+           <Button>添加</Button>
+         </Col>
+       </Row>
+       //   <div key={index} className="all-grid-item">
+       //     <Link to={"/item/" + item.id}>
+       //       <Item
+       //         img={item.imageUrl}
+       //         name={item.itemName}
+       //         price={item.itemPrice}
+       //         id={item.id}
+       //       />
+       //     </Link>
+       // </div>
      ));
 
     return (
@@ -198,17 +204,13 @@ class Cart extends Component {
                 </div>
                 <div className="category-item-container">
                   {this.state.selected === "Cart List" ? (
-                    !this.state.allItemsLoading ? (
-                      <div className="all-item-div">{allItemsList}</div>
+                      <div >{allItemsList}</div>
                     ) : (
                       <div>Loading...</div>
                     )
-                  ) : (
-                    <div className="category-item-div">{filteredItemList}</div>
-                  )}
+                  }
                 </div>
               </div>
-
               <div className="checkout-sidebar">
                 {this.state.mobile ? (
                   <div className="menu-select-mobile"></div>
