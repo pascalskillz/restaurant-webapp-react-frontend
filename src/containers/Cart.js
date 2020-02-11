@@ -5,11 +5,9 @@ import { default as Item } from "../components/MenuItem";
 import Jumbo from '../components/Jumbo';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { Link } from "react-router-dom";
 import API from "../utils/API";
 import img from "../img/old-logo.jpg";
 import "../styles/Menu.css";
-// import '../styles/Main.css'
 import '../styles/cart.css';
 import { Image, Button, Container } from "react-bootstrap";
 
