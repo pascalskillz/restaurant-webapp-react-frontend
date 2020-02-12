@@ -254,3 +254,16 @@
 .edit-save-button-div > button {
   margin: 0px 5px;
 }
+
+
+/* -------------------- EDIT WIDGET */
+
+.cpanel-delete-div {
+  text-align: center;
+}
+
+.delete-display-item-div {
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
+}
