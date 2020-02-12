@@ -21,7 +21,7 @@ export default {
       return axios.put(`${url}/menuitems?categoryId=${categoryId}`, itemData)
   },
 
-  deleteMenuItems(itemId) {
+  deleteMenuItem(itemId) {
     return axios.delete(`${url}/menuitems/${itemId}`)
   },
 
