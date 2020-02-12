@@ -9,8 +9,8 @@ class ControlPanel extends Component {
   state = {
     // title: 'Welcome! Select a task to Begin',
     // title: 'Create',
-    title: 'Edit/Update',
-    // title: 'Delete',
+    // title: 'Edit/Update',
+    title: 'Delete',
   }
 
   setTitle = title => {
