@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import '../../styles/Widgets.css';
+import Modal from '../Modal';
+import MenuItem from '../MenuItem';
 import API from '../../utils/API';
+import '../../styles/Widgets.css';
 
 class CreateWidget extends Component {
   state = {
@@ -20,7 +22,7 @@ class CreateWidget extends Component {
     similarList: [],
     imageUrl: '',
     selected: '',
-    selectedId: ''
+    selectedId: 1
     // test: []
   };
 
@@ -155,7 +157,6 @@ class CreateWidget extends Component {
     let itemId = parseInt(e.target.id.split('=')[1]);
     let itemToAdd = { similarMenuItemId: itemId };
     // console.log(itemToAdd);
-
     // const test = this.state.test;
     let doesExist = false;
     for (var i in this.state.similarList) {
@@ -213,6 +214,7 @@ class CreateWidget extends Component {
         if (res.status === 200) {
           alert('Success!');
           // TODO: RESET EVERYTHING
+          window.location.reload()
         }
       })
       .catch(err => {
@@ -221,13 +223,14 @@ class CreateWidget extends Component {
       });
   };
 
-  handleCategorySelect = event => {
-    console.log(event.target.value);
-    console.log(event.target.selectedIndex);
-    this.setState({
+  handleCategorySelect = async event => {
+    // console.log(event.target.value);
+    // console.log(event.target.selectedIndex);
+    await this.setState({
       selected: event.target.value,
-      selectedId: event.target.selectedIndex+1
+      selectedId: event.target.selectedIndex + 1
     });
+    await console.log(this.state.selectedId);
   };
 
   getMenuItemName = index => {
@@ -533,14 +536,33 @@ class CreateWidget extends Component {
         </div>
 
         <div className='create-form-submit'>
-          <button
-            type='submit'
-            value='Send'
-            className='btn btn-primary'
-            id='create-form-submit-btn'
-            onClick={e => this.submitForm(e)}>
-            Save
-          </button>
+          <Modal
+            className=''
+            title='Preview'
+            text='Are you sure you want to create this item?'
+            content={
+              <MenuItem
+                img={this.state.imageUrl}
+                name={this.state.itemname}
+                price={this.state.itemprice}
+                // id={item.id}
+              />
+            }
+            buttonClose={<button className='btn btn-primary'>Cancel</button>}
+            buttonSave={
+              <button
+                type='submit'
+                value='Send'
+                className='btn btn-primary'
+                id='create-form-submit-btn'
+                onClick={e => this.submitForm(e)}>
+                Save
+              </button>
+            }>
+            <button id='create-form-submit-btn' className='btn btn-primary'>
+              Save
+            </button>
+          </Modal>
         </div>
       </div>
     );

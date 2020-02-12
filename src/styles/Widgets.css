@@ -39,12 +39,17 @@
 }
 
 #create-form-submit-btn {
-  padding: 10px 20px;
-  font-size: 1.5rem;
+  /* padding: 10px 20px; */
+  /* font-size: 1.5rem; */
   background: var(--green);
 }
 
 #create-form-submit-btn:hover {
+  background: var(--grey);
+  border: none;
+}
+
+.btn:hover {
   background: var(--grey);
   border: none;
 }
