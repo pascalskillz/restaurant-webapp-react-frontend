@@ -159,17 +159,21 @@ class CreateWidget extends Component {
     // console.log(itemToAdd);
     // const test = this.state.test;
     let doesExist = false;
-    for (var i in this.state.similarList) {
-      if (this.state.similarList[i].similarMenuItemId === itemId) {
-        doesExist = true;
+    if (this.state.similarList.length < 3) {
+      for (var i in this.state.similarList) {
+        if (this.state.similarList[i].similarMenuItemId === itemId) {
+          doesExist = true;
+        }
       }
-    }
-    if (!doesExist) {
-      await this.setState({
-        similarList: [...this.state.similarList, itemToAdd]
-      });
+      if (!doesExist) {
+        await this.setState({
+          similarList: [...this.state.similarList, itemToAdd]
+        });
+      } else {
+        console.log('EXISTS');
+      }
     } else {
-      console.log('EXISTS');
+      console.log('TOO MANY ITEMS');
     }
     console.log(this.state.similarList);
     // if (!doesExist) {
@@ -214,7 +218,7 @@ class CreateWidget extends Component {
         if (res.status === 200) {
           alert('Success!');
           // TODO: RESET EVERYTHING
-          window.location.reload()
+          window.location.reload();
         }
       })
       .catch(err => {
