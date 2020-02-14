@@ -1,36 +1,44 @@
 import React, { Component } from 'react';
-import '../../styles/Widgets.css';
+import Modal from '../Modal';
+import MenuItem from '../MenuItem';
 import API from '../../utils/API';
+import '../../styles/Widgets.css';
 
 class EditWidget extends Component {
   state = {
     menuItems: [],
+    categories: [],
+    categoryArray: [0],
     filterSimilar: '',
     menuItemsLoading: true,
+    categoryLoading: true,
     selectedItem: {
+      itemId: '',
       itemName: '',
       itemPrice: '',
       cookTime: '',
       description: '',
       vegan: false,
       special: false,
-      // itemImage: '',
       similarList: [],
       imageUrl: ''
     },
-    itemName: '',
-    itemPrice: '',
-    cookTime: '',
-    description: '',
-    vegan: false,
-    special: false,
+    // itemName: '',
+    // itemPrice: '',
+    // cookTime: '',
+    // description: '',
+    // vegan: false,
+    // special: false,
     // itemImage: '',
     similarList: [],
-    imageUrl: ''
+    imageUrl: '',
+    selected: '',
+    selectedId: ''
   };
 
   componentDidMount() {
     this.gatherAllItems();
+    this.getCategories();
   }
 
   widget = window.cloudinary.createUploadWidget(
@@ -46,13 +54,20 @@ class EditWidget extends Component {
     }
   );
 
-  uploadImage = (resultEvent, widget) => {
+  uploadImage = async (resultEvent, widget) => {
     if (resultEvent.event === 'success') {
-      let url = resultEvent.info.secure_url;
-      widget.close();
-      this.setState({
-        newImageUrl: url
+      let url = await resultEvent.info.secure_url;
+      await widget.close();
+      await this.setState({
+        // newImageUrl: url,
+        imageUrl: url
       });
+      await this.setState(prevState => ({
+        selectedItem: {
+          ...prevState.selectedItem,
+          imageUrl: url
+        }
+      }));
     }
   };
 
@@ -71,6 +86,63 @@ class EditWidget extends Component {
     });
   };
 
+  handleCategorySelect = event => {
+    console.log('------------ handleCategorySelect');
+    console.log(event.target.value);
+    console.log(event.target.selectedIndex);
+    this.setState({
+      selected: event.target.value,
+      selectedId: event.target.selectedIndex + 1
+    });
+  };
+
+  setCategoryValue = (text, id) => {
+    console.log('------------ setCategoryValue');
+    // console.log(this.state.categoryArray);
+    let e = document.getElementById('select-id');
+
+    // e.options[e.selectedIndex] = 9
+    // e.value = 'test';
+    // e.text = 'test';
+
+    // this.setState({
+    //   selected: 'testText',
+    //   selectedId: 'testIndex'
+    // });
+
+    for (var i = 0; i < e.options.length; i++) {
+      // console.log(e.options[i]);
+      // console.log(e.options[i].id);
+      // console.log(e.options[i].value);
+      // console.log(e.options[i].selected);
+      // console.log('-----------');
+      // if (e.options[i].value.split(' ')[0].toLowerCase() === text) {
+      if (e.options[i].value.toLowerCase() === text) {
+        console.log('FOUND');
+        e.options[i].selected = true;
+        this.setState({
+          selected: text,
+          selectedId: id
+        });
+        console.log(this.state.selected);
+        console.log(this.state.selectedId);
+        break;
+      }
+    }
+    console.log('------------ setCategoryValue bottom');
+    console.log(this.state.selected);
+    console.log(this.state.selectedId);
+
+    // console.log(e.selectedIndex);
+    // console.log(e.selected);
+    // console.log(e.text);
+    // console.log(e.value);
+    // this.setState({
+    //   selected: text,
+    //   selectedId: index
+    // });
+  };
+
   gatherAllItems = async () => {
     let allItemsArr = [];
     await API.getAllMenuItems().then(res => {
@@ -85,7 +157,28 @@ class EditWidget extends Component {
     });
   };
 
+  getCategories = async () => {
+    let sidebar = [];
+    let catItems = [];
+    await API.getCategories().then(res => {
+      sidebar[0] = { id: 0 };
+      catItems[0] = 0;
+      let categories = res.data;
+      for (var i of categories) {
+        sidebar[i.id] = i;
+        catItems[i.id] = i.categoryName;
+      }
+    });
+
+    await this.setState({
+      categories: [...sidebar],
+      categoryLoading: false,
+      categoryArray: [...catItems]
+    });
+  };
+
   selectItemForEdit = async id => {
+    await console.log('------------ selectItemForEdit');
     let item = {};
     await API.getOneMenuItem(id).then(res => {
       console.log(res.data);
@@ -103,6 +196,11 @@ class EditWidget extends Component {
       };
     });
 
+    await this.setCategoryValue(
+      this.state.categoryArray[item.categoryId],
+      item.categoryId
+    );
+
     await this.setState({
       selectedItem: item,
       itemName: item.itemName,
@@ -115,23 +213,56 @@ class EditWidget extends Component {
       // similarList: item.similarList,
       imageUrl: item.imageUrl
     });
+
+    await console.log('------------ selectItemForEdit bottom');
+    await console.log(this.state.selected);
+    await console.log(this.state.selectedId);
+  };
+
+  displayItemToSubmit = async () => {
+    let submitData = {
+      id: this.state.selectedItem.itemId,
+      itemName: this.state.selectedItem.itemName,
+      itemPrice: this.state.selectedItem.itemPrice,
+      cookTime: this.state.selectedItem.cookTime,
+      description: this.state.selectedItem.description,
+      vegan: this.state.selectedItem.vegan,
+      special: this.state.selectedItem.special,
+      imageUrl: this.state.selectedItem.imageUrl,
+      similarList: this.state.selectedItem.similarList
+    };
+    await console.log(submitData);
   };
 
   saveMenuItem = async e => {
     e.preventDefault();
+    console.log('------------ saveMenuItem');
+    console.log('------------ saveMenuItem');
     let submitData = {
+      id: this.state.selectedItem.itemId,
       itemName: this.state.itemName,
       itemPrice: this.state.itemPrice,
       cookTime: this.state.cookTime,
       description: this.state.description,
       vegan: this.state.vegan,
       special: this.state.special,
-      // itemImage: this.state.,
-      // similarList: this.state.similarList,
-      imageUrl: this.state.imageUrl
+      imageUrl: this.state.imageUrl,
+      similarList: this.state.similarList
     };
     await console.log(submitData);
-    await API.updateMenuItem(this.state.itemId, submitData);
+    await console.log(this.state.selectedId);
+    await API.updateMenuItem(this.state.selectedId, submitData)
+      .then(res => {
+        if (res.status === 200) {
+          alert('Success!');
+          // TODO: RESET EVERYTHING
+          window.location.reload();
+        }
+      })
+      .catch(err => {
+        alert('Data not saved, please try again');
+        // TODO: RESET EVERYTHING
+      });
   };
 
   render() {
@@ -164,6 +295,20 @@ class EditWidget extends Component {
         </td>
       </tr>
     ));
+
+    const categoryDropdown = this.state.categoryLoading ? (
+      <option value='--'>--</option>
+    ) : (
+      this.state.categories
+        .filter(item => {
+          return item.id > 0;
+        })
+        .map((item, index) => (
+          <option key={index} value={item.categoryName} id={item.id}>
+            {item.categoryName.split(' ')[0]}
+          </option>
+        ))
+    );
 
     return (
       <div className='cpanel-edit-div'>
@@ -273,7 +418,7 @@ class EditWidget extends Component {
                       name='vegan'
                       type='checkbox'
                       id='editVegan'
-                      value={this.state.vegan || false}
+                      checked={this.state.vegan || false}
                       onChange={this.handleInputChange}
                     />
                   </div>
@@ -283,7 +428,7 @@ class EditWidget extends Component {
                       name='special'
                       type='checkbox'
                       id='editSpecial'
-                      value={this.state.special || false}
+                      checked={this.state.special || false}
                       onChange={this.handleInputChange}
                     />
                   </div>
@@ -298,16 +443,64 @@ class EditWidget extends Component {
                       onChange={this.handleInputChange}
                     />
                   </div>
+                  <div className='edit-form-select-div'>
+                    <label htmlFor='itemCategory'>Item Category</label>
+                    <div className='menu-select'>
+                      {this.state.categoryLoading ? (
+                        <select>
+                          <option value='--'>--</option>
+                        </select>
+                      ) : (
+                        <select
+                          id='select-id'
+                          onChange={this.handleCategorySelect}>
+                          {categoryDropdown}
+                        </select>
+                      )}
+                    </div>
+                    <small
+                      id='createDescriptionDesc'
+                      className='form-text text-muted'>
+                      Select a menu category
+                    </small>
+                  </div>
                 </div>
               </div>
             )}
           </div>
         </div>
         <div className='edit-save-button-div'>
-          <button className='btn btn-danger'>CANCEL</button>
-          <button className='btn' onClick={e => this.saveMenuItem(e)}>
-            SAVE
-          </button>
+          <Modal
+            className=''
+            title='Preview'
+            text='Are you sure you want to update this item?'
+            content={
+              <MenuItem
+                img={this.state.selectedItem.imageUrl}
+                name={this.state.selectedItem.itemName}
+                price={
+                  this.state.selectedItem.itemPrice
+                    ? this.state.selectedItem.itemPrice
+                    : this.state.itemPrice
+                }
+                // id={item.id}
+              />
+            }
+            buttonClose={<button className='btn btn-primary'>Cancel</button>}
+            buttonSave={
+              <button
+                type='submit'
+                value='Send'
+                className='btn btn-primary'
+                id='create-form-submit-btn'
+                onClick={e => this.saveMenuItem(e)}>
+                Save
+              </button>
+            }>
+            <button className='btn' onClick={this.displayItemToSubmit}>
+              SAVE
+            </button>
+          </Modal>
         </div>
       </div>
     );

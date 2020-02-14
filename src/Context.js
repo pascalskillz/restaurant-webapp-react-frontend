@@ -43,7 +43,7 @@ export class MyProvider extends Component {
       <MyContext.Provider
         value={{
           //state
-          state: this.state,
+          // state: this.state,
           isAdminLoggedIn: this.state.isAdminLoggedIn,
           invalidLogin: this.state.invalidLogin,
 

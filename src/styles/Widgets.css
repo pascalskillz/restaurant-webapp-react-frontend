@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
-  grid-template-areas: 
+  grid-template-areas:
     'form'
     'submit';
 }
@@ -19,7 +19,7 @@
   /* grid-template-rows: 2fr 1fr auto; */
   grid-template-rows: min-content min-content 1fr;
   grid-template-columns: 1fr;
-  grid-template-areas: 
+  grid-template-areas:
     'forms'
     'upload'
     'similar';
@@ -39,8 +39,8 @@
 }
 
 #create-form-submit-btn {
-  padding: 10px 20px;
-  font-size: 1.5rem;
+  /* padding: 10px 20px; */
+  /* font-size: 1.5rem; */
   background: var(--green);
 }
 
@@ -49,11 +49,16 @@
   border: none;
 }
 
+.btn:hover {
+  background: var(--grey);
+  border: none;
+}
+
 .padding-group {
   padding-right: 1.5rem;
 }
 
-#createItemName{
+#createItemName {
   width: 250px;
   height: 30px;
 }
@@ -117,7 +122,7 @@
     'similarL similarR';
 }
 
-.similar-items-div{
+.similar-items-div {
   grid-area: similarL;
   max-width: 450px;
 }
@@ -155,10 +160,11 @@
 .cpanel-edit-div {
   display: grid;
   grid-template-areas:
-    'select' 
-    'image-form' 
+    'select'
+    'image-form'
     'button';
-  grid-template-rows: 25em 25em 1fr;
+  grid-template-rows: repeat(3, min-content);
+  /* grid-template-rows: 25em 25em 1fr; */
   grid-template-columns: 1fr;
   justify-content: center;
   text-align: center;
@@ -174,12 +180,15 @@
 
 .edit-item-form-div {
   display: grid;
-  grid-template-columns: minmax(200px, 20vw) minmax(200px, 40vw);
-  height: 25em;
+  margin: 20px 0;
+  /* grid-template-columns: minmax(200px, 20vw) minmax(200px, 40vw); */
+  /* grid-template-columns: 200px 1fr; */
+  /* height: 25em; */
+  /* width: 200%; */
 }
 
-.edit-photo > img {
-  width: 350px;
+.edit-photo>img {
+  width: 250px;
   height: 300px;
   object-fit: cover;
 }
@@ -187,13 +196,13 @@
 .edit-form-inner-div {
   display: grid;
   grid-template-rows: repeat(2, auto);
-  grid-template-areas: 
-  'heading'
-  'edit-form';
+  grid-template-areas:
+    'heading'
+    'edit-form';
   row-gap: 20px;
 }
 
-.edit-item-heading{
+.edit-item-heading {
   font-weight: bold;
 }
 
@@ -221,7 +230,8 @@
   box-shadow: 0 0 5px var(--lightBlue);
 }
 
-#editVegan, #editSpecial {
+#editVegan,
+#editSpecial {
   width: 30px;
 }
 
@@ -235,9 +245,25 @@
 
 .edit-save-button-div {
   grid-area: button;
-  margin-top: 20px;
+  margin: 20px 0;
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
   padding: 0 200px;
 }
 
+.edit-save-button-div > button {
+  margin: 0px 5px;
+}
+
+
+/* -------------------- EDIT WIDGET */
+
+.cpanel-delete-div {
+  text-align: center;
+}
+
+.delete-display-item-div {
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
+}
