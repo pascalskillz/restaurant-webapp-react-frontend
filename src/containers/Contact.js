@@ -8,42 +8,6 @@ import Footer from '../components/Footer';
 import '../styles/Contact.css';
 
 class Contact extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      email: '',
-      phone:'',
-      message: ''
-    }
-  }
-
-   //Handler function for the contact form that will send HTTP requests to the API
-   handleSubmit(e) {
-    e.preventDefault();
-    console.log('it works')
-    fetch('http://localhost:4001',{ // link needs to make sure @Paschal 
-        method: "POST",
-        body: JSON.stringify(this.state),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-      }
-      ).then(
-      (response) => (response.json())
-       ).then((response)=>{
-      if (response.status === 'success'){
-        alert("Message Sent."); 
-        this.resetForm()
-      }else if(response.status === 'fail'){
-        alert("Message failed to send.")
-      }
-    })
-  }
- 
-
   render() {
     return (
       <MyConsumer>
@@ -65,14 +29,13 @@ class Contact extends Component {
             <div id='contact'>
               <div className='contact-form bg-primary p-2'>
                 <p>Please use the form below to contact us</p>
-                <form id="contact-form" onSubmit={this.handleSubmit.bind(this)} method="POST">
+                <form>
                   <div className='form-group'>
                     <label for='name'>Name</label>
                     <input
                       type='text'
                       name='name'
                       id='name'
-                      value={this.state.name} onChange={this.onNameChange.bind(this)}
                       placeholder='Enter Name'
                     />
                   </div>
@@ -82,19 +45,15 @@ class Contact extends Component {
                       type='email'
                       name='email'
                       id='email'
-                      aria-describedby="emailHlep"
-                      value={this.state.email} onChange={this.onEmailChange.bind(this)}
                       placeholder='Enter Email'
                     />
                   </div>
                   <div className='form-group'>
                     <label for='phone'>Phone Number</label>
                     <input
-                      type='tel'
+                      type='text'
                       name='phone'
                       id='phone'
-                      pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
-                      value={this.state.phone} onChange={this.onPhoneChange.bind(this)}
                       placeholder='Enter Phone Number'
                     />
                   </div>
@@ -103,7 +62,6 @@ class Contact extends Component {
                     <textarea
                       name='message'
                       id='message'
-                      value={this.state.message} onChange={this.onMessageChange.bind(this)}
                       placeholder='Enter Message'></textarea>
                   </div>
                   <input type='submit' value='Send' className='btn btn-dark' />
@@ -129,22 +87,6 @@ class Contact extends Component {
       </MyConsumer>
     );
   }
-  onNameChange(event) {
-    this.setState({name: event.target.value})
-    }
-  
-    onEmailChange(event) {
-    this.setState({email: event.target.value})
-    }
-    onPhoneChange(event) {
-    this.setState({phone: event.target.value})
-    }
-  
-    onMessageChange(event) {
-    this.setState({message: event.target.value})
-    }
-  
-
 }
 
 export default Contact;
