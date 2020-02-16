@@ -162,8 +162,9 @@
   grid-template-areas:
     'select'
     'image-form'
+    'similar'
     'button';
-  grid-template-rows: repeat(3, min-content);
+  grid-template-rows: repeat(4, min-content);
   /* grid-template-rows: 25em 25em 1fr; */
   grid-template-columns: 1fr;
   justify-content: center;
@@ -243,20 +244,29 @@
   margin-top: 10px;
 }
 
+.edit-group5 {
+  grid-area: similar;
+  display: grid;
+  grid-template-columns: 1fr .6fr;
+  grid-template-areas:
+    'similarL similarR';
+}
+
+
 .edit-save-button-div {
   grid-area: button;
   margin: 20px 0;
   display: flex;
-  /* justify-content: space-evenly; */
-  padding: 0 200px;
+  justify-content: center;
+  /* padding: 0 200px; */
 }
 
-.edit-save-button-div > button {
+.edit-save-button-div>button {
   margin: 0px 5px;
 }
 
 
-/* -------------------- EDIT WIDGET */
+/* -------------------- DELETE WIDGET */
 
 .cpanel-delete-div {
   text-align: center;
