@@ -11,6 +11,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Reservation.css';
 import DropDown from '../components/DropDown';
+import {
+  withRouter
+} from 'react-router-dom';
 import Jumbo from '../components/Jumbo';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
