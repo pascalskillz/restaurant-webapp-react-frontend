@@ -17,12 +17,6 @@
   border-right: 20px solid var(--white);
 }
 
-
-.item-display {
-
-}
-
-
 .cart-item-div {
   position: relative;
   display: flex;
