@@ -205,9 +205,9 @@ class DeleteWidget extends Component {
             }
           />
         </div>
-        <div className='edit-save-button-div'>
+        <div className='delete-save-button-div'>
           <Modal
-            className=''
+            className='delete-modal-div'
             title='Preview'
             text='Are you sure you want to delete this item?'
             content={

@@ -229,7 +229,7 @@ class EditWidget extends Component {
       vegan: this.state.selectedItem.vegan,
       special: this.state.selectedItem.special,
       imageUrl: this.state.selectedItem.imageUrl,
-      similarList: this.state.selectedItem.similarList
+      similarList: this.state.similarList
     };
     await console.log(submitData);
   };
@@ -268,7 +268,7 @@ class EditWidget extends Component {
   getMenuItemName = index => {
     return this.state.menuItems[index].itemName;
   };
-  
+
   addToSimilar = async e => {
     e.preventDefault();
     // console.log(e.target.id)
@@ -295,13 +295,20 @@ class EditWidget extends Component {
       console.log('TOO MANY ITEMS');
     }
     console.log(this.state.similarList);
-    // if (!doesExist) {
-    //   await this.setState({
-    //     test: [...this.state.test, itemToAdd]
-    //   });
-    // } else {
-    //   console.log('ALREADY ADDED');
-    // }
+  };
+
+  deleteFromSimilar = async e => {
+    e.preventDefault();
+    let targetId = parseInt(e.target.id.split('=')[1]);
+    const deleteFilter = await this.state.similarList.filter(item => {
+      console.log(item.similarMenuItemId);
+      // return item.split('#')[1] !== e.target.id.split('=')[1];
+      return item.similarMenuItemId !== targetId;
+    });
+    await this.setState({
+      similarList: [...deleteFilter]
+    });
+    await console.log(this.state.similarList);
   };
 
   render() {
@@ -599,7 +606,7 @@ class EditWidget extends Component {
 
         <div className='edit-save-button-div'>
           <Modal
-            className=''
+            className='edit-modal-div'
             title='Preview'
             text='Are you sure you want to update this item?'
             content={
@@ -619,7 +626,7 @@ class EditWidget extends Component {
               <button
                 type='submit'
                 value='Send'
-                className='btn btn-primary'
+                className='btn'
                 id='edit-form-submit-btn'
                 onClick={e => this.saveMenuItem(e)}>
                 Save
