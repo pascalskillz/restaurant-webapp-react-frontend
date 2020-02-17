@@ -23,12 +23,12 @@ class EditWidget extends Component {
       similarList: [],
       imageUrl: ''
     },
-    itemName: '',
-    itemPrice: '',
-    cookTime: '',
-    description: '',
-    vegan: false,
-    special: false,
+    // itemName: '',
+    // itemPrice: '',
+    // cookTime: '',
+    // description: '',
+    // vegan: false,
+    // special: false,
     // itemImage: '',
     similarList: [],
     imageUrl: '',
@@ -222,14 +222,14 @@ class EditWidget extends Component {
   displayItemToSubmit = async () => {
     let submitData = {
       id: this.state.selectedItem.itemId,
-      itemName: this.state.itemName,
-      itemPrice: this.state.itemPrice,
-      cookTime: this.state.cookTime,
-      description: this.state.description,
-      vegan: this.state.vegan,
-      special: this.state.special,
-      imageUrl: this.state.imageUrl,
-      similarList: this.state.similarList
+      itemName: this.state.selectedItem.itemName,
+      itemPrice: this.state.selectedItem.itemPrice,
+      cookTime: this.state.selectedItem.cookTime,
+      description: this.state.selectedItem.description,
+      vegan: this.state.selectedItem.vegan,
+      special: this.state.selectedItem.special,
+      imageUrl: this.state.selectedItem.imageUrl,
+      similarList: this.state.selectedItem.similarList
     };
     await console.log(submitData);
   };
@@ -263,6 +263,45 @@ class EditWidget extends Component {
         alert('Data not saved, please try again');
         // TODO: RESET EVERYTHING
       });
+  };
+
+  getMenuItemName = index => {
+    return this.state.menuItems[index].itemName;
+  };
+  
+  addToSimilar = async e => {
+    e.preventDefault();
+    // console.log(e.target.id)
+    // console.log(e.target.id.split('=')[1]);
+    let itemId = parseInt(e.target.id.split('=')[1]);
+    let itemToAdd = { similarMenuItemId: itemId };
+    // console.log(itemToAdd);
+    // const test = this.state.test;
+    let doesExist = false;
+    if (this.state.similarList.length < 3) {
+      for (var i in this.state.similarList) {
+        if (this.state.similarList[i].similarMenuItemId === itemId) {
+          doesExist = true;
+        }
+      }
+      if (!doesExist) {
+        await this.setState({
+          similarList: [...this.state.similarList, itemToAdd]
+        });
+      } else {
+        console.log('EXISTS');
+      }
+    } else {
+      console.log('TOO MANY ITEMS');
+    }
+    console.log(this.state.similarList);
+    // if (!doesExist) {
+    //   await this.setState({
+    //     test: [...this.state.test, itemToAdd]
+    //   });
+    // } else {
+    //   console.log('ALREADY ADDED');
+    // }
   };
 
   render() {
@@ -309,6 +348,34 @@ class EditWidget extends Component {
           </option>
         ))
     );
+
+    const similarList = this.state.similarList.map((item, index) => (
+      <div key={index} className='similar-confirm'>
+        {this.getMenuItemName(item.similarMenuItemId)}
+        <button
+          id={`deleteId=${item.similarMenuItemId}`}
+          className='btn similar-delete-button'
+          onClick={e => this.deleteFromSimilar(e)}>
+          X
+        </button>
+      </div>
+    ));
+
+    const filterAllItemsList = this.state.menuItems.map((item, index) => (
+      <tr key={index}>
+        <th scope='row'>{item.id}</th>
+        <td>{item.itemName}</td>
+        <td>
+          <button
+            id={`similarId=${item.id}`}
+            name={item.itemName}
+            className='btn create-item-similar'
+            onClick={e => this.addToSimilar(e)}>
+            ADD
+          </button>
+        </td>
+      </tr>
+    ));
 
     return (
       <div className='cpanel-edit-div'>
@@ -418,7 +485,7 @@ class EditWidget extends Component {
                       name='vegan'
                       type='checkbox'
                       id='editVegan'
-                      value={this.state.vegan || false}
+                      checked={this.state.vegan || false}
                       onChange={this.handleInputChange}
                     />
                   </div>
@@ -428,7 +495,7 @@ class EditWidget extends Component {
                       name='special'
                       type='checkbox'
                       id='editSpecial'
-                      value={this.state.special || false}
+                      checked={this.state.special || false}
                       onChange={this.handleInputChange}
                     />
                   </div>
@@ -469,6 +536,67 @@ class EditWidget extends Component {
             )}
           </div>
         </div>
+
+        <div className='edit-group5'>
+          <div className='similar-items-div'>
+            <label htmlFor='itemSimilar'>Similar Items</label>
+            <small id='editSimilarDesc' className='form-text text-muted'>
+              Select all similar items, search for items below
+            </small>
+            <input
+              name='filterSimilar'
+              type='text'
+              className='form-control'
+              id='editFilterSimilar'
+              aria-describedby='filterSimilar'
+              placeholder='Search Item Name'
+              value={this.state.filterSimilar}
+              onChange={this.handleInputChange}
+            />
+            <div className='table-scroll'>
+              <table className='table table-striped'>
+                <thead className='thead-dark'>
+                  <tr>
+                    <th scope='col'>#</th>
+                    <th scope='col'>Item Name</th>
+                    <th scope='col'>Similar?</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {// if the filter bar is empty
+                  this.state.filterSimilar.length < 1 ? (
+                    // display the all items once loaded
+                    !this.state.menuItemsLoading ? (
+                      filterAllItemsList
+                    ) : (
+                      <tr>
+                        <th scope='row'>0</th>
+                        <td>Loading...</td>
+                        <td> </td>
+                      </tr>
+                    )
+                  ) : (
+                    // else
+                    // display filtered items
+                    filterList
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className='similar-list-div'>
+            <label htmlFor='itemSimilar'>Confirm Similar Items</label>
+            <small id='editSimilarListDesc' className='form-text text-muted'>
+              See list to confirm or delete similar items
+            </small>
+            {this.state.similarList.length > 0 ? (
+              similarList
+            ) : (
+              <div style={{ fontStyle: 'italic' }}>No Similar Items</div>
+            )}
+          </div>
+        </div>
+
         <div className='edit-save-button-div'>
           <Modal
             className=''
@@ -478,7 +606,11 @@ class EditWidget extends Component {
               <MenuItem
                 img={this.state.selectedItem.imageUrl}
                 name={this.state.selectedItem.itemName}
-                price={this.state.selectedItem.itemPrice ? this.state.selectedItem.itemPrice : this.state.itemPrice}
+                price={
+                  this.state.selectedItem.itemPrice
+                    ? this.state.selectedItem.itemPrice
+                    : this.state.itemPrice
+                }
                 // id={item.id}
               />
             }
@@ -488,7 +620,7 @@ class EditWidget extends Component {
                 type='submit'
                 value='Send'
                 className='btn btn-primary'
-                id='create-form-submit-btn'
+                id='edit-form-submit-btn'
                 onClick={e => this.saveMenuItem(e)}>
                 Save
               </button>
