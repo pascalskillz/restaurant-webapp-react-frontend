@@ -79,20 +79,11 @@ class Item extends Component {
     // await this.getSimilarItems();
   };
 
-<<<<<<< HEAD
-  getOneMenuItem = async id => {
-    API.getOneMenuItem(id).then(res => {
-      console.log(res.data);
-      this.setState({
-        renderItem: res.data
-      });
-=======
   getSimilarItems = async () => {
     // console.log(this.state.similarItems);
     let itemCount = 0;
     await API.getAllMenuItems().then(res => {
       itemCount = res.data.length;
->>>>>>> 1f555abad273b90a62bc228cd6482e0788ec23ac
     });
     // await console.log(itemCount);
     for (let i = 0; i < 3; i++) {
@@ -115,9 +106,6 @@ class Item extends Component {
   }
 
   render() {
-<<<<<<< HEAD
-    const Item = this.state.renderItem;
-=======
     const item = this.state.renderItem;
     const similarItemsList = this.state.similarItems.map((item, index) => (
       <div key={index} className='sim'>
@@ -131,44 +119,17 @@ class Item extends Component {
         </Link>
       </div>
     ));
->>>>>>> 1f555abad273b90a62bc228cd6482e0788ec23ac
     return (
       <div className='item-js top'>
         <Navbar />
         <Jumbo
           src={
-<<<<<<< HEAD
-            Item.imageUrl ||
-=======
             item.imageUrl ||
->>>>>>> 1f555abad273b90a62bc228cd6482e0788ec23ac
             'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb'
           }
           alt='Menu Item Detail'
           text={this.state.categoryName || 'Tandoor Restauraunt'}
         />
-<<<<<<< HEAD
-
-        <div className="container">
-          <div className="menu-item-row row">
-            <div className="item-image">
-              <img src={Item.imageUrl} alt={Item.itemName} />
-            </div>
-            <div className="item-detail">
-              <h2>{Item.itemName}</h2>
-              <h4>$ {Item.itemPrice}</h4>
-              <div>
-                <p>{Item.description}</p>
-              </div>
-              <div className="item-button">
-                <button onClick={(e) => this.addtoChart(Item,e)}>Add To Cart</button>
-              </div>
-            </div>
-          </div>
-          <div className="row"></div>
-        </div>
-
-=======
         <Detail
           name={item.itemName}
           price={item.itemPrice}
@@ -197,7 +158,6 @@ class Item extends Component {
             </Link>
           </div> */}
         </div>
->>>>>>> 1f555abad273b90a62bc228cd6482e0788ec23ac
         <Footer />
       </div>
     );
