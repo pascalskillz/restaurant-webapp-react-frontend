@@ -1,0 +1,16 @@
+#divReservationDetails{
+    display: flex;
+    margin:auto;
+}
+
+#divReservationDetails div{
+    padding-left: 20px;
+}
+
+#divReservationDetails label{
+    width: 150px;
+}
+
+#divReservationDetails input{
+    margin-left: 10px;
+}

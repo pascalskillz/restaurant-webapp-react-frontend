@@ -11,6 +11,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Reservation.css';
 import DropDown from '../components/DropDown';
+import {
+  withRouter
+} from 'react-router-dom';
 import Jumbo from '../components/Jumbo';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -21,9 +24,8 @@ class Reservation extends Component {
     bookingDate: new Date(),
     timeSlot: [],
     noOfPeople: 1,
-    selectedSlotVal: 3,
-    tableSelected: '',
-    bookingConfirmed: false
+    selectedSlotVal: 6,
+    tableSelected: ''
   };
 
   handleChange = date => {
@@ -43,8 +45,9 @@ class Reservation extends Component {
     const intervalBetHours = 4; //no of interval in 1 hours
     const intervalInMin = 60 / intervalBetHours; //no in min that define interval gap
     let incrMin = intervalInMin;
-    let newTimeSlot = [];
-    let hrVal = this.state.selectedSlotVal - diffInSlot;
+    let newTimeSlot = []; //array to store multiple result value (i.e 05:00, 05:15, 05:30)
+    let hrVal = this.state.selectedSlotVal - diffInSlot; //(var to get Hr part)
+    newTimeSlot.push(`${this.getZeroPadded(hrVal)} : 00`);    //getZeroPadded func define to get value as formatted for eg : 5 will return 05
     for (let i = 0; i < diffInSlot * intervalBetHours; i++) {
       if (incrMin === 60) {
         incrMin = 0;
@@ -105,7 +108,9 @@ class Reservation extends Component {
         'Are you sure you want to confirm a table on selected time slot?'
       )
     ) {
-      this.setState({ bookingConfirmed: true });
+      const {bookingDate,noOfPeople,tableSelected} = this.state;
+      window.reservationDetails = {bookingDate,noOfPeople,tableSelected};
+      this.props.history.push('/reservation/details')
     }
   };
   componentDidMount() {
@@ -115,26 +120,13 @@ class Reservation extends Component {
     });
   }
   render() {
-    //   const timeOptions = [
-    //     {val: 1, text : '0 to 1', disabled:false},
-    //     {val: 2, text : '1 to 2', disabled:false},
-    //     {val: 3, text : '2 to 3', disabled:false},
-    //     {val: 4, text : '3 to 4', disabled:false},
-    //     {val: 5, text : '4 to 5', disabled:false},
-    //     {val: 6, text : '5 to 6', disabled:false},
-    //     {val: 7, text : '6 to 7', disabled:false},
-    //     {val: 8, text : '7 to 8', disabled:false},
-    //     {val: 9, text : '8 to 9', disabled:false},
-    //     {val: 10, text : '9 to 10', disabled:false},
-    //     {val: 11, text : '10 to 11', disabled:false},
-    //     {val: 12, text : '11 to 12', disabled:false}
-    // ]
 
     const timeOptions = [
-      { val: 1, text: '5 to 6', disabled: false },
-      { val: 2, text: '6 to 7', disabled: false },
-      { val: 3, text: '7 to 8', disabled: false },
-      { val: 4, text: '8 to 9', disabled: false }
+      { val: 6, text: '5 to 6', disabled: false },
+      { val: 7, text: '6 to 7', disabled: false },
+      { val: 8, text: '7 to 8', disabled: false },
+      { val: 9, text: '8 to 9', disabled: false },
+      { val: 10, text: '9 to 10', disabled: false }
     ];
 
     // this is never used???
@@ -239,4 +231,4 @@ class Reservation extends Component {
   } // render
 } // component
 
-export default Reservation;
+export default withRouter(Reservation);
