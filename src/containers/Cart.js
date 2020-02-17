@@ -54,35 +54,29 @@ class Cart extends Component {
   render() {
 
      const allItemsList = this.state.allItems.map((item, index) => (
-       // <ListGroup horizontal key={index}>
-       //   <ListGroup.Item>This</ListGroup.Item>
-       //   <ListGroup.Item>ListGroup</ListGroup.Item>
-       //   <ListGroup.Item>renders</ListGroup.Item>
-       //   <ListGroup.Item>horizontally!</ListGroup.Item>
-       // </ListGroup>
-
-       <Row style={{display:'flex'}}>
-         <Col>
+       <div style={{ display: 'flex',marginBottom:'15px' }} className='all-grid-item'>
+         <div className='cart-item-div'>  
+              <Image
+                src={item.imageUrl}
+                rounded
+               className='cart-item-image'
+              />
+           <div className='cart-item-text'> 
+                <span>{item.name}</span>
+           </div>
+         </div>
+         {/* <Col>
            <Image
              style={{ height: "200px" }}
              src={item.imageUrl}
              rounded
+             className='image'
            />
-         </Col>
+         </Col> */}
          <Col style={{display:'float-right'}}>
            <Button>添加</Button>
          </Col>
-       </Row>
-       //   <div key={index} className="all-grid-item">
-       //     <Link to={"/item/" + item.id}>
-       //       <Item
-       //         img={item.imageUrl}
-       //         name={item.itemName}
-       //         price={item.itemPrice}
-       //         id={item.id}
-       //       />
-       //     </Link>
-       // </div>
+       </div>
      ));
 
     return (
@@ -95,7 +89,8 @@ class Cart extends Component {
               alt="Cart Picture"
               text="Your Cart"
             />
-            <div className="cart-div">
+
+            <div className="cart-checkout-div ">
               <div className="menu-categories">
                 <div className="category-title-div">
                   <div className="title-header-text">Cart List</div>
@@ -104,14 +99,14 @@ class Cart extends Component {
                   <Container> {allItemsList}</Container>
                 </div>
               </div>
-              <div className="checkout-sidebar">
+              {/* <div className="checkout-sidebar">
                 <Fragment>
                   <Sb name="Total Amount" img={img} />
                   <div className="sidebar-inner-div">
                     <Sb name={"Placeholder"} img={img} />
                   </div>
                   </Fragment>
-              </div>
+              </div> */}
             </div>
             <Footer />
           </div>
