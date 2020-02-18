@@ -31,7 +31,7 @@ class Contact extends Component {
             </div>
             <div id='contact'>
               <div className='contact-form bg-primary p-2'>
-              <ZapierForm action='https://hooks.zapier.com/hooks/catch/6694312/odgzbh3/'>
+              <ZapierForm action='https://hooks.zapier.com/hooks/catch/6694312/omo9b1g/' methos="POST">
                   
                 {({ error, loading, success }) => {
                                   return (
