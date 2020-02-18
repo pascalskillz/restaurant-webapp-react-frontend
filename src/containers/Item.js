@@ -128,13 +128,33 @@ class Item extends Component {
           }
           alt='Menu Item Detail'
           text={this.state.categoryName || 'Tandoor Restauraunt'}
-        />
-        <Detail
+        /> 
+        {/* <Detail
           name={item.itemName}
           price={item.itemPrice}
           img={item.imageUrl}
           desc={item.description}
-        />
+        /> */}
+
+        <div className="container">
+          <div className="menu-item-row row">
+            <div className="item-image">
+              <img src={item.imageUrl} alt={item.itemName}/>
+            </div>
+            <div className="item-detail">
+              <h2>{item.itemName}</h2>
+              <h4>${item.itemPrice}</h4>
+              <div>
+                <p>{item.description}</p>
+              </div>
+              <div className="item-button">
+                <button onClick={(e) => this.addtoChart(item,e)}>Add To Cart</button>
+              </div>
+            </div>
+          </div>
+          <div className="row"></div>
+        </div>
+
         <div className='similar-items-container'>
           <div className='sim-title'>Similar Items</div>
           <div className='sim-items'>{similarItemsList}</div>
@@ -157,6 +177,7 @@ class Item extends Component {
             </Link>
           </div> */}
         </div>
+       
         <Footer />
       </div>
     );
