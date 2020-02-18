@@ -6,9 +6,14 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Jumbo from '../components/Jumbo';
 import API from '../utils/API';
-import '../styles/Item.css';
+import store from '../store'
+import chartStore from '../store/chartStorage';
 
 class Item extends Component {
+  constructor(props){
+     super(props);
+     this.addtoChart = this.addtoChart.bind(this);
+  };
   state = {
     renderItem: [],
     similarItems: [],
@@ -92,6 +97,13 @@ class Item extends Component {
       });
     }
   };
+
+  addtoChart = (Item,e) => {
+      e.preventDefault();
+      if(Item.id!==undefined){
+        chartStore.addItem(Item.id, Item);
+      }
+  }
 
   render() {
     const item = this.state.renderItem;
