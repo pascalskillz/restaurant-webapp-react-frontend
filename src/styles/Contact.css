@@ -61,8 +61,13 @@
 
   #contact {
     display: flex;
-    padding-left: 2rem;
+    padding-left: 1rem;
     padding-bottom: 2rem;
+    padding-top: 0rem;
+    background-color: var(--texture1);
+    background-image: var(--texture2);
+    border-left: 20px solid var(--white);
+    border-right: 20px solid var(--white);
   }
   
   #contact .map{
@@ -86,7 +91,6 @@
   
   #contact .contact-form label {
     display: block;
-    
   }
   
   #contact .contact-form input,
