@@ -36,7 +36,7 @@ class Cart extends Component {
     let allItemsArr = [];
     allItemsArr = chartStorage.getList();
     await this.setState({
-      allItems: [...allItemsArr],
+      allItems: allItemsArr,
       allItemsLoading: false
     });
   };
@@ -64,56 +64,60 @@ class Cart extends Component {
     let subtotal = 0;
     let allItemsList = [];
     const discount = this.state.discount;
-    this.state.allItems.map((item, index) => {
-      allItemsList.push(
-        <div class="cart-item d-md-flex justify-content-between" key={index}>
-          <div className="px-3 my-3">
-            <span class="remove-item">
-              <i class="fa fa-times"></i>
-            </span>
-              <div class="cart-item-product-thumb">
-                <div className="cart-item-div">
-                  <img
-                    src={item.imageUrl}
-                    alt="Product"
-                    className="cart-item-image"
-                  />
+    const allItemsLists = this.state.allItems;
+    if (allItemsLists!==null){
+        this.state.allItems.map((item, index) => {
+          allItemsList.push(
+            <div class="cart-item d-md-flex justify-content-between" key={index}>
+              <div className="px-3 my-3">
+                <span class="remove-item">
+                  <i class="fa fa-times"></i>
+                </span>
+                <div class="cart-item-product-thumb">
+                  <div className="cart-item-div">
+                    <img
+                      src={item.imageUrl}
+                      alt="Product"
+                      className="cart-item-image"
+                    />
+                  </div>
                 </div>
               </div>
-          </div>
-          <div className="namelength px-3 my-3 text-center">
-            <div class="cart-item-label">Name</div>
-            <span class="text-xl font-weight-medium ">{item.itemName}</span>
-          </div>
-          <div className="px-3 my-3 text-center">
-            <div class="cart-item-label">Quantity</div>
-            <div class="count-input">
-              <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-              </select>
+              <div className="namelength px-3 my-3 text-center">
+                <div class="cart-item-label">Name</div>
+                <span class="text-xl font-weight-medium ">{item.itemName}</span>
+              </div>
+              <div className="px-3 my-3 text-center">
+                <div class="cart-item-label">Quantity</div>
+                <div class="count-input">
+                  <select class="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                  </select>
+                </div>
+              </div>
+              <div className="px-3 my-3 text-center">
+                <div class="cart-item-label">Subtotal</div>
+                <span class="text-xl font-weight-medium">${item.itemPrice}</span>
+              </div>
+              <div className="px-3 my-3 text-center">
+                <div class="cart-item-label">Discount</div>
+                <span class="text-xl font-weight-medium">
+                  {(item.itemPrice * discount).toFixed(2)}
+                </span>
+              </div>
             </div>
-          </div>
-          <div className="px-3 my-3 text-center">
-            <div class="cart-item-label">Subtotal</div>
-            <span class="text-xl font-weight-medium">${item.itemPrice}</span>
-          </div>
-          <div className="px-3 my-3 text-center">
-            <div class="cart-item-label">Discount</div>
-            <span class="text-xl font-weight-medium">
-              {(item.itemPrice * discount).toFixed(2)}
-            </span>
-          </div>
-        </div>
-      );
+          );
 
-      subtotal += item.itemPrice;
-      return 'ok';
-    });
+          subtotal += item.itemPrice;
+          return 'ok';
+        });
+    } 
+   
 
     let disSubtotal = (subtotal * discount).toFixed(2);
 

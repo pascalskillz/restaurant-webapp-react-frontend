@@ -21,17 +21,10 @@ class Contact extends Component {
               alt='Contact Picture'
               text='Contact Us'
             />
-            <div class='head'>
-              {/* <h2 className='m-heading'>Contact Us</h2> */}
-              <h5 className="text-center w-responsive mx-auto mb-5"><i>
-              Please do not hesitate to contact us directly.
-              Our team will come back to you within a matter of hours to help you.
-
-              </i></h5>
-            </div>
+            
             <div id='contact'>
               <div className='contact-form bg-primary p-2'>
-              <ZapierForm action='https://hooks.zapier.com/hooks/catch/6694312/odgzbh3/'>
+              <ZapierForm action='https://hooks.zapier.com/hooks/catch/6694312/omo9b1g/' methos="POST">
                   
                 {({ error, loading, success }) => {
                                   return (
@@ -39,6 +32,9 @@ class Contact extends Component {
                 {!success && !loading &&
                 
                <div className='form-group'>
+                <h5 className="text-center w-responsive mx-auto mb-5"><i>
+              Please do not hesitate to contact us directly.
+              </i></h5>
                 <div><label for='name'>Name</label>
                     <input
                       type='text'
@@ -81,7 +77,7 @@ class Contact extends Component {
             }
               {loading && <div>Loading...</div>}
               {error && <div>Something went wrong. Please try again.</div>}
-              {success && <div>Thank you for contacting us!</div>}
+              {success && <div><h5>Thank you for contacting us! Our team will come back to you within a matter of hours to help you.</h5></div>}
         </div>
     )
   }}
