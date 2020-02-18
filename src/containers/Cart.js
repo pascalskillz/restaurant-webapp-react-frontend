@@ -1,11 +1,10 @@
-import React, { Fragment,Component } from "react";
+import React, { Component } from "react";
 import { MyConsumer } from '../Context';
 import Jumbo from '../components/Jumbo';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import "../styles/Menu.css";
 import '../styles/cart.css';
-import { Image, Button, Container } from "react-bootstrap";
 
 import chartStorage from "../store/chartStorage";
 
@@ -72,7 +71,6 @@ class Cart extends Component {
             <span class="remove-item">
               <i class="fa fa-times"></i>
             </span>
-            <a class="cart-item-product" href="#">
               <div class="cart-item-product-thumb">
                 <div className="cart-item-div">
                   <img
@@ -82,7 +80,6 @@ class Cart extends Component {
                   />
                 </div>
               </div>
-            </a>
           </div>
           <div className="namelength px-3 my-3 text-center">
             <div class="cart-item-label">Name</div>
@@ -115,6 +112,7 @@ class Cart extends Component {
       );
 
       subtotal += item.itemPrice;
+      return 'ok';
     });
 
     let disSubtotal = (subtotal * discount).toFixed(2);
@@ -167,9 +165,7 @@ class Cart extends Component {
                 <hr class="my-2"></hr>
                 <div class="row pt-3 pb-5 mb-2">
                   <div class="col-sm-6 mb-3">
-                    <a class="btn btn-style-1 btn-secondary btn-block" href="#">
                       <i class="fe-icon-refresh-ccw"></i>&nbsp;Update Cart
-                    </a>
                   </div>
                   <div class="col-sm-6 mb-3">
                     <a
