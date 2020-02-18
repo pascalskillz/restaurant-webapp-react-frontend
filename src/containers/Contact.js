@@ -8,8 +8,6 @@ import Footer from '../components/Footer';
 import '../styles/Contact.css';
 import ZapierForm from 'react-zapier-form' // Zapier URL 
 
-import ZapierForm from 'react-zapier-form' // Zapier URL 
-
 class Contact extends Component {
  
   render() {
