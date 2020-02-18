@@ -6,7 +6,6 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Jumbo from '../components/Jumbo';
 import API from '../utils/API';
-import store from '../store'
 import chartStore from '../store/chartStorage';
 
 class Item extends Component {
