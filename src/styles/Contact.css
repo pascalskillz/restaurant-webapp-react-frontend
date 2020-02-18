@@ -61,6 +61,8 @@
 
   #contact {
     display: flex;
+    padding-left: 2rem;
+    padding-bottom: 2rem;
   }
   
   #contact .map{
@@ -95,7 +97,7 @@
 
   #contact .address {
     border-bottom: 1px solid;
-    padding: 5rem;
+    padding-top: 3rem;
   }
 
   #contact .map .map-canvas{
