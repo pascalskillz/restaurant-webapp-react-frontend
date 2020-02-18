@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 // import '../styles/Main.css'
 import '../styles/Contact.css';
-import ZapierForm from 'react-zapier-form'
+import ZapierForm from 'react-zapier-form' // Zapier URL 
 
 class Contact extends Component {
  
