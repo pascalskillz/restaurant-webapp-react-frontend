@@ -19,7 +19,7 @@
   }
   
   .bg-primary {
-    background: #da9768!important;
+    background: #eceae5!important; /*#da9768*/
     color: #000;
   }
   
@@ -72,8 +72,8 @@
     position: sticky; /*Paste the zoom + - onto the map*/
   }
   .map .map-title{
-    height:auto;
-    width:100%;
+    height:20%;
+    width:50%;
   }
   #contact .map, #contact .contact-form {
     flex: 1;
@@ -81,10 +81,12 @@
   
   #contact .contact-form .form-group {
     margin: 0.75rem;
+    
   }
   
   #contact .contact-form label {
     display: block;
+    
   }
   
   #contact .contact-form input,
@@ -104,7 +106,7 @@
    }
 
    #message{
-     height:16rem;
+     height:12em;
    }
    .leaflet-container {
     margin: 0 auto;
