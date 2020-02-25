@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import "../styles/Menu.css";
 import '../styles/cart.css';
-import { Image, Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 import chartStorage from "../store/chartStorage";
 
