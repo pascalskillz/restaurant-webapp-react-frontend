@@ -21,6 +21,9 @@ export default {
       }
       localStorage.setItem(storageName, JSON.stringify(itemList));
     },
+    clearChart(){
+        localStorage.setItem(storageName,null);
+    },
     getList() {
       return JSON.parse(localStorage.getItem(storageName));
     }
