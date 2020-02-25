@@ -47,9 +47,9 @@ class Cart extends Component {
 
   render() {
      let subtotal = 0;
-     let allItemsList = []  
+     let allItemsList = [];
+
      this.state.allItems.map((item, index) => {
-      
       allItemsList.push (
            <div class="cart-item d-md-flex justify-content-between" key={index}>
          <span class="remove-item">
@@ -96,10 +96,10 @@ class Cart extends Component {
        </div>
       );
 
-     subtotal += item.itemPrice;
+      subtotal += item.itemPrice;
 
      
-      });
+     });
 
     return (
       <MyConsumer>
@@ -119,32 +119,6 @@ class Cart extends Component {
                 </div>
                 <div className="category-item-container">
                   <Container> {allItemsList}</Container>
-                </div>
-
-                <div class="d-sm-flex justify-content-between align-items-center text-center text-sm-left">
-                  <form class="form-inline py-2">
-                    <label class="sr-only">Coupon code</label>
-                    <input
-                      class="form-control form-control-sm my-2 mr-3"
-                      type="text"
-                      placeholder="Coupon code"
-                      required=""
-                    ></input>
-                    <button
-                      class="btn btn-style-1 btn-secondary btn-sm my-2 mx-auto mx-sm-0"
-                      type="submit"
-                    >
-                      Apply Coupon
-                    </button>
-                  </form>
-                  <div class="py-2">
-                    <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">
-                      Subtotal:
-                    </span>
-                    <span class="d-inline-block align-middle text-xl font-weight-medium">
-                      ${subtotal}
-                    </span>
-                  </div>
                 </div>
 
                 <hr class="my-2"></hr>
