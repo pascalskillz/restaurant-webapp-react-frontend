@@ -439,6 +439,8 @@ class EditWidget extends Component {
             </div>
           </div>
         </div>
+
+
         <div className='edit-item-form-div'>
           <div className='edit-photo'>
             <img
