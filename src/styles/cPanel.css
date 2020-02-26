@@ -53,12 +53,12 @@ main {
   grid:
     'title' auto 
     'content' 1fr / 1fr;
-  width: 100%;
+  /* width: 100%; */
   /* justify-content: center; */
   justify-items: center;
   /* align-items: center; */
   /* text-align: center; */
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 header,
