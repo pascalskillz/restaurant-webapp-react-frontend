@@ -61,11 +61,11 @@ class Cart extends Component {
 
      this.state.allItems.map((item, index) => {
       allItemsList.push (
-           <div class="cart-item d-md-flex justify-content-between" key={index}>
-           <span class="remove-item">
-            <i class="fa fa-times" onClick={(item) => this.removeItem(item)}></i>
-           </span>
+           <div class="cart-item d-md-flex justify-content-between" key={index}>  
          <div className="px-3 my-3">
+            <span class="remove-item">
+              <i class="fa fa-times" onClick={(item) => this.removeItem(item)}></i>
+            </span>
            <a class="cart-item-product" >
              <div class="cart-item-product-thumb">
                <div className="cart-item-div">
