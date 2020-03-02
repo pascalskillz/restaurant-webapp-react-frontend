@@ -131,7 +131,7 @@ class Cart extends Component {
                   <Container> {allItemsList}</Container>
                 </div>
 
-                <hr class="my-2"></hr>
+                <p>Subtotal:{subtotal} </p>
                 <div class="row pt-3 pb-5 mb-2">
                   <div class="col-sm-6 mb-3">
                     <a class="btn btn-style-1 btn-secondary btn-block" href="#">
