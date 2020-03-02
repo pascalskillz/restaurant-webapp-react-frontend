@@ -130,6 +130,17 @@ class Cart extends Component {
                 <div className="category-item-container">
                   <Container> {allItemsList}</Container>
                 </div>
+                <div class="d-sm-flex justify-content-between align-items-center text-center text-sm-left">
+
+                  <div class="py-2">
+                    <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">
+                      Subtotal:
+                      </span>
+                    <span class="d-inline-block align-middle text-xl font-weight-medium">
+                      $188.50
+                      </span>
+                  </div>
+                  </div>
 
                 <p>Subtotal:{subtotal} </p>
                 <div class="row pt-3 pb-5 mb-2">
