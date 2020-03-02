@@ -1,13 +1,6 @@
 const storageName = "chartLocal";
 
 
-// function Item(key,num,value){
-//    var o = new Object();
-//    o.key = key;
-//    o.num = num;
-//    o.value = value;
-//    return o;
-// }
 
 export default {
     addItem(key, value) {
@@ -22,7 +15,10 @@ export default {
         localStorage.setItem(storageName, JSON.stringify(itemList));
     },
 
-    updateItem() {
+    updateItem(key) {
+      // Get the whole list in the localstorgae
+      let itemList = JSON.parse(localStorage.getItem(storageName));
+      itemList.remove();
 
     },
     /**

@@ -23,6 +23,7 @@ class Cart extends Component {
 
   componentDidMount() {
     this.gatherAllItems();
+
   }
 
   scrollToTop = () => {
@@ -32,6 +33,15 @@ class Cart extends Component {
   };
 
 
+  removeItem(item){
+     const itemList = this.state.allItems;
+     console.log(itemList)
+     const index = itemList.indexOf(item);
+     itemList.splice(index,1);
+     this.setState({
+       allItems: [...itemList],
+     })
+  }
 
 
   gatherAllItems = async () => {
@@ -41,7 +51,7 @@ class Cart extends Component {
       allItems: [...allItemsArr],
       allItemsLoading: false
     });
-
+    
   };
 
 
@@ -52,11 +62,11 @@ class Cart extends Component {
      this.state.allItems.map((item, index) => {
       allItemsList.push (
            <div class="cart-item d-md-flex justify-content-between" key={index}>
-         <span class="remove-item">
-                  <i class="fa fa-times"></i>
+           <span class="remove-item">
+            <i class="fa fa-times" onClick={(item) => this.removeItem(item)}></i>
            </span>
          <div className="px-3 my-3">
-           <a class="cart-item-product" href="#">
+           <a class="cart-item-product" >
              <div class="cart-item-product-thumb">
                <div className="cart-item-div">
                  <img
