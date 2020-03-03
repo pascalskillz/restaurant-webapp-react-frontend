@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import "../styles/Menu.css";
 import '../styles/cart.css';
+import { Container } from "react-bootstrap";
 
 import chartStorage from "../store/chartStorage";
 
@@ -24,6 +25,7 @@ class Cart extends Component {
 
   componentDidMount() {
     this.gatherAllItems();
+
   }
 
   scrollToTop = () => {
@@ -32,6 +34,18 @@ class Cart extends Component {
     };
   };
 
+
+  removeItem(item){
+     const itemList = this.state.allItems;
+     console.log(itemList)
+     const index = itemList.indexOf(item);
+     itemList.splice(index,1);
+     this.setState({
+       allItems: [...itemList],
+     })
+  }
+
+
   gatherAllItems = async () => {
     let allItemsArr = [];
     allItemsArr = chartStorage.getList();
@@ -39,6 +53,7 @@ class Cart extends Component {
       allItems: allItemsArr,
       allItemsLoading: false
     });
+    
   };
 
   handelChange(e) {
@@ -61,65 +76,60 @@ class Cart extends Component {
   }
 
   render() {
-    let subtotal = 0;
-    let allItemsList = [];
-    const discount = this.state.discount;
-    const allItemsLists = this.state.allItems;
-    if (allItemsLists!==null){
-        this.state.allItems.map((item, index) => {
-          allItemsList.push(
-            <div class="cart-item d-md-flex justify-content-between" key={index}>
-              <div className="px-3 my-3">
-                <span class="remove-item">
-                  <i class="fa fa-times"></i>
-                </span>
-                <div class="cart-item-product-thumb">
-                  <div className="cart-item-div">
-                    <img
-                      src={item.imageUrl}
-                      alt="Product"
-                      className="cart-item-image"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="namelength px-3 my-3 text-center">
-                <div class="cart-item-label">Name</div>
-                <span class="text-xl font-weight-medium ">{item.itemName}</span>
-              </div>
-              <div className="px-3 my-3 text-center">
-                <div class="cart-item-label">Quantity</div>
-                <div class="count-input">
-                  <select class="form-control">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                  </select>
-                </div>
-              </div>
-              <div className="px-3 my-3 text-center">
-                <div class="cart-item-label">Subtotal</div>
-                <span class="text-xl font-weight-medium">${item.itemPrice}</span>
-              </div>
-              <div className="px-3 my-3 text-center">
-                <div class="cart-item-label">Discount</div>
-                <span class="text-xl font-weight-medium">
-                  {(item.itemPrice * discount).toFixed(2)}
-                </span>
-              </div>
-            </div>
-          );
+     let subtotal = 0;
+     let allItemsList = [];
 
-          subtotal += item.itemPrice;
-          return 'ok';
-        });
-    } 
-   
+     this.state.allItems.map((item, index) => {
+      allItemsList.push (
+           <div class="cart-item d-md-flex justify-content-between" key={index}>  
+         <div className="px-3 my-3">
+            <span class="remove-item">
+              <i class="fa fa-times" onClick={(item) => this.removeItem(item)}></i>
+            </span>
+           <a class="cart-item-product" >
+             <div class="cart-item-product-thumb">
+               <div className="cart-item-div">
+                 <img
+                   src={item.imageUrl}
+                   alt="Product"
+                   className="cart-item-image"
+                 />
+               </div>
+             </div>
+           </a>
+         </div>
+         <div className="namelength px-3 my-3 text-center">
+           <div class="cart-item-label">Name</div>
+           <span class="text-xl font-weight-medium ">{item.itemName}</span>
+         </div>
+         <div className="px-3 my-3 text-center">
+           <div class="cart-item-label">Quantity</div>
+           <div class="count-input">
+             <select class="form-control">
+               <option>1</option>
+               <option>2</option>
+               <option>3</option>
+               <option>4</option>
+               <option>5</option>
+               <option>6</option>
+             </select>
+           </div>
+         </div>
+         <div className="px-3 my-3 text-center">
+           <div class="cart-item-label">Subtotal</div>
+           <span class="text-xl font-weight-medium">${item.itemPrice}</span>
+         </div>
+         <div className="px-3 my-3 text-center">
+           <div class="cart-item-label">Discount</div>
+           <span class="text-xl font-weight-medium">$35.00</span>
+         </div>
+       </div>
+      );
 
-    let disSubtotal = (subtotal * discount).toFixed(2);
+      subtotal += item.itemPrice;
+
+     
+     });
 
     return (
       <MyConsumer>
@@ -137,37 +147,23 @@ class Cart extends Component {
                 <div className="category-title-div">
                   <div className="title-header-text">Cart List</div>
                 </div>
-                <div className="cart-item-container">{allItemsList}</div>
+                <div className="category-item-container">
+                  <Container> {allItemsList}</Container>
+                </div>
+                <div class="d-sm-flex justify-content-between align-items-center text-center text-sm-left" style={{float:'right'}}>
 
-                <div class="d-sm-flex justify-content-between align-items-center text-center text-sm-left">
-                  <form class="form-inline py-2">
-                    <label class="sr-only">Coupon code</label>
-                    <input
-                      class="form-control form-control-sm my-2 mr-3"
-                      type="text"
-                      placeholder="Coupon code"
-                      required=""
-                      onChange={this.handelChange.bind(this)}
-                    />
-                    <button
-                      class="btn btn-style-1 btn-secondary btn-sm my-2 mx-auto mx-sm-0"
-                      onClick={this.updateprice.bind(this)}
-                    >
-                      Apply Coupon
-                    </button>
-                  </form>
                   <div class="py-2">
                     <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">
                       Subtotal:
-                    </span>
+                      </span>
                     <span class="d-inline-block align-middle text-xl font-weight-medium">
-                      ${disSubtotal}
-                    </span>
+                      $188.50
+                      </span>
                   </div>
-                </div>
+                  </div>
 
-                <hr class="my-2"></hr>
-                <div class="row pt-3 pb-5 mb-2">
+               
+                {/* <div class="row pt-3 pb-5 mb-2">
                   <div class="col-sm-6 mb-3">
                       <i class="fe-icon-refresh-ccw"></i>&nbsp;Update Cart
                   </div>
@@ -180,6 +176,7 @@ class Cart extends Component {
                     </a>
                   </div>
                 </div>
+              */}
               </div>
             </div>
 
