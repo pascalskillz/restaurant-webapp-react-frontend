@@ -143,7 +143,7 @@ class Cart extends Component {
                   </div>
 
                
-                <div class="row pt-3 pb-5 mb-2">
+                {/* <div class="row pt-3 pb-5 mb-2">
                   <div class="col-sm-6 mb-3">
                     <a class="btn btn-style-1 btn-secondary btn-block" href="#">
                       <i class="fe-icon-refresh-ccw"></i>&nbsp;Update Cart
@@ -158,6 +158,7 @@ class Cart extends Component {
                     </a>
                   </div>
                 </div>
+              */}
               </div>
             </div>
 
