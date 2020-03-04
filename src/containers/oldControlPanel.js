@@ -1,25 +1,17 @@
 import React, { Component } from 'react';
 import { MyConsumer } from '../Context';
-import CreateWidget from '../components/Widgets/CreateWidget';
-import DeleteWidget from '../components/Widgets/DeleteWidget';
-import EditWidget from '../components/Widgets/EditWidget';
-import ItemCatalog from '../components/Widgets/ItemCatalog';
-import Orders from '../components/Widgets/Orders';
+import Create from '../components/Widgets/CreateWidget';
+import Edit from '../components/Widgets/EditWidget';
+import Delete from '../components/Widgets/DeleteWidget';
 import '../styles/cPanel.css';
 
 class ControlPanel extends Component {
   state = {
     // title: 'Welcome! Select a task to Begin',
     // title: 'Create'
-    // title: 'Edit/Update',
+    title: 'Edit/Update',
     // title: 'Delete',
-    title: 'List of Menu Items'
   };
-
-  componentDidMount() {
-    // this.setAction('List of Menu Items')
-    // this.setTitle('List of Menu Items')
-  }
 
   setTitle = title => {
     this.setState({
@@ -29,16 +21,14 @@ class ControlPanel extends Component {
 
   setAction = action => {
     switch (action) {
-      case 'List of Menu Items':
-        return <ItemCatalog />;
-      case 'Orders':
-        return <Orders />;
-      case 'Create A New Item':
-        return <CreateWidget />;
-      case 'Edit A Menu Item':
-        return <EditWidget />;
+      case 'Create':
+        return <Create />;
+      case 'Edit/Update':
+        return <Edit />;
+      case 'Delete':
+        return <Delete />;
       default:
-        return <ItemCatalog />;
+        return <div></div>;
     }
   };
 
@@ -52,13 +42,28 @@ class ControlPanel extends Component {
               <nav className='cpanel-dropdown'>
                 <button
                   className='cpanel-button'
-                  onClick={() => this.setTitle('List of Menu Items')}>
-                  Menu Item Catalog
+                  onClick={() => this.setTitle('Create')}>
+                  Create New Item
                 </button>
                 <button
                   className='cpanel-button'
-                  onClick={() => this.setTitle('Orders')}>
-                  Orders
+                  onClick={() => this.setTitle('Edit/Update')}>
+                  Edit/Update Item
+                </button>
+                <button
+                  className='cpanel-button'
+                  onClick={() => this.setTitle('Delete')}>
+                  Delete Item
+                </button>
+                <button
+                  className='cpanel-button'
+                  onClick={() => this.setTitle('X')}>
+                  X
+                </button>
+                <button
+                  className='cpanel-button'
+                  onClick={() => this.setTitle('X')}>
+                  X
                 </button>
               </nav>
               <main>

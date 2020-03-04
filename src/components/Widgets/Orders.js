@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class EditWidget extends Component {
+class Orders extends Component {
   render() {
     return (
       <div>
@@ -10,4 +10,4 @@ class EditWidget extends Component {
   }
 }
 
-export default EditWidget;
+export default Orders;
