@@ -31,6 +31,8 @@ export default {
     clearChart(){
         localStorage.setItem(storageName,null);
     },
+
+    // get all the items in the cache
     getList() {
       return JSON.parse(localStorage.getItem(storageName));
     }
