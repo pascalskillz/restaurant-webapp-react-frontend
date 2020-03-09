@@ -27,7 +27,7 @@ export default {
     deleteItem(){
 
     },
-
+    // delete all the items in the cashe
     clearChart(){
         localStorage.setItem(storageName,null);
     },
