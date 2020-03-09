@@ -14,7 +14,7 @@ export default {
         }
         localStorage.setItem(storageName, JSON.stringify(itemList));
     },
-
+    // Get new item list after updatein the items
     updateItem(key) {
       // Get the whole list in the localstorgae
       let itemList = JSON.parse(localStorage.getItem(storageName));
