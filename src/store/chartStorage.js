@@ -30,10 +30,11 @@ export default {
     },
 
     // delete all the items in the cashe
-
     clearChart(){
         localStorage.setItem(storageName,null);
     },
+
+    // delete some special items
     deleteItem(key) {
 
     },
