@@ -139,3 +139,7 @@ footer {
   color: var(--white) !important;
   font-weight: bold;
 }
+
+.btn:hover {
+  border: none;
+}

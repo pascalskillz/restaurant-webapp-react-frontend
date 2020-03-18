@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Modal from '../Modal';
 import MenuItem from '../MenuItem';
+import EditWidget from './EditWidget'
 import API from '../../utils/API';
 import img from '../../img/Logo2.png';
 
@@ -9,8 +10,8 @@ class ItemCatalog extends Component {
     filterItemCatalog: '',
     menuItemsLoading: true,
     menuItems: [],
-    displayItemToDelete: false,
-    displayItemToEdit: false
+    displayItemToEdit: false,
+    itemToEditId: -1,
   };
 
   componentDidMount() {
@@ -35,7 +36,8 @@ class ItemCatalog extends Component {
     console.log(id);
     console.log('Edit Menu Item');
     this.setState({
-      displayItemToEdit: true
+      displayItemToEdit: true,
+      itemToEditID: id,
     });
   };
 
@@ -139,8 +141,12 @@ class ItemCatalog extends Component {
       <div className='item-catalog-div'>
         {this.state.displayItemToEdit ? (
           <div className='individual-item'>
-            EDIT ME
-            <button onClick={() => this.completeEdit()}>DONE</button>
+            <EditWidget
+              itemNum={this.state.itemToEditID}
+              closeButton={
+                <button onClick={() => this.completeEdit()}>DONE</button>
+              }
+            />
           </div>
         ) : (
           <div className='item-catalog-dropdown'>
