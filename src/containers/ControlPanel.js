@@ -13,12 +13,12 @@ class ControlPanel extends Component {
     // title: 'Create'
     // title: 'Edit/Update',
     // title: 'Delete',
-    title: 'List of Menu Items'
+    title: 'Menu Item Catalog'
   };
 
   componentDidMount() {
-    // this.setAction('List of Menu Items')
-    // this.setTitle('List of Menu Items')
+    // this.setAction('Menu Item Catalog')
+    // this.setTitle('Menu Item Catalog')
   }
 
   setTitle = title => {
@@ -29,14 +29,14 @@ class ControlPanel extends Component {
 
   setAction = action => {
     switch (action) {
-      case 'List of Menu Items':
+      case 'Menu Item Catalog':
         return <ItemCatalog />;
       case 'Orders':
         return <Orders />;
-      case 'Create A New Item':
-        return <CreateWidget />;
-      case 'Edit A Menu Item':
-        return <EditWidget />;
+      // case 'Create A New Item':
+      //   return <CreateWidget />;
+      // case 'Edit A Menu Item':
+      //   return <EditWidget />;
       default:
         return <ItemCatalog />;
     }

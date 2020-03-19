@@ -1,14 +1,17 @@
 .cpanel-container {
-  position: absolute;
-  top: 0;
+  position: fixed;
+  /* top: 0;
   left: 0;
   bottom: 0;
-  right: 0;
-  height: 100vh;
-  width: 100vw;
-  /* z-index: 1000; */
-  background: var(--grey);
+  right: 0; */
+  height: 100%;
+  width: 100%;
+  z-index: 2000;
+  background-color: var(--grey);
+  background-repeat: repeat;
+  background-size: cover;
   padding: 10px;
+  overflow: scroll;
 }
 
 .cpanel-wrapper {
@@ -16,14 +19,8 @@
   height: 100%;
   grid-gap: 1em;
   grid:
-    'header'auto 'nav'auto 'main'1fr / 1fr;
-}
-
-@media (min-width: 60em) {
-  .cpanel-wrapper {
-    grid:
-      'header header'auto 'nav main'1fr / 12em 1fr;
-  }
+    'header header'auto 'nav main'1fr / 12em 1fr;
+  /* 'header'auto 'nav'auto 'main'1fr / 1fr; */
 }
 
 header {
@@ -142,4 +139,31 @@ footer {
 
 .btn:hover {
   border: none;
+}
+
+.search-bar-button-div {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.new-item-button {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.search-bar-contents {
+  display: grid;
+  grid-template-columns: 1fr 10px;
+  align-items: center;
+}
+
+.search-bar-contents>svg {
+  color: #9FA6AB;
+  margin-left: -40px;
+}
+
+#searchBar {
+  border-radius: 25px;
 }
