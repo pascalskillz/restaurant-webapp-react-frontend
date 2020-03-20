@@ -6,10 +6,37 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 // import '../styles/Main.css'
 import '../styles/Contact.css';
-import ZapierForm from 'react-zapier-form' // Zapier URL 
+import ZapierForm from 'react-zapier-form' ;// Zapier URL 
+
+import Recaptcha from 'react-recaptcha';
 
 class Contact extends Component {
- 
+   constructor(props){
+   super(props)
+   this.handleSend= this.handleSend.bind(this);
+   this.rechaptchaLoaded= this.rechaptchaLoaded.bind(this);
+   this.verifyCallback =this.verifyCallback.bind(this);
+   this.state={
+     isVerified: false
+   }
+ }
+ rechaptchaLoaded(){
+console.log('Rechaptcha is loaded')
+ }
+  handleSend(){
+    if (this.state.isVerified) {
+      alert('You have successfully sent');
+    }else{
+      alert('Please verify that you are a human');
+    }
+  }
+  verifyCallback(response){
+if (response){
+  this.setState({
+    isVerified : true
+  })
+}
+  }
   render() {
     return (
       <MyConsumer>
@@ -71,7 +98,15 @@ class Contact extends Component {
                     </textarea>
                    </div>
 
-                   <input type='submit' value='Send'  className='btn btn-dark' />
+                   <div className='convert' onClick={this.handleSend}>
+                   <input type='submit' value='Send'  className='btn btn-dark'  /></div>
+                   <Recaptcha
+    sitekey="6Ld8peIUAAAAAKiyelcRWBofd48HzfMYWZq72qkp"
+    render="explicit"
+    theme='light'
+    onloadCallback={this.rechaptchaLoaded}
+    verifyCallback={this.verifyCallback}
+  />
               </div>
            
             }
