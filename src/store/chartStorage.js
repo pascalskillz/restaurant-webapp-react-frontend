@@ -16,7 +16,7 @@ export default {
     },
     // Get new item list after updatein the items
     updateItem(key) {
-      // Get the whole list in the localsto
+      // Get the whole list in the localst
       let itemList = JSON.parse(localStorage.getItem(storageName));
       itemList.remove();
 
