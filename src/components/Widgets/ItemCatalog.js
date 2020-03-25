@@ -183,7 +183,7 @@ class ItemCatalog extends Component {
                 </div>
                 <div className='new-item-button'>
                   <button className='btn btn-warning catalog-item-cancel-button'>
-                    New
+                    New Menu Item
                   </button>
                 </div>
               </div>
