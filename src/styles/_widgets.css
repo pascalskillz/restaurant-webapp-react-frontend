@@ -263,6 +263,11 @@
 
 .edit-save-button-div>button {
   margin: 0px 5px;
+  background: var(--green) !important;
+}
+
+.edit-modal-div>button {
+  background: var(--green) !important;
 }
 
 
@@ -276,4 +281,8 @@
   margin: 30px 0;
   display: flex;
   justify-content: center;
+}
+
+.delete-modal-div>button {
+  background: var(--red) !important;
 }
