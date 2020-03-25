@@ -8,7 +8,7 @@ const styles = {
   modal: {
     overlay: {
       backgroundColor: 'rgba(10, 10, 10, .5)',
-      zIndex: '500'
+      zIndex: '2500'
     },
     content: {
       position: 'absolute',
