@@ -167,3 +167,8 @@ footer {
 #searchBar {
   border-radius: 25px;
 }
+
+.btn-order-view {
+  color: white !important;
+  font-weight: bold;
+}

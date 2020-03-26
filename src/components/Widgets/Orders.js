@@ -31,7 +31,7 @@ class Orders extends Component {
         <td>{order.orderDate}</td>
         <td>{order.customerName}</td>
         <td>{order.amount}</td>
-        <td><a className='btn btn-primary'> View </a></td>
+        <td><a className='btn btn-primary btn-order-view'> View </a></td>
       </tr>
     ));
 
@@ -55,5 +55,4 @@ class Orders extends Component {
     );
   }
 }
-
 export default Orders;
