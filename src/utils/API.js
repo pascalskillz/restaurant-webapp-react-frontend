@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const url = 'http://tandoor-env.mdtaz78ptd.us-east-1.elasticbeanstalk.com/api';
+const localUrl = 'http://localhost:8080/api'
 
 export default {
 
@@ -36,7 +37,7 @@ export default {
   // Orders api request
 
   getAllOrders() {
-    return axios.get(`${url}/orders`)
+    return axios.get(`${localUrl}/orders`)
   },
 
   getOneOrder(orderId) {
