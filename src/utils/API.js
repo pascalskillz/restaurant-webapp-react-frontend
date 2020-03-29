@@ -33,9 +33,9 @@ export default {
     return axios.get(`${url}/categories`)
   },
 
-  addReservation() {
+  addReservation(itemData) {
     return axios.post(`${url}/menuitems/reservations`, itemData)
-  }
+  },
 
 }
 

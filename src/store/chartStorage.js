@@ -21,19 +21,15 @@ export default {
       itemList.remove();
 
     },
-    /**
-     * Remove some items in the localstorage
-     */
-    deleteItem(){
 
-    },
     // delete all the items in the cashe
     clearChart(){
-        localStorage.setItem(storageName,null);
+        localStorage.setItem(storageName,JSON.stringify([]));
     },
 
     // get all the items in the cache
     getList() {
+
       return JSON.parse(localStorage.getItem(storageName));
     }
 };

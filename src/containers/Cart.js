@@ -8,6 +8,8 @@ import '../styles/cart.css';
 import { Container } from "react-bootstrap";
 
 import chartStorage from "../store/chartStorage";
+import API from "../utils/API";
+import Swal from "sweetalert2";
 
 
 
@@ -17,13 +19,12 @@ class Cart extends Component {
     categories: [],
     allItemsLoading: true,
     categoryLoading: true,
-    selected: 'Loading...',
+    selected: "Loading...",
     mobile: false
   };
 
   componentDidMount() {
     this.gatherAllItems();
-
   }
 
   scrollToTop = () => {
@@ -32,17 +33,36 @@ class Cart extends Component {
     };
   };
 
+  submitOrders = (allItems) => {
+      Swal.fire("Order Submitted", "", "success");
+      chartStorage.clearChart();
+      window.location.href = "http://localhost:3000/";
+      // If API all set
+      // API.addReservation(allItems).then(result => {
+      //     Swal.fire("Order Submitted", "", "success");
+      //     if (result == 'success') {
+      //          Swal.fire("Order Submitted", 
+      //                     "", 
+      //                     "success");
+      //     } else {
+      //         Swal.fire({
+      //           icon: "error",
+      //           title: "Order Filed",
+      //         });
+      //     }
+      // })
 
-  removeItem(item){
-     const itemList = this.state.allItems;
-     console.log(itemList)
-     const index = itemList.indexOf(item);
-     itemList.splice(index,1);
-     this.setState({
-       allItems: [...itemList],
-     })
+  };
+
+  removeItem(item) {
+    const itemList = this.state.allItems;
+    console.log(itemList);
+    const index = itemList.indexOf(item);
+    itemList.splice(index, 1);
+    this.setState({
+      allItems: [...itemList]
+    });
   }
-
 
   gatherAllItems = async () => {
     let allItemsArr = [];
@@ -51,65 +71,64 @@ class Cart extends Component {
       allItems: [...allItemsArr],
       allItemsLoading: false
     });
-    
   };
 
-
   render() {
-     let subtotal = 0;
-     let allItemsList = [];
-
-     this.state.allItems.map((item, index) => {
-      allItemsList.push (
-           <div class="cart-item d-md-flex justify-content-between" key={index}>  
-         <div className="px-3 my-3">
+    let subtotal = 0;
+    let allItemsList = [];
+    let itemList = this.state.allItems;
+    this.state.allItems.map((item, index) => {
+      allItemsList.push(
+        <div class="cart-item d-md-flex justify-content-between" key={index}>
+          <div className="px-3 my-3">
             <span class="remove-item">
-              <i class="fa fa-times" onClick={(item) => this.removeItem(item)}></i>
+              <i
+                class="fa fa-times"
+                onClick={item => this.removeItem(item)}
+              ></i>
             </span>
-           <a class="cart-item-product" >
-             <div class="cart-item-product-thumb">
-               <div className="cart-item-div">
-                 <img
-                   src={item.imageUrl}
-                   alt="Product"
-                   className="cart-item-image"
-                 />
-               </div>
-             </div>
-           </a>
-         </div>
-         <div className="namelength px-3 my-3 text-center">
-           <div class="cart-item-label">Name</div>
-           <span class="text-xl font-weight-medium ">{item.itemName}</span>
-         </div>
-         <div className="px-3 my-3 text-center">
-           <div class="cart-item-label">Quantity</div>
-           <div class="count-input">
-             <select class="form-control">
-               <option>1</option>
-               <option>2</option>
-               <option>3</option>
-               <option>4</option>
-               <option>5</option>
-               <option>6</option>
-             </select>
-           </div>
-         </div>
-         <div className="px-3 my-3 text-center">
-           <div class="cart-item-label">Subtotal</div>
-           <span class="text-xl font-weight-medium">${item.itemPrice}</span>
-         </div>
-         <div className="px-3 my-3 text-center">
-           <div class="cart-item-label">Discount</div>
-           <span class="text-xl font-weight-medium">$35.00</span>
-         </div>
-       </div>
+            <a class="cart-item-product">
+              <div class="cart-item-product-thumb">
+                <div className="cart-item-div">
+                  <img
+                    src={item.imageUrl}
+                    alt="Product"
+                    className="cart-item-image"
+                  />
+                </div>
+              </div>
+            </a>
+          </div>
+          <div className="namelength px-3 my-3 text-center">
+            <div class="cart-item-label">Name</div>
+            <span class="text-xl font-weight-medium ">{item.itemName}</span>
+          </div>
+          <div className="px-3 my-3 text-center">
+            <div class="cart-item-label">Quantity</div>
+            <div class="count-input">
+              <select class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+              </select>
+            </div>
+          </div>
+          <div className="px-3 my-3 text-center">
+            <div class="cart-item-label">Subtotal</div>
+            <span class="text-xl font-weight-medium">${item.itemPrice}</span>
+          </div>
+          <div className="px-3 my-3 text-center">
+            <div class="cart-item-label">Discount</div>
+            <span class="text-xl font-weight-medium">$35.00</span>
+          </div>
+        </div>
       );
 
       subtotal += item.itemPrice;
-
-     
-     });
+    });
 
     return (
       <MyConsumer>
@@ -130,35 +149,30 @@ class Cart extends Component {
                 <div className="category-item-container">
                   <Container> {allItemsList}</Container>
                 </div>
-                <div class="d-sm-flex justify-content-between align-items-center text-center text-sm-left" style={{float:'right'}}>
-
+                <div
+                  class="d-sm-flex justify-content-between align-items-center text-center text-sm-left"
+                  style={{ float: "right" }}
+                >
                   <div class="py-2">
                     <span class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">
                       Subtotal:
-                      </span>
+                    </span>
                     <span class="d-inline-block align-middle text-xl font-weight-medium">
-                      $188.50
-                      </span>
-                  </div>
-                  </div>
-
-               
-                {/* <div class="row pt-3 pb-5 mb-2">
-                  <div class="col-sm-6 mb-3">
-                    <a class="btn btn-style-1 btn-secondary btn-block" href="#">
-                      <i class="fe-icon-refresh-ccw"></i>&nbsp;Update Cart
-                    </a>
-                  </div>
-                  <div class="col-sm-6 mb-3">
-                    <a
-                      class="btn btn-style-1 btn-primary btn-block"
-                      href="checkout-address.html"
-                    >
-                      <i class="fe-icon-credit-card"></i>&nbsp;Place Your Order
-                    </a>
+                      ${subtotal}
+                    </span>
                   </div>
                 </div>
-              */}
+
+                <div class="row pt-3 pb-5 mb-2">
+                  <div class="col-sm-6 mb-3">
+                    <button
+                      class="btn btn-style-1 btn-primary btn-block"
+                      onClick={e => this.submitOrders(itemList)}
+                    >
+                      &nbsp;Place Your Order{" "}
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
