@@ -31,6 +31,10 @@ export default {
 
   getCategories() {
     return axios.get(`${url}/categories`)
+  },
+
+  addReservation() {
+    return axios.post(`${url}/menuitems/reservations`, itemData)
   }
 
 }
