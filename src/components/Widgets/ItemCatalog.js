@@ -144,7 +144,11 @@ class ItemCatalog extends Component {
             <EditWidget
               itemNum={this.state.itemToEditID}
               closeButton={
-                <button onClick={() => this.completeEdit()}>DONE</button>
+                <div
+                  id='close-button-back-button'
+                  onClick={() => this.completeEdit()}>
+                  <i className='fas fa-arrow-left'></i> BACK
+                </div>
               }
             />
           </div>
@@ -199,24 +203,26 @@ class ItemCatalog extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {/* if the filter bar is empty */}
+                    {this.state.menuItemsLoading ? (
+                      <tr>
+                        <td scope='row'>-</td>
+                        <td>Loading...</td>
+                        <td> </td>
+                        <td> </td>
+                      </tr>
+                    ) : (
+                      allItemsList
+                    )}
+
+                    {/* if the filter bar is empty
                     {this.state.filterItemCatalog.length < 1 ? (
                       // display the all items once loaded
-                      this.state.menuItemsLoading ? (
-                        <tr>
-                          <td scope='row'>-</td>
-                          <td>Loading...</td>
-                          <td> </td>
-                          <td> </td>
-                        </tr>
-                      ) : (
-                        allItemsList
-                      )
+
                     ) : (
                       // else display filtered items
                       // filterList
                       <div className=''>filterList</div>
-                    )}
+                    )} */}
                   </tbody>
                 </table>
               </div>
