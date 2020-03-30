@@ -328,11 +328,17 @@ class EditWidget extends Component {
             className='edit-item-select'>
             {item.itemName}
           </td>
-          <td><img style={{ width: 60 }} className="img-thumbnail" src={item.imageUrl} /></td>
+          <td>
+            <img
+              style={{ width: 60 }}
+              className='img-thumbnail'
+              src={item.imageUrl}
+            />
+          </td>
           <td
             onClick={() => this.selectItemForEdit(item.id)}
             className='edit-item-select'>
-            <a className="btn btn-primary">Edit</a>
+            <a className='btn btn-primary'>Edit</a>
           </td>
         </tr>
       ));
@@ -345,11 +351,17 @@ class EditWidget extends Component {
           className='edit-item-select'>
           {item.itemName}
         </td>
-        <td><img style={{ width: 60 }} className="img-thumbnail" src={item.imageUrl} /></td>
+        <td>
+          <img
+            style={{ width: 60 }}
+            className='img-thumbnail'
+            src={item.imageUrl}
+          />
+        </td>
         <td
           onClick={() => this.selectItemForEdit(item.id)}
           className='edit-item-select'>
-          <a className="btn btn-primary">Edit</a>
+          <a className='btn btn-primary'>Edit</a>
         </td>
       </tr>
     ));
@@ -357,16 +369,16 @@ class EditWidget extends Component {
     const categoryDropdown = this.state.categoryLoading ? (
       <option value='--'>--</option>
     ) : (
-        this.state.categories
-          .filter(item => {
-            return item.id > 0;
-          })
-          .map((item, index) => (
-            <option key={index} value={item.categoryName} id={item.id}>
-              {item.categoryName.split(' ')[0]}
-            </option>
-          ))
-      );
+      this.state.categories
+        .filter(item => {
+          return item.id > 0;
+        })
+        .map((item, index) => (
+          <option key={index} value={item.categoryName} id={item.id}>
+            {item.categoryName.split(' ')[0]}
+          </option>
+        ))
+    );
 
     const similarList = this.state.similarList.map((item, index) => (
       <div key={index} className='similar-confirm'>
@@ -425,28 +437,27 @@ class EditWidget extends Component {
                 </thead>
                 <tbody>
                   {// if the filter bar is empty
-                    this.state.filterSimilar.length < 1 ? (
-                      // display the all items once loaded
-                      !this.state.menuItemsLoading ? (
-                        allItemsList
-                      ) : (
-                          <tr>
-                            <td scope='row'>-</td>
-                            <td>Loading...</td>
-                            <td> </td>
-                            <td> </td>
-                          </tr>
-                        )
+                  this.state.filterSimilar.length < 1 ? (
+                    // display the all items once loaded
+                    !this.state.menuItemsLoading ? (
+                      allItemsList
                     ) : (
-                        // else display filtered items
-                        filterList
-                      )}
+                      <tr>
+                        <td scope='row'>-</td>
+                        <td>Loading...</td>
+                        <td> </td>
+                        <td> </td>
+                      </tr>
+                    )
+                  ) : (
+                    // else display filtered items
+                    filterList
+                  )}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-
 
         <div className='edit-item-form-div'>
           <div className='edit-photo'>
@@ -466,98 +477,105 @@ class EditWidget extends Component {
             {!this.state.selectedItem ? (
               <span>Select an item</span>
             ) : (
-                <div className='edit-form-inner-div'>
-                  <div className='edit-item-heading'>
-                    {this.state.selectedItem.itemName
-                      ? `${this.state.selectedItem.itemName} - ${this.state.selectedItem.itemId}`
-                      : 'Select an item from above'}
+              <div className='edit-form-inner-div'>
+                <div className='edit-item-heading'>
+                  {this.state.selectedItem.itemName
+                    ? `${this.state.selectedItem.itemName} - ${this.state.selectedItem.itemId}`
+                    : 'Select an item from above'}
+                </div>
+                <div className='edit-item-form-all-items'>
+                  <div className='edit-form-item'>
+                    <label htmlFor='itemName'>Item Name</label>
+                    <input
+                      name='itemName'
+                      type='text'
+                      id='editItemName'
+                      value={this.state.itemName || ''}
+                      onChange={this.handleInputChange}
+                    />
                   </div>
-                  <div className='edit-item-form-all-items'>
-                    <div className='edit-form-item'>
-                      <label htmlFor='itemName'>Item Name</label>
-                      <input
-                        name='itemName'
-                        type='text'
-                        id='editItemName'
-                        value={this.state.itemName || ''}
-                        onChange={this.handleInputChange}
-                      />
+
+                  <div className='edit-form-item'>
+                    <label htmlFor='itemPrice'>Item Price</label>
+                    <input
+                      name='itemPrice'
+                      type='number'
+                      id='editItemPrice'
+                      value={this.state.itemPrice || ''}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+                  <div className='edit-form-item'>
+                    <label htmlFor='cookTime'>Cook Time</label>
+                    <input
+                      name='cookTime'
+                      type='number'
+                      id='editCookTime'
+                      value={this.state.cookTime || ''}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+
+                  <div className='edit-form-item'>
+                    <label htmlFor='vegan'>Vegan?</label>
+                    <input
+                      name='vegan'
+                      type='checkbox'
+                      id='editVegan'
+                      checked={this.state.vegan || false}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+
+                  <div className='edit-form-item'>
+                    <label htmlFor='special'>Special?</label>
+                    <input
+                      name='special'
+                      type='checkbox'
+                      id='editSpecial'
+                      checked={this.state.special || false}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+
+                  <div className='edit-form-item'>
+                    <label htmlFor='description'>Item Description</label>
+                    <textarea
+                      name='description'
+                      type='textarea'
+                      className='form-control'
+                      id='editItemDescription'
+                      value={this.state.description || ''}
+                      onChange={this.handleInputChange}
+                    />
+                  </div>
+
+                  {/* -------------------------------------------------------- PLACEHOLDER */}
+
+                  <div className='edit-form-select-div'>
+                    <label htmlFor='itemCategory'>Item Category</label>
+                    <div className='menu-select'>
+                      {this.state.categoryLoading ? (
+                        <select>
+                          <option value='--'>--</option>
+                        </select>
+                      ) : (
+                        <select
+                          id='select-id'
+                          onChange={this.handleCategorySelect}>
+                          {categoryDropdown}
+                        </select>
+                      )}
                     </div>
-                    <div className='edit-form-item'>
-                      <label htmlFor='itemPrice'>Item Price</label>
-                      <input
-                        name='itemPrice'
-                        type='number'
-                        id='editItemPrice'
-                        value={this.state.itemPrice || ''}
-                        onChange={this.handleInputChange}
-                      />
-                    </div>
-                    <div className='edit-form-item'>
-                      <label htmlFor='cookTime'>Cook Time</label>
-                      <input
-                        name='cookTime'
-                        type='number'
-                        id='editCookTime'
-                        value={this.state.cookTime || ''}
-                        onChange={this.handleInputChange}
-                      />
-                    </div>
-                    <div className='edit-form-item'>
-                      <label htmlFor='vegan'>Vegan?</label>
-                      <input
-                        name='vegan'
-                        type='checkbox'
-                        id='editVegan'
-                        checked={this.state.vegan || false}
-                        onChange={this.handleInputChange}
-                      />
-                    </div>
-                    <div className='edit-form-item'>
-                      <label htmlFor='special'>Special?</label>
-                      <input
-                        name='special'
-                        type='checkbox'
-                        id='editSpecial'
-                        checked={this.state.special || false}
-                        onChange={this.handleInputChange}
-                      />
-                    </div>
-                    <div className='edit-form-item'>
-                      <label htmlFor='description'>Item Description</label>
-                      <textarea
-                        name='description'
-                        type='textarea'
-                        className='form-control'
-                        id='editItemDescription'
-                        value={this.state.description || ''}
-                        onChange={this.handleInputChange}
-                      />
-                    </div>
-                    <div className='edit-form-select-div'>
-                      <label htmlFor='itemCategory'>Item Category</label>
-                      <div className='menu-select'>
-                        {this.state.categoryLoading ? (
-                          <select>
-                            <option value='--'>--</option>
-                          </select>
-                        ) : (
-                            <select
-                              id='select-id'
-                              onChange={this.handleCategorySelect}>
-                              {categoryDropdown}
-                            </select>
-                          )}
-                      </div>
-                      <small
-                        id='createDescriptionDesc'
-                        className='form-text text-muted'>
-                        Select a menu category
+                    <small
+                      id='createDescriptionDesc'
+                      className='form-text text-muted'>
+                      Select a menu category
                     </small>
-                    </div>
                   </div>
                 </div>
-              )}
+              </div>
+            )}
           </div>
         </div>
 
@@ -588,22 +606,22 @@ class EditWidget extends Component {
                 </thead>
                 <tbody>
                   {// if the filter bar is empty
-                    this.state.filterSimilar.length < 1 ? (
-                      // display the all items once loaded
-                      !this.state.menuItemsLoading ? (
-                        filterAllItemsList
-                      ) : (
-                          <tr>
-                            <th scope='row'>0</th>
-                            <td>Loading...</td>
-                            <td> </td>
-                          </tr>
-                        )
+                  this.state.filterSimilar.length < 1 ? (
+                    // display the all items once loaded
+                    !this.state.menuItemsLoading ? (
+                      filterAllItemsList
                     ) : (
-                        // else
-                        // display filtered items
-                        filterList
-                      )}
+                      <tr>
+                        <th scope='row'>0</th>
+                        <td>Loading...</td>
+                        <td> </td>
+                      </tr>
+                    )
+                  ) : (
+                    // else
+                    // display filtered items
+                    filterList
+                  )}
                 </tbody>
               </table>
             </div>
@@ -616,8 +634,8 @@ class EditWidget extends Component {
             {this.state.similarList.length > 0 ? (
               similarList
             ) : (
-                <div style={{ fontStyle: 'italic' }}>No Similar Items</div>
-              )}
+              <div style={{ fontStyle: 'italic' }}>No Similar Items</div>
+            )}
           </div>
         </div>
 
@@ -635,7 +653,7 @@ class EditWidget extends Component {
                     ? this.state.selectedItem.itemPrice
                     : this.state.itemPrice
                 }
-              // id={item.id}
+                // id={item.id}
               />
             }
             buttonClose={<button className='btn btn-primary'>Cancel</button>}
