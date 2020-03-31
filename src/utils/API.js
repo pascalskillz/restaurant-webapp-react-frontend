@@ -44,7 +44,7 @@ export default {
     return axios.get(`${url}/orders/${orderId}`)
   },
 
-  createNewOrder() {
+  createNewOrder(orderData) {
     return axios.post(`${url}/orders`)
   },
 
