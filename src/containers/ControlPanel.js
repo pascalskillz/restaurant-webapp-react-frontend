@@ -45,14 +45,14 @@ class ControlPanel extends Component {
   render() {
     return (
       <MyConsumer>
-        {({ state }) => (
+        {({  }) => (
           <div className='cpanel-container'>
             <div className='cpanel-wrapper'>
               <header className='cpanel-header'>Tandoor Control Panel</header>
               <nav className='cpanel-dropdown'>
                 <button
                   className='cpanel-button'
-                  onClick={() => this.setTitle('List of Menu Items')}>
+                  onClick={() => this.setTitle('Menu Item Catalog')}>
                   Menu Item Catalog
                 </button>
                 <button
