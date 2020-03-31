@@ -123,7 +123,7 @@ class Item extends Component {
           text={this.state.categoryName || 'Tandoor Restauraunt'}
         /> 
         <div className="container">
-          <div className="menu-item-row row">
+          <div className="menu-item-row">
             <div className="item-image">
               <img src={item.imageUrl} alt={item.itemName}/>
             </div>
@@ -138,7 +138,7 @@ class Item extends Component {
               </div>
             </div>
           </div>
-          <div className="row"></div>
+          {/* <div className="row"></div> */}
         </div>
 
         <div className='similar-items-container'>
