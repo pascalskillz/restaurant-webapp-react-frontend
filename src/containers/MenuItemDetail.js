@@ -1,6 +1,13 @@
-import React, { Component } from "react";
-import { useParams } from "react-router-dom";
-import API from "../utils/API";
+/*
+
+  I DONT BELIEVE THIS PAGE IS BEING USED ...
+
+
+*/
+
+import React, { Component } from 'react';
+import { useParams } from 'react-router-dom';
+import API from '../utils/API';
 
 let { id } = useParams();
 
@@ -42,7 +49,14 @@ class MenuItemDetail extends Component {
       //     </div>
       //     <div className="row"></div>
       //   </div>
-      <div>this.state.renderItem.map(item => {<div>{item}</div>})</div>
+
+        // {this.state.renderItem.map(item => {
+        //   <div>{item}</div>;
+        // })}
+      <div>
+        {this.state.renderItem[0]}
+        MENU ITEM DETAIL
+      </div>
     );
   }
 }
