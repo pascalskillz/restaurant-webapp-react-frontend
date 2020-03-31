@@ -85,7 +85,7 @@
     flex: 1;
   }
   
-  #contact .contact-form .form-group {
+  #contact .contact-form .form-group { 
     margin: 0.75rem;
     
   }
@@ -123,3 +123,17 @@
   .leaflet-container .leaflet-pane{
     z-index: 1;
   }
+
+  /*H-P-P*/
+  label[for="lastname"], #lastname {
+    /* display: none;
+    visibility: hidden; */
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 0;
+    z-index: -1;
+  }
+  
