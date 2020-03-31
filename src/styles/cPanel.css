@@ -1,35 +1,30 @@
+/* --------------------------------------------------------------- Item Catalog */
 .cpanel-container {
-  position: absolute;
-  top: 0;
+  position: fixed;
+  /* top: 0;
   left: 0;
   bottom: 0;
-  right: 0;
-  height: 100vh;
-  width: 100vw;
-  /* z-index: 1000; */
-  background: var(--grey);
+  right: 0; */
+  height: 100%;
+  width: 100%;
+  z-index: 2000;
+  background-color: var(--grey);
+  background-repeat: repeat;
+  background-size: cover;
   padding: 10px;
+  overflow: scroll;
 }
 
 .cpanel-wrapper {
   display: grid;
   height: 100%;
   grid-gap: 1em;
-  grid: 
-    'header' auto
-    'nav' auto
-    'main' 1fr / 1fr;
+  grid:
+    'header header'auto 'nav main'1fr / 12em 1fr;
+  /* 'header'auto 'nav'auto 'main'1fr / 1fr; */
 }
 
-@media (min-width: 60em) {
-  .cpanel-wrapper {
-    grid: 
-      'header header' auto
-      'nav main' 1fr / 12em 1fr;
-  }
-}
-
-header { 
+header {
   grid-area: header;
   border-radius: 15px;
   display: flex;
@@ -38,7 +33,7 @@ header {
   font-size: 2em;
 }
 
-nav { 
+nav {
   grid-area: nav;
   border-radius: 15px;
   display: flex;
@@ -46,13 +41,12 @@ nav {
   align-items: center;
 }
 
-main { 
+main {
   grid-area: main;
   border-radius: 15px;
   display: grid;
   grid:
-    'title' auto 
-    'content' 1fr / 1fr;
+    'title'auto 'content'1fr / 1fr;
   /* width: 100%; */
   /* justify-content: center; */
   justify-items: center;
@@ -69,7 +63,7 @@ footer {
   padding: 1em;
 }
 
-.cpanel-button{
+.cpanel-button {
   padding: 5px 10px;
   border-radius: 15px;
   margin: 10px 0;
@@ -95,6 +89,9 @@ footer {
 
 .cpanel-action-container {
   margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .radio-div {
@@ -108,3 +105,165 @@ footer {
   flex-direction: column;
   margin-right: auto;
 }
+
+.item-catalog-div {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.item-catalog-dropdown {
+  width: 80%;
+}
+
+.table-scroll {
+  width: 100%;
+}
+
+.catalog-item-edit-button {
+  background-color: #2C62C4;
+  color: var(--white) !important;
+  font-weight: bold;
+}
+
+.catalog-item-delete-button {
+  background-color: #FA2535;
+  color: var(--white) !important;
+  font-weight: bold;
+}
+
+.catalog-item-cancel-button {
+  background-color: #81C341;
+  color: var(--white) !important;
+  font-weight: bold;
+}
+
+.btn:hover {
+  border: none;
+}
+
+.search-bar-button-div {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.new-item-button {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.search-bar-contents {
+  display: grid;
+  grid-template-columns: 1fr 10px;
+  align-items: center;
+}
+
+.search-bar-contents>svg {
+  color: #9FA6AB;
+  margin-left: -40px;
+}
+
+#searchBar {
+  border-radius: 25px;
+}
+
+/* --------------------------------------------------------------- Edit Widget */
+
+#edit-widget {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, min-content);
+  width: 100%;
+  justify-content: center;
+  grid-gap: 20px;
+  grid-template-areas:
+    "items image"
+    "similar similar"
+    "save save"
+    "done done";
+}
+
+.edit-form-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.buttonFromProps {
+  grid-area: done;
+  justify-self: center;
+  background-color: #2C62C4;
+  color: var(--white) !important;
+  font-weight: bold;
+  padding: 0;
+}
+
+#close-button-back-button {
+  padding: 15px 45px;
+  border-radius: 5px;
+}
+
+.edit-form-item {
+  padding: 10px 0;
+}
+
+.edit-form-item input {
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.vegan-special-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+#edit-special {
+  margin-left: 30px;
+}
+
+#edit-itemDescription textarea {
+  resize: none;
+}
+
+
+/* Image Upload Container */
+.edit-image-upload-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edit-photo img {
+  width: 400px;
+  object-fit: contain;
+  margin: 10px 0 30px 0;
+}
+
+/* Similar Items Container */
+.similar-items-container {
+  grid-area: similar;
+  text-align: center;
+}
+
+/* Save Button */
+.edit-save-button-div {
+  grid-area: save;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.edit-save-button-div button {
+  background-color: #5CB85C;
+  color: var(--white) !important;
+}
+
+/* NOT SURE WHAT THIS IS */
+/* .btn-order-view {
+  color: white !important;
+  font-weight: bold;
+} */

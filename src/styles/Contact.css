@@ -40,14 +40,14 @@
   .btn {
     display: inline-block;
     color: #fff;
-    background: #da9768;
+    background: #2C62C4;
     padding: 0.5rem 2rem;
     border: none;
     border-radius: 5px;
   }
   
   .btn:hover {
-    background: #d4d2d1;
+    background: #a09e9e;
     color: #000;
     border: 0.5px solid #000;
     cursor: pointer;
