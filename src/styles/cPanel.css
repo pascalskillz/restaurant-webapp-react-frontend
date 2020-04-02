@@ -281,10 +281,21 @@ footer {
   display: flex;
   justify-content: space-around;
 }
-
+.order-items{
+  width: 85%;
+}
 .details-table {
   display: flex;
   justify-content: center;
   margin-top: 60px;
-
+}
+.customer-info, .order-info{
+  border: 1px solid #e3e3e3;
+  padding: 10px 50px;
+  background: #ececec;
+  border-radius: 4%;
+}
+.grand-total td {
+  text-align: right;
+  padding-right: 10%;
 }

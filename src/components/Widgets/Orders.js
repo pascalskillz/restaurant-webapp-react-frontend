@@ -62,8 +62,8 @@ class Orders extends Component {
               <p>Customer Phone: <span> 7325773492</span></p>
             </div>
             <div className="order-info">
+              <p>Order ID: <span>#1</span></p>
               <p>Order date: <span> April 10, 2020</span></p>
-              <p>Grand Total: <span>$45</span></p>
             </div>
           </div>
           <div className="details-table">
@@ -94,7 +94,7 @@ class Orders extends Component {
                     <td>$ 60</td>
                   </tr>
                   <tr className="grand-total">
-                    <td><span>Grand Total: </span>$120</td>
+                    <td colspan="5"> <span>Grand Total: </span>$120</td>
                   </tr>
                 </tbody>
               </table>
