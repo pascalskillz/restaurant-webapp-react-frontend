@@ -41,7 +41,7 @@ export default {
   },
 
   getOneOrder(orderId) {
-    return axios.get(`${url}/orders/${orderId}`)
+    return axios.get(`${localUrl}/order/${orderId}`)
   },
 
   createNewOrder(orderData) {

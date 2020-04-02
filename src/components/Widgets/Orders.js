@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
+import OrderDetails from './OrderDetails';
 
 class Orders extends Component {
 
@@ -27,10 +28,17 @@ class Orders extends Component {
   };
 
   viewOrderDetails = (id) => {
-    console.log(id)
+    console.log(id);
     this.setState({
       displayOrderDetails: true,
       orderIDToView: id
+    });
+    console.log(this.state.orderIDToView);
+    console.log(this.state.displayOrderDetails);
+  }
+  completeView = () => {
+    this.setState({
+      displayOrderDetails: false
     })
   }
 
@@ -55,68 +63,34 @@ class Orders extends Component {
 
       //sort orders by date from backend
       <div className="order-widget">
-        <div className="order-details-container">
-          <div className="customer-order">
-            <div className="customer-info">
-              <p>Customer Name: <span> John Doe</span> </p>
-              <p>Customer Phone: <span> 7325773492</span></p>
-            </div>
-            <div className="order-info">
-              <p>Order ID: <span>#1</span></p>
-              <p>Order date: <span> April 10, 2020</span></p>
-            </div>
-          </div>
-          <div className="details-table">
-            <div className="order-items">
-              <table className="table table-striped">
+        {this.state.displayOrderDetails ?
+          (<OrderDetails
+            orderId={this.state.orderIDToView}
+            closeButton={
+              <div
+                id='close-button-back-button'
+                onClick={() => this.completeView()}>
+                <i className='fas fa-arrow-left'></i> BACK
+              </div>
+            }
+          />) : (
+            <div className='table-scroll order-table'>
+              <table className='table table-striped'>
                 <thead className='thead-dark'>
                   <tr>
-                    <th>ID</th>
-                    <th>Item Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
+                    <th scope='col'>Order ID</th>
+                    <th scope='col'>Order Date</th>
+                    <th scope='col'>Customer Name</th>
+                    <th scope='col'>Order Total</th>
+                    <th scope='col'>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Chicken Cuisine</td>
-                    <td>5</td>
-                    <td>$ 12</td>
-                    <td>$ 60</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Chicken Cuisine</td>
-                    <td>5</td>
-                    <td>$ 12</td>
-                    <td>$ 60</td>
-                  </tr>
-                  <tr className="grand-total">
-                    <td colspan="5"> <span>Grand Total: </span>$120</td>
-                  </tr>
+                  {allOrdersList}
                 </tbody>
               </table>
             </div>
-          </div>
-        </div>
-        {/* <div className='table-scroll order-table'>
-          <table className='table table-striped'>
-            <thead className='thead-dark'>
-              <tr>
-                <th scope='col'>Order ID</th>
-                <th scope='col'>Order Date</th>
-                <th scope='col'>Customer Name</th>
-                <th scope='col'>Order Total</th>
-                <th scope='col'>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {allOrdersList}
-            </tbody>
-          </table>
-        </div> */}
+          )}
       </div>
     );
   }
