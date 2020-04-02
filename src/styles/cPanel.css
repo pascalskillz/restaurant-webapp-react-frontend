@@ -90,7 +90,7 @@ footer {
 .cpanel-action-container {
   margin-top: 20px;
   width: 100%;
-  display: flex;
+  /* display: flex; */ 
   justify-content: center;
 }
 
@@ -262,8 +262,29 @@ footer {
   color: var(--white) !important;
 }
 
-/* NOT SURE WHAT THIS IS */
-/* .btn-order-view {
+/* ---------------------Order Widget -------------------------------- */
+
+.btn-order-view {
   color: white !important;
   font-weight: bold;
-} */
+}
+.order-widget {
+  display: contents;
+}
+.table-scroll.order-table {
+  width: 88%;
+}
+.order-details-container {
+  width: 100%;
+}
+.customer-order {
+  display: flex;
+  justify-content: space-around;
+}
+
+.details-table {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+
+}

@@ -33,7 +33,7 @@
 
 .btn {
     display: inline-block;
-    color: #fff;
+    color: #fff !important;
     background: #2C62C4;
     padding: 0.5rem 2rem;
     border: none;
