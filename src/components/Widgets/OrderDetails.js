@@ -56,16 +56,20 @@ class OrderDetails extends Component {
     }
     render() {
 
+        var grandPrice;
         let orderItemList = this.state.menuItems.map((item, index) => (
-            // this.state.orderDetails.map((item) => (
+
+            //concatenate and return a double;
+            //grandPrice = parseInt(this.state.orderDetails[index].quantity * item.itemPrice),
+
+            console.log(parseInt(grandPrice)),
             <tr key={index}>
                 <td>{index}</td>
                 <td>{item.itemName}</td>
-                <td>{item.quantity}</td>
+                <td>{this.state.orderDetails[index].quantity}</td>
                 <td>$ {item.itemPrice}</td>
-                <td>{`${item.itemPrice}`}*{`${item.itemPrice}`}</td>
+                <td>$ {`${this.state.orderDetails[index].quantity * item.itemPrice}`}</td>
             </tr>
-            // ))
         ));
 
         return (
@@ -95,7 +99,7 @@ class OrderDetails extends Component {
                             <tbody>
                                 {orderItemList}
                                 <tr className="grand-total">
-                                    <td colSpan="5"> <span>Grand Total: </span>$120</td>
+                                    <td colSpan="5"> <span>Grand Total: </span>${grandPrice}</td>
                                 </tr>
                             </tbody>
                         </table>
