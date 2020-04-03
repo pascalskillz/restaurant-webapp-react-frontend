@@ -10,7 +10,7 @@ export default {
   },
 
   getOneMenuItem(itemId) {
-    return axios.get(`${url}/menuitems/${itemId}`)
+    return axios.get(`${localUrl}/menuitems/${itemId}`)
   },
 
   createMenuItem(categoryId, itemData) {

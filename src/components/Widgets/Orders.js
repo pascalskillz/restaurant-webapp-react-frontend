@@ -28,13 +28,13 @@ class Orders extends Component {
   };
 
   viewOrderDetails = (id) => {
-    console.log(id);
+    //console.log(id);
     this.setState({
       displayOrderDetails: true,
       orderIDToView: id
     });
-    console.log(this.state.orderIDToView);
-    console.log(this.state.displayOrderDetails);
+    //console.log(this.state.orderIDToView);
+    //console.log(this.state.displayOrderDetails);
   }
   completeView = () => {
     this.setState({

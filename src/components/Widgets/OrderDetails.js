@@ -5,23 +5,69 @@ import API from '../../utils/API';
 class OrderDetails extends Component {
 
     state = {
-        order: {}
+        order: {},
+        orderDetails: [],
+        menutItemIds: [],
+        menuItems: []
     }
 
     componentDidMount() {
         this.getOrder(this.props.orderId);
+        //this.getMenuItems();
     }
     getOrder = async (id) => {
         let order = {};
+        let orderDetails = [];
         await API.getOneOrder(id).then(res => {
             order = res.data;
+            orderDetails = res.data.orderDetails;
         });
         this.setState({
-            order: order
+            order: order,
+            orderDetails: orderDetails
         });
         console.log(order);
+        console.log(orderDetails);
+        this.getMenuItemIds(orderDetails);
+        this.getMenuItems();
+    }
+
+    getMenuItemIds = (detailsArray) => {
+        let menuItemIds = [];
+        for (var i = 0; i < detailsArray.length; i++) {
+            menuItemIds[i] = detailsArray[i].menuItemId;
+        }
+        this.setState({
+            menuItemIds: menuItemIds
+        });
+    }
+
+    getMenuItems = async () => {
+        let menuItems = []
+        for (var i = 0; i < this.state.menuItemIds.length; i++) {
+            await API.getOneMenuItem(this.state.menuItemIds[i]).then(res => {
+                menuItems[i] = res.data
+            });
+        }
+        this.setState({
+            menuItems: menuItems
+        });
+        console.log(menuItems);
     }
     render() {
+
+        let orderItemList = this.state.menuItems.map((item, index) => (
+            // this.state.orderDetails.map((item) => (
+            <tr key={index}>
+                <td>{index}</td>
+                <td>{item.itemName}</td>
+                <td>{item.quantity}</td>
+                <td>$ {item.itemPrice}</td>
+                <td>{`${item.itemPrice}`}*{`${item.itemPrice}`}</td>
+            </tr>
+            // ))
+        ));
+
         return (
             <div className="order-details-container">
                 <div className="customer-order">
@@ -39,7 +85,7 @@ class OrderDetails extends Component {
                         <table className="table table-striped">
                             <thead className='thead-dark'>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>#</th>
                                     <th>Item Name</th>
                                     <th>Quantity</th>
                                     <th>Price</th>
@@ -47,20 +93,7 @@ class OrderDetails extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Chicken Cuisine</td>
-                                    <td>5</td>
-                                    <td>$ 12</td>
-                                    <td>$ 60</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Chicken Cuisine</td>
-                                    <td>5</td>
-                                    <td>$ 12</td>
-                                    <td>$ 60</td>
-                                </tr>
+                                {orderItemList}
                                 <tr className="grand-total">
                                     <td colSpan="5"> <span>Grand Total: </span>$120</td>
                                 </tr>
