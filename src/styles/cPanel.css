@@ -133,7 +133,14 @@ footer {
 }
 
 .catalog-item-cancel-button {
-  background-color: #81C341;
+  background-color: #2C62C4;
+  color: var(--white) !important;
+  font-weight: bold;
+}
+
+.new-item-button,
+.new-item-save-button {
+  background-color: #81c341;
   color: var(--white) !important;
   font-weight: bold;
 }
@@ -147,7 +154,7 @@ footer {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.new-item-button {
+.new-item-button-div {
   display: flex;
   width: 100%;
   justify-content: center;
@@ -167,6 +174,10 @@ footer {
 
 #searchBar {
   border-radius: 25px;
+}
+
+#searchIcon {
+  cursor: pointer;
 }
 
 /* --------------------------------------------------------------- Edit Widget */
@@ -267,3 +278,29 @@ footer {
   color: white !important;
   font-weight: bold;
 } */
+
+
+/* --------------------------------------------------------------- Create Widget */
+.newItem-form-item {
+  padding: 10px 0;
+}
+
+.newItem-form-item input {
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.newItem-vegan-special-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+
+#newItem-special {
+  margin-left: 30px;
+}
+
+#newItem-itemDescription textarea {
+  resize: none;
+}
