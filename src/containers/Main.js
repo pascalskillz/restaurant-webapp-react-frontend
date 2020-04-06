@@ -34,7 +34,7 @@ class Main extends Component {
                   <a className='main-content-button button' href='/reservation'>
                   FIND A TABLE
                   </a>
-                  <a className='main-content-button button' href='/reservation'>
+                  <a className='main-content-button button' href='/menu'>
                   VISIT MENU
                   </a>
                   
