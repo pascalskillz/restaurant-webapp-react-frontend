@@ -53,12 +53,14 @@ class Orders extends Component {
       //if false then display order list table
       // we should have a back button in order details pages that turns the displayOrderDetails to false
 
+      //sort orders by date from backend
+
       <div className='table-scroll edit-table'>
         <table className='table table-striped'>
           <thead className='thead-dark'>
             <tr>
               <th scope='col'>Order ID</th>
-              <th scope='col'>Orders Date</th>
+              <th scope='col'>Order Date</th>
               <th scope='col'>Customer Name</th>
               <th scope='col'>Order Total</th>
               <th scope='col'>Action</th>

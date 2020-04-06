@@ -11,12 +11,84 @@ class ItemCatalog extends Component {
     menuItemsLoading: true,
     menuItems: [],
     displayItemToEdit: false,
-    itemToEditId: -1
+    itemToEditId: -1,
+    categories: [],
+    categoryLoading: true,
+    newMenuItem: {}
   };
 
   componentDidMount() {
     this.getAllItems();
+    this.getCategories();
   }
+
+  handleInputChange = event => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState(prevState => ({
+      newMenuItem: {
+        ...prevState.newMenuItem,
+        [name]: value
+      }
+    }));
+
+    console.log(this.state.newMenuItem);
+  };
+
+  handleCategorySelect = async event => {
+    console.log('------------ handleCategorySelect');
+    console.log(event.target.value);
+
+    let newCategoryObject = await this.state.categories.filter(item => {
+      return item.categoryName === event.target.value;
+    });
+
+    await console.log(newCategoryObject[0].id);
+
+    await this.setState(prevState => ({
+      newMenuItem: {
+        ...prevState.newMenuItem,
+        categoryId: newCategoryObject[0].id
+      }
+    }));
+
+    await console.log(this.state.newMenuItem);
+  };
+
+  // Image Handling
+  widget = window.cloudinary.createUploadWidget(
+    {
+      cloudName: 'yowats0n',
+      uploadPreset: 'twibcpgv'
+    },
+    (error, result) => {
+      if (error) {
+        console.log(error);
+      }
+      this.uploadImage(result, this.widget);
+    }
+  );
+
+  uploadImage = (resultEvent, widget) => {
+    if (resultEvent.event === 'success') {
+      let url = resultEvent.info.secure_url;
+      widget.close();
+      this.setState(prevState => ({
+        newMenuItem: {
+          ...prevState.newMenuItem,
+          // categoryId: newCategoryObject[0].id
+          imageUrl: url
+        }
+      }));
+    }
+  };
+
+  showWidget = (e, widget) => {
+    e.preventDefault();
+    widget.open();
+  };
 
   getAllItems = async () => {
     let allItemsArr = [];
@@ -30,6 +102,72 @@ class ItemCatalog extends Component {
       menuItems: [...allItemsArr],
       menuItemsLoading: false
     });
+  };
+
+  getCategories = async () => {
+    let categoriesObject = {};
+    await API.getCategories().then(res => {
+      console.log('---------getCategories');
+      console.log(res.data);
+      categoriesObject = res.data;
+    });
+
+    await this.setState({
+      categories: categoriesObject,
+      categoryLoading: false
+    });
+  };
+
+  createNewMenuItem = async e => {
+    e.preventDefault();
+    await console.log(this.state.newMenuItem);
+    await API.createMenuItem(this.state.newMenuItem.categoryId, {
+      itemName: this.state.itemname,
+      itemPrice: this.state.itemprice,
+      cookTime: this.state.cooktime,
+      description: this.state.itemdescription,
+      vegan: this.state.isvegan,
+      special: this.state.isspecial,
+      imageUrl: this.state.imageUrl,
+      similarItems: this.state.similarList
+    })
+      .then(res => {
+        if (res.status === 200) {
+          alert('Success!');
+          // TODO: RESET EVERYTHING
+          window.location.reload();
+        }
+      })
+      .catch(err => {
+        alert('Data not saved, please try again');
+        // TODO: RESET EVERYTHING
+      });
+    // await e.preventDefault();
+    // await console.log(this.state.newMenuItem);
+    // const submitData = await {
+    //   itemName: this.state.newMenuItem.itemname,
+    //   itemPrice: this.state.newMenuItem.itemprice,
+    //   cookTime: this.state.newMenuItem.cooktime,
+    //   description: this.state.newMenuItem.itemdescription,
+    //   vegan: this.state.newMenuItem.isvegan,
+    //   special: this.state.newMenuItem.isspecial,
+    //   imageUrl: this.state.newMenuItem.imageUrl,
+    //   similarItems: this.state.newMenuItem.similarList
+    // };
+
+    // await console.log(submitData);
+    // await API.createMenuItem(this.state.selectedId, submitData)
+    //   .then(res => {
+    //     if (res.status === 200) {
+    //       alert('Success!');
+    //       // TODO: RESET EVERYTHING
+    //       window.location.reload();
+    //     }
+    //   })
+    //   .catch(err => {
+    //     alert('Data not saved, please try again');
+    //     // TODO: RESET EVERYTHING
+    //   });
   };
 
   editMenuItem = async id => {
@@ -137,6 +275,128 @@ class ItemCatalog extends Component {
       </tr>
     ));
 
+    const categoryDropdown = this.state.categoryLoading ? (
+      <option value='--'>--</option>
+    ) : (
+      this.state.categories
+        .filter(item => {
+          return item.id > 0;
+        })
+        .map((item, index) => (
+          <option key={index} value={item.categoryName} id={item.id}>
+            {/* {item.categoryName.split(' ')[0]} */}
+            {item.categoryName}
+          </option>
+        ))
+    );
+
+    const createWidget = (
+      <div id='create-widget'>
+        <div className='newItem-form-container'>
+          <form className='newItem-widget-form'>
+            <div id='newItem-name' className='newItem-form-item'>
+              <label htmlFor='newItem-name'>Item Name</label>
+              <input
+                name='itemName'
+                type='text'
+                value={this.state.newMenuItem.itemName}
+                onChange={this.handleInputChange}
+              />
+            </div>
+
+            <div id='newItem-price' className='newItem-form-item'>
+              <label htmlFor='newItem-price'>Item Price</label>
+              <input
+                name='itemPrice'
+                type='number'
+                value={this.state.newMenuItem.itemPrice}
+                onChange={this.handleInputChange}
+              />
+            </div>
+
+            <div id='newItem-cookTime' className='newItem-form-item'>
+              <label htmlFor='newItem-cookTime'>Cook Time</label>
+              <input
+                name='cookTime'
+                type='number'
+                value={this.state.newMenuItem.cookTime}
+                onChange={this.handleInputChange}
+              />
+            </div>
+
+            <div className='newItem-vegan-special-container'>
+              <div id='newItem-vegan' className='newItem-form-item'>
+                <label htmlFor='newItem-vegan'>Vegan?</label>
+                <input
+                  name='vegan'
+                  type='checkbox'
+                  checked={this.state.newMenuItem.vegan}
+                  onChange={this.handleInputChange}
+                />
+              </div>
+
+              <div id='newItem-special' className='newItem-form-item'>
+                <label htmlFor='newItem-special'>Special?</label>
+                <input
+                  name='special'
+                  type='checkbox'
+                  checked={this.state.newMenuItem.special}
+                  onChange={this.handleInputChange}
+                />
+              </div>
+            </div>
+
+            <div id='newItem-itemDescription' className='newItem-form-item'>
+              <label htmlFor='newItem-itemDescription'>Item Description</label>
+              <textarea
+                name='description'
+                type='textarea'
+                className='form-control'
+                value={this.state.newMenuItem.description}
+                onChange={this.handleInputChange}
+              />
+            </div>
+
+            <div
+              id='newItem-itemCategory'
+              className='newItem-form-select-div newItem-form-item'>
+              <label htmlFor='newItem-itemCategory'>Item Category</label>
+              <div className='newItem-itemCategory-select-div'>
+                {this.state.categoryLoading ? (
+                  <select id='select-id'>
+                    <option value='--'>--</option>
+                  </select>
+                ) : (
+                  <select
+                    id='select-id'
+                    onChange={e => this.handleCategorySelect(e)}>
+                    {categoryDropdown}
+                  </select>
+                )}
+              </div>
+            </div>
+          </form>
+        </div>
+        <div className='newItem-image-upload-container'>
+          {/* <div className='newItem-photo'>
+            <img
+              src={this.state.itemTonewItem.imageUrl}
+              alt={this.state.itemTonewItem.itemName}
+            />
+          </div> */}
+          <div className='newItem-image-button-div'>
+            <button
+              className='button upload-button'
+              onClick={e => this.showWidget(e, this.widget)}>
+              <i className='fas fa-cloud-upload-alt'></i> Upload an Image
+            </button>
+          </div>
+        </div>
+
+        <div className='similar-items-container'>Similar Items</div>
+      </div>
+    );
+
     return (
       <div className='item-catalog-div'>
         {this.state.displayItemToEdit ? (
@@ -155,7 +415,7 @@ class ItemCatalog extends Component {
         ) : (
           <div className='item-catalog-dropdown'>
             <div className='select-item-div'>
-              {/* ADD SEARCH BAR */}
+              {/* SEARCH BAR */}
               <div className='search-bar-button-div'>
                 <div className='search-bar'>
                   <div className='search-bar-contents'>
@@ -170,6 +430,7 @@ class ItemCatalog extends Component {
                       onChange={this.handleInputChange}
                     />
                     <svg
+                      id='searchIcon'
                       aria-hidden='true'
                       focusable='false'
                       data-prefix='fas'
@@ -177,7 +438,8 @@ class ItemCatalog extends Component {
                       role='img'
                       xmlns='http://www.w3.org/2000/svg'
                       viewBox='0 0 512 512'
-                      class='svg-inline--fa fa-search fa-w-16 fa-fw'>
+                      className='svg-inline--fa fa-search fa-w-16 fa-fw'
+                      onClick={() => console.log('SEARCH BAR')}>
                       <path
                         fill='currentColor'
                         d='M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z'
@@ -185,10 +447,39 @@ class ItemCatalog extends Component {
                     </svg>
                   </div>
                 </div>
-                <div className='new-item-button'>
-                  <button className='btn btn-warning catalog-item-cancel-button'>
-                    New Menu Item
-                  </button>
+                <div className='new-item-button-div'>
+                  <Modal
+                    className='new-item-modal-div'
+                    title='New Menu Item'
+                    customStyle={{
+                      content: {
+                        position: 'absolute',
+                        height: '80vh',
+                        width: 675,
+                        margin: 'auto'
+                      }
+                    }}
+                    // text=''
+                    content={createWidget}
+                    buttonClose={
+                      <button className='btn btn-warning catalog-item-cancel-button'>
+                        Cancel
+                      </button>
+                    }
+                    buttonSave={
+                      <button
+                        type='submit'
+                        value='Send'
+                        className='btn btn-primary new-item-save-button mx-3'
+                        // id='catalog-item-delete-button'
+                        onClick={e => this.createNewMenuItem(e)}>
+                        Save
+                      </button>
+                    }>
+                    <button className='btn btn-warning new-item-button'>
+                      New Menu Item
+                    </button>
+                  </Modal>
                 </div>
               </div>
               <div className='table-scroll edit-table'>
