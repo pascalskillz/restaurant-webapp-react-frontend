@@ -90,7 +90,7 @@ footer {
 .cpanel-action-container {
   margin-top: 20px;
   width: 100%;
-  display: flex;
+  /* display: flex; */ 
   justify-content: center;
 }
 
@@ -273,12 +273,48 @@ footer {
   color: var(--white) !important;
 }
 
-/* NOT SURE WHAT THIS IS */
-/* .btn-order-view {
+/* ---------------------Order Widget -------------------------------- */
+
+.btn-order-view {
   color: white !important;
   font-weight: bold;
-} */
+}
+.order-widget {
+  display: contents;
+}
+.table-scroll.order-table {
+  width: 88%;
+}
+.order-details-container {
+  width: 100%;
+}
+.customer-order {
+  display: flex;
+  justify-content: space-around;
+}
+.order-items{
+  width: 85%;
+}
+.details-table {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+.customer-info, .order-info{
+  border: 1px solid #e3e3e3;
+  padding: 10px 50px;
+  background: #ececec;
+  border-radius: 4%;
+}
+.grand-total td {
+  text-align: right;
+  padding-right: 13%;
+}
 
+.buttonFromProps.orderDetails {
+  position: relative;
+  left: 40%;
+}
 
 /* --------------------------------------------------------------- Create Widget */
 .newItem-form-item {

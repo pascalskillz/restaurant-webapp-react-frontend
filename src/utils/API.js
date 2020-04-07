@@ -10,7 +10,7 @@ export default {
   },
 
   getOneMenuItem(itemId) {
-    return axios.get(`${url}/menuitems/${itemId}`)
+    return axios.get(`${localUrl}/menuitems/${itemId}`)
   },
 
   createMenuItem(categoryId, itemData) {
@@ -41,7 +41,7 @@ export default {
   },
 
   getOneOrder(orderId) {
-    return axios.get(`${url}/orders/${orderId}`)
+    return axios.get(`${localUrl}/order/${orderId}`)
   },
 
   createNewOrder(orderData) {

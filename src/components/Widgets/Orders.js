@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
+import OrderDetails from './OrderDetails';
 
 class Orders extends Component {
 
@@ -27,10 +28,17 @@ class Orders extends Component {
   };
 
   viewOrderDetails = (id) => {
-    console.log(id)
+    //console.log(id);
     this.setState({
       displayOrderDetails: true,
       orderIDToView: id
+    });
+    //console.log(this.state.orderIDToView);
+    //console.log(this.state.displayOrderDetails);
+  }
+  completeView = () => {
+    this.setState({
+      displayOrderDetails: false
     })
   }
 
@@ -54,22 +62,35 @@ class Orders extends Component {
       // we should have a back button in order details pages that turns the displayOrderDetails to false
 
       //sort orders by date from backend
-
-      <div className='table-scroll edit-table'>
-        <table className='table table-striped'>
-          <thead className='thead-dark'>
-            <tr>
-              <th scope='col'>Order ID</th>
-              <th scope='col'>Order Date</th>
-              <th scope='col'>Customer Name</th>
-              <th scope='col'>Order Total</th>
-              <th scope='col'>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allOrdersList}
-          </tbody>
-        </table>
+      <div className="order-widget">
+        {this.state.displayOrderDetails ?
+          (<OrderDetails
+            orderId={this.state.orderIDToView}
+            closeButton={
+              <div
+                id='close-button-back-button'
+                onClick={() => this.completeView()}>
+                <i className='fas fa-arrow-left'></i> BACK
+              </div>
+            }
+          />) : (
+            <div className='table-scroll order-table'>
+              <table className='table table-striped'>
+                <thead className='thead-dark'>
+                  <tr>
+                    <th scope='col'>Order ID</th>
+                    <th scope='col'>Order Date</th>
+                    <th scope='col'>Customer Name</th>
+                    <th scope='col'>Order Total</th>
+                    <th scope='col'>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {allOrdersList}
+                </tbody>
+              </table>
+            </div>
+          )}
       </div>
     );
   }
