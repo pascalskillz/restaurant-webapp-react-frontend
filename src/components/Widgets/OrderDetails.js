@@ -26,8 +26,8 @@ class OrderDetails extends Component {
             order: order,
             orderDetails: orderDetails
         });
-        console.log(order);
-        console.log(orderDetails);
+        //console.log(order);
+        //console.log(orderDetails);
         this.getMenuItemIds(orderDetails);
         this.getMenuItems();
     }
@@ -52,23 +52,21 @@ class OrderDetails extends Component {
         this.setState({
             menuItems: menuItems
         });
-        console.log(menuItems);
+        //console.log(menuItems);
     }
     render() {
 
-        var grandPrice;
+        var grandPrice = 0.0;
         let orderItemList = this.state.menuItems.map((item, index) => (
-
             //concatenate and return a double;
-            //grandPrice = parseInt(this.state.orderDetails[index].quantity * item.itemPrice),
-
-            console.log(parseInt(grandPrice)),
+            grandPrice += parseFloat(this.state.orderDetails[index].quantity) * parseFloat(item.itemPrice),
+            //console.log(`Grand Price ${index} - ${parseFloat(grandPrice)}`),
             <tr key={index}>
                 <td>{index}</td>
                 <td>{item.itemName}</td>
                 <td>{this.state.orderDetails[index].quantity}</td>
-                <td>$ {item.itemPrice}</td>
-                <td>$ {`${this.state.orderDetails[index].quantity * item.itemPrice}`}</td>
+                <td>$ {parseFloat(item.itemPrice)}</td>
+                <td>$ {`${parseFloat(this.state.orderDetails[index].quantity * item.itemPrice)}`}</td>
             </tr>
         ));
 
@@ -99,7 +97,7 @@ class OrderDetails extends Component {
                             <tbody>
                                 {orderItemList}
                                 <tr className="grand-total">
-                                    <td colSpan="5"> <span>Grand Total: </span>${grandPrice}</td>
+                                    <td colSpan="5"> <span>Grand Total: </span>${grandPrice.toFixed(2)}</td>
                                 </tr>
                             </tbody>
                         </table>
