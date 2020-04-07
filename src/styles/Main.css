@@ -91,7 +91,7 @@
 
 /* MAIN INFO AREA ------------- */
 
-.main-content-div {
+.main-content-div{
   /* margin-top: 6.1rem;
   display: table;
   width: 100%; */
@@ -105,25 +105,45 @@
   background-image: var(--texture2);
   border-top: 20px solid var(--white);
   z-index: 1;
+  background-repeat: no-repeat;
+  background-size: cover;
+  float: left;
+  background-repeat: 200px 200px; 
+  
 }
 
+
 .main-content-button-div {
-  margin: 10px 0
+  margin: 10px 0;
+  
 }
 
 .main-content-button {
   margin: 10px 5px;
   font-size: 1.1rem;
+  padding-right: 100%;
+  padding-top: 100%;
 }
 
 .button {
   padding: 8px 15px;
-  border-radius: 25px;
-  background-color: var(--black);
+  border-radius: 5px;
+  /* background-color: var(--black); */
   color: var(--white);
   font-weight: bold;
   border: 1px solid var(--grey);
+  border:1px solid #999999;
+	text-decoration:none;
+  border-color: burlywood;
+  text-shadow:0px 0px 21px #ffee66;
+  text-decoration-color: #999999;
+  
 }
+a:link {
+  text-decoration: none;
+}
+
+
 
 .utensils {
   display: flex;
@@ -144,6 +164,7 @@
   border-radius: 100%;
   justify-content: center;
   padding-top: 10px;
+
 }
 
 .utensil-container:hover i {
@@ -159,6 +180,9 @@
     font-size: 1.8rem;
     padding-bottom: 10px;
     width: 50%;
+    font-family: Great Vibes;
+    font-weight: normal;
+    opacity: 1;
   }
 
   .jumbo-text-small {
@@ -173,7 +197,17 @@
 
 }
 
-
+@import url('https://fonts.googleapis.com/css?family=Tangerine');
+#text{
+    font-family: Tangerine, cursive;
+    font-weight: bold;
+    text-transform: capitalize;
+    text-align: center;
+    font-size: 35px;
+    color: rgb(249, 240, 180);
+    background-color: rgb(84, 84, 84);
+    text-shadow: rgb(0, 0, 0) 2px 2px 2px;
+}
 
 /* I HAVE NO IDEA WHAT THIS IS ----
   BUT IM AFRAID TO DELETE IT ---- */
@@ -194,4 +228,21 @@
   padding: 40px 0;
   text-align: center;
   background: linear-gradient(#e66465, #9198e5);
+}
+/* Three image containers (use 25% for four, and 50% for two, etc) */
+.column {
+  float: left;
+  width: 25%;
+  padding: 5px;
+  border-color: rgb(128, 126, 126);
+  border-style: solid;
+  margin-top: 10em;
+  top: 250%;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
 }
