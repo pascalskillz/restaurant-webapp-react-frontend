@@ -65,8 +65,8 @@ class OrderDetails extends Component {
                 <td>{index}</td>
                 <td>{item.itemName}</td>
                 <td>{this.state.orderDetails[index].quantity}</td>
-                <td>$ {parseFloat(item.itemPrice)}</td>
-                <td>$ {`${parseFloat(this.state.orderDetails[index].quantity * item.itemPrice)}`}</td>
+                <td>${parseFloat(item.itemPrice)}</td>
+                <td>${`${parseFloat(this.state.orderDetails[index].quantity * item.itemPrice)}`}</td>
             </tr>
         ));
 
@@ -91,7 +91,7 @@ class OrderDetails extends Component {
                                     <th>Item Name</th>
                                     <th>Quantity</th>
                                     <th>Price</th>
-                                    <th>Total</th>
+                                    <th>Sub Total</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -103,7 +103,7 @@ class OrderDetails extends Component {
                         </table>
                     </div>
                 </div>
-                <div className='buttonFromProps btn'>{this.props.closeButton}</div>
+                <div className='buttonFromProps orderDetails btn'>{this.props.closeButton}</div>
             </div>
         );
     }

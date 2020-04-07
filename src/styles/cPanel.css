@@ -297,5 +297,12 @@ footer {
 }
 .grand-total td {
   text-align: right;
-  padding-right: 10%;
+  padding-right: 13%;
 }
+
+.buttonFromProps.orderDetails {
+  position: relative;
+  left: 40%;
+}
+
+
