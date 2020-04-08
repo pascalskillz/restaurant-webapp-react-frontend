@@ -43,12 +43,20 @@ class Orders extends Component {
   }
 
   render() {
+
+    var dateFormatter = new Intl.DateTimeFormat(
+      "en-US", {
+      year: "numeric",
+      month: "long",
+      day: "2-digit"
+    });
+
     const allOrdersList = this.state.orders.map((order, index) => (
       <tr key={index}>
         <td>{order.id}</td>
-        <td>{order.orderDate}</td>
+        <td>{dateFormatter.format(Date.parse(order.orderDate))}</td>
         <td>{order.customerName}</td>
-        <td>{order.amount}</td>
+        <td>${order.amount}</td>
         <td><a onClick={() => this.viewOrderDetails(order.id)} className='btn btn-primary btn-order-view'>
           View </a>
         </td>

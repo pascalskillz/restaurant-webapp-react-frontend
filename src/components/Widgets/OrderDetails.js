@@ -97,7 +97,8 @@ class OrderDetails extends Component {
                             <tbody>
                                 {orderItemList}
                                 <tr className="grand-total">
-                                    <td colSpan="5"> <span>Grand Total: </span>${grandPrice.toFixed(2)}</td>
+                                    <td colSpan="5"> <span>Grand Total: </span>${
+                                        new Intl.NumberFormat().format(grandPrice.toFixed(2))}</td>
                                 </tr>
                             </tbody>
                         </table>
