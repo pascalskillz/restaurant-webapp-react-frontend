@@ -80,14 +80,20 @@ class Cart extends Component {
     await API.getAllOrders().then(res => {
       let items = res.data;
       let target;
-      const index = 2;
+      const index = this.state.inpValu;
       for (const i in items){
             const temp = items[i];
-            if (index === temp.id){
+            if (index == temp.id){
                 target = temp;
             }
       }
-      console.log(target)
+      
+        for (const i in target.orderDetails) {
+            
+        }
+
+
+      
 
     });
   }
