@@ -20,7 +20,8 @@ class Cart extends Component {
     allItemsLoading: true,
     categoryLoading: true,
     selected: "Loading...",
-    mobile: false
+    mobile: false,
+    inpValu: ''
   };
 
   componentDidMount() {
@@ -64,6 +65,22 @@ class Cart extends Component {
       //
 
   };
+  /**
+   * Reterival oerders from the servrer
+   * @param {*} e 
+   */
+  //*************** Start ***************** */
+  handelChange(e) {
+    this.setState({
+      inpValu: e.target.value
+    })
+  }
+
+  reterivalOrder(){
+
+  }
+  //*************** End ***************** */
+  
 
   removeItem(item) {
     const itemList = this.state.allItems;
@@ -156,7 +173,22 @@ class Cart extends Component {
               <div className="menu-categories">
                 <div className="category-title-div">
                   <div className="title-header-text">Cart List</div>
+                  
                 </div>
+                <div className="row">
+                  <div class="col-sm-6 mb-3">
+                    Retrival Order: <input onChange={this.handelChange.bind(this)}/> 
+                  </div> 
+                  <div class="col-sm-3 mb-3">
+                      <button
+                        class="btn btn-style-5 btn-primary btn-block"
+                        onClick={e => this.reterivalOrder(e)}
+                      >
+                      &nbsp;Submit
+                    </button>
+                  </div>
+                </div>
+
                 <div className="category-item-container">
                   <Container> {allItemsList}</Container>
                 </div>

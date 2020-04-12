@@ -22,14 +22,14 @@ export default {
 
     },
 
-    // delete all the items in the cashe
+    // delete all the items in the cash
     clearChart(){
         localStorage.setItem(storageName,JSON.stringify([]));
     },
 
     // get all the items in the cache
     getList() {
-
+      let itemList = JSON.parse(localStorage.getItem(storageName));
       return JSON.parse(localStorage.getItem(storageName));
     }
 };
