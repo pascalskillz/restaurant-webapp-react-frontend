@@ -34,12 +34,22 @@ class Cart extends Component {
   };
 
   submitOrders = (allItems) => {
+
+    // Sweat alert make confirm for this order
       Swal.fire("Order Submitted", "", "success");
+
+
+      // clean local cashe
       chartStorage.clearChart();
+
+      // redirt to the main page
       window.location.href = "http://localhost:3000/";
+
+
       // If API all set
+      // Pos item data to the api and transfer to the backend
       // API.addReservation(allItems).then(result => {
-      //     Swal.fire("Order Submitted", "", "success");
+      //     
       //     if (result == 'success') {
       //          Swal.fire("Order Submitted", 
       //                     "", 
