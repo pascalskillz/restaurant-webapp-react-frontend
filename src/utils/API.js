@@ -37,6 +37,10 @@ export default {
     return axios.post(`${url}/menuitems/reservations`, itemData)
   },
 
+  getAllOrders(){
+    return axios.get(`${url}/orders`)
+  }
+
 }
 
 

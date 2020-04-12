@@ -76,8 +76,20 @@ class Cart extends Component {
     })
   }
 
-  reterivalOrder(){
+  reterivalOrder = async () =>{
+    await API.getAllOrders().then(res => {
+      let items = res.data;
+      let target;
+      const index = 2;
+      for (const i in items){
+            const temp = items[i];
+            if (index === temp.id){
+                target = temp;
+            }
+      }
+      console.log(target)
 
+    });
   }
   //*************** End ***************** */
   
