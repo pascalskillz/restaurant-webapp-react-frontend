@@ -123,22 +123,24 @@
   font-size: 1.1rem;
   padding-right: 100%;
   padding-top: 100%;
+  border: 1px solid #999999;
+  border-color: burlywood;
+  text-shadow:0px 0px 21px #ffee66;
+  text-decoration: none;
+  background-color: #ffffff00 !important;
 }
 
 .button {
   padding: 8px 15px;
   border-radius: 5px;
-  /* background-color: var(--black); */
+  background-color: var(--black);
   color: var(--white);
   font-weight: bold;
   border: 1px solid var(--grey);
-  border:1px solid #999999;
 	text-decoration:none;
-  border-color: burlywood;
-  text-shadow:0px 0px 21px #ffee66;
-  text-decoration-color: #999999;
-  
+  /* text-decoration-color: #999999; */
 }
+
 a:link {
   text-decoration: none;
 }

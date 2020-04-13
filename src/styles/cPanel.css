@@ -340,3 +340,15 @@ footer {
 #newItem-itemDescription textarea {
   resize: none;
 }
+
+.upload-button {
+  background: var(--black);
+  border: none;
+  text-shadow: none;
+  opacity: 1;
+  transition: opacity .1s ease-in-out;
+}
+
+.upload-button:hover {
+  opacity: .7;
+}
