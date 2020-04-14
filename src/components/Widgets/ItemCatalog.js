@@ -17,12 +17,13 @@ class ItemCatalog extends Component {
     newMenuItem: {
       cookTime: '',
       description: '',
-      imageUrl: 'https://res.cloudinary.com/yowats0n/image/upload/v1586801348/tandoor/ywuvwxjovuoypiffnrwp.jpg',
+      imageUrl:
+        'https://res.cloudinary.com/yowats0n/image/upload/v1586801348/tandoor/ywuvwxjovuoypiffnrwp.jpg',
       itemName: '',
       itemPrice: '',
       special: false,
       vegan: false,
-      similarItems: [],
+      similarItems: [{}, {}, {}],
       categoryId: 1,
     },
   };
@@ -178,16 +179,45 @@ class ItemCatalog extends Component {
     await console.log('Delete Menu Item');
     await console.log(id);
     await API.deleteMenuItem(id)
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           alert('Success!');
           window.location.reload();
         }
       })
-      .catch(err => {
+      .catch((err) => {
         alert('Item not deleted, please try again');
         console.log(err);
       });
+  };
+
+  handleSimilarItemSelect = async (e, id) => {
+    e.persist();
+    await console.log('--handleSimilarItemSelect');
+    await console.log(this.state.newMenuItem.similarItems);
+    let localItemName = await e.target.value;
+    let newSimilarItemList = await [...this.state.newMenuItem.similarItems];
+    await console.log(newSimilarItemList);
+    if (localItemName !== '--') {
+      let itemToBeAddedToSimilarList = await this.state.menuItems.filter(
+        (item) => {
+          return item.itemName === localItemName;
+        }
+      );
+      await console.log('itemToBeAddedToSimilarList');
+      await console.log(itemToBeAddedToSimilarList);
+      newSimilarItemList[id] = await {
+        similarMenuItemId: itemToBeAddedToSimilarList[0].id,
+      };
+      await this.setState((prevState) => ({
+        newMenuItem: {
+          ...prevState.newMenuItem,
+          similarItems: [...newSimilarItemList],
+        },
+      }));
+    }
+    await console.log('newSimilarList afterwards');
+    await console.log(newSimilarItemList);
   };
 
   render() {
@@ -250,7 +280,13 @@ class ItemCatalog extends Component {
             className='delete-modal-div'
             title='Preview'
             text='Are you sure you want to delete this item?'
-            content={<MenuItem img={item.imageUrl} name={item.itemName} price={item.itemPrice} />}
+            content={
+              <MenuItem
+                img={item.imageUrl}
+                name={item.itemName}
+                price={item.itemPrice}
+              />
+            }
             buttonClose={
               <button className='btn btn-warning catalog-item-cancel-button'>
                 Cancel
@@ -271,6 +307,54 @@ class ItemCatalog extends Component {
         </td>
       </tr>
     ));
+
+    const similarItemsContainer = (
+      <div className='similar-items-div'>
+        <select
+          className='similar-items-select'
+          onChange={(e) => this.handleSimilarItemSelect(e, 0)}>
+          <option value='--'>--</option>
+          {this.state.menuItemsLoading ? (
+            <option value='--'>--</option>
+          ) : (
+            this.state.menuItems.map((item, index) => (
+              <option key={index} value={item.itemName}>
+                {item.itemName}
+              </option>
+            ))
+          )}
+        </select>
+        <select
+          className='similar-items-select'
+          onChange={(e) => this.handleSimilarItemSelect(e, 1)}>
+          <option value='--'>--</option>
+          {this.state.menuItemsLoading ? (
+            <option value='--'>--</option>
+          ) : (
+            this.state.menuItems.map((item, index) => (
+              <option key={index} value={item.itemName}>
+                {item.itemName}
+              </option>
+            ))
+          )}
+        </select>
+        <select
+          className='similar-items-select'
+          onChange={(e) => this.handleSimilarItemSelect(e, 2)}>
+          <option value='--'>--</option>
+          {this.state.menuItemsLoading ? (
+            <option value='--'>--</option>
+          ) : (
+            // <option value="--">--</option>
+            this.state.menuItems.map((item, index) => (
+              <option key={index} value={item.itemName}>
+                {item.itemName}
+              </option>
+            ))
+          )}
+        </select>
+      </div>
+    );
 
     const categoryDropdown = this.state.categoryLoading ? (
       <option value='--'>--</option>
@@ -390,7 +474,10 @@ class ItemCatalog extends Component {
           </div>
         </div>
 
-        <div className='similar-items-container'>Similar Items</div>
+        <div className='similar-items-container'>
+          <div className='similar-items-title'>Select Three Similar Items:</div>
+          {similarItemsContainer}
+        </div>
       </div>
     );
 

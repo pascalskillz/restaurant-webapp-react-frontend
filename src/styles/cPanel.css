@@ -254,11 +254,8 @@ footer {
   margin: 10px 0 30px 0;
 }
 
-/* Similar Items Container */
-.similar-items-container {
-  grid-area: similar;
-  text-align: center;
-}
+/* Similar Items Container Below*/
+
 
 /* Save Button */
 .edit-save-button-div {
@@ -351,4 +348,24 @@ footer {
 
 .upload-button:hover {
   opacity: .7;
+}
+
+/* --------------------------------------------------------------- Similar Items Container */
+.similar-items-container {
+  grid-area: similar;
+  text-align: center;
+}
+
+.similar-items-title {
+  margin-top: 20px;
+}
+
+.similar-items-div {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.similar-items-select {
+  padding: 5px 0;
 }
