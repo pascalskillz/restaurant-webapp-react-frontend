@@ -6,11 +6,11 @@ const localUrl = 'http://localhost:8080/api' // this will not work in production
 export default {
 
   getAllMenuItems() {
-    return axios.get(`${url}/menuitems`)
+    return axios.get(`${url}/menuitems?page=1&limit=1000`)
   },
 
   getOneMenuItem(itemId) {
-    return axios.get(`${localUrl}/menuitems/${itemId}`)
+    return axios.get(`${url}/menuitems/${itemId}`)
   },
 
   createMenuItem(categoryId, itemData) {

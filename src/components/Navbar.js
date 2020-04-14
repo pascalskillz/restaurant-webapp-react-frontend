@@ -146,7 +146,7 @@ class Navbar extends Component {
                 >
                   RESERVATION
                 </NavLink>
-                <NavLink
+                {/* <NavLink
                   style={Object.assign(
                     this.state.page === 'LOGIN'
                       ? { textDecoration: 'underline' }
@@ -171,7 +171,7 @@ class Navbar extends Component {
                   // onClick={() => this.closeBox()}
                 >
                   SIGNUP
-                </NavLink>
+                </NavLink> */}
                 <NavLink
                   style={Object.assign(
                     this.state.page === 'CONTACT'
