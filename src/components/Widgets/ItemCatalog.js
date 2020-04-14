@@ -19,11 +19,15 @@ class ItemCatalog extends Component {
       description: '',
       imageUrl:
         'https://res.cloudinary.com/yowats0n/image/upload/v1586801348/tandoor/ywuvwxjovuoypiffnrwp.jpg',
-      itemName: '',
+      itemName: 'Tandoor India',
       itemPrice: '',
       special: false,
       vegan: false,
-      similarItems: [{}, {}, {}],
+      similarItems: [
+        { similarMenuItemId: 0 },
+        { similarMenuItemId: 0 },
+        { similarMenuItemId: 0 }
+      ],
       categoryId: 1,
     },
   };
