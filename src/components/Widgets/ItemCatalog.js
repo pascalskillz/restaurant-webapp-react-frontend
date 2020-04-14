@@ -7,7 +7,8 @@ import img from '../../img/Logo2.png';
 
 class ItemCatalog extends Component {
   state = {
-    filterItemCatalog: '',
+    // filterItemCatalog: '',
+    searchBar: '',
     menuItemsLoading: true,
     menuItems: [],
     displayItemToEdit: false,
@@ -19,11 +20,15 @@ class ItemCatalog extends Component {
       description: '',
       imageUrl:
         'https://res.cloudinary.com/yowats0n/image/upload/v1586801348/tandoor/ywuvwxjovuoypiffnrwp.jpg',
-      itemName: '',
+      itemName: 'Tandoor India',
       itemPrice: '',
       special: false,
       vegan: false,
-      similarItems: [{}, {}, {}],
+      similarItems: [
+        { similarMenuItemId: 0 },
+        { similarMenuItemId: 0 },
+        { similarMenuItemId: 0 },
+      ],
       categoryId: 1,
     },
   };
@@ -46,6 +51,13 @@ class ItemCatalog extends Component {
     }));
 
     console.log(this.state.newMenuItem);
+  };
+
+  handleSearchBarChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
   };
 
   handleCategorySelect = async (event) => {
@@ -256,6 +268,67 @@ class ItemCatalog extends Component {
     //       </td>
     //     </tr>
     //   ));
+
+    const filterList = this.state.menuItems
+      .filter((item) => {
+        return (
+          item.itemName
+            .toLowerCase()
+            .indexOf(this.state.searchBar.toLowerCase()) >= 0
+        );
+      })
+      .map((item, index) => (
+        <tr key={index}>
+          <td scope='row'>{item.id}</td>
+          <td className='catalog-item-name'>{item.itemName}</td>
+          <td>
+            <img
+              style={{ width: 60 }}
+              className='img-thumbnail'
+              src={item.imageUrl}
+            />
+          </td>
+          <td>
+            <a
+              className='btn btn-primary catalog-item-edit-button'
+              onClick={() => this.editMenuItem(item.id)}>
+              Edit
+            </a>
+          </td>
+          <td>
+            <Modal
+              className='delete-modal-div'
+              title='Preview'
+              text='Are you sure you want to delete this item?'
+              content={
+                <MenuItem
+                  img={item.imageUrl}
+                  name={item.itemName}
+                  price={item.itemPrice}
+                />
+              }
+              buttonClose={
+                <button className='btn btn-warning catalog-item-cancel-button'>
+                  Cancel
+                </button>
+              }
+              buttonSave={
+                <button
+                  type='submit'
+                  value='Send'
+                  className='btn btn-primary catalog-item-delete-button'
+                  // id='catalog-item-delete-button'
+                  onClick={() => this.deleteMenuItem(item.id)}>
+                  Delete
+                </button>
+              }>
+              <a className='btn btn-danger catalog-item-delete-button'>
+                Delete
+              </a>
+            </Modal>
+          </td>
+        </tr>
+      ));
 
     const allItemsList = this.state.menuItems.map((item, index) => (
       <tr key={index}>
@@ -504,14 +577,14 @@ class ItemCatalog extends Component {
                 <div className='search-bar'>
                   <div className='search-bar-contents'>
                     <input
-                      name='itemname'
+                      name='searchBar'
                       type='text'
                       className='form-control'
                       id='searchBar'
-                      aria-describedby='createItem'
+                      // aria-describedby='createItem'
                       placeholder='Search for a Menu Item'
-                      value={this.state.itemname}
-                      onChange={this.handleInputChange}
+                      value={this.state.searchBar}
+                      onChange={this.handleSearchBarChange}
                     />
                     <svg
                       id='searchIcon'
@@ -585,19 +658,11 @@ class ItemCatalog extends Component {
                         <td> </td>
                         <td> </td>
                       </tr>
-                    ) : (
+                    ) : this.state.searchBar.length < 1 ? (
                       allItemsList
-                    )}
-
-                    {/* if the filter bar is empty
-                    {this.state.filterItemCatalog.length < 1 ? (
-                      // display the all items once loaded
-
                     ) : (
-                      // else display filtered items
-                      // filterList
-                      <div className=''>filterList</div>
-                    )} */}
+                      filterList
+                    )}
                   </tbody>
                 </table>
               </div>

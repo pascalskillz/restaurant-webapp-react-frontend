@@ -353,7 +353,12 @@ footer {
 /* --------------------------------------------------------------- Similar Items Container */
 .similar-items-container {
   grid-area: similar;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .similar-items-title {
@@ -364,6 +369,7 @@ footer {
   display: flex;
   flex-direction: column;
   padding: 10px 0;
+  width: 400px;
 }
 
 .similar-items-select {
