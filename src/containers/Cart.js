@@ -21,11 +21,13 @@ class Cart extends Component {
     categoryLoading: true,
     selected: "Loading...",
     mobile: false,
-    inpValu: ''
+    inpValu: '',
+    tempresult:'testss',
   };
 
   componentDidMount() {
     this.gatherAllItems();
+    console.log(this.state.allItems)
   }
 
   scrollToTop = () => {
@@ -77,25 +79,30 @@ class Cart extends Component {
   }
 
   reterivalOrder = async () =>{
-    await API.getAllOrders().then(res => {
-      let items = res.data;
       let target;
+      await API.getAllOrders().then(res => {
+      let items = res.data;
+  
       const index = this.state.inpValu;
       for (const i in items){
             const temp = items[i];
             if (index == temp.id){
-                target = temp;
+              this.setState({
+                tempresult: temp.customerName
+              })
             }
       }
-      
-        for (const i in target.orderDetails) {
-            
-        }
-
-
-      
+      console.log(target)
+      // this.setState({
+      //   temp: target.customerName
+      // })
 
     });
+
+    //   for (const value in target.orderDetails) {
+    //       let item = await API.getOneMenuItem(value.menuItemId);
+    //       chartStorage.addItem(item.data);
+    //   }
   }
   //*************** End ***************** */
   
@@ -123,6 +130,7 @@ class Cart extends Component {
     let subtotal = 0;
     let allItemsList = [];
     let itemList = this.state.allItems;
+    let temp = this.state.tempresult;
     this.state.allItems.map((item, index) => {
       allItemsList.push(
         <div class="cart-item d-md-flex justify-content-between" key={index}>
@@ -206,7 +214,7 @@ class Cart extends Component {
                     </button>
                   </div>
                 </div>
-
+                <div className="row"> {this.state.tempresult}</div>
                 <div className="category-item-container">
                   <Container> {allItemsList}</Container>
                 </div>
