@@ -137,7 +137,6 @@ class Orders extends Component {
                   {allOrdersList}
                 </tbody>
               </table>
-
               <div className="pagination-container">
                 <div className="paging">
                   <div className="page-count">
@@ -151,6 +150,7 @@ class Orders extends Component {
                       <Pagination.Prev onClick={() => this.handlePrev()} />
                       <Pagination.Next onClick={() => this.handleNext()} />
                       <Pagination.Last onClick={() => this.handleLast()} />
+                      {/*To DO: disable the navigations when there is nothing left */}
                     </Pagination>
                   </div>
                 </div>
