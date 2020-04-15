@@ -30,7 +30,6 @@ class Orders extends Component {
 
     await API.getAllOrders(currentPage, this.state.ordersPerPage)
       .then(res => {
-        console.log(res.data)
         let theData = res.data.content;
         pageNum = res.data.number + 1;
         pageTotal = res.data.totalPages;
@@ -67,7 +66,7 @@ class Orders extends Component {
     }
   }
   handleNext = () => {
-    if (this.state.currentPage <= this.state.totalPages) {
+    if (this.state.currentPage < this.state.totalPages) {
       this.getAllOrders(this.state.currentPage + 1);
     }
   }
