@@ -116,6 +116,11 @@ footer {
   width: 80%;
 }
 
+.select-item-div {
+  display: grid;
+  grid-template-rows: repeat(3, min-content);
+}
+
 .table-scroll {
   width: 100%;
 }
@@ -178,6 +183,32 @@ footer {
 
 #searchIcon {
   cursor: pointer;
+}
+
+.catalog-pagination {
+  display: grid;
+  grid-template-columns: 500px 1fr 500px;
+  grid-template-areas: "left . right";
+}
+
+.catalog-pagination-left {
+  grid-area: left;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.catalog-pagination-right {
+  grid-area: right;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.catalog-pagination-right ul {
+  margin-bottom: 0;
 }
 
 /* --------------------------------------------------------------- Edit Widget */

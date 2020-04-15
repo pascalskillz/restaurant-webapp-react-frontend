@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Pagination } from 'react-bootstrap';
 import Modal from '../Modal';
 import MenuItem from '../MenuItem';
 import EditWidget from './EditWidget';
@@ -31,10 +32,14 @@ class ItemCatalog extends Component {
       ],
       categoryId: 1,
     },
+    currentPage: 1,
+    itemsPerPage: 10,
+    totalPages: 0,
+    totalElements: 0,
   };
 
   componentDidMount() {
-    this.getAllItems();
+    this.getAllItems(this.state.currentPage);
     this.getCategories();
   }
 
@@ -114,17 +119,29 @@ class ItemCatalog extends Component {
     widget.open();
   };
 
-  getAllItems = async () => {
+  getAllItems = async (currentPage) => {
     let allItemsArr = [];
-    await API.getAllMenuItems().then((res) => {
-      let items = res.data;
-      // console.log(items)
-      allItemsArr = [...items];
-    });
+    let pageNum = 0;
+    let totalPages = 0;
+    let totalElements = 0;
+    await API.getAllMenuItems(currentPage, this.state.itemsPerPage).then(
+      (res) => {
+        let items = res.data.content;
+        console.log(res.data);
+        // console.log(items)
+        allItemsArr = [...items];
+        pageNum = res.data.number + 1;
+        totalPages = res.data.totalPages;
+        totalElements = res.totalElements;
+      }
+    );
 
     await this.setState({
       menuItems: [...allItemsArr],
       menuItemsLoading: false,
+      currentPage: pageNum,
+      totalPages: totalPages,
+      totalElements: totalElements,
     });
   };
 
@@ -232,43 +249,29 @@ class ItemCatalog extends Component {
     await console.log(newSimilarItemList);
   };
 
-  render() {
-    // const filterList = this.state.menuItems
-    //   .filter(item => {
-    //     return (
-    //       item.itemName
-    //         .toLowerCase()
-    //         .indexOf(this.state.filterItemCatalog.toLowerCase()) >= 0
-    //     );
-    //   })
-    //   .map((item, index) => (
-    //     <tr key={index}>
-    //       <th scope='row'>{item.id}</th>
-    //       <td
-    //         onClick={() => this.selectItemForEdit(item.id)}
-    //         className='catalog-item-name'>
-    //         {item.itemName}
-    //       </td>
-    //       <td>
-    //         <img
-    //           style={{ width: 60 }}
-    //           className='img-thumbnail'
-    //           src={item.imageUrl}
-    //         />
-    //       </td>
-    //       <td
-    //         onClick={() => this.selectItemForEdit(item.id)}
-    //         className='catalog-item-edit-button'>
-    //         <a className='btn btn-primary'>Edit</a>
-    //       </td>
-    //       <td
-    //         // onClick={() => this.selectItemForEdit(item.id)}
-    //         className='catalog-item-delete-button'>
-    //         <a className='btn btn-primary'>Delete</a>
-    //       </td>
-    //     </tr>
-    //   ));
+  handleFirst = () => {
+    if (this.state.currentPage > 1) {
+      this.getAllItems(1);
+    }
+  };
+  handleNext = () => {
+    if (this.state.currentPage < this.state.totalPages) {
+      this.getAllItems(this.state.currentPage + 1);
+    }
+  };
 
+  handlePrev = () => {
+    if (this.state.currentPage > 1) {
+      this.getAllItems(this.state.currentPage - 1);
+    }
+  };
+  handleLast = () => {
+    if (this.state.currentPage != this.state.totalPages) {
+      this.getAllItems(this.state.totalPages);
+    }
+  };
+
+  render() {
     const filterList = this.state.menuItems
       .filter((item) => {
         return (
@@ -665,6 +668,20 @@ class ItemCatalog extends Component {
                     )}
                   </tbody>
                 </table>
+              </div>
+              <div className='catalog-pagination'>
+                <div className='catalog-pagination-left'>
+                  Showing {this.state.currentPage} of {this.state.totalPages}{' '}
+                  Pages
+                </div>
+                <div className='catalog-pagination-right'>
+                  <Pagination>
+                    <Pagination.First onClick={() => this.handleFirst()} />
+                    <Pagination.Prev onClick={() => this.handlePrev()} />
+                    <Pagination.Next onClick={() => this.handleNext()} />
+                    <Pagination.Last onClick={() => this.handleLast()} />
+                  </Pagination>
+                </div>
               </div>
             </div>
           </div>
