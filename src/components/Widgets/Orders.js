@@ -5,27 +5,44 @@ import { Pagination } from 'react-bootstrap';
 import PageComp from './PageComp';
 
 class Orders extends Component {
-
-  state = {
-    orders: [],
-    displayOrderDetails: false,
-    orderIDToView: -1
-  };
-
-  componentDidMount() {
-    this.getAllOrders();
+  constructor(props) {
+    super(props)
+    this.state = {
+      orders: [],
+      displayOrderDetails: false,
+      orderIDToView: -1,
+      currentPage: 1,
+      ordersPerPage: 5,
+      totalPages: 0,
+      totalElements: 0
+    };
   }
 
-  getAllOrders = async () => {
-    let allOrders = [];
+  componentDidMount() {
+    this.getAllOrders(this.state.currentPage);
+  }
 
-    await API.getAllOrders().then(res => {
-      let theData = res.data;
-      //console.log(theData);
-      allOrders = [...theData];
-    });
+  getAllOrders = async (currentPage) => {
+    let allOrders = [];
+    let pageNum = 0;
+    let pageTotal = 0;
+    let elementsTotal = 0;
+
+    await API.getAllOrders(currentPage, this.state.ordersPerPage)
+      .then(res => {
+        console.log(res.data)
+        let theData = res.data.content;
+        pageNum = res.data.number + 1;
+        pageTotal = res.data.totalPages;
+        elementsTotal = res.totalElements;
+        //console.log(theData);
+        allOrders = [...theData];
+      });
     this.setState({
-      orders: allOrders
+      orders: allOrders,
+      currentPage: pageNum,
+      totalPages: pageTotal,
+      totalElements: elementsTotal
     });
   };
 
@@ -42,6 +59,28 @@ class Orders extends Component {
     this.setState({
       displayOrderDetails: false
     })
+  }
+
+  handleFirst = () => {
+    if (this.state.currentPage > 1) {
+      this.getAllOrders(1);
+    }
+  }
+  handleNext = () => {
+    if (this.state.currentPage <= this.state.totalPages) {
+      this.getAllOrders(this.state.currentPage + 1);
+    }
+  }
+
+  handlePrev = () => {
+    if (this.state.currentPage > 1) {
+      this.getAllOrders(this.state.currentPage - 1);
+    }
+  }
+  handleLast = () => {
+    if (this.state.currentPage != this.state.totalPages) {
+      this.getAllOrders(this.state.totalPages);
+    }
   }
 
   render() {
@@ -99,10 +138,26 @@ class Orders extends Component {
                   {allOrdersList}
                 </tbody>
               </table>
-              <PageComp />
+
+              <div className="pagination-container">
+                <div className="paging">
+                  <div className="page-count">
+                    <span>
+                      Showing {this.state.currentPage} of {this.state.totalPages} Pages
+						      </span>
+                  </div>
+                  <div className="page-numbers">
+                    <Pagination>
+                      <Pagination.First onClick={() => this.handleFirst()} />
+                      <Pagination.Prev onClick={() => this.handlePrev()} />
+                      <Pagination.Next onClick={() => this.handleNext()} />
+                      <Pagination.Last onClick={() => this.handleLast()} />
+                    </Pagination>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
-
       </div>
     );
   }
