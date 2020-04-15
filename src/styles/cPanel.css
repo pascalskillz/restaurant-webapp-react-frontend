@@ -281,6 +281,8 @@ footer {
 }
 .table-scroll.order-table {
   width: 88%;
+  margin-left: auto;
+  margin-right: auto;
 }
 .order-details-container {
   width: 100%;
@@ -312,6 +314,12 @@ footer {
   position: relative;
   left: 40%;
 }
+.paging {
+  display: flex;
+  justify-content: space-between;
+}
+
+
 
 /* --------------------------------------------------------------- Create Widget */
 .newItem-form-item {

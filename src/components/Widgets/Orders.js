@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
 import OrderDetails from './OrderDetails';
+import { Pagination } from 'react-bootstrap';
+import PageComp from './PageComp';
 
 class Orders extends Component {
 
@@ -19,7 +21,7 @@ class Orders extends Component {
 
     await API.getAllOrders().then(res => {
       let theData = res.data;
-      console.log(theData);
+      //console.log(theData);
       allOrders = [...theData];
     });
     this.setState({
@@ -97,8 +99,10 @@ class Orders extends Component {
                   {allOrdersList}
                 </tbody>
               </table>
+              <PageComp />
             </div>
           )}
+
       </div>
     );
   }

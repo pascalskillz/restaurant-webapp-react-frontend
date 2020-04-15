@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const url = 'http://tandoor-env.mdtaz78ptd.us-east-1.elasticbeanstalk.com/api';
-const localUrl = 'http://localhost:8080/api' // this will not work in production
+//const localUrl = 'http://localhost:8080/api' // this will not work in production
 
 export default {
 
@@ -37,11 +37,11 @@ export default {
   // Orders api request
 
   getAllOrders() {
-    return axios.get(`${localUrl}/orders`)
+    return axios.get(`${url}/orders`)
   },
 
   getOneOrder(orderId) {
-    return axios.get(`${localUrl}/order/${orderId}`)
+    return axios.get(`${url}/order/${orderId}`)
   },
 
   createNewOrder(orderData) {
