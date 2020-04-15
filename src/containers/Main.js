@@ -98,20 +98,39 @@ class Main extends Component {
               </div>
               
             <div className='main-content-div'>
-            <div class="row">
-            <div class="column">
-                Img1 
+        
+
+
+            <div className="row">
+            <div className="column1">
+              <div className="aboutus">About us 
+
+              <h6>Tandoor India offers delicious dining, takeout and delivery to Oakhurst, NJ.
+              Tandoor India is a cornerstone in the Oakhurst community and has been recognized for its outstanding Indian cuisine,
+              excellent service and friendly staff.
+              Our Indian restaurant is known for its modern interpretation of classic dishes and its insistence on only using high quality
+             fresh ingredients.</h6>
+              </div>
+
+              <button className="button-menu"><span ><a  className="button-menu"  href='/menu'> Menu</a> </span></button>
+              {/* <h6>Tandoor India offers delicious dining, takeout and delivery to Oakhurst, NJ.
+              Tandoor India is a cornerstone in the Oakhurst community and has been recognized for its outstanding Indian cuisine,
+              excellent service and friendly staff.
+              Our Indian restaurant is known for its modern interpretation of classic dishes and its insistence on only using high quality
+             fresh ingredients.</h6> */}
             </div>
-            <div class="column">
-               img2
+            <div className="column2"> I am gonna update this middle soon!!
+            <div class="gallery">
+  <img className="img-gallery" src={img1} alt="flex-gallery" />
+  <img className="img-gallery"  src={img1} alt="flex-gallery" />
+  <img className="img-gallery"  src={img1} alt="flex-gallery" />
+</div>
             </div>
-            <div class="column">
-               img3
-            </div>
-            <div class="column">
-              TEXT
+           
+            <div className="column3">
+              
              </div>
-            </div>
+            </div> 
 
               </div> 
          
