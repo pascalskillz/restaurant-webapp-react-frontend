@@ -8,7 +8,6 @@ class PageComp extends Component {
 	render() {
 
 		return (
-
 			<div className="pagination-container">
 				<div className="paging">
 					<div className="page-count">
