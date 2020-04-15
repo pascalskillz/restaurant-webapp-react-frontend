@@ -182,18 +182,24 @@ class EditWidget extends Component {
   setCurrentItemSimilarItems = async () => {
     await console.log('---------setCurrentItemSimilarItems');
     await console.log(this.state.itemToEdit);
-    this.handleInitialSimilarItems(
-      this.state.itemToEdit.similarItems[0].similarMenuItemId,
-      0
-    );
-    this.handleInitialSimilarItems(
-      this.state.itemToEdit.similarItems[1].similarMenuItemId,
-      1
-    );
-    this.handleInitialSimilarItems(
-      this.state.itemToEdit.similarItems[2].similarMenuItemId,
-      2
-    );
+    if(this.state.itemToEdit.similarItems[0]){
+      this.handleInitialSimilarItems(
+        this.state.itemToEdit.similarItems[0].similarMenuItemId,
+        0
+      );
+    }
+    if(this.state.itemToEdit.similarItems[1]){
+      this.handleInitialSimilarItems(
+        this.state.itemToEdit.similarItems[1].similarMenuItemId,
+        1
+      );
+    }
+    if(this.state.itemToEdit.similarItems[2]){
+      this.handleInitialSimilarItems(
+        this.state.itemToEdit.similarItems[2].similarMenuItemId,
+        2
+      );
+    }
   };
 
   handleInitialSimilarItems = async (similarItemId, similarItemArrayIndex) => {
