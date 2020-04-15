@@ -7,11 +7,11 @@ import '../../styles/Widgets.css';
 class EditWidget extends Component {
   state = {
     menuItems: [],
+    menuItemsLoading: true,
     categories: [],
+    categoryLoading: true,
     categoryArray: [0],
     filterSimilar: '',
-    menuItemsLoading: true,
-    categoryLoading: true,
     selectedItem: {
       itemId: '',
       itemName: '',

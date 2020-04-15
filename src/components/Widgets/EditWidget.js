@@ -7,20 +7,25 @@ import '../../styles/cPanel.css';
 class EditWidget extends Component {
   state = {
     itemToEdit: {},
+    itemToEditLoading: true,
     categories: [],
-    categoryLoading: true
+    categoryLoading: true,
+    menuItems: [],
+    menuItemsLoading: true,
   };
 
   async componentDidMount() {
     await this.getItemToEdit(this.props.itemNum);
     await this.getCategories();
+    await this.getAllMenuItems();
     await this.setCurrentItemCategory();
+    await this.setCurrentItemSimilarItems();
   }
 
   widget = window.cloudinary.createUploadWidget(
     {
       cloudName: 'yowats0n',
-      uploadPreset: 'twibcpgv'
+      uploadPreset: 'twibcpgv',
     },
     (error, result) => {
       if (error) {
@@ -37,11 +42,11 @@ class EditWidget extends Component {
       // await this.setState({
       //   imageUrl: url
       // });
-      await this.setState(prevState => ({
+      await this.setState((prevState) => ({
         itemToEdit: {
           ...prevState.itemToEdit,
-          imageUrl: url
-        }
+          imageUrl: url,
+        },
       }));
     }
   };
@@ -51,21 +56,22 @@ class EditWidget extends Component {
     widget.open();
   };
 
-  getItemToEdit = async id => {
+  getItemToEdit = async (id) => {
     let item = {};
-    await API.getOneMenuItem(id).then(res => {
+    await API.getOneMenuItem(id).then((res) => {
       item = res.data;
     });
     await console.log('---------getItemToEdit');
     await console.log(item);
     await this.setState({
-      itemToEdit: item
+      itemToEdit: item,
+      itemToEditLoading: false,
     });
   };
 
   getCategories = async () => {
     let categoriesObject = {};
-    await API.getCategories().then(res => {
+    await API.getCategories().then((res) => {
       console.log('---------getCategories');
       console.log(res.data);
       categoriesObject = res.data;
@@ -73,11 +79,24 @@ class EditWidget extends Component {
 
     await this.setState({
       categories: categoriesObject,
-      categoryLoading: false
+      categoryLoading: false,
     });
   };
 
-  handleInputChange = event => {
+  getAllMenuItems = async () => {
+    let allItemsArr = [];
+    await API.getAllMenuItems().then((res) => {
+      let items = res.data;
+      allItemsArr = [...items];
+    });
+
+    await this.setState({
+      menuItems: [...allItemsArr],
+      menuItemsLoading: false,
+    });
+  };
+
+  handleInputChange = (event) => {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -86,31 +105,31 @@ class EditWidget extends Component {
     //   [name]: value
     // });
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       itemToEdit: {
         ...prevState.itemToEdit,
-        [name]: value
-      }
+        [name]: value,
+      },
     }));
 
     console.log(this.state.itemToEdit);
   };
 
-  handleCategorySelect = async event => {
+  handleCategorySelect = async (event) => {
     console.log('------------ handleCategorySelect');
     console.log(event.target.value);
 
-    let newCategoryObject = await this.state.categories.filter(item => {
+    let newCategoryObject = await this.state.categories.filter((item) => {
       return item.categoryName === event.target.value;
     });
 
     await console.log(newCategoryObject[0].id);
 
-    await this.setState(prevState => ({
+    await this.setState((prevState) => ({
       itemToEdit: {
         ...prevState.itemToEdit,
-        categoryId: newCategoryObject[0].id
-      }
+        categoryId: newCategoryObject[0].id,
+      },
     }));
 
     await console.log(this.state.itemToEdit);
@@ -120,44 +139,113 @@ class EditWidget extends Component {
     await console.log('---------setCurrentItemCategory');
     await console.log(this.state.itemToEdit);
     let currentItemCategoryId = await this.state.itemToEdit.categoryId;
-    let currentItemCategoryName = await this.state.categories.filter(item => {
+    let currentItemCategoryName = await this.state.categories.filter((item) => {
       return item.id === currentItemCategoryId;
     });
     await console.log(currentItemCategoryName[0].categoryName);
     await this.setCategoryValue(currentItemCategoryName[0].categoryName);
   };
 
-  setCategoryValue = text => {
-    console.log('------------ setCategoryValue');
+  setCategoryValue = (text) => {
+    // console.log('------------ setCategoryValue');
     let e = document.getElementById('select-id');
-    console.log(e);
+    // console.log(e);
     for (var i = 0; i < e.options.length; i++) {
       if (e.options[i].value.toLowerCase() === text) {
-        console.log('FOUND');
+        // console.log('FOUND');
         e.options[i].selected = true;
         break;
       }
     }
   };
 
-  saveMenuItem = async e => {
+  saveMenuItem = async (e) => {
     e.preventDefault();
     console.log(this.state.itemToEdit);
     await API.updateMenuItem(
       this.state.itemToEdit.categoryId,
       this.state.itemToEdit
     )
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           alert('Success!');
           // TODO: RESET EVERYTHING
           window.location.reload();
         }
       })
-      .catch(err => {
+      .catch((err) => {
         alert('Data not saved, please try again');
         // TODO: RESET EVERYTHING
       });
+  };
+
+  setCurrentItemSimilarItems = async () => {
+    await console.log('---------setCurrentItemSimilarItems');
+    await console.log(this.state.itemToEdit);
+    this.handleInitialSimilarItems(
+      this.state.itemToEdit.similarItems[0].similarMenuItemId,
+      0
+    );
+    this.handleInitialSimilarItems(
+      this.state.itemToEdit.similarItems[1].similarMenuItemId,
+      1
+    );
+    this.handleInitialSimilarItems(
+      this.state.itemToEdit.similarItems[2].similarMenuItemId,
+      2
+    );
+  };
+
+  handleInitialSimilarItems = async (similarItemId, similarItemArrayIndex) => {
+    await console.log(`--handleInitialSimilarItems${similarItemArrayIndex}`);
+    let tempItem = {};
+    await API.getOneMenuItem(similarItemId)
+      .then((res) => {
+        tempItem = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    await console.log(tempItem);
+    let e = await document.getElementById(
+      `similar-select-${similarItemArrayIndex}`
+    );
+    await console.log(e);
+    for (var i = 0; i < e.options.length; i++) {
+      if (e.options[i].value === tempItem.itemName) {
+        e.options[i].selected = await true;
+        break;
+      }
+    }
+  };
+
+  handleSimilarItemSelect = async (e, id) => {
+    e.persist();
+    await console.log('--handleSimilarItemSelect');
+    await console.log(this.state.itemToEdit.similarItems);
+    let localItemName = await e.target.value;
+    let newSimilarItemList = await [...this.state.itemToEdit.similarItems];
+    await console.log(newSimilarItemList);
+    if (localItemName !== '--') {
+      let itemToBeAddedToSimilarList = await this.state.menuItems.filter(
+        (item) => {
+          return item.itemName === localItemName;
+        }
+      );
+      await console.log('itemToBeAddedToSimilarList');
+      await console.log(itemToBeAddedToSimilarList);
+      newSimilarItemList[id] = await {
+        similarMenuItemId: itemToBeAddedToSimilarList[0].id,
+      };
+      await this.setState((prevState) => ({
+        itemToEdit: {
+          ...prevState.itemToEdit,
+          similarItems: [...newSimilarItemList],
+        },
+      }));
+    }
+    await console.log('newSimilarList afterwards');
+    await console.log(newSimilarItemList);
   };
 
   render() {
@@ -165,7 +253,7 @@ class EditWidget extends Component {
       <option value='--'>--</option>
     ) : (
       this.state.categories
-        .filter(item => {
+        .filter((item) => {
           return item.id > 0;
         })
         .map((item, index) => (
@@ -174,6 +262,56 @@ class EditWidget extends Component {
             {item.categoryName}
           </option>
         ))
+    );
+
+    const similarItemsContainer = (
+      <div className='similar-items-div'>
+        <select
+          id='similar-select-0'
+          className='similar-items-select'
+          onChange={(e) => this.handleSimilarItemSelect(e, 0)}>
+          <option value='--'>--</option>
+          {this.state.itemToEditLoading ? (
+            <option value='--'>--</option>
+          ) : (
+            this.state.menuItems.map((item, index) => (
+              <option key={index} value={item.itemName}>
+                {item.itemName}
+              </option>
+            ))
+          )}
+        </select>
+        <select
+          id='similar-select-1'
+          className='similar-items-select'
+          onChange={(e) => this.handleSimilarItemSelect(e, 1)}>
+          <option value='--'>--</option>
+          {this.state.itemToEditLoading ? (
+            <option value='--'>--</option>
+          ) : (
+            this.state.menuItems.map((item, index) => (
+              <option key={index} value={item.itemName}>
+                {item.itemName}
+              </option>
+            ))
+          )}
+        </select>
+        <select
+          id='similar-select-2'
+          className='similar-items-select'
+          onChange={(e) => this.handleSimilarItemSelect(e, 2)}>
+          <option value='--'>--</option>
+          {this.state.itemToEditLoading ? (
+            <option value='--'>--</option>
+          ) : (
+            this.state.menuItems.map((item, index) => (
+              <option key={index} value={item.itemName}>
+                {item.itemName}
+              </option>
+            ))
+          )}
+        </select>
+      </div>
     );
 
     return (
@@ -258,7 +396,7 @@ class EditWidget extends Component {
                 ) : (
                   <select
                     id='select-id'
-                    onChange={e => this.handleCategorySelect(e)}>
+                    onChange={(e) => this.handleCategorySelect(e)}>
                     {categoryDropdown}
                   </select>
                 )}
@@ -276,13 +414,16 @@ class EditWidget extends Component {
           <div className='edit-image-button-div'>
             <button
               className='button upload-button'
-              onClick={e => this.showWidget(e, this.widget)}>
+              onClick={(e) => this.showWidget(e, this.widget)}>
               <i className='fas fa-cloud-upload-alt'></i> Edit Image
             </button>
           </div>
         </div>
 
-        <div className='similar-items-container'>Similar Items</div>
+        <div className='similar-items-container'>
+          <div className='similar-items-title'>Edit Similar Items:</div>
+          {similarItemsContainer}
+        </div>
 
         <div className='edit-save-button-div'>
           <Modal
@@ -307,7 +448,7 @@ class EditWidget extends Component {
                 value='Send'
                 className='btn'
                 id='edit-form-submit-btn'
-                onClick={e => this.saveMenuItem(e)}>
+                onClick={(e) => this.saveMenuItem(e)}>
                 Save
               </button>
             }>

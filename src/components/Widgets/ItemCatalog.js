@@ -7,14 +7,30 @@ import img from '../../img/Logo2.png';
 
 class ItemCatalog extends Component {
   state = {
-    filterItemCatalog: '',
+    // filterItemCatalog: '',
+    searchBar: '',
     menuItemsLoading: true,
     menuItems: [],
     displayItemToEdit: false,
     itemToEditId: -1,
     categories: [],
     categoryLoading: true,
-    newMenuItem: {}
+    newMenuItem: {
+      cookTime: '',
+      description: '',
+      imageUrl:
+        'https://res.cloudinary.com/yowats0n/image/upload/v1586801348/tandoor/ywuvwxjovuoypiffnrwp.jpg',
+      itemName: 'Tandoor India',
+      itemPrice: '',
+      special: false,
+      vegan: false,
+      similarItems: [
+        { similarMenuItemId: 0 },
+        { similarMenuItemId: 0 },
+        { similarMenuItemId: 0 },
+      ],
+      categoryId: 1,
+    },
   };
 
   componentDidMount() {
@@ -22,36 +38,44 @@ class ItemCatalog extends Component {
     this.getCategories();
   }
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       newMenuItem: {
         ...prevState.newMenuItem,
-        [name]: value
-      }
+        [name]: value,
+      },
     }));
 
     console.log(this.state.newMenuItem);
   };
 
-  handleCategorySelect = async event => {
-    console.log('------------ handleCategorySelect');
-    console.log(event.target.value);
+  handleSearchBarChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
+  };
 
-    let newCategoryObject = await this.state.categories.filter(item => {
+  handleCategorySelect = async (event) => {
+    await event.persist();
+    await console.log('------------ handleCategorySelect');
+    await console.log(event.target.value);
+
+    let newCategoryObject = await this.state.categories.filter((item) => {
       return item.categoryName === event.target.value;
     });
 
     await console.log(newCategoryObject[0].id);
 
-    await this.setState(prevState => ({
+    await this.setState((prevState) => ({
       newMenuItem: {
         ...prevState.newMenuItem,
-        categoryId: newCategoryObject[0].id
-      }
+        categoryId: newCategoryObject[0].id,
+      },
     }));
 
     await console.log(this.state.newMenuItem);
@@ -61,7 +85,7 @@ class ItemCatalog extends Component {
   widget = window.cloudinary.createUploadWidget(
     {
       cloudName: 'yowats0n',
-      uploadPreset: 'twibcpgv'
+      uploadPreset: 'twibcpgv',
     },
     (error, result) => {
       if (error) {
@@ -75,12 +99,12 @@ class ItemCatalog extends Component {
     if (resultEvent.event === 'success') {
       let url = resultEvent.info.secure_url;
       widget.close();
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         newMenuItem: {
           ...prevState.newMenuItem,
           // categoryId: newCategoryObject[0].id
-          imageUrl: url
-        }
+          imageUrl: url,
+        },
       }));
     }
   };
@@ -92,7 +116,7 @@ class ItemCatalog extends Component {
 
   getAllItems = async () => {
     let allItemsArr = [];
-    await API.getAllMenuItems().then(res => {
+    await API.getAllMenuItems().then((res) => {
       let items = res.data;
       // console.log(items)
       allItemsArr = [...items];
@@ -100,13 +124,13 @@ class ItemCatalog extends Component {
 
     await this.setState({
       menuItems: [...allItemsArr],
-      menuItemsLoading: false
+      menuItemsLoading: false,
     });
   };
 
   getCategories = async () => {
     let categoriesObject = {};
-    await API.getCategories().then(res => {
+    await API.getCategories().then((res) => {
       console.log('---------getCategories');
       console.log(res.data);
       categoriesObject = res.data;
@@ -114,83 +138,98 @@ class ItemCatalog extends Component {
 
     await this.setState({
       categories: categoriesObject,
-      categoryLoading: false
+      categoryLoading: false,
     });
   };
 
-  createNewMenuItem = async e => {
+  createNewMenuItem = async (e) => {
     e.preventDefault();
+    const submitData = await {
+      itemName: this.state.newMenuItem.itemName,
+      itemPrice: this.state.newMenuItem.itemPrice,
+      cookTime: this.state.newMenuItem.cookTime,
+      description: this.state.newMenuItem.description,
+      vegan: this.state.newMenuItem.vegan,
+      special: this.state.newMenuItem.special,
+      imageUrl: this.state.newMenuItem.imageUrl,
+      similarItems: this.state.newMenuItem.similarItems,
+    };
+    await console.log('--newMenuItem');
     await console.log(this.state.newMenuItem);
-    await API.createMenuItem(this.state.newMenuItem.categoryId, {
-      itemName: this.state.itemname,
-      itemPrice: this.state.itemprice,
-      cookTime: this.state.cooktime,
-      description: this.state.itemdescription,
-      vegan: this.state.isvegan,
-      special: this.state.isspecial,
-      imageUrl: this.state.imageUrl,
-      similarItems: this.state.similarList
-    })
-      .then(res => {
+    await console.log('--submitData');
+    await console.log(submitData);
+    await API.createMenuItem(this.state.newMenuItem.categoryId, submitData)
+      .then((res) => {
         if (res.status === 200) {
           alert('Success!');
-          // TODO: RESET EVERYTHING
+          console.log(res);
           window.location.reload();
         }
       })
-      .catch(err => {
+      .catch((err) => {
         alert('Data not saved, please try again');
-        // TODO: RESET EVERYTHING
+        console.log(err);
       });
-    // await e.preventDefault();
-    // await console.log(this.state.newMenuItem);
-    // const submitData = await {
-    //   itemName: this.state.newMenuItem.itemname,
-    //   itemPrice: this.state.newMenuItem.itemprice,
-    //   cookTime: this.state.newMenuItem.cooktime,
-    //   description: this.state.newMenuItem.itemdescription,
-    //   vegan: this.state.newMenuItem.isvegan,
-    //   special: this.state.newMenuItem.isspecial,
-    //   imageUrl: this.state.newMenuItem.imageUrl,
-    //   similarItems: this.state.newMenuItem.similarList
-    // };
-
-    // await console.log(submitData);
-    // await API.createMenuItem(this.state.selectedId, submitData)
-    //   .then(res => {
-    //     if (res.status === 200) {
-    //       alert('Success!');
-    //       // TODO: RESET EVERYTHING
-    //       window.location.reload();
-    //     }
-    //   })
-    //   .catch(err => {
-    //     alert('Data not saved, please try again');
-    //     // TODO: RESET EVERYTHING
-    //   });
   };
 
-  editMenuItem = async id => {
+  editMenuItem = async (id) => {
     console.log(id);
     console.log('Edit Menu Item');
     this.setState({
       displayItemToEdit: true,
-      itemToEditID: id
+      itemToEditID: id,
     });
   };
 
   completeEdit = () => {
     this.setState({
-      displayItemToEdit: false
+      displayItemToEdit: false,
     });
   };
 
-  deleteMenuItem = async id => {
-    console.log(id);
-    console.log('Delete Menu Item');
-    this.setState({
-      displayItemToDelete: true
-    });
+  deleteMenuItem = async (id) => {
+    await console.log('Delete Menu Item');
+    await console.log(id);
+    await API.deleteMenuItem(id)
+      .then((res) => {
+        if (res.status === 200) {
+          alert('Success!');
+          window.location.reload();
+        }
+      })
+      .catch((err) => {
+        alert('Item not deleted, please try again');
+        console.log(err);
+      });
+  };
+
+  handleSimilarItemSelect = async (e, id) => {
+    e.persist();
+    await console.log('--handleSimilarItemSelect');
+    await console.log(this.state.newMenuItem.similarItems);
+    let localItemName = await e.target.value;
+    let newSimilarItemList = await [...this.state.newMenuItem.similarItems];
+    await console.log(newSimilarItemList);
+    if (localItemName !== '--') {
+      let itemToBeAddedToSimilarList = await this.state.menuItems.filter(
+        (item) => {
+          return item.itemName === localItemName;
+        }
+      );
+      await console.log('itemToBeAddedToSimilarList');
+      await console.log(itemToBeAddedToSimilarList);
+      newSimilarItemList[id] = await {
+        similarMenuItemId: itemToBeAddedToSimilarList[0].id,
+      };
+      await this.setState((prevState) => ({
+        newMenuItem: {
+          ...prevState.newMenuItem,
+          similarItems: [...newSimilarItemList],
+        },
+      }));
+    }
+    await console.log('newSimilarList afterwards');
+    await console.log(newSimilarItemList);
   };
 
   render() {
@@ -230,6 +269,67 @@ class ItemCatalog extends Component {
     //     </tr>
     //   ));
 
+    const filterList = this.state.menuItems
+      .filter((item) => {
+        return (
+          item.itemName
+            .toLowerCase()
+            .indexOf(this.state.searchBar.toLowerCase()) >= 0
+        );
+      })
+      .map((item, index) => (
+        <tr key={index}>
+          <td scope='row'>{item.id}</td>
+          <td className='catalog-item-name'>{item.itemName}</td>
+          <td>
+            <img
+              style={{ width: 60 }}
+              className='img-thumbnail'
+              src={item.imageUrl}
+            />
+          </td>
+          <td>
+            <a
+              className='btn btn-primary catalog-item-edit-button'
+              onClick={() => this.editMenuItem(item.id)}>
+              Edit
+            </a>
+          </td>
+          <td>
+            <Modal
+              className='delete-modal-div'
+              title='Preview'
+              text='Are you sure you want to delete this item?'
+              content={
+                <MenuItem
+                  img={item.imageUrl}
+                  name={item.itemName}
+                  price={item.itemPrice}
+                />
+              }
+              buttonClose={
+                <button className='btn btn-warning catalog-item-cancel-button'>
+                  Cancel
+                </button>
+              }
+              buttonSave={
+                <button
+                  type='submit'
+                  value='Send'
+                  className='btn btn-primary catalog-item-delete-button'
+                  // id='catalog-item-delete-button'
+                  onClick={() => this.deleteMenuItem(item.id)}>
+                  Delete
+                </button>
+              }>
+              <a className='btn btn-danger catalog-item-delete-button'>
+                Delete
+              </a>
+            </Modal>
+          </td>
+        </tr>
+      ));
+
     const allItemsList = this.state.menuItems.map((item, index) => (
       <tr key={index}>
         <td scope='row'>{item.id}</td>
@@ -253,7 +353,13 @@ class ItemCatalog extends Component {
             className='delete-modal-div'
             title='Preview'
             text='Are you sure you want to delete this item?'
-            content={<MenuItem img={img} name='item' price='5' />}
+            content={
+              <MenuItem
+                img={item.imageUrl}
+                name={item.itemName}
+                price={item.itemPrice}
+              />
+            }
             buttonClose={
               <button className='btn btn-warning catalog-item-cancel-button'>
                 Cancel
@@ -265,7 +371,7 @@ class ItemCatalog extends Component {
                 value='Send'
                 className='btn btn-primary catalog-item-delete-button'
                 // id='catalog-item-delete-button'
-                onClick={e => this.deleteMenuItem(e)}>
+                onClick={() => this.deleteMenuItem(item.id)}>
                 Delete
               </button>
             }>
@@ -275,11 +381,59 @@ class ItemCatalog extends Component {
       </tr>
     ));
 
+    const similarItemsContainer = (
+      <div className='similar-items-div'>
+        <select
+          className='similar-items-select'
+          onChange={(e) => this.handleSimilarItemSelect(e, 0)}>
+          <option value='--'>--</option>
+          {this.state.menuItemsLoading ? (
+            <option value='--'>--</option>
+          ) : (
+            this.state.menuItems.map((item, index) => (
+              <option key={index} value={item.itemName}>
+                {item.itemName}
+              </option>
+            ))
+          )}
+        </select>
+        <select
+          className='similar-items-select'
+          onChange={(e) => this.handleSimilarItemSelect(e, 1)}>
+          <option value='--'>--</option>
+          {this.state.menuItemsLoading ? (
+            <option value='--'>--</option>
+          ) : (
+            this.state.menuItems.map((item, index) => (
+              <option key={index} value={item.itemName}>
+                {item.itemName}
+              </option>
+            ))
+          )}
+        </select>
+        <select
+          className='similar-items-select'
+          onChange={(e) => this.handleSimilarItemSelect(e, 2)}>
+          <option value='--'>--</option>
+          {this.state.menuItemsLoading ? (
+            <option value='--'>--</option>
+          ) : (
+            // <option value="--">--</option>
+            this.state.menuItems.map((item, index) => (
+              <option key={index} value={item.itemName}>
+                {item.itemName}
+              </option>
+            ))
+          )}
+        </select>
+      </div>
+    );
+
     const categoryDropdown = this.state.categoryLoading ? (
       <option value='--'>--</option>
     ) : (
       this.state.categories
-        .filter(item => {
+        .filter((item) => {
           return item.id > 0;
         })
         .map((item, index) => (
@@ -369,7 +523,7 @@ class ItemCatalog extends Component {
                 ) : (
                   <select
                     id='select-id'
-                    onChange={e => this.handleCategorySelect(e)}>
+                    onChange={(e) => this.handleCategorySelect(e)}>
                     {categoryDropdown}
                   </select>
                 )}
@@ -387,13 +541,16 @@ class ItemCatalog extends Component {
           <div className='newItem-image-button-div'>
             <button
               className='button upload-button'
-              onClick={e => this.showWidget(e, this.widget)}>
+              onClick={(e) => this.showWidget(e, this.widget)}>
               <i className='fas fa-cloud-upload-alt'></i> Upload an Image
             </button>
           </div>
         </div>
 
-        <div className='similar-items-container'>Similar Items</div>
+        <div className='similar-items-container'>
+          <div className='similar-items-title'>Select Three Similar Items:</div>
+          {similarItemsContainer}
+        </div>
       </div>
     );
 
@@ -420,14 +577,14 @@ class ItemCatalog extends Component {
                 <div className='search-bar'>
                   <div className='search-bar-contents'>
                     <input
-                      name='itemname'
+                      name='searchBar'
                       type='text'
                       className='form-control'
                       id='searchBar'
-                      aria-describedby='createItem'
+                      // aria-describedby='createItem'
                       placeholder='Search for a Menu Item'
-                      value={this.state.itemname}
-                      onChange={this.handleInputChange}
+                      value={this.state.searchBar}
+                      onChange={this.handleSearchBarChange}
                     />
                     <svg
                       id='searchIcon'
@@ -456,8 +613,8 @@ class ItemCatalog extends Component {
                         position: 'absolute',
                         height: '80vh',
                         width: 675,
-                        margin: 'auto'
-                      }
+                        margin: 'auto',
+                      },
                     }}
                     // text=''
                     content={createWidget}
@@ -472,7 +629,7 @@ class ItemCatalog extends Component {
                         value='Send'
                         className='btn btn-primary new-item-save-button mx-3'
                         // id='catalog-item-delete-button'
-                        onClick={e => this.createNewMenuItem(e)}>
+                        onClick={(e) => this.createNewMenuItem(e)}>
                         Save
                       </button>
                     }>
@@ -501,19 +658,11 @@ class ItemCatalog extends Component {
                         <td> </td>
                         <td> </td>
                       </tr>
-                    ) : (
+                    ) : this.state.searchBar.length < 1 ? (
                       allItemsList
-                    )}
-
-                    {/* if the filter bar is empty
-                    {this.state.filterItemCatalog.length < 1 ? (
-                      // display the all items once loaded
-
                     ) : (
-                      // else display filtered items
-                      // filterList
-                      <div className=''>filterList</div>
-                    )} */}
+                      filterList
+                    )}
                   </tbody>
                 </table>
               </div>
