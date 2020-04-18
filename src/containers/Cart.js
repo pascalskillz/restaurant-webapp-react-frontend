@@ -104,7 +104,7 @@ class Cart extends Component {
     //       chartStorage.addItem(item.data);
     //   }
   }
-  //*************** End ***************** */
+  //*************** End **************** */
   
 
   removeItem(item) {
