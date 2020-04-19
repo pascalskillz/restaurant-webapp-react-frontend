@@ -196,7 +196,6 @@ class Cart extends Component {
           </div>
         </div>
       );
-
       subtotal += item.itemPrice;
     });
 
