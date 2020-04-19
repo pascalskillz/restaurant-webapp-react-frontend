@@ -15,23 +15,17 @@ export default {
         }
         localStorage.setItem(storageName, JSON.stringify(itemList));
     },
-
+    // Get new item list after updatein the items
     updateItem(key) {
-      // Get the whole list in the localstorgae
+      // Get the whole list in the localss
       let itemList = JSON.parse(localStorage.getItem(storageName));
       itemList.remove();
-
-    },
-    /**
-     * Remove some items in the localstorage
-     */
-    deleteItem(){
 
     },
 
     // delete all the items in the cashe
     clearChart(){
-        localStorage.setItem(storageName,null);
+        localStorage.setItem(storageName,JSON.stringify([]));
     },
 
     // delete some special items
@@ -39,6 +33,11 @@ export default {
 
     },
     getList() {
+      let itemList = JSON.parse(localStorage.getItem(storageName));
+      // fix all allItemsArr is null
+      if (itemList === null) {
+        this.clearChart();
+      }
       return JSON.parse(localStorage.getItem(storageName));
     }
 
