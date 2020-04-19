@@ -7,6 +7,7 @@ export default {
         console.log(`key${key},value${value}`);
         let itemList = JSON.parse(localStorage.getItem(storageName));
         itemList = itemList==null?[]:itemList;
+        console.log(itemList[key]);
         if (itemList == null || itemList[key] === undefined) {
             itemList.push(value);
         } else {

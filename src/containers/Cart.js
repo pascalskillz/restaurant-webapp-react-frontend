@@ -38,31 +38,55 @@ class Cart extends Component {
   submitOrders = (allItems) => {
 
     // Sweat alert make confirm for this order
-      Swal.fire("Order Submitted", "", "success");
+      // Swal.fire("Order Submitted", "", "success");
 
 
       // clean local cashe
-      chartStorage.clearChart();
+      // chartStorage.clearChart();
 
       // redirt to the main page
-      window.location.href = "http://localhost:3000/";
+      // window.location.href = "http://localhost:3000/";
 
+      var postData = {
+          customerName: "Meng Test",
+          customerPhone: "7335727001",
+          amount: 0,
+          orderDetails: [
+          ],
+      };
 
+      const lists = chartStorage.getList();
+      let amount = 0;
+      const tempDeatil =  {
+         quantity:0,
+         menuItemId:0
+      }
+       console.log(lists);
+      for (const i in lists) {
+          const temp = lists[i];
+          amount += temp.itemPrice;
+          tempDeatil.quantity = 1;
+          tempDeatil.menuItemId = temp.id;
+          postData.orderDetails.push(tempDeatil);
+      }
+
+      postData.amount = amount;
+      console.log("postData" + JSON.stringify(postData));
       // If API all set
       // Pos item data to the api and transfer to the backend
-      API.addReservation(allItems).then(result => {
+      // API.addReservation(allItems).then(result => {
           
-          if (result == 'success') {
-               Swal.fire("Order Submitted", 
-                          "", 
-                          "success");
-          } else {
-              Swal.fire({
-                icon: "error",
-                title: "Order Filed",
-              });
-          }
-      })
+      //     if (result == 'success') {
+      //          Swal.fire("Order Submitted", 
+      //                     "", 
+      //                     "success");
+      //     } else {
+      //         Swal.fire({
+      //           icon: "error",
+      //           title: "Order Filed",
+      //         });
+      //     }
+      // })
       //
 
   };
