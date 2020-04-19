@@ -39,15 +39,15 @@
   
   .btn {
     display: inline-block;
-    color: #fff;
-    background: #da9768;
+    color: #fff !important;
+    background: #2C62C4;
     padding: 0.5rem 2rem;
     border: none;
     border-radius: 5px;
   }
   
   .btn:hover {
-    background: #d4d2d1;
+    background: #a09e9e;
     color: #000;
     border: 0.5px solid #000;
     cursor: pointer;
@@ -68,6 +68,7 @@
     background-image: var(--texture2);
     border-left: 20px solid var(--white);
     border-right: 20px solid var(--white);
+    
   }
   
   #contact .map{
@@ -84,7 +85,7 @@
     flex: 1;
   }
   
-  #contact .contact-form .form-group {
+  #contact .contact-form .form-group { 
     margin: 0.75rem;
     
   }
@@ -98,6 +99,7 @@
   #contact .contact-form textarea {
     width: 100%;
     padding: 0.5rem;
+    
   }
 
   #contact .address {
@@ -111,7 +113,7 @@
    }
 
    #message{
-     height:12em;
+     height:8em;
    }
    .leaflet-container {
     margin: 0 auto;
@@ -121,3 +123,17 @@
   .leaflet-container .leaflet-pane{
     z-index: 1;
   }
+
+  /*H-P-P*/
+  label[for="lastname"], #lastname {
+    /* display: none;
+    visibility: hidden; */
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 0;
+    z-index: -1;
+  }
+  

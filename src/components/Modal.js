@@ -8,7 +8,7 @@ const styles = {
   modal: {
     overlay: {
       backgroundColor: 'rgba(10, 10, 10, .5)',
-      zIndex: '500'
+      zIndex: '2500'
     },
     content: {
       position: 'absolute',
@@ -84,7 +84,7 @@ class Modal extends Component {
         <ReactModal
           isOpen={this.state.isModalOpen}
           onRequestClose={this.handleModalClose}
-          style={styles.modal}>
+          style={{... styles.modal, ...this.props.customStyle}}>
           <div className='modalDiv' style={styles.modalDiv}>
             <div style={styles.modalTitle}>{this.props.title}</div>
             <div style={styles.modalText}>{this.props.text}</div>

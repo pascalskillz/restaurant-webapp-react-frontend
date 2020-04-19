@@ -7,6 +7,8 @@ import Footer from '../components/Footer';
 import Jumbo from '../components/Jumbo';
 import API from '../utils/API';
 import chartStore from '../store/chartStorage';
+import '../styles/Item.css'
+
 
 class Item extends Component {
   constructor(props){
@@ -16,85 +18,76 @@ class Item extends Component {
   state = {
     renderItem: [],
     similarItems: [],
-    categoryName: ''
+    categoryName: '',
+    isRefresh:false
   };
+
+  static getDerivedStateFromProps(nextProps, prevState){
+    if(nextProps.location && nextProps.location.itemID > 0){
+      nextProps.location.itemID = 0;
+      return { isRefresh: true};
+   }
+   else return null;
+ }
 
   async componentDidMount() {
     await this.getOneMenuItem(this.getIdFromURL());
-    // await this.getCategoryName();
+  }
+
+  async componentDidUpdate()
+  {
+    if(this.state.isRefresh)
+    {
+      await this.getOneMenuItem(this.getIdFromURL());
+      window.scrollTo(0, 0);
+    }
   }
 
   getIdFromURL = () => {
     return window.location.pathname.split('item/')[1];
   };
 
-  // getCategoryName = async () => {
-  //   let itemCatId = this.state.renderItem;
-  //   await console.log(itemCatId);
-  //   let categories = [];
-  //   let catName = '';
-  //   API.getCategories().then(async res => {
-  //     categories = await [...res.data];
-  //     // await console.log(categories)
-  //     for (let i of categories) {
-  //       // console.log(i)
-  //       if (i.id === itemCatId) {
-  //         catName = i.categoryName;
-  //         // console.log(catName);
-  //         this.setState({
-  //           categoryName: catName
-  //         });
-  //       }
-  //     }
-  //   });
-  // };
-
   getOneMenuItem = async id => {
+    let renderItem = {};
+    let similarItemIDs = [];
+
     await API.getOneMenuItem(id).then(res => {
-      console.log(res.data);
-      this.setState({
-        renderItem: res.data,
-        similarItems: [...res.data.similarItems]
-      });
+      renderItem = res.data;
+      similarItemIDs = [...res.data.similarItems];
     });
     let itemCatId = await this.state.renderItem.categoryId;
-    // await console.log(itemCatId)
     let categories = [];
     let catName = '';
     await API.getCategories().then(async res => {
       categories = await [...res.data];
-      // await console.log(categories)
       for (let i of categories) {
-        // console.log(i)
         if (i.id === itemCatId) {
           catName = i.categoryName;
-          // console.log(catName);
-          this.setState({
-            categoryName: catName
-          });
+          break;
         }
       }
     });
-    // await this.getSimilarItems();
+    let similarItems = await this.getSimilarItems(similarItemIDs);
+    this.setState({
+        renderItem: renderItem,
+        similarItems: similarItems,
+        categoryName: catName,
+        isRefresh:false
+      });
   };
 
-  getSimilarItems = async () => {
-    // console.log(this.state.similarItems);
-    let itemCount = 0;
-    await API.getAllMenuItems().then(res => {
-      itemCount = res.data.length;
-    });
-    // await console.log(itemCount);
-    for (let i = 0; i < 3; i++) {
-      let rand = await Math.floor(Math.random() * itemCount);
-      // console.log(rand);
-      await API.getOneMenuItem(rand).then(res => {
-        // console.log(res.data);
-        this.setState({
-          similarItems: [...this.state.similarItems, res.data]
+  getSimilarItems = async itemIDS => {
+    let similarItems = [];
+    if(itemIDS.length > 0)
+    {
+        let maxItems = itemIDS.length > 3 ? 3 : itemIDS.length;
+        for (let i = 0; i < maxItems; i++) {
+        await API.getOneMenuItem(itemIDS[i].similarMenuItemId).then(res => {
+          similarItems = [...similarItems, res.data]
         });
-      });
+      }
     }
+    return similarItems;
   };
 
   addtoChart = (Item,e) => {
@@ -108,7 +101,7 @@ class Item extends Component {
     const item = this.state.renderItem;
     const similarItemsList = this.state.similarItems.map((item, index) => (
       <div key={index} className='sim'>
-        <Link to={'/item/' + item.id}>
+        <Link to={{ pathname: '/item/' + item.id, itemID: item.id }}>
           <MenuItem
             img={item.imageUrl}
             name={item.itemName}
@@ -129,15 +122,8 @@ class Item extends Component {
           alt='Menu Item Detail'
           text={this.state.categoryName || 'Tandoor Restauraunt'}
         /> 
-        {/* <Detail
-          name={item.itemName}
-          price={item.itemPrice}
-          img={item.imageUrl}
-          desc={item.description}
-        /> */}
-
         <div className="container">
-          <div className="menu-item-row row">
+          <div className="menu-item-row">
             <div className="item-image">
               <img src={item.imageUrl} alt={item.itemName}/>
             </div>
@@ -152,32 +138,13 @@ class Item extends Component {
               </div>
             </div>
           </div>
-          <div className="row"></div>
+          {/* <div className="row"></div> */}
         </div>
 
         <div className='similar-items-container'>
-          <div className='sim-title'>Similar Items</div>
+        <div className='sim-title'>{similarItemsList.length > 0 ? 'Similar Items' : ''}</div>
           <div className='sim-items'>{similarItemsList}</div>
-          {/* <div className='sim-items'>
-            <Link to={'/item/' + item.id}>
-              <MenuItem
-                img={item.imageUrl}
-                name={item.itemName}
-                price={item.itemPrice}
-                id={item.id}
-              />
-            </Link>
-            <Link to={'/item/' + item.id}>
-              <MenuItem
-                img={item.imageUrl}
-                name={item.itemName}
-                price={item.itemPrice}
-                id={item.id}
-              />
-            </Link>
-          </div> */}
-        </div>
-       
+        </div>       
         <Footer />
       </div>
     );

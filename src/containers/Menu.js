@@ -6,33 +6,42 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Jumbo from '../components/Jumbo';
+import { Pagination } from 'react-bootstrap';
 import API from '../utils/API';
 import img from '../img/old-logo.jpg';
 import '../styles/Menu.css';
 
 class Menu extends Component {
-  state = {
-    favs: [],
-    allItems: [],
-    categories: [],
-    allItemsLoading: true,
-    categoryLoading: true,
-    selected: 'Loading...',
-    mobile: false
-  };
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      favs: [],
+      allItems: [],
+      categories: [],
+      allItemsLoading: true,
+      categoryLoading: true,
+      selected: 'Loading...',
+      mobile: false,
+      currentPage: 1,
+      ordersPerPage: 6,
+      totalPages: 0,
+      totalElements: 0
+    };
+  }
 
   componentDidMount() {
     // this.getFavorites()
     // this.getAllMenuItems()
     // this.scrollToTop();
-    this.gatherAllItems();
+    this.gatherAllItems(this.state.currentPage);
     this.getCategories();
     this.isMobile();
     window.addEventListener('resize', this.isMobile);
   }
 
   scrollToTop = () => {
-    window.onbeforeunload = function() {
+    window.onbeforeunload = function () {
       window.scrollTo(0, 0);
     };
   };
@@ -85,16 +94,25 @@ class Menu extends Component {
     this.setSidebar(categoryIndex);
   };
 
-  gatherAllItems = async () => {
+  gatherAllItems = async (currentPage) => {
     let allItemsArr = [];
-    await API.getAllMenuItems().then(res => {
-      let items = res.data;
+    let pageNum = 0;
+    let pageTotal = 0;
+    let elementsTotal = 0;
+    await API.getAllMenuItems(currentPage, this.state.ordersPerPage).then(res => {
+      let items = res.data.content;
+      pageNum = res.data.number + 1;
+      pageTotal = res.data.totalPages;
+      elementsTotal = res.totalElements;
       // console.log(items)
       allItemsArr = [...items];
     });
 
-    await this.setState({
+    this.setState({
       allItems: [...allItemsArr],
+      currentPage: pageNum,
+      totalPages: pageTotal,
+      totalElements: elementsTotal,
       allItemsLoading: false
     });
     //await console.log('All Items')
@@ -170,6 +188,29 @@ class Menu extends Component {
   //   })
   // }
 
+
+  handleFirst = () => {
+    if (this.state.currentPage > 1) {
+      this.gatherAllItems(1);
+    }
+  }
+  handleNext = () => {
+    if (this.state.currentPage < this.state.totalPages) {
+      this.gatherAllItems(this.state.currentPage + 1);
+    }
+  }
+
+  handlePrev = () => {
+    if (this.state.currentPage > 1) {
+      this.gatherAllItems(this.state.currentPage - 1);
+    }
+  }
+  handleLast = () => {
+    if (this.state.currentPage != this.state.totalPages) {
+      this.gatherAllItems(this.state.totalPages);
+    }
+  }
+
   render() {
     const filteredItemList = this.state.allItems
       .filter(item => {
@@ -205,16 +246,16 @@ class Menu extends Component {
     const mobileCategories = this.state.categoryLoading ? (
       <option value='--'>--</option>
     ) : (
-      this.state.categories
-        .filter(item => {
-          return item.id > 0;
-        })
-        .map((item, index) => (
-          <option key={index} value={item.categoryName} id={item.id}>
-            {item.categoryName.split(" ")[0]}
-          </option>
-        ))
-    );
+        this.state.categories
+          .filter(item => {
+            return item.id > 0;
+          })
+          .map((item, index) => (
+            <option key={index} value={item.categoryName} id={item.id}>
+              {item.categoryName.split(" ")[0]}
+            </option>
+          ))
+      );
 
     return (
       <MyConsumer>
@@ -235,49 +276,49 @@ class Menu extends Component {
                         <option value='--'>--</option>
                       </select>
                     ) : (
-                      <form>
-                        <select
-                          // value={this.state.mobileCategoryValue}
-                          onChange={this.handleMobileSelect}>
-                          <option id='0' value='Full Menu'>
-                            Full Menu
+                        <form>
+                          <select
+                            // value={this.state.mobileCategoryValue}
+                            onChange={this.handleMobileSelect}>
+                            <option id='0' value='Full Menu'>
+                              Full Menu
                           </option>
-                          {mobileCategories}
-                        </select>
-                      </form>
-                    )}
+                            {mobileCategories}
+                          </select>
+                        </form>
+                      )}
                   </div>
                 ) : (
-                  <Fragment>
-                    <div
-                      className='sidebar-top-div sb-toggle'
-                      id='sbItem-0'
-                      onClick={() => this.setSidebar(0)}>
-                      <Sb name='Full Menu' img={img} />
-                    </div>
-                    <div className='sidebar-inner-div'>
-                      {this.state.categoryLoading ? (
-                        <div>Loading...</div>
-                      ) : (
-                        this.state.categories
-                          .filter(filterItem => {
-                            // console.log(filterItem.id);
-                            return filterItem.id > 0;
-                          })
-                          .map((item, index) => (
-                            <div
-                              key={index}
-                              id={`sbItem-${item.id}`}
-                              className='sidebar-inner-item sb-toggle'
-                              sbactive='false'
-                              onClick={() => this.setSidebar(item.id)}>
-                              <Sb name={item.categoryName} img={img} />
-                            </div>
-                          ))
-                      )}
-                    </div>
-                  </Fragment>
-                )}
+                    <Fragment>
+                      <div
+                        className='sidebar-top-div sb-toggle'
+                        id='sbItem-0'
+                        onClick={() => this.setSidebar(0)}>
+                        <Sb name='Full Menu' img={img} />
+                      </div>
+                      <div className='sidebar-inner-div'>
+                        {this.state.categoryLoading ? (
+                          <div>Loading...</div>
+                        ) : (
+                            this.state.categories
+                              .filter(filterItem => {
+                                // console.log(filterItem.id);
+                                return filterItem.id > 0;
+                              })
+                              .map((item, index) => (
+                                <div
+                                  key={index}
+                                  id={`sbItem-${item.id}`}
+                                  className='sidebar-inner-item sb-toggle'
+                                  sbactive='false'
+                                  onClick={() => this.setSidebar(item.id)}>
+                                  <Sb name={item.categoryName} img={img} />
+                                </div>
+                              ))
+                          )}
+                      </div>
+                    </Fragment>
+                  )}
               </div>
               <div className='menu-categories'>
                 <div className='category-title-div'>
@@ -288,11 +329,30 @@ class Menu extends Component {
                     !this.state.allItemsLoading ? (
                       <div className='all-item-div'>{allItemsList}</div>
                     ) : (
-                      <div>Loading...</div>
-                    )
+                        <div>Loading...</div>
+                      )
                   ) : (
-                    <div className='category-item-div'>{filteredItemList}</div>
-                  )}
+                      <div className='category-item-div'>{filteredItemList}</div>
+                    )}
+
+                  <div className="pagination-container">
+                    <div className="paging">
+                      <div className="page-count">
+                        <span>
+                          Showing {this.state.currentPage} of {this.state.totalPages} Pages
+						                </span>
+                      </div>
+                      <div className="page-numbers">
+                        <Pagination>
+                          <Pagination.First onClick={() => this.handleFirst()} />
+                          <Pagination.Prev onClick={() => this.handlePrev()} />
+                          <Pagination.Next onClick={() => this.handleNext()} />
+                          <Pagination.Last onClick={() => this.handleLast()} />
+                          {/*To DO: disable the navigations when there is nothing left */}
+                        </Pagination>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

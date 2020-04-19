@@ -11,7 +11,7 @@ export default {
         if (itemList == null || itemList[key] === undefined) {
             itemList.push(value);
         } else {
-          itemList[key].price += 1;
+           itemList[key].price += itemList[key].price;
         }
         localStorage.setItem(storageName, JSON.stringify(itemList));
     },
