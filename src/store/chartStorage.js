@@ -10,10 +10,12 @@ export default {
         if (itemList == null || itemList[key] === undefined) {
             itemList.push(value);
         } else {
-          itemList[key].price += 1;
+            itemList[key].price += 1;
         }
         localStorage.setItem(storageName, JSON.stringify(itemList));
     },
+
+
     // Get new item list after updatein the items
     updateItem(key) {
       // Get the whole list in the localss
@@ -24,8 +26,9 @@ export default {
 
     // delete all the items in the cash
     clearChart(){
-        localStorage.setItem(storageName,JSON.stringify([]));
+        localStorage.setItem(storageName,JSON.stringify({}));
     },
+
 
     // get all the items in the cache
     getList() {
