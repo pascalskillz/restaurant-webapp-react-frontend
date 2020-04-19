@@ -30,6 +30,10 @@ export default {
     // get all the items in the cache
     getList() {
       let itemList = JSON.parse(localStorage.getItem(storageName));
+      // fix all allItemsArr is null
+      if (itemList === null) {
+        this.clearChart();
+      }
       return JSON.parse(localStorage.getItem(storageName));
     }
 };

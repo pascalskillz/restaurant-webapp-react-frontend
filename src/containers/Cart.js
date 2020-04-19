@@ -27,7 +27,6 @@ class Cart extends Component {
 
   componentDidMount() {
     this.gatherAllItems();
-    console.log(this.state.allItems)
   }
 
   scrollToTop = () => {
@@ -51,19 +50,19 @@ class Cart extends Component {
 
       // If API all set
       // Pos item data to the api and transfer to the backend
-      // API.addReservation(allItems).then(result => {
-      //     
-      //     if (result == 'success') {
-      //          Swal.fire("Order Submitted", 
-      //                     "", 
-      //                     "success");
-      //     } else {
-      //         Swal.fire({
-      //           icon: "error",
-      //           title: "Order Filed",
-      //         });
-      //     }
-      // })
+      API.addReservation(allItems).then(result => {
+          
+          if (result == 'success') {
+               Swal.fire("Order Submitted", 
+                          "", 
+                          "success");
+          } else {
+              Swal.fire({
+                icon: "error",
+                title: "Order Filed",
+              });
+          }
+      })
       //
 
   };
@@ -81,8 +80,8 @@ class Cart extends Component {
   reterivalOrder = async () =>{
       let target;
       await API.getAllOrders().then(res => {
-      let items = res.data;
-  
+      let items = res.data.content;
+      console.log(items);
       const index = this.state.inpValu;
       for (const i in items){
             const temp = items[i];
