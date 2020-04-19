@@ -90,7 +90,7 @@ footer {
 .cpanel-action-container {
   margin-top: 20px;
   width: 100%;
-  /* display: flex; */ 
+  /* display: flex; */
   justify-content: center;
 }
 
@@ -114,6 +114,11 @@ footer {
 
 .item-catalog-dropdown {
   width: 80%;
+}
+
+.select-item-div {
+  display: grid;
+  grid-template-rows: repeat(3, min-content);
 }
 
 .table-scroll {
@@ -151,10 +156,24 @@ footer {
 
 .search-bar-button-div {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: "search all new";
+}
+
+.search-bar {
+  grid-area: search;
+}
+
+.all-items-button-div {
+  grid-area: all;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .new-item-button-div {
+  grid-area: new;
   display: flex;
   width: 100%;
   justify-content: center;
@@ -178,6 +197,32 @@ footer {
 
 #searchIcon {
   cursor: pointer;
+}
+
+.catalog-pagination {
+  display: grid;
+  grid-template-columns: 500px 1fr 500px;
+  grid-template-areas: "left . right";
+}
+
+.catalog-pagination-left {
+  grid-area: left;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.catalog-pagination-right {
+  grid-area: right;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.catalog-pagination-right ul {
+  margin-bottom: 0;
 }
 
 /* --------------------------------------------------------------- Edit Widget */
@@ -276,33 +321,44 @@ footer {
   color: white !important;
   font-weight: bold;
 }
+
 .order-widget {
   display: contents;
 }
+
 .table-scroll.order-table {
   width: 88%;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 .order-details-container {
   width: 100%;
 }
+
 .customer-order {
   display: flex;
   justify-content: space-around;
 }
-.order-items{
+
+.order-items {
   width: 85%;
 }
+
 .details-table {
   display: flex;
   justify-content: center;
   margin-top: 60px;
 }
-.customer-info, .order-info{
+
+.customer-info,
+.order-info {
   border: 1px solid #e3e3e3;
   padding: 10px 50px;
   background: #ececec;
   border-radius: 4%;
 }
+
 .grand-total td {
   text-align: right;
   padding-right: 13%;
@@ -312,6 +368,13 @@ footer {
   position: relative;
   left: 40%;
 }
+
+.paging {
+  display: flex;
+  justify-content: space-between;
+}
+
+
 
 /* --------------------------------------------------------------- Create Widget */
 .newItem-form-item {
