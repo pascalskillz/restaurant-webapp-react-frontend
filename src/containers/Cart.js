@@ -29,97 +29,99 @@ class Cart extends Component {
   }
 
   scrollToTop = () => {
-    window.onbeforeunload = function() {
+    window.onbeforeunload = function () {
       window.scrollTo(0, 0);
     };
   };
 
   submitOrders = (allItems) => {
-
     // Sweat alert make confirm for this order
-      // Swal.fire("Order Submitted", "", "success");
+    // Swal.fire("Order Submitted", "", "success");
 
+    // clean local cashe
+    // chartStorage.clearChart();
 
-      // clean local cashe
-      // chartStorage.clearChart();
+    // redirt to the main page
+    // window.location.href = "http://localhost:3000/";
 
-      // redirt to the main page
-      // window.location.href = "http://localhost:3000/";
-      const postData = {
-          customerName:"",
-          customerPhone:"",
-          amount:0,
-          orderDetails:[]
-      };
-      
-      
-      let amounnt = 0;
-      let itemList = chartStorage.getList();
-      for (const item in itemList) {
+    var postData = {
+      customerName: "Meng Test",
+      customerPhone: "7335727001",
+      amount: 0,
+      orderDetails: [],
+    };
 
+    const lists = chartStorage.getList();
+    let amount = 0;
+    const tempDeatil = {
+      quantity: 0,
+      menuItemId: 0,
+    };
+    console.log(lists);
+    for (const i in lists) {
+      const temp = lists[i];
+      amount += temp.itemPrice;
+      tempDeatil.quantity = 1;
+      tempDeatil.menuItemId = temp.id;
+      postData.orderDetails.push(tempDeatil);
+    }
+
+    postData.amount = amount.toFixed(2);
+    console.log("postData" + JSON.stringify(postData));
+    API.addOrders(postData).then((result) => {
+      if (result.status != 400) {
+        Swal.fire("Order Submitted", "", "success");
+        chartStorage.clearChart();
+        // redirt to the main page
+        window.location.href = "http://localhost:3000/";
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Order Filed",
+        });
       }
-        console.log(itemList);
-      // If API all set
-      // Pos item data to the api and transfer to the backend
-      // API.addReservation(allItems).then(result => {
-          
-      //     if (result.status != 400) {
-      //         // let 
-      //          Swal.fire("Order Submitted", 
-      //                     "", 
-      //                     "success");
-      //     } else {
-      //         Swal.fire({
-      //           icon: "error",
-      //           title: "Order Filed",
-      //         });
-      //     }
-      // })
-      //
-
+    });
+   
+   
+    //
   };
   /**
    * Reterival oerders from the servrer
-   * @param {*} e 
+   * @param {*} e
    */
   //*************** Start ***************** */
   handelChange(e) {
     this.setState({
-      inpValu: e.target.value
-    })
+      inpValu: e.target.value,
+    });
   }
 
-  reterivalOrder = async () =>{
-      let target;
-      await API.getAllOrders().then(res => {
+  reterivalOrder = async () => {
+    let target;
+    await API.getAllOrders().then((res) => {
       let items = res.data.content;
       console.log(items);
       const index = this.state.inpValu;
-      for (const i in items){
-            const temp = items[i];
-            if (index === temp.id){
-              this.setState({
-                tempresult: temp.customerName
-              })
-            }
+      for (const i in items) {
+        const temp = items[i];
+        if (index === temp.id) {
+          this.setState({
+            tempresult: temp.customerName,
+          });
+        }
       }
-      console.log(target)
+      console.log(target);
       // this.setState({
       //   temp: target.customerName
       // })
-
     });
 
     //   for (const value in target.orderDetails) {
     //       let item = await API.getOneMenuItem(value.menuItemId);
     //       chartStorage.addItem(item.data);
     //   }
-  }
+  };
   //*************** End **************** */
-
-  
-
-  
 
   removeItem(item) {
     const itemList = this.state.allItems;
@@ -127,7 +129,7 @@ class Cart extends Component {
     const index = itemList.indexOf(item);
     itemList.splice(index, 1);
     this.setState({
-      allItems: [...itemList]
+      allItems: [...itemList],
     });
   }
 
@@ -136,14 +138,11 @@ class Cart extends Component {
     allItemsArr = chartStorage.getList();
     await this.setState({
       allItems: allItemsArr,
-      allItemsLoading: false
+      allItemsLoading: false,
     });
   };
 
-
   render() {
-
-
     let subtotal = 0;
     let allItemsList = [];
     let itemList = this.state.allItems;
@@ -156,7 +155,7 @@ class Cart extends Component {
               <span class="remove-item">
                 <i
                   class="fa fa-times"
-                  onClick={item => this.removeItem(item)}
+                  onClick={(item) => this.removeItem(item)}
                 ></i>
               </span>
               <a class="cart-item-product">
@@ -195,7 +194,7 @@ class Cart extends Component {
           </div>
         </div>
       );
-      subtotal += item.itemPrice;
+      subtotal += (item.itemPrice);
     });
 
     return (
@@ -214,7 +213,7 @@ class Cart extends Component {
                 <div className="category-title-div">
                   <div className="title-header-text">Cart List</div>
                 </div>
-                <div className="row">
+                {/* <div className="row">
                   <div class="col-sm-6 mb-3">
                     Retrival Order:{" "}
                     <input onChange={this.handelChange.bind(this)} />
@@ -228,7 +227,7 @@ class Cart extends Component {
                     </button>
                   </div>
                 </div>
-                <div className="row"> {this.state.tempresult}</div>
+                <div className="row"> {this.state.tempresult}</div> */}
 
                 <div className="row">
                   <div className="category-item-container">
@@ -244,7 +243,7 @@ class Cart extends Component {
                       Subtotal:
                     </span>
                     <span class="d-inline-block align-middle text-xl font-weight-medium">
-                      ${subtotal}
+                      ${subtotal.toFixed(2)}
                     </span>
                   </div>
                 </div>
