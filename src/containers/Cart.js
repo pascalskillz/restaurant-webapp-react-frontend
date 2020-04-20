@@ -22,7 +22,6 @@ class Cart extends Component {
     selected: "Loading...",
     mobile: false,
     coupounCode: "",
-    discount:1
   };
 
   componentDidMount() {
