@@ -7,7 +7,12 @@ import '../styles/Main.css';
 import img1 from '../img/slide1.jpg';
 import img2 from '../img/slide2.jpg';
 import img3 from '../img/slide3.jpg';
-import menu from '../img/menu1.jpg';
+import main1 from '../img/MChicken.jpg';
+import main2 from '../img/MLamb.jpg';
+import main3 from '../img/MSoup.jpg';
+import main4 from '../img/Mseafood.jpg';
+import buffet from '../img/buffet.jpg';
+
 
 class Main extends Component {
   render() {
@@ -20,8 +25,8 @@ class Main extends Component {
               <div className='carousel-div'>
                 <div className='carousel-text'>
                   <div className='jumbo-text-large'>
-                    Welcome to <br/>
-                    TANDOOR
+                    Welcome to 
+                    Tandoor
                     
                   </div>
                   <div className='jumbo-text-small'>
@@ -112,19 +117,41 @@ class Main extends Component {
              fresh ingredients.</h6>
               </div>
 
-              <button className="button-menu"><span ><a  className="button-menu"  href='/menu'> Menu</a> </span></button>
               {/* <h6>Tandoor India offers delicious dining, takeout and delivery to Oakhurst, NJ.
               Tandoor India is a cornerstone in the Oakhurst community and has been recognized for its outstanding Indian cuisine,
               excellent service and friendly staff.
               Our Indian restaurant is known for its modern interpretation of classic dishes and its insistence on only using high quality
              fresh ingredients.</h6> */}
             </div>
-            <div className="column2"> I am gonna update this middle soon!!
-            <div class="gallery">
-  <img className="img-gallery" src={img1} alt="flex-gallery" />
-  <img className="img-gallery"  src={img1} alt="flex-gallery" />
-  <img className="img-gallery"  src={img1} alt="flex-gallery" />
-</div>
+            <div className="column2">
+            <div className="gallery">
+
+              <div className="avatar">
+                <img className="img-gallery" src={main1} alt="flex-gallery" />
+  <div className="middle">
+  <div class="overlay">Chicken</div>
+  </div></div>
+
+  <div className="avatar">
+                <img className="img-gallery" src={main2} alt="flex-gallery" />
+  <div className="middle">
+  <div class="overlay">Lamb</div>
+  </div></div>
+ <div className="avatar">
+    <img className="img-gallery"  src={main3} alt="flex-gallery" />
+  <div className="middle">
+  <div class="overlay">Soups</div>
+  </div></div>
+  <div className="avatar">
+    <img className="img-gallery"  src={main4} alt="flex-gallery" />
+  <div className="middle">
+  <div class="overlay">Seafood</div>
+  </div></div>
+  <div className="menuside-bu"><a className='menu-bu' href='/menu'>
+                  Full Menu
+                  </a></div>
+                  
+                  </div>
             </div>
            
             <div className="column3">
