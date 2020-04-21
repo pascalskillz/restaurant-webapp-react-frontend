@@ -32,7 +32,7 @@ class Contact extends Component {
       this.setState({
         isVerified: true,
       });
-      document.getElementById("ver").removeAttribute("disabled"); // Will romove when user clicked check-box
+      document.getElementById("verify").removeAttribute("disabled"); // Will romove when user clicked check-box
     }
   }
 
@@ -133,19 +133,20 @@ class Contact extends Component {
                                 required
                               ></textarea>
                             </div>
-                            {/*                   
+                                              
                    <Recaptcha
                    sitekey="6Ld8peIUAAAAAKiyelcRWBofd48HzfMYWZq72qkp"
                    render="explicit"
                    theme='light'
                    onloadCallback={this.rechaptchaLoaded}
                    verifyCallback={this.verifyCallback}
-                  /> */}
+                  />
                             <div>
                               <input
-                                id="ver"
+                                id="verify"
                                 className="btn btn-dark"
                                 type="submit"
+                                disabled="disabled"
                                 validateForm={this.validateForm}
                               />
                             </div>
