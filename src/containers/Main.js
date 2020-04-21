@@ -115,6 +115,14 @@ class Main extends Component {
               excellent service and friendly staff.
               Our Indian restaurant is known for its modern interpretation of classic dishes and its insistence on only using high quality
              fresh ingredients.</h6>
+<           div className="Buffet-info"> <h6> 
+  
+                  <h3>Buffet Days</h3> <br/>
+                  Lunch Buffet: Tuesday - Sunday <br/>
+                  Dinner Buffet: Thursday & Sunday<br/>
+                  Special Buffets: Call Us
+                    </h6></div>
+            
               </div>
 
               {/* <h6>Tandoor India offers delicious dining, takeout and delivery to Oakhurst, NJ.
@@ -124,29 +132,31 @@ class Main extends Component {
              fresh ingredients.</h6> */}
             </div>
             <div className="column2">
+              
+            <div className="gallary-header">.. Specials ..</div>
             <div className="gallery">
-
+            
               <div className="avatar">
                 <img className="img-gallery" src={main1} alt="flex-gallery" />
-  <div className="middle">
+  
   <div class="overlay">Chicken</div>
-  </div></div>
+  </div>
 
   <div className="avatar">
                 <img className="img-gallery" src={main2} alt="flex-gallery" />
-  <div className="middle">
+  
   <div class="overlay">Lamb</div>
-  </div></div>
+  </div>
  <div className="avatar">
     <img className="img-gallery"  src={main3} alt="flex-gallery" />
-  <div className="middle">
+  
   <div class="overlay">Soups</div>
-  </div></div>
+  </div>
   <div className="avatar">
     <img className="img-gallery"  src={main4} alt="flex-gallery" />
-  <div className="middle">
-  <div class="overlay">Seafood</div>
-  </div></div>
+    <div class="overlay">Seafood</div>
+  </div>
+  
   <div className="menuside-bu"><a className='menu-bu' href='/menu'>
                   Full Menu
                   </a></div>
@@ -154,12 +164,11 @@ class Main extends Component {
                   </div>
             </div>
            
-            <div className="column3">
-              
-             </div>
+            <div className="column4"></div>
             </div> 
-
+            
               </div> 
+             
          
             </div>
             <Footer />
