@@ -110,7 +110,7 @@
   background-size: cover;
   float: left;
   background-repeat: 200px 200px; 
-  background-image: url(../img/bg0.jpg);
+  background-image: url(../img/main-content-div-background.jpg);
   background-position: 50% 50%;
   
 }
@@ -131,6 +131,7 @@
   text-shadow:0px 0px 21px #ffee66;
   text-decoration: none;
   background-color: #ffffff00 !important;
+  
 }
 
 .button {
@@ -142,6 +143,9 @@
   border: 1px solid var(--grey);
 	text-decoration:none;
   /* text-decoration-color: #999999; */
+}
+.button:hover{
+  color: rgb(219, 141, 39);
 }
 
 a:link {
@@ -236,7 +240,7 @@ a:link {
 
 
 /* Three image containers (use 25% for four, and 50% for two, etc) */
-.column1, .column2,.column3,.column4 {
+.column1, .column2,.column3 {
   float: left;
   width: 33.33%;
   padding: 5px;
@@ -253,7 +257,7 @@ a:link {
   display: table;
 }
 
-
+/*I divided "main-content-div" into 3 container from left to right each one has its css element */
 .column1{
   display: flex;
   margin-top: 20px;
@@ -284,68 +288,9 @@ a:link {
    font-size: x-large;
    
  }
- 
- .menu-bu{
-  font-family: 'Sail', cursive;
-  font-size: x-large;
-  border-radius: 4px;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 23px;
-  padding: 20px;
-  width: 100x;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 10px;
- }
-
-/* .bu-about{
-  border-radius: 4px;
-  background-color: #8d6161;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-family: 'Sail', cursive;
-  font-size: 28px;
-  padding: 20px;
-  width: 100x;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 0px;
-} */
-
-.menu-bu span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-  text-decoration: none;
-}
-
-.menu-bu span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-
- .menu-bu:hover  {
-  padding-right: 10px;
-  color:rgba(172, 169, 169, 0.9);
-}
-
- /* .menu-bu:hover span:after {
-  opacity: 1;
-  right: 0;
-}  */
 .column2{
   display: fixed;
   margin-top: 20px;
-  /* margin-bottom: 30px; */
-  /* background-image: url(../img/side1.jpg); */
-  /* padding: 0 10px 10px 10px; */
   border-radius: 10px;
   background-repeat: no-repeat;
   background-size: contain;
@@ -370,9 +315,7 @@ a:link {
 }
 .avatar{
   display: table;
-    /* position: sticky; */
-    /* width: 50%; */
-    position: relative;
+  position: relative;
   width: 50%;
   max-width: 300px;
 }
@@ -383,15 +326,11 @@ a:link {
   height: 180px;
   border: 0.1em solid rgb(199, 193, 190);
   box-shadow: 3px 3px 8px 0px rgba(250, 69, 14, 0.3); 
- 
   display: block;
   width: 100%;
   height: auto;
-
   object-fit: cover;
 }
-
-
 .overlay {
   position: absolute; 
   bottom: 0; 
@@ -404,27 +343,57 @@ a:link {
   color: white;
   font-size: 20px;
   padding: 5px;
-
   text-align: center;
 }
 .avatar:hover .overlay {
   opacity: 1;
 }
-.menu-bu{
+
+.menuside-bu{
+  margin: 10px;
+  }
+.menu-bu-gallery{
   padding: 4px 15px;
   border-radius: 5px;
   background: rgba(0, 0, 0, 0.5); /* Black see-through */
   color: var(--white);
-  font-weight: bold;
   border: 1px solid var(--grey);
-	text-decoration:none;
-  /* text-decoration-color: #999999; */
-}
-.menuside-bu{
-margin: 10px;
+  border-radius: 4px;
+  font-family: 'Sail', cursive;
+  font-size: x-large;
+  text-align: center;
+  font-size: 23px;
+  width: 100x;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 10px;
 }
 
-.column4{
+.menu-bu-gallery span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+  text-decoration: none;
+}
+
+.menu-bu-gallery span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+ .menu-bu-gallery:hover  {
+  padding-right: 10px;
+  /* color:rgba(172, 169, 169, 0.9); */
+  color: rgb(219, 141, 39);
+
+}
+
+.column3{
   display: flex;
   margin-top: 20px;
   /* margin-bottom: 30px; */
