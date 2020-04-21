@@ -157,14 +157,14 @@ class Main extends Component {
     <div class="overlay">Seafood</div>
   </div>
   
-  <div className="menuside-bu"><a className='menu-bu' href='/menu'>
+  <div className="menuside-bu"><a className='menu-bu-gallery' href='/menu'>
                   Full Menu
                   </a></div>
                   
                   </div>
             </div>
            
-            <div className="column4"></div>
+            <div className="column3"></div>
             </div> 
             
               </div> 
