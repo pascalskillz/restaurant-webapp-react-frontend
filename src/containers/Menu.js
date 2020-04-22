@@ -25,9 +25,10 @@ class Menu extends Component {
       selected: 'Loading...',
       mobile: false,
       currentPage: 1,
-      ordersPerPage: 5,
+      ordersPerPage: 9,
       totalPages: 0,
-      totalElements: 0
+      totalElements: 0,
+      selectedId: -1
     };
   }
 
@@ -35,8 +36,8 @@ class Menu extends Component {
     // this.getFavorites()
     // this.getAllMenuItems()
     // this.scrollToTop();
-    this.gatherMenuItemsByCategory(5, 0);
-    // this.gatherAllItems(this.state.currentPage);
+    // this.gatherMenuItemsByCategory(5, 0);
+    this.gatherAllItems(this.state.currentPage);
     this.getCategories();
     this.isMobile();
     window.addEventListener('resize', this.isMobile);
@@ -124,7 +125,7 @@ class Menu extends Component {
   setSidebar = async x => {
     if (!this.state.mobile) {
       let length = this.state.categories.length;
-      // console.log(`setSidebar: ${x}`);
+      //console.log(`setSidebar: ${x}`);
       if (x === 0) {
         document.getElementById(`sbItem-0`).setAttribute('sbactive', 'true');
         this.setState({
@@ -214,34 +215,46 @@ class Menu extends Component {
     });
   }
 
+  handleCategorySelect = (categoryId) => {
+    this.gatherMenuItemsByCategory(categoryId, 0);
+  }
+
   handleFirst = () => {
     if (this.state.currentPage > 1) {
-      this.gatherAllItems(1);
+      // this.gatherAllItems(1);
+      this.gatherMenuItemsByCategory(this.state.selectedId, 1)
     }
   }
   handleNext = () => {
     if (this.state.currentPage < this.state.totalPages) {
-      this.gatherAllItems(this.state.currentPage + 1);
+      // this.gatherAllItems(this.state.currentPage + 1);
+      this.gatherMenuItemsByCategory(this.state.selectedId, this.state.currentPage + 1)
+      // console.log(`selectedId: ${this.state.selectedId}`);
+      // console.log(`currentPage: ${this.state.currentPage}`);
+      // console.log(`totalPages: ${this.state.totalPages}`);
     }
   }
 
   handlePrev = () => {
     if (this.state.currentPage > 1) {
-      this.gatherAllItems(this.state.currentPage - 1);
+      //this.gatherAllItems(this.state.currentPage - 1);
+      this.gatherMenuItemsByCategory(this.state.selectedId, this.state.currentPage - 1)
     }
   }
   handleLast = () => {
     if (this.state.currentPage != this.state.totalPages) {
-      this.gatherAllItems(this.state.totalPages);
+
+      //this.gatherAllItems(this.state.totalPages);
+      this.gatherMenuItemsByCategory(this.state.selectedId, this.state.totalPages)
     }
   }
 
   render() {
-    const filteredItemList = this.state.allItems
-      .filter(item => {
-        //console.log(item)
-        return item.categoryId === this.state.selectedId;
-      })
+    const filteredItemList = this.state.catMenuItems
+      // .filter(item => {
+      //   //console.log(item)
+      //   return item.categoryId === this.state.selectedId;
+      // })
       .map((item, index) => (
         <div key={index} className='filtered-grid-item'>
           <Link to={'/item/' + item.id}>
@@ -336,7 +349,7 @@ class Menu extends Component {
                                   id={`sbItem-${item.id}`}
                                   className='sidebar-inner-item sb-toggle'
                                   sbactive='false'
-                                  onClick={() => this.setSidebar(item.id)}>
+                                  onClick={() => { this.setSidebar(item.id); this.handleCategorySelect(item.id) }}>
                                   <Sb name={item.categoryName} img={img} />
                                 </div>
                               ))
@@ -357,6 +370,7 @@ class Menu extends Component {
                         <div>Loading...</div>
                       )
                   ) : (
+                      // <div className='category-item-div'>{allItemsList}</div>
                       <div className='category-item-div'>{filteredItemList}</div>
                     )}
 
