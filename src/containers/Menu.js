@@ -19,12 +19,13 @@ class Menu extends Component {
       favs: [],
       allItems: [],
       categories: [],
+      catMenuItems: [],
       allItemsLoading: true,
       categoryLoading: true,
       selected: 'Loading...',
       mobile: false,
       currentPage: 1,
-      ordersPerPage: 6,
+      ordersPerPage: 5,
       totalPages: 0,
       totalElements: 0
     };
@@ -34,7 +35,8 @@ class Menu extends Component {
     // this.getFavorites()
     // this.getAllMenuItems()
     // this.scrollToTop();
-    this.gatherAllItems(this.state.currentPage);
+    this.gatherMenuItemsByCategory(5, 0);
+    // this.gatherAllItems(this.state.currentPage);
     this.getCategories();
     this.isMobile();
     window.addEventListener('resize', this.isMobile);
@@ -103,8 +105,8 @@ class Menu extends Component {
       let items = res.data.content;
       pageNum = res.data.number + 1;
       pageTotal = res.data.totalPages;
-      elementsTotal = res.totalElements;
-      // console.log(items)
+      elementsTotal = res.data.totalElements;
+      /// console.log(items)
       allItemsArr = [...items];
     });
 
@@ -188,6 +190,29 @@ class Menu extends Component {
   //   })
   // }
 
+  gatherMenuItemsByCategory = async (categoryId, currentPage) => {
+    let allMenuItems = [];
+    let pageNum = 0;
+    let pageTotal = 0;
+    let elementsTotal = 0;
+    await API.getMenuItemsByCategory(categoryId, currentPage, this.state.ordersPerPage).then(res => {
+      let items = res.data.content;
+      pageNum = res.data.number + 1;
+      pageTotal = res.data.totalPages;
+      elementsTotal = res.data.totalElements;
+      allMenuItems = [...items];
+      console.log("pageTotal " + pageTotal + "  elementsTotal " + elementsTotal)
+      console.log(items);
+    });
+
+    this.setState({
+      catMenuItems: [...allMenuItems],
+      currentPage: pageNum,
+      totalPages: pageTotal,
+      totalElements: elementsTotal,
+      allItemsLoading: false
+    });
+  }
 
   handleFirst = () => {
     if (this.state.currentPage > 1) {
