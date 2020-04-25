@@ -28,6 +28,7 @@ class Menu extends Component {
       ordersPerPage: 9,
       totalPages: 0,
       totalElements: 0,
+      viewFullMenu: true,
       selectedId: -1
     };
   }
@@ -107,7 +108,7 @@ class Menu extends Component {
       pageNum = res.data.number + 1;
       pageTotal = res.data.totalPages;
       elementsTotal = res.data.totalElements;
-      /// console.log(items)
+      console.log(items)
       allItemsArr = [...items];
     });
 
@@ -202,7 +203,7 @@ class Menu extends Component {
       pageTotal = res.data.totalPages;
       elementsTotal = res.data.totalElements;
       allMenuItems = [...items];
-      console.log("pageTotal " + pageTotal + "  elementsTotal " + elementsTotal)
+      console.log("pageTotal " + pageTotal + "  elementsTotal " + elementsTotal + " pageNum " + pageNum)
       console.log(items);
     });
 
@@ -216,36 +217,61 @@ class Menu extends Component {
   }
 
   handleCategorySelect = (categoryId) => {
+    this.setState({ viewFullMenu: false });
     this.gatherMenuItemsByCategory(categoryId, 0);
+  }
+
+  handleFullMenuView = () => {
+    this.gatherAllItems(1);
+    this.setState({ viewFullMenu: true });
+    //console.log(this.state.allItems);
+    //console.log(this.state.viewFullMenu);
   }
 
   handleFirst = () => {
     if (this.state.currentPage > 1) {
-      // this.gatherAllItems(1);
-      this.gatherMenuItemsByCategory(this.state.selectedId, 1)
+      if (this.state.viewFullMenu) {
+        this.gatherAllItems(1);
+      }
+      else {
+        this.gatherMenuItemsByCategory(this.state.selectedId, 1);
+      }
     }
   }
   handleNext = () => {
+    console.log(`currentPage ${this.state.currentPage}`);
     if (this.state.currentPage < this.state.totalPages) {
-      // this.gatherAllItems(this.state.currentPage + 1);
-      this.gatherMenuItemsByCategory(this.state.selectedId, this.state.currentPage + 1)
-      // console.log(`selectedId: ${this.state.selectedId}`);
-      // console.log(`currentPage: ${this.state.currentPage}`);
-      // console.log(`totalPages: ${this.state.totalPages}`);
+      if (this.state.viewFullMenu) {
+        this.gatherAllItems(this.state.currentPage + 1);
+      }
+      else {
+        this.gatherMenuItemsByCategory(this.state.selectedId, this.state.currentPage + 1);
+        // console.log(`selectedId: ${this.state.selectedId}`);
+        // console.log(`currentPage: ${this.state.currentPage}`);
+        // console.log(`totalPages: ${this.state.totalPages}`);
+      }
     }
   }
 
   handlePrev = () => {
+    console.log(`currentPage ${this.state.currentPage}`);
     if (this.state.currentPage > 1) {
-      //this.gatherAllItems(this.state.currentPage - 1);
-      this.gatherMenuItemsByCategory(this.state.selectedId, this.state.currentPage - 1)
+      if (this.state.viewFullMenu) {
+        this.gatherAllItems(this.state.currentPage - 1);
+      }
+      else {
+        this.gatherMenuItemsByCategory(this.state.selectedId, this.state.currentPage - 1);
+        //this.state.currentPage--;
+      }
     }
   }
   handleLast = () => {
     if (this.state.currentPage != this.state.totalPages) {
-
-      //this.gatherAllItems(this.state.totalPages);
-      this.gatherMenuItemsByCategory(this.state.selectedId, this.state.totalPages)
+      if (this.state.viewFullMenu) {
+        this.gatherAllItems(this.state.totalPages);
+      } else {
+        this.gatherMenuItemsByCategory(this.state.selectedId, this.state.totalPages);
+      }
     }
   }
 
@@ -331,7 +357,7 @@ class Menu extends Component {
                       <div
                         className='sidebar-top-div sb-toggle'
                         id='sbItem-0'
-                        onClick={() => this.setSidebar(0)}>
+                        onClick={() => { this.handleFullMenuView(); this.setSidebar(0) }}>
                         <Sb name='Full Menu' img={img} />
                       </div>
                       <div className='sidebar-inner-div'>
