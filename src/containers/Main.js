@@ -137,28 +137,27 @@ class Main extends Component {
             <div className="gallery">
             
               <div className="avatar">
-                <img className="img-gallery" src={main1} alt="flex-gallery" />
-  
-  <div class="overlay">Chicken</div>
-  </div>
+               <img className="img-gallery" src={main1} alt="flex-gallery" />
+               <a href="menu?category=5"><div class="overlay">Chicken</div></a>
+            </div>
 
-  <div className="avatar">
+              <div className="avatar">
                 <img className="img-gallery" src={main2} alt="flex-gallery" />
   
-  <div class="overlay">Lamb</div>
-  </div>
- <div className="avatar">
-    <img className="img-gallery"  src={main3} alt="flex-gallery" />
-  
-  <div class="overlay">Soups</div>
-  </div>
-  <div className="avatar">
-    <img className="img-gallery"  src={main4} alt="flex-gallery" />
-    <div class="overlay">Seafood</div>
-  </div>
-  
-  <div className="menuside-bu"><a className='menu-bu-gallery' href='/menu'>
-                  Full Menu
+                <a href="menu?category=6"> <div class="overlay">Lamb</div></a>
+               </div>
+              <div className="avatar">
+               <img className="img-gallery"  src={main3} alt="flex-gallery" />
+            
+              <a href="menu?category=2">  <div class="overlay">Soups</div></a>
+            </div>
+            <div className="avatar">
+              <img className="img-gallery"  src={main4} alt="flex-gallery" />
+             <a href="menu?category=7"><div class="overlay">Seafood</div></a>
+            </div>
+            
+            <div className="menuside-bu"><a className='menu-bu-gallery' href='/menu'>
+                            Full Menu
                   </a></div>
                   
                   </div>
