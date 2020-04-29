@@ -230,6 +230,7 @@ class Menu extends Component {
 
   handleFirst = () => {
     if (this.state.currentPage > 1) {
+      window.scrollTo(0, 0);
       if (this.state.viewFullMenu) {
         this.gatherAllItems(1);
       }
@@ -241,6 +242,7 @@ class Menu extends Component {
   handleNext = () => {
     console.log(`currentPage ${this.state.currentPage}`);
     if (this.state.currentPage < this.state.totalPages) {
+      window.scrollTo(0, 0);
       if (this.state.viewFullMenu) {
         this.gatherAllItems(this.state.currentPage + 1);
       }
@@ -256,6 +258,7 @@ class Menu extends Component {
   handlePrev = () => {
     console.log(`currentPage ${this.state.currentPage}`);
     if (this.state.currentPage > 1) {
+      window.scrollTo(0, 0);
       if (this.state.viewFullMenu) {
         this.gatherAllItems(this.state.currentPage - 1);
       }
@@ -267,6 +270,7 @@ class Menu extends Component {
   }
   handleLast = () => {
     if (this.state.currentPage != this.state.totalPages) {
+      window.scrollTo(0, 0);
       if (this.state.viewFullMenu) {
         this.gatherAllItems(this.state.totalPages);
       } else {
