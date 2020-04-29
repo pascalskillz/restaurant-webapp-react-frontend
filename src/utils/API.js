@@ -10,7 +10,7 @@ export default {
   },
 
   getMenuItemsByCategory(categoryId, pageNum, limit) {
-    return axios.get(`${localUrl}/categories/${categoryId}/menuitems?page=${pageNum}&size=${limit}`)
+    return axios.get(`${url}/categories/${categoryId}/menuitems?page=${pageNum}&size=${limit}`)
   },
 
   getOneMenuItem(itemId) {

@@ -203,8 +203,8 @@ class Menu extends Component {
       pageTotal = res.data.totalPages;
       elementsTotal = res.data.totalElements;
       allMenuItems = [...items];
-      console.log("pageTotal " + pageTotal + "  elementsTotal " + elementsTotal + " pageNum " + pageNum)
-      console.log(items);
+      //console.log("pageTotal " + pageTotal + "  elementsTotal " + elementsTotal + " pageNum " + pageNum)
+      //console.log(items);
     });
 
     this.setState({
