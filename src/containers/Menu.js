@@ -25,6 +25,7 @@ class Menu extends Component {
       selected: 'Loading...',
       mobile: false,
       currentPage: 1,
+      catCurrentPage: 0,
       ordersPerPage: 9,
       totalPages: 0,
       totalElements: 0,
