@@ -10,7 +10,7 @@ class Navbar extends Component {
     // boxToggle: false,
     navBg: false,
     navOpen: true,
-    page: ''
+    page: '',
   };
 
   componentDidMount() {
@@ -22,7 +22,7 @@ class Navbar extends Component {
   setPageName = () => {
     let page = this.props.page;
     this.setState({
-      page: page
+      page: page,
     });
   };
 
@@ -40,11 +40,11 @@ class Navbar extends Component {
       // else false
       if (rect.top <= 0) {
         this.setState({
-          navBg: true
+          navBg: true,
         });
       } else {
         this.setState({
-          navBg: false
+          navBg: false,
         });
       }
     }
@@ -55,7 +55,7 @@ class Navbar extends Component {
     let nav = document.querySelector('.nav');
     let burger = document.querySelector('#burger-toggle');
     this.setState({
-      navOpen: !this.state.navOpen
+      navOpen: !this.state.navOpen,
     });
     // console.log(this.state.navOpen);
     this.state.navOpen
