@@ -103,9 +103,12 @@
   text-transform: capitalize;
 }
 
-/* .category-item-container {
-  padding: 0 50px;
-} */
+.category-item-container {
+  /* display: flex; */
+  /* justify-content: center; */
+  /* max-width: 1075px; */
+  /* margin: 0 auto; */
+}
 
 .all-item-div {
   display: grid;

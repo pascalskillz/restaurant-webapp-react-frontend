@@ -136,7 +136,6 @@ class ItemCatalog extends Component {
   };
 
   getAllItems = async (currentPage) => {
-    console.log('GET ALL ITEMS');
     let allItemsArr = [];
     let pageNum = 0;
     let totalPages = 0;

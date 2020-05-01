@@ -57,7 +57,7 @@ class Menu extends Component {
     } else {
       this.setState({ mobile: false });
       this.getCategories();
-      this.gatherAllItems();
+      this.gatherAllItems(this.state.currentPage);
     }
   };
 
@@ -136,23 +136,23 @@ class Menu extends Component {
         });
         for (var j = 1; j < length; j++) {
           document
-            .getElementById(`sbItem-${j}`)
-            .setAttribute('sbactive', 'false');
+          .getElementById(`sbItem-${j}`)
+          .setAttribute('sbactive', 'false');
         }
       }
       if (x !== 0) {
         document.getElementById(`sbItem-0`).setAttribute('sbactive', 'false');
         for (var i = 1; i < length; i++) {
           if (x === i) {
+            console.log('SET SIDEBAR');
             document
               .getElementById(`sbItem-${i}`)
               .setAttribute('sbactive', 'true');
             this.setState({
               selected: this.state.categories[i].categoryName,
               selectedId: i
-              //categorySelected: this.state.allItems['categoryId']
             });
-            // console.log(this.state.categories[i].categoryName)
+            this.handleCategorySelect(i) 
           } else {
             document
               .getElementById(`sbItem-${i}`)
@@ -328,7 +328,7 @@ class Menu extends Component {
 
     return (
       <MyConsumer>
-        {({ loaded }) => (
+        {({  }) => (
           <div className='menu-js top'>
             <Navbar page='MENU' />
             <Jumbo
