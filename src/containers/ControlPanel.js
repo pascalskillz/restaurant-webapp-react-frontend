@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { MyConsumer } from '../Context';
-import CreateWidget from '../components/Widgets/CreateWidget';
-import DeleteWidget from '../components/Widgets/DeleteWidget';
-import EditWidget from '../components/Widgets/EditWidget';
+// import CreateWidget from '../components/Widgets/CreateWidget';
+// import DeleteWidget from '../components/Widgets/DeleteWidget';
+// import EditWidget from '../components/Widgets/EditWidget';
 import ItemCatalog from '../components/Widgets/ItemCatalog';
 import Orders from '../components/Widgets/Orders';
 import '../styles/cPanel.css';
@@ -33,10 +33,6 @@ class ControlPanel extends Component {
         return <ItemCatalog />;
       case 'Orders':
         return <Orders />;
-      // case 'Create A New Item':
-      //   return <CreateWidget />;
-      // case 'Edit A Menu Item':
-      //   return <EditWidget />;
       default:
         return <ItemCatalog />;
     }
