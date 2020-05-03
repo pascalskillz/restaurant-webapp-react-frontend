@@ -103,13 +103,6 @@
   text-transform: capitalize;
 }
 
-.category-item-container {
-  /* display: flex; */
-  /* justify-content: center; */
-  /* max-width: 1075px; */
-  /* margin: 0 auto; */
-}
-
 .all-item-div {
   display: grid;
   grid-template-columns: repeat(auto-fill, 300px);
