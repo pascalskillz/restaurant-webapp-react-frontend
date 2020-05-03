@@ -147,7 +147,55 @@ class Cart extends Component {
     let allItemsList = [];
     let itemList = this.state.allItems;
     let temp = this.state.tempresult;
- 
+    this.state.allItems.map((item, index) => {
+      allItemsList.push(
+        <div className="row">
+          <div class="cart-item d-md-flex justify-content-between" key={index}>
+            <div className="px-3 my-3">
+              <span class="remove-item">
+                <i
+                  class="fa fa-times"
+                  onClick={(item) => this.removeItem(item)}
+                ></i>
+              </span>
+              <a class="cart-item-product">
+                <div class="cart-item-product-thumb">
+                  <div className="cart-item-div">
+                    <img
+                      src={item.imageUrl}
+                      alt="Product"
+                      className="cart-item-image"
+                    />
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div className="namelength px-3 my-3 text-center">
+              <div class="cart-item-label">Name</div>
+              <span class="text-xl font-weight-medium ">{item.itemName}</span>
+            </div>
+            <div className="px-3 my-3 text-center">
+              <div class="cart-item-label">Quantity</div>
+              <div class="count-input">
+                <select class="form-control">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                </select>
+              </div>
+            </div>
+            <div className="px-3 my-3 text-center">
+              <div class="cart-item-label">Price</div>
+              <span class="text-xl font-weight-medium">${item.itemPrice}</span>
+            </div>
+          </div>
+        </div>
+      );
+      subtotal += (item.itemPrice);
+    });
 
     return (
       <MyConsumer>
