@@ -1,12 +1,16 @@
 import axios from 'axios';
 
 const url = 'http://tandoor-env.mdtaz78ptd.us-east-1.elasticbeanstalk.com/api';
-//const localUrl = 'http://localhost:8080/api' // this will not work in production
+// const localUrl = 'http://localhost:8080/api' // this will not work in production
 
 export default {
 
   getAllMenuItems(pageNum, limit) {
-    return axios.get(`${url}/menuitems?page=${pageNum}&limit=${limit}`)
+    return axios.get(`${url}/menuitems?page=${pageNum - 1}&limit=${limit}`)
+  },
+
+  getMenuItemsByCategory(categoryId, pageNum, limit) {
+    return axios.get(`${url}/categories/${categoryId}/menuitems?page=${pageNum - 1}&size=${limit}`)
   },
 
   getOneMenuItem(itemId) {
@@ -38,7 +42,7 @@ export default {
     return axios.post(`${url}/menuitems/reservations`, itemData)
   },
 
-  getAllOrders(){
+  getAllOrders() {
     return axios.get(`${url}/orders`)
   },
   // Orders api request

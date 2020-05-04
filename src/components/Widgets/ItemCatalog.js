@@ -46,6 +46,7 @@ class ItemCatalog extends Component {
     this.getAllItems(this.state.currentPage);
     this.getCategories();
     this.getAllItemsOnPageLoad();
+    console.log(`page:${this.state.currentPage}`);
   }
 
   handleInputChange = (event) => {
@@ -136,7 +137,6 @@ class ItemCatalog extends Component {
   };
 
   getAllItems = async (currentPage) => {
-    console.log('GET ALL ITEMS');
     let allItemsArr = [];
     let pageNum = 0;
     let totalPages = 0;
@@ -657,38 +657,48 @@ class ItemCatalog extends Component {
                   )}
                 </div>
                 <div className='new-item-button-div'>
-                  <Modal
-                    className='new-item-modal-div'
-                    title='New Menu Item'
-                    customStyle={{
-                      content: {
-                        position: 'absolute',
-                        height: '80vh',
-                        width: 675,
-                        margin: 'auto',
-                      },
-                    }}
-                    // text=''
-                    content={createWidget}
-                    buttonClose={
-                      <button className='btn btn-warning catalog-item-cancel-button'>
-                        Cancel
+                  {this.state.currentPage === 1 ? (
+                    <Modal
+                      className='new-item-modal-div'
+                      title='New Menu Item'
+                      customStyle={{
+                        content: {
+                          position: 'absolute',
+                          height: '80vh',
+                          width: 675,
+                          margin: 'auto',
+                        },
+                      }}
+                      // text=''
+                      content={createWidget}
+                      buttonClose={
+                        <button className='btn btn-warning catalog-item-cancel-button'>
+                          Cancel
+                        </button>
+                      }
+                      buttonSave={
+                        <button
+                          type='submit'
+                          value='Send'
+                          className='btn btn-primary new-item-save-button mx-3'
+                          // id='catalog-item-delete-button'
+                          onClick={(e) => this.createNewMenuItem(e)}>
+                          Save
+                        </button>
+                      }>
+                      <button className='btn btn-warning new-item-button'>
+                        New Menu Item
                       </button>
-                    }
-                    buttonSave={
-                      <button
-                        type='submit'
-                        value='Send'
-                        className='btn btn-primary new-item-save-button mx-3'
-                        // id='catalog-item-delete-button'
-                        onClick={(e) => this.createNewMenuItem(e)}>
-                        Save
-                      </button>
-                    }>
-                    <button className='btn btn-warning new-item-button'>
-                      New Menu Item
-                    </button>
-                  </Modal>
+                    </Modal>
+                  ) : (
+                    <div className='new-item-modal-div'>
+                      <a
+                        className='btn btn-primary catalog-item-edit-button'
+                        onClick={() => this.handleFirst()}>
+                        BACK
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className='table-scroll edit-table'>

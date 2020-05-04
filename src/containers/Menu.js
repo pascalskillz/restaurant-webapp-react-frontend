@@ -19,14 +19,18 @@ class Menu extends Component {
       favs: [],
       allItems: [],
       categories: [],
+      catMenuItems: [],
       allItemsLoading: true,
       categoryLoading: true,
       selected: 'Loading...',
       mobile: false,
       currentPage: 1,
-      ordersPerPage: 6,
+      catCurrentPage: 0,
+      ordersPerPage: 9,
       totalPages: 0,
-      totalElements: 0
+      totalElements: 0,
+      viewFullMenu: true,
+      selectedId: -1
     };
   }
 
@@ -34,6 +38,7 @@ class Menu extends Component {
     // this.getFavorites()
     // this.getAllMenuItems()
     // this.scrollToTop();
+    // this.gatherMenuItemsByCategory(5, 0);
     this.gatherAllItems(this.state.currentPage);
     this.getCategories();
     this.isMobile();
@@ -52,7 +57,7 @@ class Menu extends Component {
     } else {
       this.setState({ mobile: false });
       this.getCategories();
-      this.gatherAllItems();
+      this.gatherAllItems(this.state.currentPage);
     }
   };
 
@@ -103,8 +108,8 @@ class Menu extends Component {
       let items = res.data.content;
       pageNum = res.data.number + 1;
       pageTotal = res.data.totalPages;
-      elementsTotal = res.totalElements;
-      // console.log(items)
+      elementsTotal = res.data.totalElements;
+      console.log(items)
       allItemsArr = [...items];
     });
 
@@ -122,7 +127,7 @@ class Menu extends Component {
   setSidebar = async x => {
     if (!this.state.mobile) {
       let length = this.state.categories.length;
-      // console.log(`setSidebar: ${x}`);
+      //console.log(`setSidebar: ${x}`);
       if (x === 0) {
         document.getElementById(`sbItem-0`).setAttribute('sbactive', 'true');
         this.setState({
@@ -131,23 +136,23 @@ class Menu extends Component {
         });
         for (var j = 1; j < length; j++) {
           document
-            .getElementById(`sbItem-${j}`)
-            .setAttribute('sbactive', 'false');
+          .getElementById(`sbItem-${j}`)
+          .setAttribute('sbactive', 'false');
         }
       }
       if (x !== 0) {
         document.getElementById(`sbItem-0`).setAttribute('sbactive', 'false');
         for (var i = 1; i < length; i++) {
           if (x === i) {
+            console.log('SET SIDEBAR');
             document
               .getElementById(`sbItem-${i}`)
               .setAttribute('sbactive', 'true');
             this.setState({
               selected: this.state.categories[i].categoryName,
               selectedId: i
-              //categorySelected: this.state.allItems['categoryId']
             });
-            // console.log(this.state.categories[i].categoryName)
+            this.handleCategorySelect(i) 
           } else {
             document
               .getElementById(`sbItem-${i}`)
@@ -188,35 +193,99 @@ class Menu extends Component {
   //   })
   // }
 
+  gatherMenuItemsByCategory = async (categoryId, currentPage) => {
+    let allMenuItems = [];
+    let pageNum = 0;
+    let pageTotal = 0;
+    let elementsTotal = 0;
+    await API.getMenuItemsByCategory(categoryId, currentPage, this.state.ordersPerPage).then(res => {
+      let items = res.data.content;
+      pageNum = res.data.number + 1;
+      pageTotal = res.data.totalPages;
+      elementsTotal = res.data.totalElements;
+      allMenuItems = [...items];
+      //console.log("pageTotal " + pageTotal + "  elementsTotal " + elementsTotal + " pageNum " + pageNum)
+      //console.log(items);
+    });
+
+    this.setState({
+      catMenuItems: [...allMenuItems],
+      currentPage: pageNum,
+      totalPages: pageTotal,
+      totalElements: elementsTotal,
+      allItemsLoading: false
+    });
+  }
+
+  handleCategorySelect = (categoryId) => {
+    this.setState({ viewFullMenu: false });
+    this.gatherMenuItemsByCategory(categoryId, 0);
+  }
+
+  handleFullMenuView = () => {
+    this.gatherAllItems(1);
+    this.setState({ viewFullMenu: true });
+    //console.log(this.state.allItems);
+    //console.log(this.state.viewFullMenu);
+  }
 
   handleFirst = () => {
     if (this.state.currentPage > 1) {
-      this.gatherAllItems(1);
+      window.scrollTo(0, 0);
+      if (this.state.viewFullMenu) {
+        this.gatherAllItems(1);
+      }
+      else {
+        this.gatherMenuItemsByCategory(this.state.selectedId, 1);
+      }
     }
   }
   handleNext = () => {
+    console.log(`currentPage ${this.state.currentPage}`);
     if (this.state.currentPage < this.state.totalPages) {
-      this.gatherAllItems(this.state.currentPage + 1);
+      window.scrollTo(0, 0);
+      if (this.state.viewFullMenu) {
+        this.gatherAllItems(this.state.currentPage + 1);
+      }
+      else {
+        this.gatherMenuItemsByCategory(this.state.selectedId, this.state.currentPage + 1);
+        // console.log(`selectedId: ${this.state.selectedId}`);
+        // console.log(`currentPage: ${this.state.currentPage}`);
+        // console.log(`totalPages: ${this.state.totalPages}`);
+      }
     }
   }
 
   handlePrev = () => {
+    console.log(`currentPage ${this.state.currentPage}`);
     if (this.state.currentPage > 1) {
-      this.gatherAllItems(this.state.currentPage - 1);
+      window.scrollTo(0, 0);
+      if (this.state.viewFullMenu) {
+        this.gatherAllItems(this.state.currentPage - 1);
+      }
+      else {
+        this.gatherMenuItemsByCategory(this.state.selectedId, this.state.currentPage - 1);
+        //this.state.currentPage--;
+      }
     }
   }
   handleLast = () => {
     if (this.state.currentPage != this.state.totalPages) {
-      this.gatherAllItems(this.state.totalPages);
+      window.scrollTo(0, 0);
+      if (this.state.viewFullMenu) {
+        this.gatherAllItems(this.state.totalPages);
+      } else {
+        this.gatherMenuItemsByCategory(this.state.selectedId, this.state.totalPages);
+      }
     }
   }
 
   render() {
-    const filteredItemList = this.state.allItems
-      .filter(item => {
-        //console.log(item)
-        return item.categoryId === this.state.selectedId;
-      })
+    const filteredItemList = this.state.catMenuItems
+      // .filter(item => {
+      //   //console.log(item)
+      //   return item.categoryId === this.state.selectedId;
+      // })
       .map((item, index) => (
         <div key={index} className='filtered-grid-item'>
           <Link to={'/item/' + item.id}>
@@ -259,7 +328,7 @@ class Menu extends Component {
 
     return (
       <MyConsumer>
-        {({ loaded }) => (
+        {({  }) => (
           <div className='menu-js top'>
             <Navbar page='MENU' />
             <Jumbo
@@ -293,7 +362,7 @@ class Menu extends Component {
                       <div
                         className='sidebar-top-div sb-toggle'
                         id='sbItem-0'
-                        onClick={() => this.setSidebar(0)}>
+                        onClick={() => { this.handleFullMenuView(); this.setSidebar(0) }}>
                         <Sb name='Full Menu' img={img} />
                       </div>
                       <div className='sidebar-inner-div'>
@@ -311,7 +380,7 @@ class Menu extends Component {
                                   id={`sbItem-${item.id}`}
                                   className='sidebar-inner-item sb-toggle'
                                   sbactive='false'
-                                  onClick={() => this.setSidebar(item.id)}>
+                                  onClick={() => { this.setSidebar(item.id); this.handleCategorySelect(item.id) }}>
                                   <Sb name={item.categoryName} img={img} />
                                 </div>
                               ))
@@ -332,6 +401,7 @@ class Menu extends Component {
                         <div>Loading...</div>
                       )
                   ) : (
+                      // <div className='category-item-div'>{allItemsList}</div>
                       <div className='category-item-div'>{filteredItemList}</div>
                     )}
 
