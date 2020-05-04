@@ -25,11 +25,12 @@ class ItemCatalog extends Component {
       itemPrice: '',
       special: false,
       vegan: false,
-      similarItems: [
-        { similarMenuItemId: 0 },
-        { similarMenuItemId: 0 },
-        { similarMenuItemId: 0 },
-      ],
+      similarItems: [],
+      // similarItems: [
+      //   { similarMenuItemId: 0 },
+      //   { similarMenuItemId: 0 },
+      //   { similarMenuItemId: 0 },
+      // ],
       categoryId: 1,
     },
     currentPage: 1,
@@ -203,6 +204,7 @@ class ItemCatalog extends Component {
       .catch((err) => {
         alert('Data not saved, please try again');
         console.log(err);
+        window.location.reload();
       });
   };
 
@@ -237,12 +239,60 @@ class ItemCatalog extends Component {
       });
   };
 
+  // handleSimilarItemSelect = async (e, id) => {
+  //   e.persist();
+  //   await console.log('--handleSimilarItemSelect');
+  //   await console.log(this.state.newMenuItem.similarItems);
+  //   let localItemName = await e.target.value;
+  //   let newSimilarItemList = await [...this.state.newMenuItem.similarItems];
+  //   await console.log(newSimilarItemList);
+  //   if (localItemName !== '--') {
+  //     let itemToBeAddedToSimilarList = await this.state.menuItems.filter(
+  //       (item) => {
+  //         return item.itemName === localItemName;
+  //       }
+  //     );
+  //     await console.log('itemToBeAddedToSimilarList');
+  //     await console.log(itemToBeAddedToSimilarList);
+  //     newSimilarItemList[id] = await {
+  //       similarMenuItemId: itemToBeAddedToSimilarList[0].id,
+  //     };
+  //     await this.setState((prevState) => ({
+  //       newMenuItem: {
+  //         ...prevState.newMenuItem,
+  //         similarItems: [...newSimilarItemList],
+  //       },
+  //     }));
+  //   }
+  //   await console.log('newSimilarList afterwards');
+  //   await console.log(newSimilarItemList);
+  // };
+
   handleSimilarItemSelect = async (e, id) => {
     e.persist();
     await console.log('--handleSimilarItemSelect');
     await console.log(this.state.newMenuItem.similarItems);
     let localItemName = await e.target.value;
-    let newSimilarItemList = await [...this.state.newMenuItem.similarItems];
+    let newSimilarItemList = [];
+    if (this.state.newMenuItem.similarItems.length === 0) {
+      newSimilarItemList = [{}];
+    } else if (this.state.newMenuItem.similarItems.length === 1) {
+      newSimilarItemList = await [
+        this.state.newMenuItem.similarItems[0],
+      ];
+    } else if (this.state.newMenuItem.similarItems.length === 2) {
+      newSimilarItemList = await [
+        this.state.newMenuItem.similarItems[0],
+        this.state.newMenuItem.similarItems[1],
+      ];
+    } else if (this.state.newMenuItem.similarItems.length === 3) {
+      newSimilarItemList = await [
+        this.state.newMenuItem.similarItems[0],
+        this.state.newMenuItem.similarItems[1],
+        this.state.newMenuItem.similarItems[2],
+      ];
+    }
+
     await console.log(newSimilarItemList);
     if (localItemName !== '--') {
       let itemToBeAddedToSimilarList = await this.state.menuItems.filter(
