@@ -61,8 +61,8 @@ class EditWidget extends Component {
     await API.getOneMenuItem(id).then((res) => {
       item = res.data;
     });
-    await console.log('---------getItemToEdit');
-    await console.log(item);
+    // await console.log('---------getItemToEdit');
+    // await console.log(item);
     await this.setState({
       itemToEdit: item,
       itemToEditLoading: false,
@@ -72,8 +72,8 @@ class EditWidget extends Component {
   getCategories = async () => {
     let categoriesObject = {};
     await API.getCategories().then((res) => {
-      console.log('---------getCategories');
-      console.log(res.data);
+      // console.log('---------getCategories');
+      // console.log(res.data);
       categoriesObject = res.data;
     });
 
@@ -85,8 +85,9 @@ class EditWidget extends Component {
 
   getAllMenuItems = async () => {
     let allItemsArr = [];
-    await API.getAllMenuItems().then((res) => {
-      let items = res.data;
+    await API.getAllMenuItems(1, 1000).then((res) => {
+      console.log(res)
+      let items = res.data.content;
       allItemsArr = [...items];
     });
 
@@ -112,18 +113,18 @@ class EditWidget extends Component {
       },
     }));
 
-    console.log(this.state.itemToEdit);
+    // console.log(this.state.itemToEdit);
   };
 
   handleCategorySelect = async (event) => {
-    console.log('------------ handleCategorySelect');
-    console.log(event.target.value);
+    // console.log('------------ handleCategorySelect');
+    // console.log(event.target.value);
 
     let newCategoryObject = await this.state.categories.filter((item) => {
       return item.categoryName === event.target.value;
     });
 
-    await console.log(newCategoryObject[0].id);
+    // await console.log(newCategoryObject[0].id);
 
     await this.setState((prevState) => ({
       itemToEdit: {
@@ -132,17 +133,17 @@ class EditWidget extends Component {
       },
     }));
 
-    await console.log(this.state.itemToEdit);
+    // await console.log(this.state.itemToEdit);
   };
 
   setCurrentItemCategory = async () => {
-    await console.log('---------setCurrentItemCategory');
-    await console.log(this.state.itemToEdit);
+    // await console.log('---------setCurrentItemCategory');
+    // await console.log(this.state.itemToEdit);
     let currentItemCategoryId = await this.state.itemToEdit.categoryId;
     let currentItemCategoryName = await this.state.categories.filter((item) => {
       return item.id === currentItemCategoryId;
     });
-    await console.log(currentItemCategoryName[0].categoryName);
+    // await console.log(currentItemCategoryName[0].categoryName);
     await this.setCategoryValue(currentItemCategoryName[0].categoryName);
   };
 
@@ -161,7 +162,7 @@ class EditWidget extends Component {
 
   saveMenuItem = async (e) => {
     e.preventDefault();
-    console.log(this.state.itemToEdit);
+    // console.log(this.state.itemToEdit);
     await API.updateMenuItem(
       this.state.itemToEdit.categoryId,
       this.state.itemToEdit
@@ -180,8 +181,8 @@ class EditWidget extends Component {
   };
 
   setCurrentItemSimilarItems = async () => {
-    await console.log('---------setCurrentItemSimilarItems');
-    await console.log(this.state.itemToEdit);
+    // await console.log('---------setCurrentItemSimilarItems');
+    // await console.log(this.state.itemToEdit);
     if(this.state.itemToEdit.similarItems[0]){
       this.handleInitialSimilarItems(
         this.state.itemToEdit.similarItems[0].similarMenuItemId,
@@ -203,7 +204,7 @@ class EditWidget extends Component {
   };
 
   handleInitialSimilarItems = async (similarItemId, similarItemArrayIndex) => {
-    await console.log(`--handleInitialSimilarItems${similarItemArrayIndex}`);
+    // await console.log(`--handleInitialSimilarItems${similarItemArrayIndex}`);
     let tempItem = {};
     await API.getOneMenuItem(similarItemId)
       .then((res) => {
@@ -212,7 +213,7 @@ class EditWidget extends Component {
       .catch((err) => {
         console.log(err);
       });
-    await console.log(tempItem);
+    // await console.log(tempItem);
     let e = await document.getElementById(
       `similar-select-${similarItemArrayIndex}`
     );
@@ -227,19 +228,19 @@ class EditWidget extends Component {
 
   handleSimilarItemSelect = async (e, id) => {
     e.persist();
-    await console.log('--handleSimilarItemSelect');
-    await console.log(this.state.itemToEdit.similarItems);
+    // await console.log('--handleSimilarItemSelect');
+    // await console.log(this.state.itemToEdit.similarItems);
     let localItemName = await e.target.value;
     let newSimilarItemList = await [...this.state.itemToEdit.similarItems];
-    await console.log(newSimilarItemList);
+    // await console.log(newSimilarItemList);
     if (localItemName !== '--') {
       let itemToBeAddedToSimilarList = await this.state.menuItems.filter(
         (item) => {
           return item.itemName === localItemName;
         }
       );
-      await console.log('itemToBeAddedToSimilarList');
-      await console.log(itemToBeAddedToSimilarList);
+      // await console.log('itemToBeAddedToSimilarList');
+      // await console.log(itemToBeAddedToSimilarList);
       newSimilarItemList[id] = await {
         similarMenuItemId: itemToBeAddedToSimilarList[0].id,
       };
@@ -250,8 +251,8 @@ class EditWidget extends Component {
         },
       }));
     }
-    await console.log('newSimilarList afterwards');
-    await console.log(newSimilarItemList);
+    // await console.log('newSimilarList afterwards');
+    // await console.log(newSimilarItemList);
   };
 
   render() {
