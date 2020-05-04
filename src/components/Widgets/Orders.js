@@ -108,6 +108,7 @@ class Orders extends Component {
       //check whether displayOrderDetails is true. If true, display orderdetails sections
       //if false then display order list table
       // we should have a back button in order details pages that turns the displayOrderDetails to false
+      //orderId is passed to props for orderdetails component
 
       //sort orders by date from backend
       <div className="order-widget">

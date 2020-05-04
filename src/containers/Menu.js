@@ -136,8 +136,8 @@ class Menu extends Component {
         });
         for (var j = 1; j < length; j++) {
           document
-          .getElementById(`sbItem-${j}`)
-          .setAttribute('sbactive', 'false');
+            .getElementById(`sbItem-${j}`)
+            .setAttribute('sbactive', 'false');
         }
       }
       if (x !== 0) {
@@ -152,7 +152,7 @@ class Menu extends Component {
               selected: this.state.categories[i].categoryName,
               selectedId: i
             });
-            this.handleCategorySelect(i) 
+            this.handleCategorySelect(i)
           } else {
             document
               .getElementById(`sbItem-${i}`)
@@ -241,7 +241,7 @@ class Menu extends Component {
     }
   }
   handleNext = () => {
-    console.log(`currentPage ${this.state.currentPage}`);
+    // console.log(`currentPage ${this.state.currentPage}`);
     if (this.state.currentPage < this.state.totalPages) {
       window.scrollTo(0, 0);
       if (this.state.viewFullMenu) {
@@ -328,7 +328,7 @@ class Menu extends Component {
 
     return (
       <MyConsumer>
-        {({  }) => (
+        {({ }) => (
           <div className='menu-js top'>
             <Navbar page='MENU' />
             <Jumbo

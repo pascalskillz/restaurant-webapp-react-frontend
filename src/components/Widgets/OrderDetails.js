@@ -56,7 +56,7 @@ class OrderDetails extends Component {
 		this.setState({
 			menuItems: menuItems
 		});
-		//console.log(menuItems);
+		console.log(menuItems);
 	}
 
 	/* orderDate = () => {
@@ -74,7 +74,7 @@ class OrderDetails extends Component {
 			day: "2-digit"
 		});
 
-		console.log(this.state.order.orderDate);
+		//console.log(this.state.order.orderDate);
 
 		var grandPrice = 0.0;
 		let orderItemList = this.state.menuItems.map((item, index) => (
