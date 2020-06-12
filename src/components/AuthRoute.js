@@ -5,8 +5,8 @@ import { Route, Redirect } from 'react-router-dom';
 const getCookie = (cname) => {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
-  console.log(document.cookie)
-  console.log(decodedCookie)
+  // console.log(document.cookie)
+  // console.log(decodedCookie)
   var ca = decodedCookie.split(';');
   for(var i = 0; i <ca.length; i++) {
     var c = ca[i];

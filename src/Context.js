@@ -1,50 +1,63 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 const MyContext = React.createContext();
 export class MyProvider extends Component {
   state = {
     isAdminLoggedIn: false,
-    invalidLogin: false,
-  }
+    invalidLogin: false
+  };
 
   componentDidMount() {
-
+    this.loaded();
   }
+
+  loaded = () => {
+    console.log('LOADED');
+  };
+
+  scrollIntoView = dest => {
+    document.querySelector(dest).scrollIntoView({
+      behavior: 'smooth'
+    });
+  };
 
   adminLogin = (e, username, cookieData) => {
     e.preventDefault();
-    if (username === 'admin'){
-      this.setState({ isAdminLoggedIn: true })
+    if (username === 'admin') {
+      this.setState({ isAdminLoggedIn: true });
       let d = new Date();
-      d.setTime(d.getTime() + (5*60*60*1000));
+      d.setTime(d.getTime() + 5 * 60 * 60 * 1000);
       let expires = d.toUTCString();
-      document.cookie = `username=${cookieData}; expires=${expires}`
-      console.log(document.cookie)
+      document.cookie = `username=${cookieData}; expires=${expires}`;
+      console.log(document.cookie);
+    } else {
+      this.setState({ invalidLogin: true });
+      setTimeout(() => {
+        this.setState({ invalidLogin: false });
+      }, 3000);
     }
-    else {
-      this.setState({ invalidLogin: true })
-      setTimeout(() => { this.setState({ invalidLogin: false }) }, 3000)
-    }
-    
-  }
-  
-  render () {
+  };
+
+  render() {
     return (
-      <MyContext.Provider value={{
-        //state
-        state: this.state,
-        isAdminLoggedIn: this.state.isAdminLoggedIn,
-        invalidLogin: this.state.invalidLogin,
+      <MyContext.Provider
+        value={{
+          //state
+          // state: this.state,
+          isAdminLoggedIn: this.state.isAdminLoggedIn,
+          invalidLogin: this.state.invalidLogin,
 
-        //functions
-        adminLogin: this.adminLogin,
-        addCookie: this.addCookie,
-        checkCookie: this.checkCookie,
-
-      }}>
+          //functions
+          adminLogin: this.adminLogin,
+          addCookie: this.addCookie,
+          checkCookie: this.checkCookie,
+          loaded: this.loaded,
+          scrollIntoView: this.scrollIntoView
+          
+        }}>
         {this.props.children}
       </MyContext.Provider>
-    )
+    );
   }
 }
 

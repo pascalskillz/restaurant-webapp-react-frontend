@@ -1,0 +1,85 @@
+#divReservationOptions{
+    display: flex;
+    justify-content: center;
+}
+
+#divReservationOptions > div {
+  text-align: center;
+  width: 200px;
+}
+
+#divReservationOptions select
+{
+    margin-right: 5px;
+}
+#divReservationOptions > div input{
+    width: 120px;
+}
+
+#divDatePicker{
+    position: relative;
+}
+#divDatePicker svg
+{
+    position: absolute;
+    top: 7px;
+    left: 145px;
+}
+
+.divBtnTable{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btn {
+    display: inline-block;
+    color: #fff !important;
+    background: #2C62C4;
+    padding: 0.5rem 2rem;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .btn:hover {
+    background: hsl(20, 3%, 83%);
+    color: #000;
+    border: 0.5px solid #000;
+    cursor: pointer;
+  }
+  
+  .btn:disabled:hover,
+  .btn:disabled{
+    background-color: #c1bebe;
+    color: #fff;
+    border: 0px;
+  }
+
+  .btn-dark {
+    background: #333;
+    color: #fff;
+    border: 0.5px solid #000;
+  }
+
+  #divResultContainer{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 700px;
+      margin: auto;
+      padding-top: 30px;
+  }
+
+  #divResultContainer > div {
+    background-color: #000;
+    width: 70px;
+    margin: 10px;
+    text-align: center;
+    color:#fff;
+  }
+
+  #divResultContainer > div:hover,
+  #divResultContainer > .selectedTable
+  {
+    background-color: #921313;
+  }
+  

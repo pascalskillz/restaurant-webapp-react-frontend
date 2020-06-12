@@ -1,7 +1,10 @@
 import React from "react";
-import "../styles/detail.css";
+// import "../../styles/Detail.css";
+
+
 
 const Detail = props => {
+
   return (
     <div className="container">
       <div className="menu-item-row row">
@@ -14,6 +17,9 @@ const Detail = props => {
           <div>
             <p>{props.desc}</p>
           </div>
+        <div className="item-button">
+          <button onClick={this.handleClick}>Add To Cart</button>
+        </div>
         </div>
       </div>
       <div className="row"></div>

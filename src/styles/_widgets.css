@@ -1,0 +1,288 @@
+/* -------------------- CREATE WIDGET */
+.cpanel-create-div {
+  grid-area: form;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'form'
+    'submit';
+}
+
+.create-form {
+  grid-area: form;
+  padding: 0 2rem;
+}
+
+.create-inner-form {
+  display: grid;
+  /* grid-template-rows: 2fr 1fr auto; */
+  grid-template-rows: min-content min-content 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'forms'
+    'upload'
+    'similar';
+}
+
+.form-grid-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'formL formR';
+}
+
+.create-form-submit {
+  margin: 50px 0;
+  grid-area: submit;
+  text-align: center;
+}
+
+#create-form-submit-btn {
+  /* padding: 10px 20px; */
+  /* font-size: 1.5rem; */
+  background: var(--green);
+}
+
+#create-form-submit-btn:hover {
+  background: var(--grey);
+  border: none;
+}
+
+.btn:hover {
+  background: var(--grey);
+  border: none;
+}
+
+.padding-group {
+  padding-right: 1.5rem;
+}
+
+#createItemName {
+  width: 250px;
+  height: 30px;
+}
+
+#createItemPrice {
+  width: 100px;
+  height: 30px;
+}
+
+
+#createCookTime {
+  width: 100px;
+  height: 30px;
+}
+
+#createItemVegan {
+  width: 50px;
+}
+
+#createItemDescription {
+  width: 400px;
+  height: 200px;
+  resize: none;
+}
+
+#createSimilarListDesc {
+  margin-bottom: 10px;
+}
+
+.create-group1 {
+  grid-area: formL;
+  /* flex-direction: column; */
+}
+
+/* .create-group2 {
+  grid-area: form1;
+} */
+
+.create-group3 {
+  /* flex-direction: column; */
+  grid-area: formR;
+}
+
+.create-group4 {
+  grid-area: upload;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.upload-button {
+  max-width: 200px;
+}
+
+.create-group5 {
+  display: grid;
+  grid-template-columns: 1fr .6fr;
+  grid-template-areas:
+    'similarL similarR';
+}
+
+.similar-items-div {
+  grid-area: similarL;
+  max-width: 450px;
+}
+
+.similar-list-div {
+  grid-area: similarR;
+  /* padding-left: 30px; */
+  width: max-content;
+}
+
+.similar-confirm {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  max-width: 200px;
+  padding: 5px 0;
+}
+
+.similar-delete-button {
+  margin-left: 10px;
+  background: var(--red);
+}
+
+.create-item-similar:hover,
+.similar-delete-button:hover {
+  border: none;
+}
+
+.table-scroll {
+  max-height: 500px;
+  overflow: scroll;
+}
+
+/* -------------------- EDIT WIDGET */
+.cpanel-edit-div {
+  display: grid;
+  grid-template-areas:
+    'select'
+    'image-form'
+    'similar'
+    'button';
+  grid-template-rows: repeat(4, min-content);
+  /* grid-template-rows: 25em 25em 1fr; */
+  grid-template-columns: 1fr;
+  justify-content: center;
+  text-align: center;
+}
+
+.edit-dropdown {
+  grid-area: select;
+}
+
+.edit-table {
+  height: 20em;
+}
+
+.edit-item-form-div {
+  display: grid;
+  margin: 20px 0;
+  /* grid-template-columns: minmax(200px, 20vw) minmax(200px, 40vw); */
+  /* grid-template-columns: 200px 1fr; */
+  /* height: 25em; */
+  /* width: 200%; */
+}
+
+.edit-photo>img {
+  width: 250px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.edit-form-inner-div {
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  grid-template-areas:
+    'heading'
+    'edit-form';
+  row-gap: 20px;
+}
+
+.edit-item-heading {
+  font-weight: bold;
+}
+
+.edit-form-item {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  column-gap: 20px;
+  margin-bottom: 10px;
+}
+
+.edit-form-item>input:focus {
+  box-shadow: 0 0 5px var(--lightBlue);
+}
+
+.edit-item-select:hover {
+  color: var(--red);
+  cursor: pointer;
+}
+
+#editItemPrice {
+  box-shadow: none;
+}
+
+#editItemPrice:focus {
+  box-shadow: 0 0 5px var(--lightBlue);
+}
+
+#editVegan,
+#editSpecial {
+  width: 30px;
+}
+
+#editItemDescription {
+  resize: none;
+}
+
+.edit-image-button-div {
+  margin-top: 10px;
+}
+
+.edit-group5 {
+  grid-area: similar;
+  display: grid;
+  grid-template-columns: 1fr .6fr;
+  grid-template-areas:
+    'similarL similarR';
+}
+
+
+.edit-save-button-div {
+  grid-area: button;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  /* padding: 0 200px; */
+}
+
+.edit-save-button-div>button {
+  margin: 0px 5px;
+  background: var(--green) !important;
+}
+
+.edit-modal-div>button {
+  background: var(--green) !important;
+}
+
+
+/* -------------------- DELETE WIDGET */
+
+.cpanel-delete-div {
+  text-align: center;
+}
+
+.delete-display-item-div {
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.delete-modal-div>button {
+  background: var(--red) !important;
+}

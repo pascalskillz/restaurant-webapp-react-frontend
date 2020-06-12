@@ -1,0 +1,413 @@
+/* --- CONTENT/CONTAINER FILES CSS --- */
+
+/* -- MAIN PAGE --  */
+/* .main-js {
+  display: grid;
+  grid-template-rows: 150px 1fr 150px;
+  grid-template-areas:
+    'nav'
+    'main'
+    'footer';
+} */
+
+/* MAIN DIV STYLE -------------*/
+.main-div {
+  /* 4-it was #e5e5e5 */
+  /* grid-area: main; */
+  display: grid;
+  grid-template-areas:
+    'carousel'
+    'utensils'
+    'info';
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* FULL SCREN CAROUSEL ------------- */
+.carousel-div {
+  /*5- it was #e5e5e5*/
+  /* stick carousel in nav border */
+  /* background: none; */
+  /* height: 100vh; */
+  /* height: 100vh; */
+  /* width: 100vw; */
+  grid-area: carousel;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: calc(100vh - 40px);
+  width: calc(100vw - 55px);
+  background: var(--grey);
+}
+
+.carousel-button {
+  color: var(--white);
+  font-size: 3rem;
+  margin: 0 20px;
+  opacity: .7;
+}
+
+.carousel-button:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.slider-slide>img {
+  width: calc(100vw - 55px) !important;
+  height: calc(100vh - 40px);
+  object-fit: cover;
+}
+
+.slider-slide:hover {
+  cursor: initial;
+}
+
+.carousel-text {
+  position: absolute;
+  font-size: 100px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.jumbo-text-large {
+  /* font-family: 'Courgette', sans-serif; */
+  font-family: 'Sail', cursive;
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--white);
+  text-shadow: 2px 2px 2px var(--red);
+}
+
+.jumbo-text-small {
+  font-family: 'Palanquin', sans-serif;
+  font-size: 1.5rem;
+  color: var(--white);
+  text-shadow: 2px 2px 2px var(--red);
+}
+
+/* MAIN INFO AREA ------------- */
+
+.main-content-div{
+  /* margin-top: 6.1rem;
+  display: table;
+  width: 100%; */
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--texture1);
+  background-image: var(--texture2);
+  border-top: 20px solid var(--white);
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-size: cover;
+  float: left;
+  background-repeat: 200px 200px; 
+  background-image: url(../img/main-content-div-background.jpg);
+  background-position: 50% 50%;
+  
+}
+
+
+.main-content-button-div {
+  margin: 10px 0;
+  
+}
+
+.main-content-button {
+  margin: 10px 5px;
+  font-size: 1.1rem;
+  padding-right: 100%;
+  padding-top: 100%;
+  border: 1px solid #999999;
+  border-color: rgb(250, 143, 2);
+  text-shadow:0px 0px 21px #ffee66;
+  text-decoration: none;
+  background-color: #ffffff00 !important;
+  
+}
+
+.button {
+  padding: 8px 15px;
+  border-radius: 5px;
+  background-color: var(--black);
+  color: var(--white);
+  font-weight: bold;
+  border: 1px solid var(--grey);
+	text-decoration:none;
+  /* text-decoration-color: #999999; */
+}
+.button:hover{
+  color: rgb(219, 141, 39);
+}
+
+a:link {
+  text-decoration: none;
+}
+
+
+.utensils {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.utensil-container {
+  position: absolute;
+  display: flex;
+  font-size: 2.5rem;
+  width: 6.5rem;
+  height: 6.5rem;
+  background: var(--white);
+  border-radius: 100%;
+  justify-content: center;
+  padding-top: 10px;
+
+}
+
+.utensil-container:hover i {
+  text-shadow: 2px 2px 2px var(--lightred);
+}
+
+
+
+/* MEDIA QUERY ---------------------- */
+@media only screen and (max-width:1100px) {
+
+  .jumbo-text-large {
+    font-size: 1.8rem;
+    padding-bottom: 10px;
+    width: 50%;
+    font-family: Great Vibes;
+    font-weight: normal;
+    opacity: 1;
+  }
+
+  .jumbo-text-small {
+    font-size: 1rem;
+    width: 60%;
+  }
+
+  .main-content-button-div {
+    display: flex;
+    flex-direction: column;
+  }
+
+}
+
+@import url('https://fonts.googleapis.com/css?family=Tangerine');
+#text{
+    font-family: Tangerine, cursive;
+    font-weight: bold;
+    text-transform: capitalize;
+    text-align: center;
+    font-size: 35px;
+    color: rgb(249, 240, 180);
+    background-color: rgb(84, 84, 84);
+    text-shadow: rgb(0, 0, 0) 2px 2px 2px;
+}
+
+/* I HAVE NO IDEA WHAT THIS IS ----
+  BUT IM AFRAID TO DELETE IT ---- */
+.signin-text-primary {
+  font-size: 20px;
+  color: black
+}
+
+.bottom {
+  margin-top: 50px;
+}
+
+.btn-Primary {
+  margin-top: 10px;
+}
+
+.Container {
+  padding: 40px 0;
+  text-align: center;
+  background: linear-gradient(#e66465, #9198e5);
+}
+
+
+/* Three image containers (use 25% for four, and 50% for two, etc) */
+.column1, .column2,.column3 {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+  /* border-color: rgb(128, 126, 126);
+  border-style: solid; */
+  margin-top: 10em;
+
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/*I divided "main-content-div" into 3 container from left to right each one has its css element */
+.column1{
+  display: flex;
+  margin-top: 20px;
+  /* margin-bottom: 30px; */
+  /* background-image: url(../img/side1.jpg); */
+  background-color: rgba(172, 169, 169, 0.9);
+  padding: 0 10px 10px 10px;
+  border-radius: 0px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 35%;
+  height: 100vh;
+  /* border-left: 10px dotted rgb(248, 248, 252); */
+  border-right: 25px double rgb(248, 248, 252, .9);
+  border-left: 5px double rgb(248, 248, 252);
+  height: 96.5vh;
+
+}
+.aboutus, .Buffet-info{
+  padding-top: 35%;
+   font-family: 'Sail', cursive;
+   font-size: x-large;
+   /* height: auto; */
+ }
+ .Buffet-info{
+  padding-top: 10%;
+   font-family: 'Sail', cursive;
+   font-size: x-large;
+   
+ }
+.column2{
+  display: fixed;
+  margin-top: 20px;
+  border-radius: 10px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 33.33%;
+  height: 100vh;
+  /* border-left: 10px dotted rgb(248, 248, 252); */
+  padding-top: 8%;
+}
+.gallary-header{
+  padding-top: 35%;
+  font-family: 'Sail', cursive;
+  font-size: x-large;
+  padding-top: 0px;
+ }
+.gallery{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content:space-around;
+  flex-direction: row;
+  max-height: 50vh;
+}
+.avatar{
+  display: table;
+  position: relative;
+  width: 50%;
+  max-width: 300px;
+}
+.img-gallery {
+  float: left;
+  width: 180px;
+  padding: 5px;
+  height: 180px;
+  border: 0.1em solid rgb(199, 193, 190);
+  box-shadow: 3px 3px 8px 0px rgba(250, 69, 14, 0.3); 
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.overlay {
+  position: absolute; 
+  bottom: 0; 
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1; 
+  width: 100%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 5px;
+  text-align: center;
+}
+.avatar:hover .overlay {
+  opacity: 1;
+}
+
+.menuside-bu{
+  margin: 10px;
+  }
+.menu-bu-gallery{
+  padding: 4px 15px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: var(--white);
+  border: 1px solid var(--grey);
+  border-radius: 4px;
+  font-family: 'Sail', cursive;
+  font-size: x-large;
+  text-align: center;
+  font-size: 23px;
+  width: 100x;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.menu-bu-gallery span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+  text-decoration: none;
+}
+
+.menu-bu-gallery span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+ .menu-bu-gallery:hover  {
+  padding-right: 10px;
+  /* color:rgba(172, 169, 169, 0.9); */
+  color: rgb(219, 141, 39);
+
+}
+
+.column3{
+  display: flex;
+  margin-top: 20px;
+  /* margin-bottom: 30px; */
+  /* background-image: url(../img/side1.jpg); */
+  background-color:
+   rgba(172, 169, 169, 0.9);
+  /* padding: 0 10px 10px 0px; */
+  background-image: url(../img/Column4-image.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  float: right;
+  width: 25%;
+  height: 96.5vh;
+  
+ 
+
+}

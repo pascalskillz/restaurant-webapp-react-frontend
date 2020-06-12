@@ -9,7 +9,6 @@
   grid-area: img;
   display: flex;
   width: 50px;
-
   padding: 5px;
   align-items: center;
 }
@@ -17,10 +16,13 @@
 .sidebar-img img {
   object-fit: contain;
   object-position: 50% 150%;
+  max-width: 50px;
 }
 
 .sidebar-text {
   grid-area: text;
   display: flex;
   align-items: center;
+  font-size: .9rem;
+  /* font-weight: 500; */
 }

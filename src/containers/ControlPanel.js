@@ -1,76 +1,72 @@
 import React, { Component } from 'react';
 import { MyConsumer } from '../Context';
-import Create from '../components/Widgets/CreateWidget'
-import Edit from '../components/Widgets/EditWidget'
-import Delete from '../components/Widgets/DeleteWidget'
-import '../styles/cPanel.css'
+// import CreateWidget from '../components/Widgets/CreateWidget';
+// import DeleteWidget from '../components/Widgets/DeleteWidget';
+// import EditWidget from '../components/Widgets/EditWidget';
+import ItemCatalog from '../components/Widgets/ItemCatalog';
+import Orders from '../components/Widgets/Orders';
+import '../styles/cPanel.css';
 
 class ControlPanel extends Component {
   state = {
     // title: 'Welcome! Select a task to Begin',
-    title: 'Create',
+    // title: 'Create'
+    // title: 'Edit/Update',
+    // title: 'Delete',
+    title: 'Menu Item Catalog'
+  };
+
+  componentDidMount() {
+    // this.setAction('Menu Item Catalog')
+    // this.setTitle('Menu Item Catalog')
   }
 
   setTitle = title => {
     this.setState({
       title: title
-    })
-  }
+    });
+  };
 
   setAction = action => {
-    switch(action) {
-      case 'Create':
-        return <Create/>
-      case 'Edit/Update':
-        return <Edit/>
-      case 'Delete':
-        return <Delete/>
+    switch (action) {
+      case 'Menu Item Catalog':
+        return <ItemCatalog />;
+      case 'Orders':
+        return <Orders />;
       default:
-        return <div></div>
+        return <ItemCatalog />;
     }
-  }
+  };
 
   render() {
     return (
       <MyConsumer>
-      {({ state }) => (
-        <div className='cpanel-container'>
-          <div className="cpanel-wrapper">
-            <header className="cpanel-header">Tandoor Control Panel</header>
-            <nav className="cpanel-dropdown">
-              <button 
-                className="cpanel-button"
-                onClick={() => this.setTitle('Create')}
-                >Create New Item</button>
-              <button 
-                className="cpanel-button"
-                onClick={() => this.setTitle('Edit/Update')}
-                >Edit/Update Item</button>
-              <button 
-                className="cpanel-button"
-                onClick={() => this.setTitle('Delete')}
-                >Delete Item</button>
-              <button 
-                className="cpanel-button"
-                onClick={() => this.setTitle('X')}
-                >X</button>
-              <button 
-                className="cpanel-button"
-                onClick={() => this.setTitle('X')}
-                >X</button>
-            </nav>
-            <main>
-              <div className="title">
-                {this.state.title}
-              </div>
-              <div className="cpanel-action-container">
-                {this.setAction(this.state.title)}
-              </div>
-            </main>
+        {({  }) => (
+          <div className='cpanel-container'>
+            <div className='cpanel-wrapper'>
+              <header className='cpanel-header'>Tandoor Control Panel</header>
+              <nav className='cpanel-dropdown'>
+                <button
+                  className='cpanel-button'
+                  onClick={() => this.setTitle('Menu Item Catalog')}>
+                  Menu Item Catalog
+                </button>
+                <button
+                  className='cpanel-button'
+                  onClick={() => this.setTitle('Orders')}>
+                  Orders
+                </button>
+              </nav>
+              <main>
+                <div className='title'>{this.state.title}</div>
+                <div className='cpanel-action-container'>
+                  {this.setAction(this.state.title)}
+                </div>
+              </main>
+            </div>
           </div>
-        </div>
-      )}
-    </MyConsumer>
+        )}
+      </MyConsumer>
     );
   }
 }

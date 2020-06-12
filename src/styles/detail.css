@@ -4,14 +4,15 @@
 }
 
 .item-image {
-  text-align:right;
-  width: 60rem;
+  text-align:center;
+  width: 50rem;
 }
 
 .item-image img {
-  width: 45rem;
-  height: 45rem;
+  width: 35rem;
+  height: 35rem;
   object-fit:cover;
+  margin: 0 auto;
 }
 
 .item-detail {
